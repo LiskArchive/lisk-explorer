@@ -100,9 +100,9 @@ var NetworkMonitor = function ($scope) {
 
 var NetworkMap = function () {
     this.markers = {};
-    this.options = { center: [0, 0], zoom: 1, minZoom: 1, maxZoom: 10 };
+    this.options = { center: L.latLng(40, 0), zoom: 1, minZoom: 1, maxZoom: 10 };
     this.map     = L.map('map', this.options);
-    this.cluster = L.markerClusterGroup({ maxClusterRadius: 80 });
+    this.cluster = L.markerClusterGroup({ maxClusterRadius: 50 });
 
     L.Icon.Default.imagePath = '/img/leaflet';
 
@@ -142,7 +142,7 @@ var NetworkMap = function () {
                     this.markers[p.ip] = L.marker(
                         [p.location.latitude, p.location.longitude],
                         { title: p.ipString, icon: platformIcons[p.osBrand.name] }
-                    ).addTo(this.map).bindPopup(popupContent(p))
+                    ).bindPopup(popupContent(p))
                 );
             }
             connected.push(p.ip);
