@@ -1036,3 +1036,12 @@ a.sort-order span.reverse:after {
 .delegate-vote {
   margin-bottom: 40px;
 }
+
+.lead {
+    font-size: 30px;
+}
+.lead {
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
