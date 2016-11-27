@@ -1032,3 +1032,7 @@ a.sort-order span:after {
 a.sort-order span.reverse:after {
   content: '\25bc';
 }
+
+.delegate-vote {
+  margin-bottom: 40px;
+}

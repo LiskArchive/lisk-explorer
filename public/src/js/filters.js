@@ -139,4 +139,9 @@ angular.module('lisk_explorer')
       return function (tx) {
           return txTypes[parseInt(tx.type)];
       };
+  })
+  .filter('votes', function () {
+      return function (a) {
+          return (a.username || (a.knowledge && a.knowledge.owner) || a.address);
+      };
   });
