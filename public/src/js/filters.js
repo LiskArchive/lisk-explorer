@@ -123,13 +123,13 @@ angular.module('lisk_explorer')
   })
   .filter('txSender', function () {
       return function (tx) {
-          return (tx.senderUsername || (tx.knownSender && tx.knownSender.owner) || tx.senderId);
+          return ((tx.senderDelegate && tx.senderDelegate.username) || tx.senderUsername || (tx.knownSender && tx.knownSender.owner) || tx.senderId);
       };
   })
   .filter('txRecipient', function (txTypes) {
       return function (tx) {
           if (tx.type === 0) {
-              return (tx.recipientUsername || (tx.knownRecipient && tx.knownRecipient.owner) || tx.recipientId);
+              return ((tx.recipientDelegate && tx.recipientDelegate.username) || tx.recipientUsername || (tx.knownRecipient && tx.knownRecipient.owner) || tx.recipientId);
           } else {
               return (txTypes[parseInt(tx.type)]);
           }
