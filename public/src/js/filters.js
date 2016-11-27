@@ -67,9 +67,12 @@ angular.module('lisk_explorer')
           return input.slice(start);
       };
   })
-  .filter('supply', function (liskFilter) {
-      return function (amount) {
-          return ((liskFilter(amount) / 100000000) * 100).toFixed(2);
+  .filter('supplyPercent', function () {
+      return function (amount, supply) {
+          if (isNaN(amount) || !(supply > 0)) {
+            return (0).toFixed(2);
+          }
+          return (amount / supply * 100).toFixed(2);
       };
   })
   .filter('timeAgo', function (epochStampFilter) {
