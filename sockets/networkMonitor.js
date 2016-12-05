@@ -37,6 +37,8 @@ module.exports = function (app, connectionHandler, socket) {
                 newInterval(0, 10000, emitData1);
                 newInterval(1, 30000, emitData2);
                 newInterval(2, 60000, emitData3);
+                newInterval(0, 1000, emitData1);
+                newInterval(2, 1000, emitData3);
             }
         }.bind(this));
     };
