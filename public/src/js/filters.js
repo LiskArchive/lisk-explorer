@@ -17,6 +17,22 @@ angular.module('lisk_explorer')
           );
       };
   })
+  .filter('forgingTime', function () {
+      return function (seconds) {
+        if (seconds === 0) {
+          return 'Now!';
+        }
+        var minutes = Math.floor(seconds / 60);
+        var seconds = seconds - (minutes * 60);
+        if (minutes && seconds) {
+          return minutes + ' min ' + seconds + ' sec';
+        } else if (minutes) {
+          return minutes + ' min ';
+        } else {
+          return seconds + ' sec';
+        }
+      };
+  })
   .filter('fiat', function () {
       return function (amount) {
           if (isNaN(amount)) {
