@@ -34,10 +34,10 @@ module.exports = function (app, connectionHandler, socket) {
                 log('Emitting new data');
                 socket.emit('data', data);
 
-                newInterval(0, 1000, emitData1);
+                newInterval(0, 5000, emitData1);
                 // FIXME: Here we are pulling 8640 blocks - logic should be changed
                 newInterval(1, 300000, emitData2);
-                newInterval(2, 1000, emitData3);
+                newInterval(2, 5000, emitData3);
             }
         }.bind(this));
     };
