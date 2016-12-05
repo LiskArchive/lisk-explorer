@@ -165,7 +165,7 @@
                     <tbody>
                       <tr data-ng-repeat='v in votes track by $index'>
                         <td class="voter">
-                          <a data-ng-href="/address/{{v.senderId}}" target="_new">{{v.senderId}}</a>
+                          <a data-ng-href="/address/{{v.senderId}}" target="_new">{{v.delegate.username || v.senderId}}</a>
                         </td>
                         <td class="tx hidden-xs">
                           <a class="ellipsis" data-ng-href="/tx/{{v.id}}" target="_new">{{v.id}}</a>
