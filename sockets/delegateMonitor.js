@@ -222,7 +222,7 @@ module.exports = function (app, connectionHandler, socket) {
                         }
                     }, function (err) {
                         if (err) {
-                            cb (err, result);
+                            callback (err, result);
                         }
                         callback (null, result);
                     });
