@@ -2,8 +2,7 @@
   <div class="secondary_navbar hidden-xs hidden-sm" scroll data-ng-class="{'hidden': !secondaryNavbar}" data-ng-if="address.balance >= 0" data-ng-init="hideSNavbar=0">
     <div class="container" data-ng-if="!hideSNavbar">
       <div class="col-md-8 text-left">
-        <h3>Address</h3> {{address.address}}
-        <span class="btn-copy" clip-copy="address.address"></span>
+      <h2>Address:</h2><h2>&nbsp;{{address.address}}</h2>
       </div>
       <div class="col-md-4">
         <span class="txvalues txvalues-primary"><strong>Final Balance</strong> {{address.balance | lisk}} LSK</span>
@@ -16,16 +15,29 @@
       </a>
     </div>
   </div>
-  <h1>Balance<small data-ng-if="address.balance >= 0">&nbsp;{{address.balance | lisk}} LSK</small></h1>
-  <div class="text-muted" data-ng-if="!(address.balance >= 0)">
-    <span>Loading Address <i class="fa fa-spinner fa-spin"></i></span>
+  <h2>Address:&nbsp;<small>{{address.address}}</small></h2>
+        <div class="text-muted" data-ng-if="!(address.balance >= 0)">
+      <span class="btn-copy" clip-copy="address.address"></span>
+ <span>Loading Address <i class="fa fa-spinner fa-spin"></i></span>
   </div>
   <div data-ng-if="address.balance >= 0">
     <div class="well well-sm ellipsis">
-      <strong>Address</strong>
+  <div class="pull-left">
+        <strong>Address:</strong>
       <span class="text-muted">{{address.address}}</span>
       <span class="btn-copy" clip-copy="address.address"></span>
-    </div>
+        </div>
+      <div class="pull-right hidden-xs hidden-sm">
+        <strong>Public key:</strong>
+        <span class="text-muted">{{address.publicKey}}</span>
+         <span class="btn-copy" clip-copy="address.publicKey"></span>
+        </div>
+         <div class="pkdisplay">
+        <div class="pkscroll"><strong>Public Key:</strong>&nbsp;{{address.publicKey}}</div>
+        <i>If present, slide left for full Pubkey.</i>
+        </div>
+        </div>
+
     <h2>Summary <small>confirmed</small></h2>
     <div class="row">
       <div class="col-md-12">
