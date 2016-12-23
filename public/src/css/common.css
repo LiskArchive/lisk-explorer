@@ -719,6 +719,16 @@ a:hover {
   z-index: 9999;
 }
 
+.pkdisplay { display: none;}
+   @media only screen
+   and (min-device-width : 320px)
+   and (max-device-width : 480px){ .pkdisplay { display: inline;}}
+
+.pkscroll {
+    width: 80vw;
+    overflow:auto;
+}
+
 /* Animations */
 .fader.ng-enter {
   opacity: 0;
