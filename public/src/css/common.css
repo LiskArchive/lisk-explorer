@@ -698,6 +698,16 @@ a:hover {
 
 .code { font-size: 80%; }
 
+.pkdisplay { display: none;}
+   @media only screen
+   and (min-device-width : 320px)
+   and (max-device-width : 480px){ .pkdisplay { display: inline;}}
+
+.pkscroll {
+    width: 80vw;
+    overflow:auto;
+}
+
 .address { font-size: 11px; }
 
 .no_matching {
