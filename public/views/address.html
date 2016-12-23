@@ -3,7 +3,7 @@
   <div class="secondary_navbar hidden-xs hidden-sm" scroll data-ng-class="{'hidden': !secondaryNavbar}" data-ng-if="address.balance >= 0" data-ng-init="hideSNavbar=0">
     <div class="container" data-ng-if="!hideSNavbar">
       <div class="col-md-8 text-left">
-        <h2>Address:</h2><h2>&nbsp;{{address.address}}</h2>
+        <h2>Address:&nbsp;{{address.address}}</h2>
       </div>
       <div class="col-md-4">
         <span class="txvalues txvalues-primary"><strong>Final Balance</strong> {{address.balance | lisk}} LSK</span>
@@ -16,7 +16,7 @@
       </a>
     </div>
   </div>
-  <h2>Address:&nbsp;<small>{{address.address}}</small>
+  <h2>Address:&nbsp;<small>{{address.address}}</small></h2>
         <div class="text-muted" data-ng-if="!(address.balance >= 0)">
       <span class="btn-copy" clip-copy="address.address"></span>
  <span>Loading Address <i class="fa fa-spinner fa-spin"></i></span>
