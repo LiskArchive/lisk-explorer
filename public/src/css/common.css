@@ -714,14 +714,14 @@ a:hover {
   z-index: 9999;
 }
 
-.pkdisplay { display: none;}
-   @media only screen
-   and (min-device-width : 320px)
-   and (max-device-width : 900px){ .pkdisplay { display: inline;}}
+/*Pubkey mobile display*/
 
-.pkscroll {
-    width: 80vw;
-    overflow:auto;
+.pk-mobile-display {
+    display: inline;
+    white-space:normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    width: 100%;
 }
 
 /* Animations */
