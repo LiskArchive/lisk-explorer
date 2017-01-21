@@ -62,16 +62,12 @@
       <span class="pk-mobile-display">{{address.publicKey}}</span>
     </div>
 <div class="delegate" data-ng-if="address.delegate">
-      <h2>Delegate</h2>
+      <h2>Delegate&nbsp;<small><span ng-bind-html="address.delegate.username | proposals:delegateProposals"></span></small></h2>
       <div class="row">
         <div class="col-md-12">
           <div class="table-responsive">
             <table class="table">
               <tbody>
-                <tr>
-                  <td><strong>Name</strong></td>
-                  <td class="ellipsis text-right" ng-bind-html="address.delegate.username | proposal:delegateProposals"></td>
-                </tr>
                 <tr>
                   <td><strong>Uptime</strong></td>
                   <td class="ellipsis text-right">{{address.delegate.productivity || 0.00}}%</td>
