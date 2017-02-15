@@ -7,13 +7,13 @@
   </div>
   <div class="col-xs-5">
     <div class="ellipsis text-right">
-    	<span data-ng-if="!block.confirmations && !tx.confirmations" class="txvalues txvalues-danger">Unconfirmed Transaction!</span>
-    	<span data-ng-if="block.confirmations > 0 || tx.confirmations > 0" class="txvalues txvalues-success">{{block.confirmations || tx.confirmations}} Confirmations</span>
-      <span class="txvalues txvalues-default">{{tx.timestamp | timeAgo }}</span>
+    	<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">Unconfirmed Transaction!</span>
+    	<span data-ng-if="block.confirmations > 0 || tx.confirmations > 0" class="text-success">{{block.confirmations || tx.confirmations}} Confirmations</span> | 
+      <span class="text-muted">{{tx.timestamp | timeAgo }}</span>
     </div>
   </div>
 </div>
-<div class="row line-mid" data-ng-hide="!tx">
+<div class="row line-mid" data-ng-hide="!tx" style="padding: 15px 15px 0 15px">
   <div class="col-md-3">
     <div class="row">
       <div class="panel panel-default">
@@ -59,6 +59,10 @@
     </div>
   </div>
   <div class="col-md-3">
-    <span class="txvalues txvalues-primary" style="width:100%">{{tx.amount | currency:currency}} {{currency.symbol}}</span>
+    <span class="txvalues txvalues-primary" style="width:100%" data-ng-class="{
+      'txvalues-danger': tx.type == 0 && $parent.address.address == tx.senderId && tx.senderId != tx.recipientId,
+      'txvalues-success': tx.type == 0 && $parent.address.address && tx.senderId != $parent.address.address,
+      'txvalues-default': tx.type != 0
+    }">{{tx.amount | currency:currency}} {{currency.symbol}}</span>
   </div>
 </div>
