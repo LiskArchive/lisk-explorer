@@ -12,6 +12,13 @@ config.port = 6040;      // Port to listen on
 config.lisk.host = '127.0.0.1';
 config.lisk.port = 8000;
 
+// Postgres database
+config.postgres.host     = 'localhost';
+config.postgres.port     = 5432;
+config.postgres.database = 'lisk_main';
+config.postgres.user     = '';
+config.postgres.password = 'password';
+
 // FreeGeoIP server
 config.freegeoip.host = '127.0.0.1';
 config.freegeoip.port = 8080;
