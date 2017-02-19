@@ -34,6 +34,7 @@ app.candles = new utils.candles(config, client);
 app.exchange = new utils.exchange(config);
 app.knownAddresses = new utils.knownAddresses();
 app.orders = new utils.orders(config, client);
+app.db = new utils.database(config.postgres);
 
 app.set('version', '0.3');
 app.set('strict routing', true);
