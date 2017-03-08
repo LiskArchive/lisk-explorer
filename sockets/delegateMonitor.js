@@ -1,10 +1,10 @@
 'use strict';
 
-var api = require('../lib/api'),
-    moment = require('moment'),
-    _ = require('underscore'),
-    async = require('async'),
-    request = require('request');
+var _ = require('underscore');
+var api = require('../lib/api');
+var async = require('async');
+var request = require('request');
+var sql = require('../sql/delegates.js');
 
 module.exports = function (app, connectionHandler, socket) {
     var delegates  = new api.delegates(app),
@@ -16,10 +16,9 @@ module.exports = function (app, connectionHandler, socket) {
 
     var running = {
         'getActive'        : false,
-        'getLastBlock'     : false,
+        'getDelegateBlocks': false,
         'getRegistrations' : false,
         'getVotes'         : false,
-        'getLastBlocks'    : false,
         'getNextForgers'   : false
     };
 
@@ -49,10 +48,8 @@ module.exports = function (app, connectionHandler, socket) {
                 log('Emitting new data');
                 socket.emit('data', data);
 
-                getLastBlocks(data.active, true);
-
                 newInterval(0, 5000, emitData);
-                newInterval(1, 1000, getLastBlocks);
+                newInterval(1, 1000, emitDelegateBlock);
             }
         }.bind(this));
     };
@@ -102,25 +99,23 @@ module.exports = function (app, connectionHandler, socket) {
         running.getActive = true;
         delegates.getActive(
             function (res) { running.getActive = false; cb('Active'); },
-            function (res) { running.getActive = false; cb(null, res); }
+            function (res) {
+            	running.getActive = false;
+                getDelegateBlocks(res.delegates, function (err, delegates) {
+                	if (err) {
+                		cb(err);
+                	} else {
+                		res.delegates = delegates;
+                		cb (null, res);
+                	}
+                });
+            }
         );
-    };
-
-    var findActive = function (delegate) {
-        return _.find(data.active.delegates, function (d) {
-            return d.publicKey === delegate.publicKey;
-        });
     };
 
     var findActiveByPublicKey = function (publicKey) {
         return _.find(data.active.delegates, function (d) {
             return d.publicKey === publicKey;
-        });
-    };
-
-    var findActiveByBlock = function (block) {
-        return _.find(data.active.delegates, function (d) {
-            return d.publicKey === block.generatorPublicKey;
         });
     };
 
@@ -147,20 +142,73 @@ module.exports = function (app, connectionHandler, socket) {
             return results;
         } else {
             _.each(results.delegates, function (delegate) {
-                var existing = findActive(delegate);
-
-                if (existing) {
-                    delegate = updateDelegate (delegate, true);
-                }
-
-                if (existing && existing.blocks && existing.blocksAt) {
-                    delegate.blocks = existing.blocks;
-                    delegate.blocksAt = existing.blocksAt;
-                }
+                delegate = updateDelegate (delegate, true);
             });
-
             return results;
         }
+    };
+
+    var getDelegateBlocks = function (delegates, cb) {
+        if (running.getDelegateBlocks) {
+            return cb('getDelegateBlocks - already running');
+        } else {
+            running.getDelegateBlocks = true;
+        }
+        
+        var current;
+        var result = _.map(delegates, function (delegate) {
+            return delegate.address;
+        });
+
+        if (result.length < 101) {
+        	running.getDelegateBlocks = false;
+        	return cb('getDelegateBlocks - failed to get active delegates');
+        }
+        app.db.any (sql.getLastBlocks ({delegates: result}))
+            .then (function (result) {
+                var cum_balance = 0;
+                _.each(result, function (row) {
+                    current = _.find(delegates, function (current) {
+                        return row.address === current.address;
+                    });
+                    if (current) {
+                        current.block = {timestamp: row.block[0], height: row.block[1]};
+                    }
+                });
+                running.getDelegateBlocks = false;
+                cb(null, delegates);
+            })
+            .catch (function (err) {
+                if (err) {
+                    log (err);
+                }
+                running.getDelegateBlocks = false;
+                cb(null, delegates);
+            });
+    };
+
+    var emitDelegateBlock = function () {
+        var current;
+        // Copy current state
+        var currentDelegates = _.map(data.active.delegates, function (delegate) {
+            return _.clone(delegate);
+        });
+
+        getDelegateBlocks(data.active.delegates, function (err, delegates) {
+            if (err) {
+                log (err);
+                return false;
+            }
+            _.each(delegates, function (delegate) {
+                current = _.find(currentDelegates, function (current) {
+                    return delegate.address === current.address && (!current.block || current.block.timestamp < delegate.block.timestamp);
+                });
+                if (current) {
+                    delegate = updateDelegate (delegate, false);
+                    emitDelegate(delegate);
+                }
+            });
+        });
     };
 
     var getLastBlock = function (cb) {
@@ -207,107 +255,6 @@ module.exports = function (app, connectionHandler, socket) {
         );
     };
 
-    var getLastBlocks = function (init) {
-        var limit = init ? 100 : 2;
-
-        if (running.getLastBlocks) {
-            return log('getLastBlocks (already running)');
-        }
-        running.getLastBlocks = true;
-
-        async.waterfall([
-            function (callback) {
-                request.get({
-                    url : app.get('lisk address') + '/api/blocks?orderBy=height:desc&limit=' + limit,
-                    json : true
-                }, function (err, response, body) {
-                    if (err || response.statusCode !== 200) {
-                        return callback((err || 'Response was unsuccessful'));
-                    } else if (body.success === true) {
-                        return callback(null, { blocks: body.blocks });
-                    } else {
-                        return callback(body.error);
-                    }
-                });
-            },
-            function (result, callback) {
-                // Set last block and his delegate (we will emit it later in emitData)
-                data.lastBlock.block = _.first (result.blocks);
-                var lb_delegate = findActiveByBlock(data.lastBlock.block);
-                data.lastBlock.block.delegate = {
-                    username: lb_delegate.username,
-                    address: lb_delegate.address,
-                };
-
-                async.eachSeries(result.blocks, function (b, cb) {
-                   var existing = findActiveByBlock(b);
-
-                    if (existing) {
-                        if (!existing.blocks || !existing.blocks[0] || existing.blocks[0].timestamp < b.timestamp) {
-                            existing.blocks = [];
-                            existing.blocks.push(b);
-                            existing.blocksAt = moment();
-                            existing = updateDelegate (existing, false);
-                            emitDelegate(existing);
-                        }
-                    }
-
-                    if (intervals[1]) {
-                        cb(null);
-                    } else {
-                        callback('Monitor closed');
-                    }
-                }, function (err) {
-                    if (err) {
-                        callback (err, result);
-                    }
-                    callback (null, result);
-                });
-            },
-            function (result, callback) {
-                async.eachSeries(data.active.delegates, function (delegate, cb) {
-                    if (delegate.blocks) {
-                            return cb(null);
-                    }
-                    delegates.getLastBlocks(
-                        { publicKey : delegate.publicKey,
-                          limit : 1 },
-                        function (res) {
-                            log('Error retrieving last blocks for: ' + delegateName(delegate));
-                            callback(res.error);
-                        },
-                        function (res) {
-                            var existing = findActive(delegate);
-
-                            if (existing) {
-                                existing.blocks = res.blocks;
-                                existing.blocksAt = moment();
-                                existing = updateDelegate (existing, false);
-                                emitDelegate(existing);
-                            }
-
-                            if (intervals[1]) {
-                                cb(null);
-                            } else {
-                                callback('Monitor closed');
-                            }
-                        }
-                    );
-                }, function (err) {
-                    if (err) {
-                        callback (err, result);
-                    }
-                    callback (null, result);
-                });
-            }
-        ], function (err, callback) {
-            if (err) {
-                log('Error retrieving LastBlocks: ' + err);
-            }
-            running.getLastBlocks = false;
-        });
-    };
-
     var getRound = function (height) {
         return Math.floor(height / 101) + (height % 101 > 0 ? 1 : 0);
     };
@@ -328,6 +275,7 @@ module.exports = function (app, connectionHandler, socket) {
 
     var emitData = function () {
         async.parallel([
+            getLastBlock,
             getActive,
             getRegistrations,
             getVotes,
@@ -337,11 +285,12 @@ module.exports = function (app, connectionHandler, socket) {
             if (err) {
                 log('Error retrieving: ' + err);
             } else {
-                tmpData.nextForgers = res[3];
+                tmpData.nextForgers = res[4];
 
-                data.active         = updateActive(res[0]);
-                data.registrations  = res[1];
-                data.votes          = res[2];
+                data.lastBlock      = res[0];
+                data.active         = updateActive(res[1]);
+                data.registrations  = res[2];
+                data.votes          = res[3];
                 data.nextForgers    = cutNextForgers(10);
 
                 log('Emitting data');

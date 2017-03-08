@@ -3,7 +3,7 @@
 var DelegateMonitor = function ($scope, $rootScope, forgingMonitor) {
     this.updateActive = function (active) {
         _.each(active.delegates, function (d) {
-            d.forgingStatus = forgingMonitor.getStatus(d);
+            d.forgingStatus = forgingMonitor.getStatus(d, $scope.lastBlock);
             d.proposal = _.find ($rootScope.delegateProposals, function (p) {
               return p.name === d.username.toLowerCase ();
             });
@@ -52,16 +52,14 @@ var DelegateMonitor = function ($scope, $rootScope, forgingMonitor) {
 
     this.updateLastBlocks = function (delegate) {
         _.each($scope.activeDelegates, function (d) {
-            d.forgingStatus = forgingMonitor.getStatus(d);
+            d.forgingStatus = forgingMonitor.getStatus(d, $scope.lastBlock);
         });
 
         var existing = _.find($scope.activeDelegates, function (d) {
             return d.publicKey === delegate.publicKey;
         });
         if (existing) {
-            existing.blocksAt = delegate.blocksAt;
-            existing.blocks = delegate.blocks;
-            existing.forgingStatus = forgingMonitor.getStatus(delegate);
+            existing.forgingStatus = forgingMonitor.getStatus(delegate, $scope.lastBlock);
         }
         updateForgingTotals($scope.activeDelegates);
         updateForgingProgress($scope.forgingTotals);
