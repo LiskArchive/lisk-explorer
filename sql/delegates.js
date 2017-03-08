@@ -4,7 +4,7 @@ var _ = require('lodash');
 var squel = require ('squel').useFlavour ('postgres');
 
 var DelegatesSql = {
-	getLastBlocks: function (params) {
+	getLastDelegateBlocks: function (params) {
 		return squel.select()
 			.from('mem_accounts', 'a')
 			.field(squel.select()
@@ -17,7 +17,7 @@ var DelegatesSql = {
 			.field('a.address', 'address')
 			.where('a.address IN ?', params.delegates)
 			.where('a."isDelegate" = 1')
-			.order('a.vote', false).limit(101)
+			.limit(params.delegates.length)
 			.toString();
 	}
 };
