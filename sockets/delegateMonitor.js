@@ -43,7 +43,7 @@ module.exports = function (app, connectionHandler, socket) {
                 data.active         = updateActive(res[1]);
                 data.registrations  = res[2];
                 data.votes          = res[3];
-                data.nextForgers    = cutNextForgers (10);
+                data.nextForgers    = cutNextForgers(10);
 
                 log('Emitting new data');
                 socket.emit('data', data);
@@ -100,14 +100,14 @@ module.exports = function (app, connectionHandler, socket) {
         delegates.getActive(
             function (res) { running.getActive = false; cb('Active'); },
             function (res) {
-            	running.getActive = false;
+                running.getActive = false;
                 getDelegateBlocks(res.delegates, function (err, delegates) {
-                	if (err) {
-                		cb(err);
-                	} else {
-                		res.delegates = delegates;
-                		cb (null, res);
-                	}
+                    if (err) {
+                        return cb(err);
+                    } else {
+                        res.delegates = delegates;
+                        return cb(null, res);
+                    }
                 });
             }
         );
@@ -142,7 +142,7 @@ module.exports = function (app, connectionHandler, socket) {
             return results;
         } else {
             _.each(results.delegates, function (delegate) {
-                delegate = updateDelegate (delegate, true);
+                delegate = updateDelegate(delegate, true);
             });
             return results;
         }
@@ -154,18 +154,19 @@ module.exports = function (app, connectionHandler, socket) {
         } else {
             running.getDelegateBlocks = true;
         }
-        
+
         var current;
         var result = _.map(delegates, function (delegate) {
             return delegate.address;
         });
 
         if (result.length < 101) {
-        	running.getDelegateBlocks = false;
-        	return cb('getDelegateBlocks - failed to get active delegates');
+            running.getDelegateBlocks = false;
+            return cb('getDelegateBlocks - failed to get active delegates');
         }
-        app.db.any (sql.getLastDelegateBlocks ({delegates: result}))
-            .then (function (result) {
+
+        app.db.any(sql.getLastDelegateBlocks({delegates: result}))
+            .then(function (result) {
                 var cum_balance = 0;
                 _.each(result, function (row) {
                     current = _.find(delegates, function (current) {
@@ -176,14 +177,13 @@ module.exports = function (app, connectionHandler, socket) {
                     }
                 });
                 running.getDelegateBlocks = false;
-                cb(null, delegates);
-            })
-            .catch (function (err) {
+                return cb(null, delegates);
+            }).catch(function (err) {
                 if (err) {
-                    log (err);
+                    log(err);
                 }
                 running.getDelegateBlocks = false;
-                cb(null, delegates);
+                return cb(null, delegates);
             });
     };
 
@@ -196,7 +196,7 @@ module.exports = function (app, connectionHandler, socket) {
 
         getDelegateBlocks(data.active.delegates, function (err, delegates) {
             if (err) {
-                log (err);
+                log(err);
                 return false;
             }
             _.each(delegates, function (delegate) {
@@ -204,7 +204,7 @@ module.exports = function (app, connectionHandler, socket) {
                     return delegate.address === current.address && (!current.block || current.block.timestamp < delegate.block.timestamp);
                 });
                 if (current) {
-                    delegate = updateDelegate (delegate, false);
+                    delegate = updateDelegate(delegate, false);
                     emitDelegate(delegate);
                 }
             });
@@ -260,10 +260,10 @@ module.exports = function (app, connectionHandler, socket) {
     };
 
     var getRoundDelegates = function (delegates, height) {
-       var currentRound = getRound (height);
+       var currentRound = getRound(height);
 
        var filtered = delegates.filter(function (delegate, index) {
-            return currentRound === getRound (height + index + 1);
+            return currentRound === getRound(height + index + 1);
        });
 
        return filtered;
