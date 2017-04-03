@@ -74,7 +74,7 @@ angular.module('lisk_explorer').config(function ($stateProvider, $urlRouterProvi
         controllerAs: 'vm'
     })
     .state('delegate', {
-        templateUrl: '/views/delegate.html',
+        templateUrl: '/views/delegate/delegate.html',
         url: '/delegate/:delegateId',
         parentDir: 'address',
         controller: 'DelegateCtrl',
