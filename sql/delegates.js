@@ -18,7 +18,9 @@ var DelegatesSql = {
             .where('a."isDelegate" = 1')
             .limit(params.delegates.length)
             .toString();
-    }
+    },
+
+    getDelegateByName: 'SELECT ENCODE(m."publicKey", \'hex\') AS "publicKey", m.address AS address FROM mem_accounts m WHERE m."isDelegate" = 1 AND m."username" = ${delegate} LIMIT 1'
 };
 
 module.exports = DelegatesSql;
