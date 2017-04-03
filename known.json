@@ -2,6 +2,7 @@
     "address"               : { "owner" : "owner", "description" : "description" },
     "6566229458323231555L"  : { "owner" : "Genesis Account", "description" : "" },
     "9569486828221897676L"  : { "owner" : "ARK", "description" : "Token Exchange Campaign" },
+    "12457631620663816675L" : { "owner" : "ARK", "description" : "Lisk Bridge Fund" },
     "18278674964748191682L" : { "owner" : "Poloniex", "description" : "Hot Wallet" },
     "2226471703256329822L"  : { "owner" : "Poloniex", "description" : "Cold Wallet" },
     "11917631413532719541L" : { "owner" : "Oliver", "description" : "LiskHQ" },
@@ -11,5 +12,5 @@
     "15434119221255134066L" : { "owner" : "Bounty Assets", "description" : "LiskHQ" },
     "14175575863689886451L" : { "owner" : "Adviser Assets", "description" : "LiskHQ" },
     "5726759782318848681L"  : { "owner" : "Lisk Foundation", "description" : "LiskHQ" },
-    "15841793714384967784L"  : { "owner" : "Lisk Community Assets", "description" : "LiskHQ" }    
+    "15841793714384967784L" : { "owner" : "Lisk Community Assets", "description" : "LiskHQ" }
 }
