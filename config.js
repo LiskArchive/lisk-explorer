@@ -30,6 +30,11 @@ config.redis.password = '';
 
 config.cacheTTL = 20; // Time in seconds to store cache in Redis
 
+//Networks nethashes
+config.networks.mainnet = 'ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511';
+config.networks.testnet = 'da3ed6a45429278bac2666961289ca17ad86595d33b31037615d4b8e8f158bba';
+config.networks.local   = '198f2b61a8eb95fbeed58b8216780b68f697f26b849acf00c8c93bb9b24f783d';
+
 // Header price tickers, Currency switcher
 config.exchangeRates.enabled = true;         // Exchange rates support (true - enabled, false - disabled)
 config.exchangeRates.updateInterval = 30000; // Interval in ms for checking exchange rates (default: 30 seconds)
