@@ -182,6 +182,31 @@ angular.module('lisk_explorer')
           return txTypes[parseInt(tx.type)];
       };
   })
+  .filter('alterWordSeparation', function () {
+      // @todo Use polymer instead
+      if (!String.prototype.trim) {
+          String.prototype.trim = function () {
+              return this.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+          };
+      }
+
+      var types = {
+          dashSeparated: {
+              reg: /\s/g,
+              alternate: '-'
+          },
+          spaceSeparated: {
+              reg: /\-/g,
+              alternate: ' '
+          }
+      }
+
+      return function (phrase, type) {
+          if (type in types) {
+              return phrase.trim().replace(types[type].reg, types[type].alternate);
+          }
+      }
+  })
   .filter('votes', function () {
       return function (a) {
           return (a.username || (a.knowledge && a.knowledge.owner) || a.address);
@@ -189,12 +214,12 @@ angular.module('lisk_explorer')
   }).filter('proposal', function ($sce) {
       return function (name, proposals) {
           var p = _.find (proposals, function (p) {
-              return p.name === name.toLowerCase ();
+              return name && p.name === name.toLowerCase ();
           });
           if (p) {
-              return $sce.trustAsHtml('<a class="glyphicon glyphicon-user" href="https://forum.lisk.io/viewtopic.php?f=48&t=' + p.topic + '" title="' + _.escape (p.description) + '" target="_blank"></a> ' + name);
+              return $sce.trustAsHtml('<a class="glyphicon glyphicon-user" href="https://forum.lisk.io/viewtopic.php?f=48&t=' + p.topic + '" title="' + _.escape (p.description) + '" target="_blank"></a>');
           } else {
-              return $sce.trustAsHtml(name);
+              return null;
           }
       };
   });
