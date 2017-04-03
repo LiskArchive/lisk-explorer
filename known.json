@@ -12,5 +12,6 @@
     "15434119221255134066L" : { "owner" : "Bounty Assets", "description" : "LiskHQ" },
     "14175575863689886451L" : { "owner" : "Adviser Assets", "description" : "LiskHQ" },
     "5726759782318848681L"  : { "owner" : "Lisk Foundation", "description" : "LiskHQ" },
-    "15841793714384967784L" : { "owner" : "Lisk Community Assets", "description" : "LiskHQ" }
+    "15841793714384967784L" : { "owner" : "Lisk Community Assets", "description" : "LiskHQ" },
+    "11737606468871099380L" : { "owner" : "Changelly", "description" : "Main Wallet" }
 }
