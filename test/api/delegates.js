@@ -51,6 +51,10 @@ describe('Delegates API', function() {
         node.get('/api/delegates/getDelegateByName?name=genesis_1', done);
     }
 
+    function getVotersHistory(publicKey, done) {
+        node.get('/api/delegates/getVotersHistory?publicKey=' + publicKey, done);
+    }
+
     /*Testing functions */
     function checkBlocks(id) {
         for (var i = 0; i < id.length; i++) {
@@ -148,6 +152,22 @@ describe('Delegates API', function() {
         }
     }
 
+    function checkVotersHistory(id) {
+        for (var i = 0; i < id.length; i++) {
+            if (id[i + 1]) {
+                node.expect(id[i]).to.contain.all.keys(
+                    'id',
+                    'timestamp',
+                    'sender',
+                    'type',
+                    'delegate',
+                    'balance',
+                    'cum_balance',
+                    'knowledge'
+                );
+            }
+        }
+    }
 
 
     /*Define api endpoints to test */
@@ -366,6 +386,18 @@ describe('Delegates API', function() {
                 node.expect(res.body.delegate).to.have.property('address').to.be.a('string');
                 node.expect(res.body.delegate).to.have.property('publicKey').to.be.a('string');
                 checkPublicKeys(res.body.delegates);
+                done();
+            });
+        });
+    });
+
+    describe('GET /api/delegates/getVotersHistory', function() {
+        it('should be ok', function (done) {
+            getVotersHistory(params.publicKey, function (err, res) {
+                node.expect(res.body).to.have.property('success').to.be.ok;
+                node.expect(res.body).to.have.property('history');
+                checkVotersHistory(res.body.history);
+                node.expect(res.body).to.have.property('count').to.be.a('number');
                 done();
             });
         });

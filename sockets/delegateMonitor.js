@@ -165,7 +165,7 @@ module.exports = function (app, connectionHandler, socket) {
             return cb('getDelegateBlocks - failed to get active delegates');
         }
 
-        app.db.any(sql.getLastDelegateBlocks({delegates: result}))
+        app.db.any(sql.getLastDelegateBlocks({delegates: result}), {delegates: result})
             .then(function (result) {
                 var cum_balance = 0;
                 _.each(result, function (row) {
