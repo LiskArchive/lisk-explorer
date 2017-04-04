@@ -15,36 +15,44 @@ var params = {
 describe('Delegates API', function() {
 
     /*Define functions for use within tests*/
-    function getActive(done) {
+    function getActive (done) {
         node.get('/api/delegates/getActive', done);
     }
 
-    function getStandby(id, done) {
+    function getStandby (id, done) {
         node.get('/api/delegates/getStandby?n=' + id, done);
     }
 
-    function getLatestRegistrations(done) {
+    function getLatestRegistrations (done) {
         node.get('/api/delegates/getLatestRegistrations', done);
     }
 
-    function getLastBlock(done) {
+    function getLastBlock (done) {
         node.get('/api/delegates/getLastBlock', done);
     }
 
-    function getLastBlocks(id1, id2, done) {
+    function getLastBlocks (id1, id2, done) {
         node.get('/api/delegates/getLastBlocks?publicKey=' + id1 + '&limit=' + id2, done);
     }
 
-    function getSearch(id, done) {
+    function getSearch (id, done) {
         node.get('/api/getSearch?q=' + id, done);
     }
 
-    function getNextForgers(done) {
+    function getNextForgers (done) {
         node.get('/api/delegates/getNextForgers', done);
     }
 
-    function getDelegateProposals(done) {
+    function getDelegateProposals (done) {
         node.get('/api/delegates/getDelegateProposals', done);
+    }
+
+    function getDelegateByName (done) {
+        node.get('/api/delegates/getDelegateByName?name=genesis_1', done);
+    }
+
+    function getVotersHistory(publicKey, done) {
+        node.get('/api/delegates/getVotersHistory?publicKey=' + publicKey, done);
     }
 
     /*Testing functions */
@@ -144,6 +152,22 @@ describe('Delegates API', function() {
         }
     }
 
+    function checkVotersHistory(id) {
+        for (var i = 0; i < id.length; i++) {
+            if (id[i + 1]) {
+                node.expect(id[i]).to.contain.all.keys(
+                    'id',
+                    'timestamp',
+                    'sender',
+                    'type',
+                    'delegate',
+                    'balance',
+                    'cum_balance',
+                    'knowledge'
+                );
+            }
+        }
+    }
 
 
     /*Define api endpoints to test */
@@ -352,5 +376,29 @@ describe('Delegates API', function() {
                 done();
             });
         }).timeout(10000);
+    });
+
+    describe('GET /api/delegates/getDelegateByName', function() {
+        it('should be ok', function (done) {
+            getDelegateByName(function (err, res) {
+                node.expect(res.body).to.have.property('success').to.be.ok;
+                node.expect(res.body).to.have.property('delegate');
+                node.expect(res.body.delegate).to.have.property('address').to.be.a('string');
+                node.expect(res.body.delegate).to.have.property('publicKey').to.be.a('string');
+                done();
+            });
+        });
+    });
+
+    describe('GET /api/delegates/getVotersHistory', function() {
+        it('should be ok', function (done) {
+            getVotersHistory(params.publicKey, function (err, res) {
+                node.expect(res.body).to.have.property('success').to.be.ok;
+                node.expect(res.body).to.have.property('history');
+                checkVotersHistory(res.body.history);
+                node.expect(res.body).to.have.property('count').to.be.a('number');
+                done();
+            });
+        });
     });
 });

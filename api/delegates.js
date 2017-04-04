@@ -71,4 +71,20 @@ module.exports = function (app) {
             function (data) { req.json = data; return next(); }
         );
     });
+
+    app.get('/api/delegates/getDelegateByName', function (req, res, next) {
+        api.getDelegateByName(
+            req.query,
+            function (data) { res.json(data); },
+            function (data) { req.json = data; return next(); }
+        );
+    });
+
+    app.get('/api/delegates/getVotersHistory', function (req, res, next) {
+        api.getVotersHistory(
+            req.query,
+            function (data) { res.json(data); },
+            function (data) { req.json = data; return next(); }
+        );
+    });
 };

@@ -74,10 +74,17 @@ angular.module('lisk_explorer').config(function ($stateProvider, $urlRouterProvi
         controllerAs: 'vm'
     })
     .state('delegate', {
-        templateUrl: '/views/delegate.html',
+        templateUrl: '/views/delegate/delegate.html',
         url: '/delegate/:delegateId',
         parentDir: 'address',
         controller: 'DelegateCtrl',
+        controllerAs: 'vm'
+    })
+    .state('voters-history', {
+        templateUrl: '/views/delegate/votersHistory.html',
+        url: '/delegate/:name/voters/history',
+        parentDir: 'delegate',
+        controller: 'VotersHistoryCtrl',
         controllerAs: 'vm'
     })
     .state('error', {

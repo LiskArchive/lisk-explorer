@@ -31,6 +31,6 @@ var AddressCtrlConstructor = function ($rootScope, $stateParams, $location, $htt
 
     vm.getAddress();
     vm.txs = addressTxs($stateParams.address);
-}
+};
 
 angular.module('lisk_explorer.address').controller('AddressCtrl', AddressCtrlConstructor);

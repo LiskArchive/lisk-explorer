@@ -14,6 +14,6 @@ var CurrencyCtrlConstructor = function ($rootScope) {
             localStorage.setItem ('lisk_explorer-currency', currency);
         }
     };
-}
+};
 
 angular.module('lisk_explorer.currency').controller ('CurrencyCtrl', CurrencyCtrlConstructor);

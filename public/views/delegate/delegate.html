@@ -9,7 +9,7 @@
                             <tr>
                                 <td><strong>Name</strong></td>
                                 <td class="text-right">
-                                    <span data-ng-bind-html="vm.address.delegate.username | proposal:delegateProposals"></span> <a href="/delegate/{{vm.address.delegate.address}}">{{vm.address.delegate.username}}</a>
+                                    <span data-ng-bind-html="vm.address.delegate.username | proposal:delegateProposals"></span> {{vm.address.delegate.username}}
                                 </td>
                             </tr>
                             <tr>
@@ -66,7 +66,7 @@
     <div class="delegate-vote" data-ng-if="vm.address.voters">
         <h2>
             <a href="" data-ng-show="!showVoters" data-ng-click="showVoters=!showVoters"><small><i class="fa fa-plus-square-o"></i></small></a>
-            <a href="" data-ng-show="showVoters" data-ng-click="showVoters=!showVoters"><small><i class="fa fa-minus-square-o"></i></small></a>            Voters <small>{{vm.address.voters.length}}</small>
+            <a href="" data-ng-show="showVoters" data-ng-click="showVoters=!showVoters"><small><i class="fa fa-minus-square-o"></i></small></a>            Voters <small>{{vm.address.voters.length}}</small> <small><a href="/delegate/{{vm.address.delegate.username}}/voters/history" title="Show voters history"><span class="glyphicon glyphicon-eye-open"></a></small>
         </h2>
         <div class="row" data-ng-init="showVoters=false" data-ng-show="showVoters">
             <div class="col-md-12">
