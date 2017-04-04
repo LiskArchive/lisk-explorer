@@ -385,7 +385,6 @@ describe('Delegates API', function() {
                 node.expect(res.body).to.have.property('delegate');
                 node.expect(res.body.delegate).to.have.property('address').to.be.a('string');
                 node.expect(res.body.delegate).to.have.property('publicKey').to.be.a('string');
-                checkPublicKeys(res.body.delegates);
                 done();
             });
         });
