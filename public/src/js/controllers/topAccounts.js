@@ -5,6 +5,6 @@ var TopAccountsCtrlConstructor = function (lessMore) {
         url : '/api/getTopAccounts',
         key : 'accounts'
     });
-}
+};
 
 angular.module('lisk_explorer.address').controller('TopAccountsCtrl', TopAccountsCtrlConstructor);

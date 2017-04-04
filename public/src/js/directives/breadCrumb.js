@@ -26,7 +26,7 @@ angular.module('lisk_explorer')
                                 section = states[i];
                                 break;
                             }
-                        };
+                        }
                     }
 
                     scope.sections.push({
@@ -48,12 +48,12 @@ angular.module('lisk_explorer')
                         for (var i = 0; i < params.length; i++) {
                             paramName = params[i].replace(/(^\/\:)|(\?)/g, '');
                             paramValue = paramName ? breadCrumbValues[paramName]: '';
-                            path = path.replace(params[i], '/' + paramValue)
+                            path = path.replace(params[i], '/' + paramValue);
                         }
                     }
 
                     return path;
-                }
+                };
 
                 /**
                  * Replaces any :param in path string with their corresponding values from given set of breadCrumb values.
@@ -68,12 +68,12 @@ angular.module('lisk_explorer')
                         for (var i = 0; i < params.length; i++) {
                             paramName = params[i].replace(/(^\/\:)|(\?)/g, '');
                             paramValue = paramName && breadCrumbValues ? breadCrumbValues[paramName]: '';
-                            path = path.replace(params[i], '/' + paramValue)
+                            path = path.replace(params[i], '/' + paramValue);
                         }
                     }
 
                     return path;
-                }
+                };
 
                 // // scope.$on('$stateChangeStart', scope.init);
                 scope.$on('$stateChangeSuccess', scope.init);

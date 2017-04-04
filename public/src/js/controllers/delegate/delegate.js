@@ -33,6 +33,6 @@ var DelegateCtrlConstructor = function ($rootScope, $stateParams, $location, $ht
 
     vm.getAddress();
     vm.txs = addressTxs($stateParams.delegateId);
-}
+};
 
 angular.module('lisk_explorer.address').controller('DelegateCtrl', DelegateCtrlConstructor);

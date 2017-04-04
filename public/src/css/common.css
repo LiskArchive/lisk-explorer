@@ -1060,3 +1060,11 @@ a.sort-order span.reverse:after {
     vertical-align: middle;
     margin-top: -5px;
 }
+
+.vote_add {
+  color: #7CB342;
+}
+
+.vote_remove {
+  color: #D32F2F;
+}

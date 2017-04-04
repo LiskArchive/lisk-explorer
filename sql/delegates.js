@@ -15,7 +15,7 @@ var DelegatesSql = {
     getDelegateByName: 'SELECT ENCODE(m."publicKey", \'hex\') AS "publicKey", m.address AS address FROM mem_accounts m WHERE m."isDelegate" = 1 AND m."username" = ${delegate} LIMIT 1',
 
     getVotersHistory: function () {
-        return sql =  [
+        return [
             'SELECT',
                 't.id AS id, b.timestamp AS timestamp, t."senderId" AS sender, a.username AS delegate, a.balance AS balance,',
                 '(CASE WHEN position(\'+\' || ${publicKey} in v.votes) > 0 THEN \'vote_add\' ELSE \'vote_remove\' END) AS type',

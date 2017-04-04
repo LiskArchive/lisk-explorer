@@ -42,6 +42,6 @@ var HomeCtrlConstructor = function ($scope, $http, $interval) {
     }, 30000);
 
     vm.getLastTransactions();
-}
+};
 
 angular.module('lisk_explorer.system').controller('HomeCtrl', HomeCtrlConstructor);

@@ -1,0 +1,39 @@
+<section>
+
+<h1>Voters history <small>{{vm.delegate.name}}</small></h1>
+
+<div class="table-responsive">
+  <table class="table table-hover table-striped">
+    <thead>
+      <tr>
+        <th><a href="" data-ng-click="vm.table.order('timestamp')" class="sort-order">Date <span data-ng-show="vm.table.predicate === 'timestamp'" data-ng-class="{reverse:vm.table.reverse}"></span></a></th>
+        <th class="hidden-xs"><a href="" data-ng-click="vm.table.order('id')" class="sort-order">Transaction ID <span data-ng-show="vm.table.predicate === 'id'" data-ng-class="{reverse:vm.table.reverse}"></span></a></th>
+        <th class="hidden-xs"><a href="" data-ng-click="vm.table.order('delegate')" class="sort-order">Voter <span data-ng-show="vm.table.predicate === 'delegate'" data-ng-class="{reverse:vm.table.reverse}"></span></a></th>
+        <th><a href="" data-ng-click="vm.table.order('type')" class="sort-order">Vote <span data-ng-show="vm.table.predicate === 'type'" data-ng-class="{reverse:vm.table.reverse}"></span></a></th>
+        <th class="text-right"><a href="" data-ng-click="vm.table.order('balance')" class="sort-order">Current weight <span data-ng-show="vm.table.predicate === 'balance'" data-ng-class="{reverse:vm.table.reverse}"></span></a></th>
+<!--         <th class="text-right"><a href="" data-ng-click="table.order('balance_prc')" class="sort-order">Weight %<span data-ng-show="table.predicate === 'balance_prc'" data-ng-class="{reverse:table.reverse}"></span></a></th> -->
+        <th class="text-right"><a href="" data-ng-click="vm.table.order('cum_balance')" class="sort-order">Current cumm. weight <span data-ng-show="vm.table.predicate === 'cum_balance'" data-ng-class="{reverse:vm.table.reverse}"></span></a></th>
+        <th class="text-right"><a href="" data-ng-click="vm.table.order('cum_weight_prc')" class="sort-order">Current cumm. %<span data-ng-show="vm.table.predicate === 'cum_weight_prc'" data-ng-class="{reverse:vm.table.reverse}"></span></a></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr data-ng-if="!vm.history">
+        <td colspan="8">Waiting for voters history <i class="fa fa-spinner fa-spin"></i></td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr data-ng-repeat='row in vm.history | orderBy:natural(vm.table.predicate):vm.table.reverse track by row.id'>
+        <td>{{row.timestamp | timestamp}}</td>
+        <td><a href="/tx/{{row.id}}">{{row.id}}</a></td>
+        <td><a href="/address/{{row.sender}}">{{row | vhVoter}}</a><span data-ng-if="row.knowledge.description" class="text-muted"> {{row.knowledge.description}}</span></td>
+        <td><span class="{{row.type}}">{{row.type | vhType}}</span></td>
+        <td class="text-right">{{row.balance | currency:currency:2}} <span class="text-muted">{{currency.symbol}}</span></td>
+<!--         <td class="text-right">{{p.balance | supplyPercent:blockStatus.supply}}%</td> -->
+        <td class="text-right">{{row.cum_balance | currency:currency:2}} <span class="text-muted">{{currency.symbol}}</span></td>
+        <td class="text-right">{{row.cum_balance | supplyPercent:blockStatus.supply}}%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</section>

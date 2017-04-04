@@ -20,6 +20,6 @@ var TransactionsCtrlConstructor = function ($rootScope, $stateParams, $location,
     };
 
     vm.getTransaction();
-}
+};
 
 angular.module('lisk_explorer.transactions').controller('TransactionsCtrl', TransactionsCtrlConstructor);

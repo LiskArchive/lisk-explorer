@@ -199,19 +199,30 @@ angular.module('lisk_explorer')
               reg: /\-/g,
               alternate: ' '
           }
-      }
+      };
 
       return function (phrase, type) {
           if (type in types) {
               return phrase.trim().replace(types[type].reg, types[type].alternate);
           }
-      }
+      };
   })
   .filter('votes', function () {
       return function (a) {
           return (a.username || (a.knowledge && a.knowledge.owner) || a.address);
       };
-  }).filter('proposal', function ($sce) {
+  })
+  .filter('vhVoter', function () {
+      return function (a) {
+          return (a.delegate || (a.knowledge && a.knowledge.owner) || a.sender);
+      };
+  })
+  .filter('vhType', function () {
+      return function (a) {
+          return (a === 'vote_add' ? 'Added' : (a === 'vote_remove' ? 'Removed' : 'N/A'));
+      };
+  })
+  .filter('proposal', function ($sce) {
       return function (name, proposals) {
           var p = _.find (proposals, function (p) {
               return name && p.name === name.toLowerCase ();

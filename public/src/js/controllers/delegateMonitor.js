@@ -35,6 +35,6 @@ var DelegateMonitorCtrlConstructor = function (delegateMonitor, orderBy, $rootSc
         active: orderBy('rate'),
         standby: orderBy('rate')
     };
-}
+};
 
 angular.module('lisk_explorer.tools').controller('DelegateMonitorCtrl', DelegateMonitorCtrlConstructor);

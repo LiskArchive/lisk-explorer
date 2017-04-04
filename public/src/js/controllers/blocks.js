@@ -50,6 +50,6 @@ var BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $http
     } else {
         vm.getLastBlocks();
     }
-}
+};
 
 angular.module('lisk_explorer.blocks').controller('BlocksCtrl', BlocksCtrlConstructor);

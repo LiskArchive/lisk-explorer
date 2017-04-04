@@ -80,6 +80,13 @@ angular.module('lisk_explorer').config(function ($stateProvider, $urlRouterProvi
         controller: 'DelegateCtrl',
         controllerAs: 'vm'
     })
+    .state('voters-history', {
+        templateUrl: '/views/delegate/votersHistory.html',
+        url: '/delegate/:name/voters/history',
+        parentDir: 'delegate',
+        controller: 'VotersHistoryCtrl',
+        controllerAs: 'vm'
+    })
     .state('error', {
         url: '404',
         templateUrl: '/views/404.html',

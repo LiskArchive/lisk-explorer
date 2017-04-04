@@ -39,6 +39,6 @@ var SearchCtrlConstructor = function ($stateParams, $location, $timeout, Global,
             }
         });
     };
-}
+};
 
 angular.module('lisk_explorer.search').controller('SearchCtrl', SearchCtrlConstructor);
