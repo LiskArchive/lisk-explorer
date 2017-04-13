@@ -12,6 +12,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-markdown');
     grunt.loadNpmTasks('grunt-angular-gettext');
     grunt.loadNpmTasks('grunt-mocha-test');
+    grunt.loadNpmTasks('grunt-babel');
+    grunt.loadNpmTasks('grunt-contrib-rename');
 
     // Load Custom Tasks
     grunt.loadTasks('tasks');
@@ -44,14 +46,60 @@ module.exports = function (grunt) {
                 dest: 'public/js/angularjs-all.js'
             },
             main: {
-                src: ['public/src/js/app.js',
-                      'public/src/js/controllers/*.js',
-                      'public/src/js/directives/*.js',
-                      'public/src/js/services/*.js',
-                      'public/src/js/filters.js',
-                      'public/src/js/config.js',
-                      'public/src/js/init.js',
-                      'public/src/js/translations.js'],
+                src: ['src/app/app.js',
+                      'src/app/states.js',
+                      'src/app/run.js',
+
+
+                      'src/filters/approval.js',
+                      'src/filters/epoch-stamp.js',
+                      'src/filters/forging-time.js',
+                      'src/filters/iat.js',
+                      'src/filters/lisk.js',
+                      'src/filters/currency.js',
+                      'src/filters/net-hash.js',
+                      'src/filters/round.js',
+                      'src/filters/split.js',
+                      'src/filters/start-from.js',
+                      'src/filters/supply-percent.js',
+                      'src/filters/time-ago.js',
+                      'src/filters/time-span.js',
+                      'src/filters/time-stamp.js',
+                      'src/filters/tx-sender.js',
+                      'src/filters/tx-recipient.js',
+                      'src/filters/tx-type.js',
+                      'src/filters/alter-word-separation.js',
+                      'src/filters/votes.js',
+                      'src/filters/proposal.js',
+
+                      'src/services/socket.js',
+                      'src/services/forging-status.js',
+                      'src/services/forging-monitor.js',
+                      'src/services/delegate-monitor.js',
+                      'src/services/activity-graph.js',
+                      'src/services/global.js',
+                      'src/services/less-more.js',
+                      'src/services/tx-types.js',
+                      'src/services/order-by.js',
+                      'src/services/address-txs.js',
+                      'src/services/block-txs.js',
+                      'src/services/market-matcher.js',
+                      'src/services/network-monitor.js',
+
+                      'src/components/**/*.js',
+                      'src/directives/**/*.js',
+
+                      'src/shared/bread-crumb/*.js',
+                      'src/shared/orders/*.js',
+                      'src/shared/currency/*.js',
+                      'src/shared/peers/*.js',
+                      'src/shared/forging-status/*.js',
+                      'src/shared/footer/*.js',
+                      'src/shared/header/header-service.js',
+                      'src/shared/header/header-directive.js',
+                      'src/shared/search/search-directive.js',
+
+                      'src/main.js'],
                 dest: 'public/js/main.js'
             },
             vendors: {
@@ -74,8 +122,19 @@ module.exports = function (grunt) {
                       'bower_components/font-awesome/css/font-awesome.css',
                       'bower_components/leaflet/dist/leaflet.css',
                       'bower_components/leaflet.markercluster/dist/MarkerCluster.Default.css',
-                      'public/src/css/**/*.css'],
+                      'src/**/*.css'],
                 dest: 'public/css/main.css'
+            }
+        },
+        babel: {
+            options: {
+                sourceMap: true,
+                presets: ['es2015']
+            },
+            dist: {
+                files: [{
+                    'public/js/main.js': 'public/js/main.js'
+                }]
             }
         },
         uglify: {
@@ -94,6 +153,12 @@ module.exports = function (grunt) {
             vendors: {
                 src: 'public/js/vendors.js',
                 dest: 'public/js/vendors.min.js'
+            }
+        },
+        rename: {
+            moveThis: {
+                src: 'public/js/main.js',
+                dest: 'public/js/main.min.js'
             }
         },
         cssmin: {
@@ -118,7 +183,7 @@ module.exports = function (grunt) {
                   'cache.js',
                   'Gruntfile.js',
                   'lib/**/*.js',
-                  'public/src/js/**/*.js',
+                  'public/src/**/*.js',
                   'redis.js',
                   'sockets/**/*.js',
                   'tasks/**/*.js',
@@ -151,16 +216,24 @@ module.exports = function (grunt) {
         },
         watch: {
             main: {
-                files: ['public/src/js/**/*.js'],
-                tasks: ['concat:main', 'uglify:main'],
+                files: ['src/**/*.js'],
+                tasks: ['concat:main', 'babel', 'rename'],
             },
             css: {
-                files: ['public/src/css/**/*.css'],
+                files: ['src/**/*.css'],
                 tasks: ['concat:css', 'cssmin'],
             },
+            html: {
+                files: ['src/**/*.html'],
+                tasks: ['copy:html'],
+            },
+            assets: {
+                files: ['assets/**/*'],
+                tasks: ['copy:assets']
+            }
         },
         copy: {
-            dist: {
+            vedors: {
                 files: [
                     {
                         // Copy AmCharts images to public/img/amcharts.
@@ -188,11 +261,34 @@ module.exports = function (grunt) {
                     }
                 ]
             },
+            html: {
+                files: [
+                    {
+                        // Copy HTML files
+                        expand: true,
+                        cwd: 'src',
+                        src: ['index.html', 'components/**/*.html', 'shared/**/*.html'],
+                        dest: 'public/'
+                    }
+                ]
+            },
+            assets: {
+                files: [
+                    {
+                        // Copy HTML files
+                        expand: true,
+                        dot: true,
+                        cwd: 'src/assets',
+                        src: ['**/*'],
+                        dest: 'public'
+                    }
+                ]
+            }
         },
         nggettext_extract: {
             pot: {
                 files: {
-                    'po/template.pot': ['public/views/*.html', 'public/views/**/*.html']
+                    'po/template.pot': ['src/**/*.html']
                 }
             },
         },
@@ -202,7 +298,7 @@ module.exports = function (grunt) {
                     module: 'lisk_explorer'
                 },
                 files: {
-                    'public/src/js/translations.js': ['po/*.po']
+                    'src/translations.js': ['po/*.po']
                 }
             },
         }
@@ -218,7 +314,7 @@ module.exports = function (grunt) {
     grunt.registerTask('travis', ['jshint', 'mochaTest']);
 
     // Compile task (concat + minify).
-    grunt.registerTask('compile', ['nggettext_extract', 'nggettext_compile', 'concat', 'uglify', 'cssmin', 'copy']);
+    grunt.registerTask('compile', ['nggettext_extract', 'nggettext_compile', 'concat', 'babel', 'uglify', 'cssmin', 'copy:vedors', 'copy:html', 'copy:assets']);
 
     // Copy ZeroClipboard.swf to public/swf.
     grunt.file.copy('bower_components/zeroclipboard/ZeroClipboard.swf', 'public/swf/ZeroClipboard.swf');
