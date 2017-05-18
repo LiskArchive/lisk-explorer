@@ -25,9 +25,9 @@
 </div>
 <div class="btn-group btn-group-justified" role="group" aria-label="Less/More Transactions" data-ng-hide="vm.txs.disabled()">
     <div class="btn-group" role="group">
-        <button class="btn btn-default" data-ng-disabled="!txs.lessData" data-ng-click="vm.txs.loadLess()">Less</a>
+        <button class="btn btn-default" data-ng-disabled="!vm.txs.lessData" data-ng-click="vm.txs.loadLess()">Less</a>
     </div>
     <div class="btn-group" role="group">
-        <button class="btn btn-default" data-ng-disabled="!txs.moreData" data-ng-click="vm.txs.loadMore()">More</a>
+        <button class="btn btn-default" data-ng-disabled="!vm.txs.moreData" data-ng-click="vm.txs.loadMore()">More</a>
     </div>
 </div>
