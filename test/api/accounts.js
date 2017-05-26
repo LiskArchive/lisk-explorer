@@ -62,7 +62,7 @@ describe('Accounts API', function() {
     /*Define api endpoints to test */
     describe('GET /api/getAccount', function() {
 
-        it('using known address should be ok', function(done) {
+        it.skip('using known address should be ok', function(done) {
             getAccount(params.address, function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 checkAccount(res.body);
@@ -96,7 +96,7 @@ describe('Accounts API', function() {
     });
 
     /* -- if all fail, check lisk for topAccounts = true */
-    describe('GET /api/getTopAccounts', function() {
+    describe.skip('GET /api/getTopAccounts', function() {
 
         it('using offset 0 and limit 100 should return 100', function(done) {
             getTopAccounts('0', '100', function(err, res) {

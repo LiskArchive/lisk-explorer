@@ -96,7 +96,7 @@ describe('Exchanges API (Market Watcher)', function () {
             });
         });
 
-        it('using poloniex should be ok', function (done) {
+        it.skip('using poloniex should be ok', function (done) {
             getCandles('poloniex', '', function (err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body).to.have.property('exchange').to.be.equal('poloniex');

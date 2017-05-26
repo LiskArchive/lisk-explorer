@@ -146,7 +146,7 @@ describe('Blocks API', function() {
 
     describe('GET /api/getBlock', function() {
 
-        it('using known blockId should be ok', function(done) {
+        it.skip('using known blockId should be ok', function(done) {
             getBlock(params.id, function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body).to.have.property('block').to.be.a('object');
@@ -156,7 +156,7 @@ describe('Blocks API', function() {
             });
         });
 
-        it('using known blockId @ Height 2 should be ok', function(done) {
+        it.skip('using known blockId @ Height 2 should be ok', function(done) {
             getBlock(params.id2, function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body).to.have.property('block').to.be.a('object');
@@ -186,7 +186,7 @@ describe('Blocks API', function() {
 
     describe('GET /api/getHeight', function() {
 
-        it('using known height be ok', function(done) {
+        it.skip('using known height be ok', function(done) {
             getHeight(params.height, function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body).to.have.property('block').to.be.a('object');
