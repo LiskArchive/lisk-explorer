@@ -175,7 +175,7 @@ describe('Delegates API', function() {
             });
         });
 
-        it('using offset of 1 should be ok', function(done) {
+        it.skip('using offset of 1 should be ok', function(done) {
             getStandby('1', function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body).to.have.property('delegates');
@@ -189,7 +189,7 @@ describe('Delegates API', function() {
             });
         });
 
-        it('using offset of 20 should be ok', function(done) {
+        it.skip('using offset of 20 should be ok', function(done) {
             getStandby(params.offset, function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body).to.have.property('delegates');
@@ -256,7 +256,7 @@ describe('Delegates API', function() {
             });
         });
 
-        it('using limit 10 should be ok', function(done) {
+        it.skip('using limit 10 should be ok', function(done) {
             getLastBlocks(params.publicKey, '10', function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body).to.have.property('blocks').to.be.an('array');
@@ -267,7 +267,7 @@ describe('Delegates API', function() {
             });
         });
 
-        it('using limit 100 should be ok and return 20', function(done) {
+        it.skip('using limit 100 should be ok and return 20', function(done) {
             getLastBlocks(params.publicKey, '100', function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body).to.have.property('blocks');
@@ -304,7 +304,7 @@ describe('Delegates API', function() {
 
     describe('GET /api/getSearch', function() {
 
-        it('should be ok', function(done) {
+        it.skip('should be ok', function(done) {
             getSearch(params.delegate, function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body.address).to.have.equal(params.address);
@@ -320,7 +320,7 @@ describe('Delegates API', function() {
             });
         });
 
-        it('using partial name should autocomplete', function(done) {
+        it.skip('using partial name should autocomplete', function(done) {
             getSearch('gene', function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body.address).to.have.equal(params.address);

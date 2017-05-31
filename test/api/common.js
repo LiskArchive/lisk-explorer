@@ -52,7 +52,7 @@ describe('Common API', function() {
 
     describe('GET /api/search', function() {
 
-        it('using known block should be ok', function(done) {
+        it.skip('using known block should be ok', function(done) {
             getSearch(params.blockId, function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body.type).to.equal('block');
@@ -61,7 +61,7 @@ describe('Common API', function() {
             });
         });
 
-        it('using known height should be ok', function(done) {
+        it.skip('using known height should be ok', function(done) {
             getSearch('1', function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body.type).to.equal('block');
@@ -70,7 +70,7 @@ describe('Common API', function() {
             });
         });
 
-        it('using known address should be ok', function(done) {
+        it.skip('using known address should be ok', function(done) {
             getSearch(params.address, function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body.type).to.equal('address');
@@ -79,7 +79,7 @@ describe('Common API', function() {
             });
         });
 
-        it('using known transaction should be ok', function(done) {
+        it.skip('using known transaction should be ok', function(done) {
             getSearch(params.tx, function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body.type).to.equal('tx');
@@ -88,7 +88,7 @@ describe('Common API', function() {
             });
         });
 
-        it('using known delegate should be ok', function(done) {
+        it.skip('using known delegate should be ok', function(done) {
             getSearch(params.username, function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body.type).to.equal('address');
@@ -97,7 +97,7 @@ describe('Common API', function() {
             });
         });
 
-        it('using partial known delegate should be ok', function(done) {
+        it.skip('using partial known delegate should be ok', function(done) {
             getSearch('gene', function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body.type).to.equal('address');

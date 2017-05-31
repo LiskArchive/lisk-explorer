@@ -65,7 +65,7 @@ describe('Transactions API', function() {
     /*Define api endpoints to test */
     describe('GET /api/getTransaction', function() {
 
-        it('should be ok with Genesis transaction', function(done) {
+        it.skip('should be ok with Genesis transaction', function(done) {
             getTransaction(params.transactionId, function(err, res) {
                 node.expect(res.body).to.have.property('success').to.be.ok;
                 node.expect(res.body).to.have.property('transaction');
