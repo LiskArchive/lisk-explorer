@@ -99,6 +99,9 @@
             <div class="btn-group" role="group">
                 <button class="btn btn-default received-tab" data-ng-disabled="vm.direction==='received'" data-ng-click="vm.filterTxs('received');vm.txs.loadData()">Received</button>
             </div>
+            <div class="btn-group" role="group">
+                <button class="btn btn-default received-tab" data-ng-disabled="vm.direction==='others'" data-ng-click="vm.filterTxs('others');vm.txs.loadData()">Others</button>
+            </div>
         </div>
         <transactions-list data-txs="vm.txs" data-address="vm.address.address"></transactions-list>
     </div>
