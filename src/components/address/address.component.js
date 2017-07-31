@@ -35,16 +35,43 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
     vm.availableSearchParams = [
         { key: "senderId", name: "Sender", placeholder: "Sender..." },
         { key: "recipientId", name: "Recipient", placeholder: "Recipient..." },
-        { key: "amount", name: "Amount", placeholder: "Amount..." },
         { key: "minAmount", name: "Min", placeholder: "Min Amount..." },
-        { key: "maxAmount", name: "Max", placeholder: "Max A mount..." },
-        { key: "type", name: "Type", placeholder: "Type...", allowMultiple: true }
+        { key: "maxAmount", name: "Max", placeholder: "Max Amount..." },
+        { key: "type", name: "Type", placeholder: "Type...", allowMultiple: true },
+        { key: "senderPublicKey", name: "SenderPub", placeholder: "Sender Public Key..." },
+        { key: "recipientPublicKey", name: "RecipientPub", placeholder: "Recipient Public Key..." },
+        { key: "minConfirmations", name: "Min Confirmations", placeholder: "Minimum Confirmations..." }
     ];
+
+    vm.onFiltersUsed = () => {
+        vm.cleanByFilters = true;
+        vm.searchParams = {};
+    };
+
+    const onSearchBoxCleaned = () => {
+        if (vm.cleanByFilters) {
+            vm.cleanByFilters = false;
+        } else {
+            vm.invalidParams = false;
+            vm.filterTxs(vm.lastDirection)
+            vm.txs.loadData();
+        }
+    };
+
+    const searchByParams = (params) => {
+        if (vm.direction !== 'search') {
+            vm.lastDirection = vm.direction;
+            vm.direction = 'search';
+        }
+        vm.invalidParams = false;
+        vm.txs = addressTxs(params);
+        vm.txs.loadData();
+    };
 
     $rootScope.$on('advanced-searchbox:modelUpdated', function (event, model) {
         const params = {};
         Object.keys(model).forEach((key) => {
-            if (model[key]) {
+            if (model[key] != undefined && model[key] !== '') {
                 params[key] = model[key];
             }
             if (key === 'minAmount' || key === 'maxAmount') {
@@ -52,14 +79,21 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
             }
         });
 
-        if (Object.keys(params).length > 0) {
-            vm.txs = addressTxs(params);
-            vm.txs.loadData();
+        if (Object.keys(model).length > 0 && (model.recipientId !== undefined || model.senderId !== undefined)) {
+            searchByParams(params);
+        } else if (Object.keys(model).length === 0) {
+            onSearchBoxCleaned();
+        } else {
+            vm.invalidParams = true;
         }
+    });
+    $rootScope.$on('advanced-searchbox:removedAllSearchParam', function (event) {
+        onSearchBoxCleaned();
     });
 
     vm.getAddress();
     vm.txs = addressTxs({ address: $stateParams.address });
+    console.log($rootScope);
 };
 
 AppAddress.component('address', {

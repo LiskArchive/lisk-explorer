@@ -10,14 +10,14 @@
 @font-face {
     font-family: Roboto;
     src: url('../fonts/Roboto-Bold.ttf');
-    font-weight: 700
+    font-weight: 700;
 }
 
 @font-face {
     font-family: Roboto;
     src: url('../fonts/Roboto-BoldItalic.ttf');
     font-weight: 700;
-    font-style: italic
+    font-style: italic;
 }
 
 html, body {
@@ -1091,4 +1091,12 @@ a.sort-order span.reverse:after {
 #decimal-points-dropdown.disabled {
   color: #999;
   cursor: auto;
+}
+.transactions-filter-header, .transactions-filter-header.disabled:hover {
+  opacity: 1;
+  -webkit-transition: all ease 300ms;
+  transition: all ease 300ms;
+}
+.transactions-filter-header.disabled {
+  opacity: 0.5;
 }
