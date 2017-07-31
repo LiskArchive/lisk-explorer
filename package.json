@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "amstock3": "github:amcharts/amstock3",
+    "angular-advanced-searchbox": "^3.0.0",
     "angular-animate": "^1.6.4",
     "angular-gettext": "^2.3.9",
     "angular-naturalsort": "https://github.com/isabello/angular-naturalsort.git",

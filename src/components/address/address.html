@@ -89,6 +89,11 @@
 
     <div data-ng-if="vm.address.balance" data-ng-init="vm.txs.loadData()">
         <h2>Transactions</h2>
+        <nit-advanced-searchbox
+            ng-model="vm.searchParams"
+            parameters="vm.availableSearchParams"
+            placeholder="Search...">
+        </nit-advanced-searchbox>
         <div class="btn-group btn-group-justified" role="group" aria-label="All/Sent/Received Transactions">
             <div class="btn-group" role="group">
                 <button class="btn btn-default" data-ng-disabled="!vm.direction" data-ng-click="vm.filterTxs();vm.txs.loadData()">All</button>
