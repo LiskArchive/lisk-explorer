@@ -45,7 +45,10 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 
     vm.onFiltersUsed = () => {
         vm.cleanByFilters = true;
-        vm.searchParams = {};
+        let { removeAll } = angular.element(document.getElementsByClassName('search-parameter-input')[0]).scope();
+        if (removeAll) {
+            removeAll();
+        }
     };
 
     const onSearchBoxCleaned = () => {
@@ -93,7 +96,6 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 
     vm.getAddress();
     vm.txs = addressTxs({ address: $stateParams.address });
-    console.log($rootScope);
 };
 
 AppAddress.component('address', {
