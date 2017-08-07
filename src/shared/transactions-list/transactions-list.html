@@ -7,8 +7,8 @@
                     <span>Transaction ID</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'id'" /></th>
                 <th role="button" data-ng-class="filter.predicate === 'date' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('date')">
                     <span>Date</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'date'" /></th>
-                <th role="button" data-ng-class="filter.predicate === 'sendertId' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('sendertId')">
-                    <span>Sender</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'sendertId'" /></th>
+                <th role="button" data-ng-class="filter.predicate === 'senderId' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('senderId')">
+                    <span>Sender</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'senderId'" /></th>
                 <th role="button" data-ng-class="filter.predicate === 'recipientId' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('recipientId')">
                     <span>Recipient</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'recipientId'" /></th>
                 <th role="button" data-ng-class="filter.predicate === 'amount' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('amount')">
