@@ -31,17 +31,31 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
     };
 
     vm.searchParams = [];
-
     vm.availableSearchParams = [
-        { key: "senderId", name: "Sender", placeholder: "Sender..." },
-        { key: "recipientId", name: "Recipient", placeholder: "Recipient..." },
-        { key: "minAmount", name: "Min", placeholder: "Min Amount..." },
-        { key: "maxAmount", name: "Max", placeholder: "Max Amount..." },
-        { key: "type", name: "Type", placeholder: "Type...", allowMultiple: true },
-        { key: "senderPublicKey", name: "SenderPub", placeholder: "Sender Public Key..." },
-        { key: "recipientPublicKey", name: "RecipientPub", placeholder: "Recipient Public Key..." },
-        { key: "minConfirmations", name: "Min Confirmations", placeholder: "Minimum Confirmations..." }
+        { key: 'senderId', name: 'Sender', placeholder: 'Sender...' },
+        { key: 'recipientId', name: 'Recipient', placeholder: 'Recipient...' },
+        { key: 'minAmount', name: 'Min', placeholder: 'Min Amount...' },
+        { key: 'maxAmount', name: 'Max', placeholder: 'Max Amount...' },
+        { key: 'type', name: 'Type', placeholder: 'Comma separated...' },
+        { key: 'senderPublicKey', name: 'SenderPbk', placeholder: 'Sender Public Key...' },
+        { key: 'recipientPublicKey', name: 'RecipientPbk', placeholder: 'Recipient Public Key...' },
+        { key: 'minConfirmations', name: 'Min Confirmations', placeholder: 'Minimum Confirmations...' },
+        { key: 'blockId', name: 'blockId', placeholder:'Block Id...' },
+        { key: 'fromHeight', name: 'fromHeight', placeholder:'From Height...' },
+        { key: 'toHeight', name: 'toHeight', placeholder:'To Height...' },
+        { key: 'fromTimestamp', name: 'fromTimestamp', placeholder:'From Timestamp...' },
+        { key: 'toTimestamp', name: 'toTimestamp', placeholder:'To Timestamp...' },
+        // { key: 'senderIds', name: 'senderIds', placeholder:'...' },
+        // { key: 'recipientIds', name: 'recipientIds', placeholder:'...' },
+        // { key: 'senderPublicKeys', name: 'senderPublicKeys', placeholder:'...' },
+        // { key: 'recipientPublicKeys', name: 'recipientPublicKeys', placeholder:'...' },
+        { key: 'limit', name: 'limit', placeholder:'Limit...' },
+        { key: 'offset', name: 'offset', placeholder:'Offset...' },
+        { key: 'orderBy', name: 'orderBy', placeholder:'Order By...' },
+        { key: 'ownerAddress', name: 'ownerAddress', placeholder:'Owner Address...' },
+        { key: 'ownerPublicKey', name: 'ownerPublicKey', placeholder:'Owner Public Key...' },
     ];
+    vm.parametersDisplayLimit = vm.availableSearchParams.length;
 
     vm.onFiltersUsed = () => {
         vm.cleanByFilters = true;
