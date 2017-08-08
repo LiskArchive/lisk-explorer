@@ -45,15 +45,9 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
         { key: 'toHeight', name: 'toHeight', placeholder:'To Height...' },
         { key: 'fromTimestamp', name: 'fromTimestamp', placeholder:'From Timestamp...' },
         { key: 'toTimestamp', name: 'toTimestamp', placeholder:'To Timestamp...' },
-        // { key: 'senderIds', name: 'senderIds', placeholder:'...' },
-        // { key: 'recipientIds', name: 'recipientIds', placeholder:'...' },
-        // { key: 'senderPublicKeys', name: 'senderPublicKeys', placeholder:'...' },
-        // { key: 'recipientPublicKeys', name: 'recipientPublicKeys', placeholder:'...' },
         { key: 'limit', name: 'limit', placeholder:'Limit...' },
         { key: 'offset', name: 'offset', placeholder:'Offset...' },
         { key: 'orderBy', name: 'orderBy', placeholder:'Order By...' },
-        { key: 'ownerAddress', name: 'ownerAddress', placeholder:'Owner Address...' },
-        { key: 'ownerPublicKey', name: 'ownerPublicKey', placeholder:'Owner Public Key...' },
     ];
     vm.parametersDisplayLimit = vm.availableSearchParams.length;
 
