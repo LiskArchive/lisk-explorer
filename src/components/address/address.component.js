@@ -31,21 +31,32 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
     };
 
     vm.searchParams = [];
-
     vm.availableSearchParams = [
-        { key: "senderId", name: "Sender", placeholder: "Sender..." },
-        { key: "recipientId", name: "Recipient", placeholder: "Recipient..." },
-        { key: "minAmount", name: "Min", placeholder: "Min Amount..." },
-        { key: "maxAmount", name: "Max", placeholder: "Max Amount..." },
-        { key: "type", name: "Type", placeholder: "Type...", allowMultiple: true },
-        { key: "senderPublicKey", name: "SenderPub", placeholder: "Sender Public Key..." },
-        { key: "recipientPublicKey", name: "RecipientPub", placeholder: "Recipient Public Key..." },
-        { key: "minConfirmations", name: "Min Confirmations", placeholder: "Minimum Confirmations..." }
+        { key: 'senderId', name: 'Sender', placeholder: 'Sender...' },
+        { key: 'recipientId', name: 'Recipient', placeholder: 'Recipient...' },
+        { key: 'minAmount', name: 'Min', placeholder: 'Min Amount...' },
+        { key: 'maxAmount', name: 'Max', placeholder: 'Max Amount...' },
+        { key: 'type', name: 'Type', placeholder: 'Comma separated...' },
+        { key: 'senderPublicKey', name: 'SenderPk', placeholder: 'Sender Public Key...' },
+        { key: 'recipientPublicKey', name: 'RecipientPk', placeholder: 'Recipient Public Key...' },
+        { key: 'minConfirmations', name: 'Min Confirmations', placeholder: 'Minimum Confirmations...' },
+        { key: 'blockId', name: 'blockId', placeholder:'Block Id...' },
+        { key: 'fromHeight', name: 'fromHeight', placeholder:'From Height...' },
+        { key: 'toHeight', name: 'toHeight', placeholder:'To Height...' },
+        { key: 'fromTimestamp', name: 'fromTimestamp', placeholder:'From Timestamp...' },
+        { key: 'toTimestamp', name: 'toTimestamp', placeholder:'To Timestamp...' },
+        { key: 'limit', name: 'limit', placeholder:'Limit...' },
+        { key: 'offset', name: 'offset', placeholder:'Offset...' },
+        { key: 'orderBy', name: 'orderBy', placeholder:'Order By...' },
     ];
+    vm.parametersDisplayLimit = vm.availableSearchParams.length;
 
     vm.onFiltersUsed = () => {
         vm.cleanByFilters = true;
-        vm.searchParams = {};
+        let { removeAll } = angular.element(document.getElementsByClassName('search-parameter-input')[0]).scope();
+        if (removeAll) {
+            removeAll();
+        }
     };
 
     const onSearchBoxCleaned = () => {
@@ -93,7 +104,6 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 
     vm.getAddress();
     vm.txs = addressTxs({ address: $stateParams.address });
-    console.log($rootScope);
 };
 
 AppAddress.component('address', {

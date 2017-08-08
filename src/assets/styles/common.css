@@ -1097,3 +1097,12 @@ a.sort-order span.reverse:after {
 .transactions-filter-header.disabled {
   opacity: 0.5;
 }
+
+.advancedSearchBox .search-icon {
+  position: absolute;
+  z-index: 2;
+  right: 10px;
+}
+.advancedSearchBox .search-parameter-input {
+  width: 100% !important;
+}
