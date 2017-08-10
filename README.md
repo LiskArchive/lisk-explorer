@@ -33,6 +33,14 @@ These programs and resources are required to install and run Lisk Explorer
 
   `sudo npm install -g grunt`
 
+- Karma-cli 
+
+  `sudo npm install -g karma-cli`
+
+- PhantomJS (headless browser for testing frontend code)
+
+  `sudo npm install -g phantomjs`
+
 - PM2 (https://github.com/Unitech/pm2) -- PM2 manages the node process for Lisk Explorer and handles log rotation (Highly Recommended)
 
   `sudo npm install -g pm2`
@@ -134,6 +142,8 @@ To stop Explorer after it has been started with `PM2`, issue the following comma
 
 ## Tests
 
+### Backend
+
 Before running any tests, please ensure Lisk Explorer and Lisk Client are configured to run on the Lisk Testnet.
 
 Replace **config.js** with **config.test** file from the **test** directory:
@@ -161,6 +171,18 @@ Run individual tests:
 ```
 npm test -- test/api/accounts.js
 npm test -- test/api/transactions.js
+```
+
+### Frontend
+
+Front end unit testing is done using Karma (https://karma-runner.github.io/1.0/index.html) and Jasmine (https://jasmine.github.io/).
+PhantomJS is used as a headless browser.
+Spec files can be found in the same folder as the JS files.
+
+Run Front-end tests:
+
+```
+karma start
 ```
 
 ## License
