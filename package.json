@@ -53,6 +53,9 @@
     "zeroclipboard": "^2.3.0"
   },
   "devDependencies": {
+    "angular": "^1.6.5",
+    "angular-mocks": "^1.6.5",
+    "angular-ui-router": "^1.0.0-rc.1",
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
