@@ -87,8 +87,8 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
             if (model[key] != undefined && model[key] !== '') {
                 params[key] = model[key];
             }
-            if ((key === 'minAmount' || key === 'maxAmount') && typeof model[key] === 'number') {
-                params[key] *= 1e8;
+            if ((key === 'minAmount' || key === 'maxAmount') && params[key] !== '') {
+                params[key] = Math.floor(parseFloat(params[key]) * 1e8);
             }
         });
 
