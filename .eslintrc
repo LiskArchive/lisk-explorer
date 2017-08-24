@@ -1,19 +1,15 @@
 {
   "extends": [
-    "lisk-base",
-    "airbnb-base"
+    "lisk-base"
   ],
   "plugins": [
     "import"
   ],
   "globals": {
-    "describe": true,
-    "it": true,
-    "beforeEach": true,
-    "afterEach": true,
     "ipc": true,
     "PRODUCTION": true,
-    "TEST": true
+    "TEST": true,
+    "env.mocha": true
   },
   "env": {
     "browser": true,
