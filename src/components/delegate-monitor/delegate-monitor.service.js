@@ -73,7 +73,7 @@ const DelegateMonitor = function ($scope, $rootScope, forgingMonitor) {
     // Private
     var bestForger = delegates => {
         if (delegates.length > 0) {
-            return delegates.reduce((d1, d2) => (d1.forged > d2.forged) ? d1 : d2);
+            return delegates.reduce((d1, d2) => (parseInt(d1.forged) > parseInt(d2.forged) ? d1 : d2));
         }
     };
 
@@ -108,7 +108,8 @@ const DelegateMonitor = function ($scope, $rootScope, forgingMonitor) {
 
 AppDelegateMonitor.factory('delegateMonitor',
   ($socket, $rootScope, forgingMonitor) => vm => {
-      const delegateMonitor = new DelegateMonitor(vm, $rootScope, forgingMonitor), ns = $socket('/delegateMonitor');
+      const delegateMonitor = new DelegateMonitor(vm, $rootScope, forgingMonitor);
+      const ns = $socket('/delegateMonitor');
 
       ns.on('data', res => {
           if (res.active) {

@@ -1,6 +1,6 @@
 # Lisk Blockchain Explorer
 
-Lisk Explorer version 1.2.0 works in conjunction with the Lisk Core API. It uses Redis for caching data and Freegeoip to parse IP geo-location data.
+Lisk Explorer version 1.3.0 works in conjunction with the Lisk Core API. It uses Redis for caching data and Freegeoip to parse IP geo-location data.
 
 [![Build Status](https://travis-ci.org/LiskHQ/lisk-explorer.svg?branch=development)](https://travis-ci.org/LiskHQ/lisk-explorer)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
@@ -146,7 +146,7 @@ Replace the **config.json** for the Lisk Client the corresponding file under the
 
 Then restart the Lisk Client (example):
 
-`bash /PATH_TO_LISK_DIR/lisk.sh reload`
+`pm2 restart /PATH_TO_LISK_DIR/app.js`
 
 Launch Lisk Explorer (runs on port 6040):
 
@@ -161,6 +161,36 @@ Run individual tests:
 ```
 npm test -- test/api/accounts.js
 npm test -- test/api/transactions.js
+```
+
+## End-to-end Tests
+
+### Setup for end-to-end tests:
+
+Do all setup steps from "Test" section of this README
+
+Make sure you have `wget` installed (it's used in `./e2e-test-setup.sh`). On Linux by default. On MacOS:
+```
+brew install wget
+```
+
+Setup protractor
+
+```
+./node_modules/protractor/bin/webdriver-manager update
+```
+
+### Run end-to-end test suite:
+
+```
+./e2e-test-setup.sh /PATH_TO_LISK_DIR
+npm run e2e-test -s
+```
+
+### Run one end-to-end test feature file:
+
+```
+npm run e2e-test -s -- --specs=features/address.feature
 ```
 
 ## License
