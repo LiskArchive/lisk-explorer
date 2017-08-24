@@ -8,12 +8,12 @@
   "globals": {
     "ipc": true,
     "PRODUCTION": true,
-    "TEST": true,
-    "env.mocha": true
+    "TEST": true
   },
   "env": {
     "browser": true,
-    "node": true
+    "node": true,
+    "mocha": true
   },
   "rules": {
     "func-names": "off",
