@@ -69,6 +69,6 @@ module.exports = function (grunt) {
   });
 
   // Register tasks for travis.
-  grunt.registerTask('travis', ['eslint', 'mochaTest']);
+  grunt.registerTask('travis', ['mochaTest']);
   grunt.registerTask('lint', ['eslint']);
 };
