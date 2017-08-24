@@ -1,0 +1,48 @@
+{
+  "extends": [
+    "lisk-base"
+  ],
+  "plugins": [
+    "import"
+  ],
+  "globals": {
+    "ipc": true,
+    "PRODUCTION": true,
+    "TEST": true
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "func-names": "off",
+    "global-require": "off",
+    "new-cap": ["error", {
+      "newIsCapExceptions": ["mnemonic"],
+      "capIsNewExceptions" : [
+        "When",
+        "Then",
+        "Given",
+        "After",
+        "Before"
+      ]
+    }],
+
+    "no-loop-func": "off",
+    "no-plusplus": "off",
+    "no-restricted-properties": "off",
+    "no-return-assign": "off",
+    "no-underscore-dangle": "off",
+    "import/no-extraneous-dependencies": ["error", 
+      {
+      "devDependencies": [
+        "./src/**/*.test.js",
+        "./features/*/*.js",
+        "./src/**/stories.js"
+        ]
+      }
+    ],
+    "no-param-reassign": "off"
+  }
+}
