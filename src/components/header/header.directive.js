@@ -7,33 +7,33 @@ import template from './header.html';
  *
  */
 AppHeader.directive('mainHeader', ($socket, $rootScope, Header) => {
-    const HeaderLink = () => {
-        $rootScope.currency = {
-            symbol: 'LSK'
-        };
+	const HeaderLink = () => {
+		$rootScope.currency = {
+			symbol: 'LSK',
+		};
 
-        const header = new Header($rootScope);
-        let ns = $socket('/header');
+		const header = new Header($rootScope);
+		const ns = $socket('/header');
 
-        ns.on('data', res => {
-            if (res.status) { header.updateBlockStatus(res.status); }
-            if (res.ticker) { header.updatePriceTicker(res.ticker); }
-        });
+		ns.on('data', (res) => {
+			if (res.status) { header.updateBlockStatus(res.status); }
+			if (res.ticker) { header.updatePriceTicker(res.ticker); }
+		});
 
-        ns.on('delegateProposals', res => {
-            if (res) { header.updateDelegateProposals(res); }
-        });
+		ns.on('delegateProposals', (res) => {
+			if (res) { header.updateDelegateProposals(res); }
+		});
 
 
-        $rootScope.$on('$destroy', event => {
-            ns.removeAllListeners();
-        });
-    };
+		$rootScope.$on('$destroy', (event) => {
+			ns.removeAllListeners();
+		});
+	};
 
-    return {
-        restrict: 'E',
-        replace: true,
-        link: HeaderLink,
-        template: template
-    }
+	return {
+		restrict: 'E',
+		replace: true,
+		link: HeaderLink,
+		template,
+	};
 });

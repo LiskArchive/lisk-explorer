@@ -71,12 +71,16 @@ module.exports = env => ({
   ]),
   module: {
     rules: [
-      // {
-      //   enforce: 'pre',
-      //   test: /\.js$/,
-      //   exclude: /node_modules/,
-      //   loader: 'eslint-loader',
-      // },
+      {
+        enforce: 'pre',
+        test: /\.js$/,
+        exclude: /node_modules/,
+        loader: 'eslint-loader',
+        options: {
+          quiet: true,
+          emitWarning: true,
+        }
+      },
       {
         test: /\.js$/,
         exclude: PATHS.vendors,

@@ -3,10 +3,8 @@ import template from './footer.html';
 
 const FooterLink = () => {};
 
-FooterApp.directive('mainFooter', () => {
-    return {
-        restrict: 'E',
-        link: FooterLink,
-        template,
-    }
-});
+FooterApp.directive('mainFooter', () => ({
+	restrict: 'E',
+	link: FooterLink,
+	template,
+}));
