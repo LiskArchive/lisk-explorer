@@ -76,6 +76,10 @@ module.exports = env => ({
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'eslint-loader',
+        options: {
+          quiet: true,
+          emitWarning: true,
+        }
       },
       {
         test: /\.js$/,
