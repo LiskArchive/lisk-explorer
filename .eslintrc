@@ -19,7 +19,8 @@
     "func-names": "off",
     "global-require": "off",
     "new-cap": ["error", {
-      "newIsCapExceptions": ["mnemonic"],
+      "newIsCap": false,
+      "capIsNew": false,
       "capIsNewExceptions" : [
         "When",
         "Then",
@@ -43,6 +44,7 @@
         ]
       }
     ],
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "camelcase": [ "error", { "properties": "never" }]
   }
 }
