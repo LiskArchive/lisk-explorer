@@ -1,5 +1,3 @@
-
-
 const transactions = require('../lib/api/transactions');
 
 module.exports = function (app) {
@@ -9,26 +7,38 @@ module.exports = function (app) {
 		api.getTransaction(
 			req.query.transactionId,
 			(data) => { res.json(data); },
-			(data) => { req.json = data; return next(); });
+			(data) => {
+				req.json = data;
+				return next();
+			});
 	});
 
 	app.get('/api/getUnconfirmedTransactions', (req, res, next) => {
 		api.getUnconfirmedTransactions(
 			(data) => { res.json(data); },
-			(data) => { req.json = data; return next(); });
+			(data) => {
+				req.json = data;
+				return next();
+			});
 	});
 
 	app.get('/api/getLastTransactions', (req, res, next) => {
 		api.getLastTransactions(
 			(data) => { res.json(data); },
-			(data) => { req.json = data; return next(); });
+			(data) => {
+				req.json = data;
+				return next();
+			});
 	});
 
 	app.get('/api/getTransactionsByAddress', (req, res, next) => {
 		api.getTransactionsByAddress(
 			req.query,
 			(data) => { res.json(data); },
-			(data) => { req.json = data; return next(); });
+			(data) => {
+				req.json = data;
+				return next();
+			});
 	});
 
 	app.get('/api/getTransactionsByBlock', (req, res, next) => {
@@ -37,7 +47,10 @@ module.exports = function (app) {
 				offset: req.query.offset,
 				limit: req.query.limit },
 			(data) => { res.json(data); },
-			(data) => { req.json = data; return next(); });
+			(data) => {
+				req.json = data;
+				return next();
+			});
 	});
 };
 

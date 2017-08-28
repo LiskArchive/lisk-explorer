@@ -1,12 +1,10 @@
-
-
-let config = require('../config'),
-	candles = require('../lib/api/candles'),
-	orders = require('../lib/api/orders');
+const config = require('../config');
+const candles = require('../lib/api/candles');
+const orders = require('../lib/api/orders');
 
 module.exports = function (app) {
-	let ordersApi = new orders(app),
-		candlesApi = new candles(app);
+	const ordersApi = new orders(app);
+	const candlesApi = new candles(app);
 
 	app.get('/api/exchanges', (req, res) => {
 		const result = {
