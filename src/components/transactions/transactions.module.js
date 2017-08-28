@@ -1,4 +1,4 @@
-import 'angular';
+import angular from 'angular';
 
 const AppTransactions = angular.module('lisk_explorer.transactions', []);
 

@@ -1,4 +1,4 @@
-import 'angular';
+import angular from 'angular';
 
 const AppTopAccounts = angular.module('lisk_explorer.topAccounts', []);
 

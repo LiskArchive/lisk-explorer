@@ -1,4 +1,3 @@
-import 'angular';
 import AppTopAccounts from './top-accounts.module';
 import template from './top-accounts.html';
 
