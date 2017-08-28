@@ -18,7 +18,7 @@ const ForgingMonitor = function (forgingStatus) {
 
 	this.getStatus = delegate => forgingStatus(delegate);
 
-	this.getforgingTotals = (delegates) => {
+	this.getForgingTotals = (delegates) => {
 		const cnt1 = countBy(delegates, (d) => {
 			switch (d.forgingStatus.code) {
 			case 0:
