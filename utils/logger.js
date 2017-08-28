@@ -1,4 +1,3 @@
-
 const safeStringify = require('fast-safe-stringify');
 const fs = require('fs');
 const flatstr = require('flatstr');
@@ -22,15 +21,23 @@ logger.doLog = function doLog(level, msg, extra) {
 	if (config.log.enabled) {
 		const timestamp = Date.now();
 
-		const stringMsg = typeof msg === 'string' ? msg : JSON.stringify(msg);
-		const parsedMsg = stringMsg.replace(/(\r\n|\n|\r)/gm, ' ');
+		// const stringMsg = typeof msg === 'string' ? msg : JSON.stringify(msg);
+		// const parsedMsg = stringMsg.replace(/(\r\n|\n|\r)/gm, ' ');
 
 		if (extra) {
 			const stringExtra = typeof extra === 'string' ? extra : JSON.stringify(extra);
 			const parsedExtra = stringExtra.replace(/(\r\n|\n|\r)/gm, ' ');
-			myConsole.log(flatstr(safeStringify({ level, timestamp, message: `${msg} ${parsedExtra}` })));
+			myConsole.log(flatstr(safeStringify({
+				level,
+				timestamp,
+				message: `${msg} ${parsedExtra}`,
+			})));
 		} else {
-			myConsole.log(flatstr(safeStringify({ level, timestamp, message: msg })));
+			myConsole.log(flatstr(safeStringify({
+				level,
+				timestamp,
+				message: msg,
+			})));
 		}
 	}
 };

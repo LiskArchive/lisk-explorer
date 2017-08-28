@@ -1,5 +1,3 @@
-
-
 const accounts = require('../lib/api/accounts');
 
 module.exports = function (app) {
@@ -12,7 +10,7 @@ module.exports = function (app) {
 			(data) => { req.json = data; return next(); });
 	});
 
-	app.get('/api/getTopAccounts', (req, res, next) => {
+	app.get('/api/getTopAccounts', (req, res) => {
 		api.getTopAccounts(
 			{ offset: req.query.offset,
 				limit: req.query.limit },

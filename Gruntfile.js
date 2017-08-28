@@ -51,27 +51,10 @@ module.exports = function (grunt) {
 		},
 		eslint: {
 			target: [
-				'api/**/*.js',
-				'app.js',
-				'benchmark.js',
-				'benchmarks/**/*.js',
-				'cache.js',
-				'Gruntfile.js',
 				'lib/**/*.js',
-				'redis.js',
-				'sockets/**/*.js',
-				'tasks/**/*.js',
-				'test/**/*.js',
-				'utils**/*.js',
-				'src/**/*.js',
-				'webpack.config.js',
+				'utils/**/*.js',
+        'benchmarks/**/*.js',
 			],
-			options: {
-				configFile: '.eslintrc',
-				format: 'html',
-				outputFile: 'report.html',
-				fix: true,
-			},
 		},
 	});
 

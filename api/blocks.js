@@ -1,5 +1,3 @@
-
-
 const blocks = require('../lib/api/blocks');
 
 module.exports = function (app) {
@@ -9,26 +7,38 @@ module.exports = function (app) {
 		api.getLastBlocks(
 			req.query.n,
 			(data) => { res.json(data); },
-			(data) => { req.json = data; return next(); });
+			(data) => {
+				req.json = data;
+				return next();
+			});
 	});
 
 	app.get('/api/getBlock', (req, res, next) => {
 		api.getBlock(
 			req.query.blockId,
 			(data) => { res.json(data); },
-			(data) => { req.json = data; return next(); });
+			(data) => {
+				req.json = data;
+				return next();
+			});
 	});
 
 	app.get('/api/getHeight', (req, res, next) => {
 		api.getHeight(
 			req.query.height,
 			(data) => { res.json(data); },
-			(data) => { req.json = data; return next(); });
+			(data) => {
+				req.json = data;
+				return next();
+			});
 	});
 
 	app.get('/api/getBlockStatus', (req, res, next) => {
 		api.getBlockStatus(
 			(data) => { res.json(data); },
-			(data) => { req.json = data; return next(); });
+			(data) => {
+				req.json = data;
+				return next();
+			});
 	});
 };
