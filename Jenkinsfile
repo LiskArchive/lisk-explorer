@@ -1,21 +1,20 @@
 def cleanUp() {
-      sh '''#!/bin/bash
-      pkill -f app.js || true
-      bash ~/lisk-test/lisk.sh stop
-      pkill -f selenium -9 || true
-      pkill -f Xvfb -9 || true
-      rm -rf /tmp/.X0-lock || true
-      pkill -f webpack -9 || true
-    '''
+    sh '''#!/bin/bash
+    pkill -f app.js || true
+    bash ~/lisk-test/lisk.sh stop
+    pkill -f selenium -9 || true
+    pkill -f Xvfb -9 || true
+    rm -rf /tmp/.X0-lock || true
+    pkill -f webpack -9 || true
+  '''
+  deleteDir()
 }
 
 node('lisk-explorer-01'){
   lock(resource: "lisk-explorer-01", inversePrecedence: true) {
     stage ('Prepare Workspace') {
       cleanUp()
-      deleteDir()
       checkout scm
-
     }
 
     stage ('Build Dependencies') {
@@ -23,7 +22,7 @@ node('lisk-explorer-01'){
         sh '''#!/bin/bash
 
         # Install Deps
-        npm install --verbose
+        npm install
         '''
       } catch (err) {
         currentBuild.result = 'FAILURE'
@@ -114,12 +113,9 @@ node('lisk-explorer-01'){
       }
     }
 
-    stage ('Set milestone') {
+    stage ('Set milestone and cleanup') {
       milestone 1
       currentBuild.result = 'SUCCESS'
-    }
-
-    stage ('Cleanup') {
       cleanUp()
     }
   }
