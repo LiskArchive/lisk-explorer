@@ -1,4 +1,3 @@
-import 'angular';
 import AppHome from './home.module';
 import template from './home.html';
 
