@@ -1,6 +1,6 @@
 import AppHeader from './header.module';
 
-const HeaderConstrcutor = function ($rootScope) {
+const HeaderConstructor = function ($rootScope) {
 	this.updateBlockStatus = (res) => {
 		if (res.success) {
 			$rootScope.blockStatus = {
@@ -19,25 +19,27 @@ const HeaderConstrcutor = function ($rootScope) {
 			$rootScope.currency.tickers = res.tickers;
 		}
 
-		// When ticker for user-stored currency is not available - switch to LSK temporarly
-		if ($rootScope.currency.symbol !== 'LSK' && (!$rootScope.currency.tickers || !$rootScope.currency.tickers.LSK || !$rootScope.currency.tickers.LSK[$rootScope.currency.symbol])) {
+		// When ticker for user-stored currency is not available - switch to LSK temporarily
+		if ($rootScope.currency.symbol !== 'LSK' &&
+			(!$rootScope.currency.tickers ||
+			!$rootScope.currency.tickers.LSK ||
+			!$rootScope.currency.tickers.LSK[$rootScope.currency.symbol])) {
 			$rootScope.currency.symbol = 'LSK';
 		}
 	};
 
-	// @todo shouldn't this be in run inetad of header?
+	// @todo shouldn't this be in run instead of header?
 	$rootScope.delegateProposals = {};
 	this.updateDelegateProposals = (res) => {
 		$rootScope.delegateProposals = {};
 		if (res.success) {
-			for (const proposal of res.proposals) {
+			res.proposals.forEach((proposal) => {
 				$rootScope.delegateProposals[proposal.name.toLowerCase()] = proposal;
-			}
+			});
 		}
 	};
 
 	return this;
 };
 
-AppHeader.factory('Header',
-	($rootScope, $socket) => HeaderConstrcutor);
+AppHeader.factory('Header', $rootScope => HeaderConstructor);
