@@ -52,6 +52,8 @@ module.exports = function (grunt) {
 		eslint: {
 			target: [
 				'lib/**/*.js',
+				'utils/**/*.js',
+        'benchmarks/**/*.js',
 			],
 		},
 	});

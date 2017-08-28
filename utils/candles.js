@@ -1,10 +1,12 @@
-
-
-let candles = require('../lib/candles'),
-	async = require('async'),
-	logger = require('./logger');
+const candles = require('../lib/candles');
+const async = require('async');
+const logger = require('./logger');
 
 module.exports = function (config, client) {
+	let running = false;
+	const poloniex = new candles.poloniex(client);
+	const bittrex = new candles.bittrex(client);
+
 	this.updateCandles = function () {
 		if (running) {
 			logger.error('Candles:', 'Update already in progress');
@@ -13,7 +15,7 @@ module.exports = function (config, client) {
 		running = true;
 
 		async.series([
-			function (callback) {
+			(callback) => {
 				if (!config.marketWatcher.exchanges.poloniex) {
 					callback(null);
 				} else {
@@ -26,7 +28,7 @@ module.exports = function (config, client) {
 					});
 				}
 			},
-			function (callback) {
+			(callback) => {
 				if (!config.marketWatcher.exchanges.bittrex) {
 					callback(null);
 				} else {
@@ -40,7 +42,7 @@ module.exports = function (config, client) {
 				}
 			},
 		],
-		(err, results) => {
+		(err) => {
 			if (err) {
 				logger.error('Candles:', 'Error updating candles:', err);
 			} else {
@@ -50,15 +52,7 @@ module.exports = function (config, client) {
 		});
 	};
 
-	// Interval
-
 	if (config.marketWatcher.enabled) {
 		setInterval(this.updateCandles, config.marketWatcher.candles.updateInterval);
 	}
-
-	// Private
-
-	var poloniex = new candles.poloniex(client),
-		bittrex = new candles.bittrex(client),
-		running = false;
 };
