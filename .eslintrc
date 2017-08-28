@@ -19,6 +19,8 @@
     "func-names": "off",
     "global-require": "off",
     "new-cap": ["error", {
+      "newIsCap": false,
+      "capIsNew": false,
       "newIsCapExceptions": ["mnemonic"],
       "capIsNewExceptions" : [
         "When",
