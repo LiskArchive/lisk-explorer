@@ -1,4 +1,4 @@
-import 'angular';
+import angular from 'angular';
 import AppAddress from './address.module';
 import template from './address.html';
 
@@ -13,9 +13,9 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 			if (resp.data.success) {
 				vm.address = resp.data;
 			} else {
-				throw 'Account was not found!';
+				throw new Error('Account was not found!');
 			}
-		}).catch((error) => {
+		}).catch(() => {
 			$location.path('/');
 		});
 	};
@@ -84,7 +84,7 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 	$rootScope.$on('advanced-searchbox:modelUpdated', (event, model) => {
 		const params = {};
 		Object.keys(model).forEach((key) => {
-			if (model[key] != undefined && model[key] !== '') {
+			if (model[key] !== undefined && model[key] !== '') {
 				params[key] = model[key];
 			}
 			if ((key === 'minAmount' || key === 'maxAmount') && params[key] !== '') {
@@ -97,7 +97,9 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 			params.senderId = $stateParams.address;
 		}
 
-		if (Object.keys(params).length > 0 && (isValidAddress(params.recipientId) || isValidAddress(params.senderId))) {
+		if (Object.keys(params).length > 0 &&
+			(isValidAddress(params.recipientId) ||
+			isValidAddress(params.senderId))) {
 			searchByParams(params);
 		} else if (Object.keys(model).length === 0) {
 			onSearchBoxCleaned();
@@ -105,7 +107,7 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 			vm.invalidParams = true;
 		}
 	});
-	$rootScope.$on('advanced-searchbox:removedAllSearchParam', (event) => {
+	$rootScope.$on('advanced-searchbox:removedAllSearchParam', () => {
 		onSearchBoxCleaned();
 	});
 
