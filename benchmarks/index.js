@@ -1,11 +1,9 @@
-
-
-let accounts = require('./accounts'),
-	blocks = require('./blocks'),
-	common = require('./common'),
-	delegates = require('./delegates'),
-	statistics = require('./statistics'),
-	transactions = require('./transactions');
+const accounts = require('./accounts');
+const blocks = require('./blocks');
+const common = require('./common');
+const delegates = require('./delegates');
+const statistics = require('./statistics');
+const transactions = require('./transactions');
 
 module.exports = function (app, api) {
 	this.accounts = new accounts(app, api);

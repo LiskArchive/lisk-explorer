@@ -1,15 +1,14 @@
-
 const logger = require('./logger');
 
 module.exports = function () {
 	function KnownAddresses() {
 		this.addresses = {};
 
-		this.inTx = function (tx) {
+		this.inTx = (tx) => {
 			if (tx.senderUsername) {
 				tx.knownSender = { owner: tx.senderUsername };
 			} else {
-				tx.knownSender = self.inAddress(tx.senderId);
+				tx.knownSender = this.inAddress(tx.senderId);
 			}
 			if (tx.senderId === tx.recipientId) {
 				tx.recipientUsername = tx.senderUsername;
@@ -17,45 +16,43 @@ module.exports = function () {
 			if (tx.recipientUsername) {
 				tx.knownRecipient = { owner: tx.recipientUsername };
 			} else {
-				tx.knownRecipient = self.inAddress(tx.recipientId);
+				tx.knownRecipient = this.inAddress(tx.recipientId);
 			}
 			return tx;
 		};
 
-		this.inAccount = function (account) {
+		this.inAccount = (account) => {
 			if (account.username) {
 				return { owner: account.username };
 			}
-			return self.inAddress(account.address);
+			return this.inAddress(account.address);
 		};
 
-		this.inAddress = function (address) {
-			return self.addresses[address] || null;
+		this.inAddress = address => this.addresses[address] || null;
+
+		this.inDelegate = (delegate) => {
+			if (delegate) {
+				return { owner: delegate.username };
+			}
+			return null;
 		};
 
-		this.inDelegate = function (delegate) {
-			return (delegate) ? { owner: delegate.username } : null;
-		};
-
-		this.load = function () {
+		this.load = () => {
 			try {
 				logger.info('KnownAddresses:', 'Loading known addresses...');
-				self.addresses = require('../known.json');
+				this.addresses = require('../known.json');
 			} catch (err) {
 				logger.error('KnownAddresses:', 'Error loading known.json:', err.message);
-				self.addresses = {};
+				this.addresses = {};
 			}
 
-			const length = Object.keys(self.addresses).length.toString();
+			const length = Object.keys(this.addresses).length.toString();
 			logger.info('KnownAddresses:', length, 'known addresses loaded');
-			return self.addresses;
+			return this.addresses;
 		};
 
-		// Private
-
-		var self = this;
-
-		this.load(); // Load on initialization
+		// Load on initialization
+		this.load();
 	}
 
 	return new KnownAddresses();

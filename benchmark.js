@@ -1,17 +1,16 @@
+const Benchmark = require('benchmark');
 
-
-let Benchmark = require('benchmark'),
-	suite = new Benchmark.Suite('api');
-
-let express = require('express'),
-	config = require('./config');
+const express = require('express');
+const config = require('./config');
 
 config.enableExchange = false;
 
-let api = require('./lib/api'),
-	benchmarks = require('./benchmarks'),
-	utils = require('./utils');
+const api = require('./lib/api');
+const benchmarks = require('./benchmarks');
+const utils = require('./utils');
+const logger = require('./utils/logger');
 
+const suite = new Benchmark.Suite('api');
 const app = express();
 app.exchange = new utils.exchange(config);
 app.knownAddresses = new utils.knownAddresses();
@@ -19,8 +18,6 @@ app.knownAddresses.load();
 
 app.set('lisk address', `http://${config.lisk.host}:${config.lisk.port}`);
 app.set('freegeoip address', `http://${config.freegeoip.host}:${config.freegeoip.port}`);
-
-// //////////////////////////////////////////////////////////////////////////////
 
 const tests = new benchmarks(app, api);
 
@@ -51,13 +48,12 @@ suite.add('transactions.getTransaction', tests.transactions.getTransaction, { de
 	.add('transactions.getTransactionsByBlock', tests.transactions.getTransactionsByBlock, { defer: true });
 
 suite.on('cycle', (event) => {
-	console.log(String(event.target));
-})
-	.on('complete', function () {
-		console.log(`Slowest is ${this.filter('slowest').pluck('name')}`);
-		console.log(`Fastest is ${this.filter('fastest').pluck('name')}`);
-		console.log('Done :)');
-	});
+	logger.info(String(event.target));
+}).on('complete', function () {
+	logger.info(`Slowest is ${this.filter('slowest').pluck('name')}`);
+	logger.info(`Fastest is ${this.filter('fastest').pluck('name')}`);
+	logger.info('Done :)');
+});
 
-console.log('Running benchmarks...');
+logger.info('Running benchmarks...');
 suite.run({ async: false });

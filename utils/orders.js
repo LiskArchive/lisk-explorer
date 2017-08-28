@@ -1,11 +1,13 @@
-
-
-let orders = require('../lib/orders'),
-	async = require('async'),
-	logger = require('./logger');
+const orders = require('../lib/orders');
+const async = require('async');
+const logger = require('./logger');
 
 module.exports = function (config, client) {
-	this.updateOrders = function () {
+	const poloniex = new orders.poloniex(client);
+	const bittrex = new orders.bittrex(client);
+	let running = false;
+
+	this.updateOrders = () => {
 		if (running) {
 			logger.error('Orders:', 'Update already in progress');
 			return;
@@ -14,7 +16,7 @@ module.exports = function (config, client) {
 
 
 		async.series([
-			function (callback) {
+			(callback) => {
 				if (!config.marketWatcher.exchanges.poloniex) {
 					callback(null);
 				} else {
@@ -27,7 +29,7 @@ module.exports = function (config, client) {
 					});
 				}
 			},
-			function (callback) {
+			(callback) => {
 				if (!config.marketWatcher.exchanges.bittrex) {
 					callback(null);
 				} else {
@@ -41,7 +43,7 @@ module.exports = function (config, client) {
 				}
 			},
 		],
-		(err, results) => {
+		(err) => {
 			if (err) {
 				logger.error('Orders:', 'Error updating orders:', err);
 			} else {
@@ -51,15 +53,7 @@ module.exports = function (config, client) {
 		});
 	};
 
-	// Interval
-
 	if (config.marketWatcher.enabled) {
 		setInterval(this.updateOrders, config.marketWatcher.orders.updateInterval);
 	}
-
-	// Private
-
-	var poloniex = new orders.poloniex(client),
-		bittrex = new orders.bittrex(client),
-		running = false;
 };
