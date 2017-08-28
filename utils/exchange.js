@@ -1,35 +1,27 @@
-
-
-let async = require('async'),
-	_ = require('underscore');
+const _ = require('underscore');
 
 module.exports = function (config) {
 	this.tickers = {};
+	const api = require('./exchange-api')(config);
 
-	this.loadRates = function () {
+	this.loadRates = () => {
 		if (!config.exchangeRates.enabled) {
 			return false;
 		}
-		api.getPriceTicker((err, result) => {
+
+		return api.getPriceTicker((err, result) => {
 			if (result) {
 				_.each(result.BTC, (ticker, key) => {
 					if (!result.LSK[key]) {
 						result.LSK[key] = result.LSK.BTC * ticker;
 					}
 				});
-				exchange.tickers = result;
+				this.tickers = result;
 			}
 		});
 	};
 
-	// Interval
-
 	if (config.exchangeRates.enabled) {
 		setInterval(this.loadRates, config.exchangeRates.updateInterval);
 	}
-
-	// Private
-
-	var api = require('./exchange-api')(config),
-		exchange = this;
 };
