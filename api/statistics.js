@@ -1,5 +1,3 @@
-
-
 const statistics = require('../lib/api/statistics');
 
 module.exports = function (app) {

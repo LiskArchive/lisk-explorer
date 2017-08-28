@@ -13,7 +13,7 @@
   "scripts": {
     "karma-test": "karma start",
     "test-live": "npm test -- --auto-watch --no-single-run",
-    "eslint": "eslint ./benchmarks ./utils ./libs",
+    "eslint": "eslint ./benchmarks ./utils ./libs ./api",
     "test": "./node_modules/.bin/grunt travis --verbose",
     "e2e-test": "protractor protractor.conf.js",
     "start": "npm run copy-files && webpack -w",
