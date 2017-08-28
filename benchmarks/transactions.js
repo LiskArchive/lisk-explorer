@@ -1,4 +1,4 @@
-
+const logger = require('../utils/logger');
 
 module.exports = function (app, api) {
 	const transactions = new api.transactions(app);
@@ -8,11 +8,11 @@ module.exports = function (app, api) {
 			'6538470051935780976',
 			(data) => {
 				deferred.resolve();
-				console.log('transactions.getTransaction ~>', 'Error retrieving transaction:', data.error);
+				logger.error('transactions.getTransaction ~>', 'Error retrieving transaction:', data.error);
 			},
-			(data) => {
+			() => {
 				deferred.resolve();
-				console.log('transactions.getTransaction ~>', 'transaction retrieved in', String(deferred.elapsed), 'seconds');
+				logger.info('transactions.getTransaction ~>', 'transaction retrieved in', String(deferred.elapsed), 'seconds');
 			},
 		);
 	};
@@ -21,11 +21,11 @@ module.exports = function (app, api) {
 		transactions.getUnconfirmedTransactions(
 			(data) => {
 				deferred.resolve();
-				console.log('transactions.getUnconfirmedTransactions ~>', 'Error retrieving transactions:', data.error);
+				logger.error('transactions.getUnconfirmedTransactions ~>', 'Error retrieving transactions:', data.error);
 			},
 			(data) => {
 				deferred.resolve();
-				console.log('transactions.getUnconfirmedTransactions ~>', data.transactions.length, 'transactions retrieved in', String(deferred.elapsed), 'seconds');
+				logger.info('transactions.getUnconfirmedTransactions ~>', data.transactions.length, 'transactions retrieved in', String(deferred.elapsed), 'seconds');
 			},
 		);
 	};
@@ -34,11 +34,11 @@ module.exports = function (app, api) {
 		transactions.getLastTransactions(
 			(data) => {
 				deferred.resolve();
-				console.log('transactions.getLastTransactions ~>', 'Error retrieving transactions:', data.error);
+				logger.error('transactions.getLastTransactions ~>', 'Error retrieving transactions:', data.error);
 			},
 			(data) => {
 				deferred.resolve();
-				console.log('transactions.getLastTransactions ~>', data.transactions.length, 'transactions retrieved in', String(deferred.elapsed), 'seconds');
+				logger.info('transactions.getLastTransactions ~>', data.transactions.length, 'transactions retrieved in', String(deferred.elapsed), 'seconds');
 			},
 		);
 	};
@@ -50,11 +50,11 @@ module.exports = function (app, api) {
 				limit: 100 },
 			(data) => {
 				deferred.resolve();
-				console.log('transactions.getTransactionsByAddress ~>', 'Error retrieving transactions:', data.error);
+				logger.error('transactions.getTransactionsByAddress ~>', 'Error retrieving transactions:', data.error);
 			},
 			(data) => {
 				deferred.resolve();
-				console.log('transactions.getTransactionsByAddress ~>', data.transactions.length, 'transactions retrieved in', String(deferred.elapsed), 'seconds');
+				logger.info('transactions.getTransactionsByAddress ~>', data.transactions.length, 'transactions retrieved in', String(deferred.elapsed), 'seconds');
 			},
 		);
 	};
@@ -66,11 +66,11 @@ module.exports = function (app, api) {
 				limit: 100 },
 			(data) => {
 				deferred.resolve();
-				console.log('transactions.getTransactionsByBlock ~>', 'Error retrieving transactions:', data.error);
+				logger.error('transactions.getTransactionsByBlock ~>', 'Error retrieving transactions:', data.error);
 			},
 			(data) => {
 				deferred.resolve();
-				console.log('transactions.getTransactionsByBlock ~>', data.transactions.length, 'transactions retrieved in', String(deferred.elapsed), 'seconds');
+				logger.info('transactions.getTransactionsByBlock ~>', data.transactions.length, 'transactions retrieved in', String(deferred.elapsed), 'seconds');
 			},
 		);
 	};
