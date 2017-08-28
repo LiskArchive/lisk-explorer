@@ -1,4 +1,3 @@
-import 'angular';
 import AppMarketWatcher from './market-watcher.module';
 import template from './market-watcher.html';
 import './market-watcher.css';
