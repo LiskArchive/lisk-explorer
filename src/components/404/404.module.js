@@ -1,4 +1,4 @@
-import 'angular';
+import angular from 'angular';
 
 const App404 = angular.module('lisk_explorer.404', []);
 
