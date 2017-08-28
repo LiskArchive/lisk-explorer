@@ -1,20 +1,21 @@
-import AppNetworkMonitor from './network-monitor.module';
-import L from 'leaflet';
+import angular from 'angular';
+import leaflet from 'leaflet';
 import 'leaflet.markercluster';
+import AppNetworkMonitor from './network-monitor.module';
 
 const NetworkMap = function () {
 	this.markers = {};
-	this.options = { center: L.latLng(40, 0), zoom: 1, minZoom: 1, maxZoom: 10 };
-	this.map = L.map('map', this.options);
-	this.cluster = L.markerClusterGroup({ maxClusterRadius: 50 });
+	this.options = { center: leaflet.latLng(40, 0), zoom: 1, minZoom: 1, maxZoom: 10 };
+	this.map = leaflet.map('map', this.options);
+	this.cluster = leaflet.markerClusterGroup({ maxClusterRadius: 50 });
 
-	L.Icon.Default.imagePath = '../../assets/img/leaflet';
+	leaflet.Icon.Default.imagePath = '../../assets/img/leaflet';
 
-	L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+	leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 		attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 	}).addTo(this.map);
 
-	const PlatformIcon = L.Icon.extend({
+	const PlatformIcon = leaflet.Icon.extend({
 		options: {
 			iconSize: [32, 41],
 			iconAnchor: [16, 41],
@@ -22,53 +23,10 @@ const NetworkMap = function () {
 		},
 	});
 
-	const platformIcons = {
-		darwin: new PlatformIcon({ iconUrl: './leaflet/marker-icon-darwin.png' }),
-		linux: new PlatformIcon({ iconUrl: './leaflet/marker-icon-linux.png' }),
-		win: new PlatformIcon({ iconUrl: './leaflet/marker-icon-win.png' }),
-		freebsd: new PlatformIcon({ iconUrl: './leaflet/marker-icon-freebsd.png' }),
-		unknown: new PlatformIcon({ iconUrl: './leaflet/marker-icon-unknown.png' }),
-	};
+	const validLocation = location => location && angular.isNumber(location.latitude) &&
+	angular.isNumber(location.longitude);
 
-	this.addConnected = function (peers) {
-		const connected = [];
-
-		for (const item of peers.connected) {
-			if (!validLocation(item.location)) {
-				continue;
-			}
-
-			if (!Object.keys(this.markers).includes(item.ip)) {
-				this.cluster.addLayer(
-					this.markers[item.ip] = L.marker(
-						[item.location.latitude, item.location.longitude],
-						{ title: item.ipString, icon: platformIcons[item.osBrand.name] },
-					).bindPopup(popupContent(item)),
-				);
-			}
-			connected.push(item.ip);
-		}
-
-		this.removeDisconnected(connected);
-		this.map.addLayer(this.cluster);
-	};
-
-	this.removeDisconnected = function (connected) {
-		for (const ip in this.markers) {
-			if (!connected.includes(ip)) {
-				const m = this.markers[ip];
-
-				this.map.removeLayer(m);
-				this.cluster.removeLayer(m);
-				delete this.markers[ip];
-			}
-		}
-	};
-
-	// Private
-	var validLocation = location => location && angular.isNumber(location.latitude) && angular.isNumber(location.longitude);
-
-	var popupContent = (p) => {
+	const popupContent = (p) => {
 		let content = '<p class="ip">'.concat(p.ip, '</p>');
 
 		if (p.location.hostname) {
@@ -99,6 +57,47 @@ const NetworkMap = function () {
 
 		return content;
 	};
+
+	const platformIcons = {
+		darwin: new PlatformIcon({ iconUrl: './leaflet/marker-icon-darwin.png' }),
+		linux: new PlatformIcon({ iconUrl: './leaflet/marker-icon-linux.png' }),
+		win: new PlatformIcon({ iconUrl: './leaflet/marker-icon-win.png' }),
+		freebsd: new PlatformIcon({ iconUrl: './leaflet/marker-icon-freebsd.png' }),
+		unknown: new PlatformIcon({ iconUrl: './leaflet/marker-icon-unknown.png' }),
+	};
+
+	this.addConnected = function (peers) {
+		const connected = [];
+
+		Object.keys(peers.connected).forEach((item) => {
+			if (validLocation(item.location)) {
+				if (!Object.keys(this.markers).includes(item.ip)) {
+					this.cluster.addLayer(
+						this.markers[item.ip] = leaflet.marker(
+							[item.location.latitude, item.location.longitude],
+							{ title: item.ipString, icon: platformIcons[item.osBrand.name] },
+						).bindPopup(popupContent(item)),
+					);
+				}
+				connected.push(item.ip);
+			}
+		});
+
+		this.removeDisconnected(connected);
+		this.map.addLayer(this.cluster);
+	};
+
+	this.removeDisconnected = function (connected) {
+		Object.keys(this.markers).forEach((ip) => {
+			if (!connected.includes(ip)) {
+				const m = this.markers[ip];
+
+				this.map.removeLayer(m);
+				this.cluster.removeLayer(m);
+				delete this.markers[ip];
+			}
+		});
+	};
 };
 
 const NetworkMonitor = function (vm) {
@@ -110,7 +109,7 @@ const NetworkMonitor = function (vm) {
 
 		this.detect = function (platform) {
 			if (angular.isNumber(platform.group)) {
-				this.counter[parseInt(platform.group)]++;
+				this.counter[parseInt(platform.group, 10)]++;
 			}
 		};
 
@@ -124,7 +123,7 @@ const NetworkMonitor = function (vm) {
 		};
 	}
 
-	const uniq = arrArg => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) == pos);
+	const uniq = arrArg => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
 
 	function Versions(peers) {
 		const inspect = () => {
@@ -150,12 +149,12 @@ const NetworkMonitor = function (vm) {
 					}
 				}
 			}
-			if (detected == null) {
+			if (detected === null) {
 				this.counter[3]++;
 			}
 		};
 
-		this.detected = function (version) {
+		this.detected = function () {
 			return {
 				one: { num: this.versions[0], counter: this.counter[0] },
 				two: { num: this.versions[1], counter: this.counter[1] },
@@ -167,9 +166,6 @@ const NetworkMonitor = function (vm) {
 
 	function Heights(peers) {
 		const inspect = () => {
-			function sortNumber(a, b) {
-				return b - a;
-			}
 			if (angular.isArray(peers)) {
 				return uniq(peers.map(p => p.height)
 					.sort()).reverse().slice(0, 4);
@@ -193,19 +189,21 @@ const NetworkMonitor = function (vm) {
 					}
 				}
 			}
-			if (detected == null) {
+			if (detected === null) {
 				this.counter[4]++;
 			}
 		};
 
-		this.detected = function (height) {
+		this.detected = function () {
 			return {
 				heights: this.heights,
 				counter: this.counter,
 			};
 		};
 
+		console.log('outside', peers);
 		this.calculatePercent = function (peers) {
+			console.log('inside', peers);
 			for (let i = 0; i < this.counter.length; i++) {
 				this.percent[i] = Math.round((this.counter[i] / peers.length) * 100);
 			}
@@ -215,15 +213,17 @@ const NetworkMonitor = function (vm) {
 	}
 
 	this.counter = (peers) => {
-		const platforms = new Platforms(),
-			versions = new Versions(peers.connected),
-			heights = new Heights(peers.connected);
+		const platforms = new Platforms();
+		const versions = new Versions(peers.connected);
+		const heights = new Heights(peers.connected);
 
-		for (const item of peers.connected) {
+		Object.keys(peers.connected).forEach((item) => {
 			platforms.detect(item.osBrand);
 			versions.detect(item.version);
 			heights.detect(item.height);
-		}
+		});
+
+		console.log('passed', peers.connected);
 
 		return {
 			connected: peers.connected.length,
@@ -254,8 +254,8 @@ const NetworkMonitor = function (vm) {
 
 AppNetworkMonitor.factory('networkMonitor',
 	($socket, $rootScope) => (vm) => {
-		const networkMonitor = new NetworkMonitor(vm),
-			ns = $socket('/networkMonitor');
+		const networkMonitor = new NetworkMonitor(vm);
+		const ns = $socket('/networkMonitor');
 
 		ns.on('data', (res) => {
 			if (res.peers) { networkMonitor.updatePeers(res.peers); }
@@ -281,11 +281,11 @@ AppNetworkMonitor.factory('networkMonitor',
 			}
 		});
 
-		$rootScope.$on('$destroy', (event) => {
+		$rootScope.$on('$destroy', () => {
 			ns.removeAllListeners();
 		});
 
-		$rootScope.$on('$locationChangeStart', (event, next, current) => {
+		$rootScope.$on('$locationChangeStart', () => {
 			ns.emit('forceDisconnect');
 		});
 

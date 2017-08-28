@@ -1,4 +1,3 @@
-import 'angular';
 import AppNetworkMonitor from './network-monitor.module';
 import template from './network-monitor.html';
 import './network-monitor.css';
