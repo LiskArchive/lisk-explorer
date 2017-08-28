@@ -51,14 +51,10 @@ module.exports = function (grunt) {
 		},
 		eslint: {
 			target: [
-				'utils**/*.js',
+				'lib/**/*.js',
+				'utils/**/*.js',
+        'benchmarks/**/*.js',
 			],
-			options: {
-				configFile: '.eslintrc',
-				format: 'html',
-				outputFile: 'report.html',
-				fix: true,
-			},
 		},
 	});
 

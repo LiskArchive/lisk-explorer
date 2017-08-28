@@ -21,7 +21,6 @@
     "new-cap": ["error", {
       "newIsCap": false,
       "capIsNew": false,
-      "newIsCapExceptions": ["mnemonic"],
       "capIsNewExceptions" : [
         "When",
         "Then",
@@ -45,6 +44,7 @@
         ]
       }
     ],
-    "no-param-reassign": "off"
+    "no-param-reassign": "off",
+    "camelcase": [ "error", { "properties": "never" }]
   }
 }
