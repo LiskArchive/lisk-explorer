@@ -1,4 +1,3 @@
-import 'angular';
 import AppSearch from './search.module';
 import template from './search.html';
 
