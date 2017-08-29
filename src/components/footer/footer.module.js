@@ -1,4 +1,4 @@
-import 'angular';
+import angular from 'angular';
 
 const FooterApp = angular.module('lisk_explorer.footer', []);
 

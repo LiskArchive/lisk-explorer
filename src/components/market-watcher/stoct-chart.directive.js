@@ -1,5 +1,5 @@
-import AppMarketWatcher from './market-watcher.module';
 import 'amstock3';
+import AppMarketWatcher from './market-watcher.module';
 import '../../../node_modules/amstock3/amcharts/serial';
 import '../../../node_modules/amstock3/amcharts/amstock';
 
@@ -7,7 +7,9 @@ const imagesContext = require.context('!!file-loader?name=amcharts/[name].[ext]!
 imagesContext.keys().forEach(imagesContext);
 
 AppMarketWatcher.directive('stockChart', ($timeout) => {
-	function StockChart(scope, elm, attr) {
+	const { AmCharts } = window;
+
+	function StockChart(scope, elm) {
 		const self = this;
 
 		this.style = {
@@ -199,8 +201,8 @@ AppMarketWatcher.directive('stockChart', ($timeout) => {
 			const newPeriod = (scope.data.newExchange || scope.data.newDuration);
 
 			if (newPeriod) {
-				console.log('Updating period selector...');
-				scope.data.stockChart.categoryAxesSettings.minPeriod = self.dataSets[scope.data.duration].minPeriod;
+				scope.data.stockChart.categoryAxesSettings.minPeriod =
+					self.dataSets[scope.data.duration].minPeriod;
 				scope.data.stockChart.periodSelector.periods = self.dataSets[scope.data.duration].periods;
 				scope.data.stockChart.validateNow();
 			}
@@ -213,7 +215,6 @@ AppMarketWatcher.directive('stockChart', ($timeout) => {
 
 			if (!scope.data.stockChart) {
 				delay = 500;
-				console.log('Initializing stock chart...');
 				scope.data.stockChart = AmCharts.makeChart('stockChart', self.config);
 				scope.data.stockChart.categoryAxesSettings = new AmCharts.CategoryAxesSettings();
 			}
@@ -226,12 +227,10 @@ AppMarketWatcher.directive('stockChart', ($timeout) => {
 				const newPeriod = self.updatePeriod(scope);
 
 				if (scope.data.candles && Object.keys(scope.data.candles).length > 0) {
-					console.log('Stock chart data updated');
 					scope.data.stockChart.dataSets[0].dataProvider = scope.data.candles;
 					scope.data.stockChart.validateData();
 					elm.contents().css('display', 'block');
 				} else {
-					console.log('Stock chart data is empty');
 					scope.data.stockChart.dataSets[0].dataProvider = [];
 					scope.data.stockChart.validateNow();
 					elm.contents().css('display', 'none');
@@ -240,7 +239,6 @@ AppMarketWatcher.directive('stockChart', ($timeout) => {
 
 				if (newPeriod) {
 					scope.data.stockChart.periodSelector.setDefaultPeriod();
-					console.log('Default period set');
 				}
 
 				scope.$emit('$stockChartUpdated');
@@ -252,7 +250,7 @@ AppMarketWatcher.directive('stockChart', ($timeout) => {
 	}
 
 	return {
-		restric: 'E',
+		restrict: 'E',
 		replace: true,
 		template: '<div id="stockChart"></div>',
 		scope: {

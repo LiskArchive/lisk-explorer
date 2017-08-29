@@ -1,6 +1,5 @@
-import AppActivityGraph from './activity-graph.module';
-import sigma from 'sigma';
-// import '../../../node_modules/sigma/plugins/sigma.layout.forceAtlas2.min';
+import Sigma from 'sigma';
+// import 'sigma/plugins/sigma.layout.forceAtlas2.min';
 import '../../../node_modules/sigma/build/plugins/sigma.parsers.gexf.min';
 import '../../../node_modules/sigma/build/plugins/sigma.parsers.json.min';
 import '../../../node_modules/sigma/build/plugins/sigma.plugins.animate.min';
@@ -12,6 +11,8 @@ import '../../../node_modules/sigma/build/plugins/sigma.renderers.customEdgeShap
 import '../../../node_modules/sigma/build/plugins/sigma.renderers.customShapes.min';
 import '../../../node_modules/sigma/build/plugins/sigma.renderers.edgeLabels.min';
 import '../../../node_modules/sigma/build/plugins/sigma.statistics.HITS.min';
+
+import AppActivityGraph from './activity-graph.module';
 
 const ActivityGraph = function () {
 	this.loading = true;
@@ -41,7 +42,7 @@ const ActivityGraph = function () {
 		defaultEdgeType: 'arrow',
 	};
 
-	this.sigma = new sigma({
+	this.sigma = new Sigma({
 		renderer: this.renderer,
 		settings: this.settings,
 	});
@@ -58,7 +59,7 @@ const ActivityGraph = function () {
 			this.sigma.refresh();
 		};
 
-		this.remove = function (event) {
+		this.remove = function () {
 			if (this.node) {
 				this.node.color = this.prevColor;
 				this.prevColor = undefined;
@@ -108,44 +109,39 @@ const ActivityGraph = function () {
 
 	function Statistics(graph) {
 		this.graph = graph;
-		this.volume = this.txs = this.blocks = this.accounts = 0;
+		this.volume = 0;
+		this.txs = 0;
+		this.blocks = 0;
+		this.accounts = 0;
+
+		const txsVolume = arr => arr.reduce((vol, tx) => vol += tx.amount, 0);
+
+		const minTime = arr => Math.min(...arr.map((block) => {
+			if (block.timestamp > 0) {
+				return block.timestamp;
+			}
+			return undefined;
+		}));
+
+		const maxTime = arr => Math.max(...arr.map((block) => {
+			if (block.timestamp > 0) {
+				return block.timestamp;
+			}
+			return undefined;
+		}));
 
 		this.refresh = function () {
 			const txs = this.graph.nodesByType(0);
 			const blocks = this.graph.nodesByType(1);
 			const accounts = this.graph.nodesByType(2);
 
-			// this.txs       = txs.size().value();
 			this.txs = txs.length;
 			this.volume = txsVolume(txs);
-			// this.blocks    = blocks.size().value();
 			this.blocks = blocks.length;
 			this.beginning = minTime(blocks);
 			this.end = maxTime(blocks);
-			// this.accounts  = accounts.size().value();
 			this.accounts = accounts.length;
 		};
-
-		// var txsVolume = chain => chain.reduce((vol, tx) => vol += tx.amount, 0).value();
-		var txsVolume = arr => arr.reduce((vol, tx) => vol += tx.amount, 0);
-
-		// var minTime = chain => chain.min(block => {
-		//     if (block.timestamp > 0) {
-		//         return block.timestamp;
-		//     }
-		// }).value().timestamp;
-		var minTime = arr => Math.min(...arr.map((block) => {
-			if (block.timestamp > 0) return block.timestamp;
-		}));
-
-		// var maxTime = chain => chain.max(block => {
-		//     if (block.timestamp > 0) {
-		//         return block.timestamp;
-		//     }
-		// }).value().timestamp;
-		var maxTime = arr => Math.max(...arr.map((block) => {
-			if (block.timestamp > 0) return block.timestamp;
-		}));
 	}
 
 	this.statistics = new Statistics(this);
@@ -190,7 +186,7 @@ ActivityGraph.prototype.positionNodes = function () {
 		const nodes = this.nodesByType(type);
 		let i;
 		const len = nodes.length;
-		const slice = 2 * Math.PI / len;
+		const slice = (2 * Math.PI) / len;
 
 		for (i = 0; i < len; i++) {
 			const angle = slice * i;
@@ -242,7 +238,7 @@ ActivityGraph.prototype.addAccount = function (id) {
 	});
 };
 
-ActivityGraph.prototype.amount = (tx, sign) => `${sign + tx.amount / Math.pow(10, 8)} LSK`;
+ActivityGraph.prototype.amount = (tx, sign) => `${sign + (tx.amount / Math.pow(10, 8))} LSK`;
 
 ActivityGraph.prototype.addTxSender = function (tx) {
 	this.addAccount(tx.senderId);
@@ -324,24 +320,20 @@ AppActivityGraph.factory('activityGraph',
 		vm.statistics = activityGraph.statistics;
 
 		activityGraph.sigma.bind('clickNode', (event) => {
-			// $rootScope.$apply(function () {
 			activityGraph.nodeSelect.add(event);
-			// });
 		});
 
 		activityGraph.sigma.bind('clickStage doubleClickStage', (event) => {
-			// $rootScope.$apply(function () {
 			activityGraph.nodeSelect.remove(event);
-			// });
 		});
 
 		ns.on('data', (res) => { activityGraph.refresh(res.block); });
 
-		$rootScope.$on('$destroy', (event) => {
+		$rootScope.$on('$destroy', () => {
 			ns.removeAllListeners();
 		});
 
-		$rootScope.$on('$stateChangeStart', (event, next, current) => {
+		$rootScope.$on('$stateChangeStart', () => {
 			ns.emit('forceDisconnect');
 		});
 

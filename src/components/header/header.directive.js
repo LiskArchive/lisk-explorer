@@ -25,7 +25,7 @@ AppHeader.directive('mainHeader', ($socket, $rootScope, Header) => {
 		});
 
 
-		$rootScope.$on('$destroy', (event) => {
+		$rootScope.$on('$destroy', () => {
 			ns.removeAllListeners();
 		});
 	};

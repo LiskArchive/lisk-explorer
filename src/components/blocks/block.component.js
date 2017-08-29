@@ -1,4 +1,3 @@
-import 'angular';
 import AppBlocks from './blocks.module';
 import template from './block.html';
 
@@ -33,9 +32,9 @@ const BlockConstructor = function ($rootScope, $stateParams, $location, $http, b
 			if (resp.data.success) {
 				vm.block = resp.data.block;
 			} else {
-				throw 'Block was not found!';
+				throw new Error('Block was not found!');
 			}
-		}).catch((error) => {
+		}).catch(() => {
 			$location.path('/');
 		});
 	};

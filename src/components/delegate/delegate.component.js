@@ -1,8 +1,8 @@
-import 'angular';
 import AppDelegate from './delegate.module';
 import template from './delegate.html';
 
-const DelegateConstructor = function ($rootScope, $stateParams, $location, $http, addressTxs, $state) {
+const DelegateConstructor = function ($rootScope, $stateParams,
+	$location, $http, addressTxs, $state) {
 	const vm = this;
 	$rootScope.breadCrumb = { address: $stateParams.delegateId };
 	vm.getAddress = () => {
@@ -20,7 +20,7 @@ const DelegateConstructor = function ($rootScope, $stateParams, $location, $http
 			} else {
 				$state.go('home');
 			}
-		}).catch((error) => {
+		}).catch(() => {
 			$location.path('/');
 		});
 	};

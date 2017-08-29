@@ -1,5 +1,4 @@
-
-import 'angular';
+import angular from 'angular';
 
 const AppDelegate = angular.module('lisk_explorer.delegate', []);
 

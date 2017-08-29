@@ -1,4 +1,3 @@
-import 'angular';
 import AppTransactions from './transactions.module';
 import template from './transactions.html';
 
@@ -13,9 +12,9 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $location, $
 			if (resp.data.success) {
 				vm.tx = resp.data.transaction;
 			} else {
-				throw 'Transaction was not found!';
+				throw new Error('Transaction was not found!');
 			}
-		}).catch((error) => {
+		}).catch(() => {
 			$location.path('/');
 		});
 	};

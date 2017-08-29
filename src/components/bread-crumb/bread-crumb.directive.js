@@ -1,26 +1,26 @@
+import angular from 'angular';
 import AppBreadCrumb from './bread-crumb.module';
 import template from './bread-crumb.html';
 
 AppBreadCrumb.directive('breadCrumb', ($state, $transitions) => {
 	const BreadCrumbCtrl = function () {
 		/**
-         * Initiates the hierarchy array of sections
-         */
+		 * Initiates the hierarchy array of sections
+		 */
 		this.setSections = (next, states, breadCrumbValues) => {
 			const sections = [];
 			let section = next;
 
 			while (section.parentDir !== section.name) {
-				for (const item of states) {
+				states.forEach((item) => {
 					if (item.name === section.parentDir) {
 						sections.unshift({
 							name: item.name,
 							url: this.setPathParams(item.url, breadCrumbValues),
 						});
 						section = item;
-						break;
 					}
-				}
+				});
 			}
 			sections.push({
 				name: next.name,
@@ -31,22 +31,24 @@ AppBreadCrumb.directive('breadCrumb', ($state, $transitions) => {
 		};
 
 		/**
-         * Replaces any :param in path string with their corresponding values from given set of breadCrumb values.
-         * Use this method to set values either when initiating the component/controller of the state
-         * or inside any sync function's callback.
-         */
+		 * Replaces any :param in path string with their corresponding values
+		 * from given set of breadCrumb values.
+		 * Use this method to set values either when initiating
+		 * the component/controller of the state
+		 * or inside any sync function's callback.
+		 */
 		this.setPathParams = (path, breadCrumbValues) => {
-			const paramsReg = /(?:\/\:([^\/]+)?)/g;
+			const paramsReg = /(?:\/:([^/]+)?)/g;
 			const params = path.match(paramsReg);
 			let paramName = '';
 			let paramValue = '';
 
 			if (params) {
-				for (const item of params) {
-					paramName = item.replace(/(^\/\:)|(\?)/g, '');
+				params.forEach((item) => {
+					paramName = item.replace(/(^\/:)|(\?)/g, '');
 					paramValue = paramName && breadCrumbValues && breadCrumbValues[paramName] ? breadCrumbValues[paramName] : '';
 					path = path.replace(item, `/${paramValue}`);
-				}
+				});
 			}
 
 			return path;
@@ -59,7 +61,7 @@ AppBreadCrumb.directive('breadCrumb', ($state, $transitions) => {
 			if (!scope.breadCrumb) {
 				scope.breadCrumb = {};
 			}
-			if (values.constructor.name != 'Transition') {
+			if (values.constructor.name !== 'Transition') {
 				angular.merge(scope.breadCrumb, values);
 			}
 			scope.breadCrumb.set = init;

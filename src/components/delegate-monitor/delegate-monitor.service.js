@@ -1,6 +1,47 @@
 import AppDelegateMonitor from './delegate-monitor.module';
 
 const DelegateMonitor = function ($scope, $rootScope, forgingMonitor) {
+	const bestForger = (delegates) => {
+		let delegate;
+		if (delegates.length > 0) {
+			delegate = delegates.reduce((d1, d2) =>
+				(parseInt(d1.forged, 10) > parseInt(d2.forged, 10) ? d1 : d2));
+		}
+		return delegate;
+	};
+
+	const totalForged = delegates => delegates
+		.map(d => parseInt(d.forged, 10))
+		.reduce((memo, num) => parseInt(memo, 10) + parseInt(num, 10), 0);
+
+	const bestProductivity = (delegates) => {
+		let delegate;
+		if (delegates.length > 0) {
+			delegate = delegates.reduce((d1, d2) => ((d1.productivity > d2.productivity) ? d1 : d2));
+		}
+		return delegate;
+	};
+
+	const worstProductivity = (delegates) => {
+		let delegate;
+		if (delegates.length > 0) {
+			delegate = delegates.reduce((d1, d2) => ((d1.productivity < d2.productivity) ? d1 : d2));
+		}
+		return delegate;
+	};
+
+	const updateForgingTotals = (delegates) => {
+		$scope.forgingTotals = forgingMonitor.getForgingTotals(delegates);
+	};
+
+	const updateForgingProgress = (totals) => {
+		totals.processed = forgingMonitor.getForgingProgress(totals);
+
+		if (totals.processed > 0) {
+			$scope.forgingProgress = true;
+		}
+	};
+
 	this.updateActive = (active) => {
 		active.delegates.forEach((d) => {
 			d.forgingStatus = forgingMonitor.getStatus(d);
@@ -69,41 +110,6 @@ const DelegateMonitor = function ($scope, $rootScope, forgingMonitor) {
 		updateForgingTotals($scope.activeDelegates);
 		updateForgingProgress($scope.forgingTotals);
 	};
-
-	// Private
-	var bestForger = (delegates) => {
-		if (delegates.length > 0) {
-			return delegates.reduce((d1, d2) => (parseInt(d1.forged) > parseInt(d2.forged) ? d1 : d2));
-		}
-	};
-
-	var totalForged = delegates => delegates
-		.map(d => parseInt(d.forged))
-		.reduce((memo, num) => parseInt(memo) + parseInt(num), 0);
-
-	var bestProductivity = (delegates) => {
-		if (delegates.length > 0) {
-			return delegates.reduce((d1, d2) => ((d1.productivity > d2.productivity) ? d1 : d2));
-		}
-	};
-
-	var worstProductivity = (delegates) => {
-		if (delegates.length > 0) {
-			return delegates.reduce((d1, d2) => ((d1.productivity < d2.productivity) ? d1 : d2));
-		}
-	};
-
-	var updateForgingTotals = (delegates) => {
-		$scope.forgingTotals = forgingMonitor.getforgingTotals(delegates);
-	};
-
-	var updateForgingProgress = (totals) => {
-		totals.processed = forgingMonitor.getForgingProgress(totals);
-
-		if (totals.processed > 0) {
-			$scope.forgingProgress = true;
-		}
-	};
 };
 
 AppDelegateMonitor.factory('delegateMonitor',
@@ -129,11 +135,11 @@ AppDelegateMonitor.factory('delegateMonitor',
 			}
 		});
 
-		$rootScope.$on('$destroy', (event) => {
+		$rootScope.$on('$destroy', () => {
 			ns.removeAllListeners();
 		});
 
-		$rootScope.$on('$stateChangeStart', (event, next, current) => {
+		$rootScope.$on('$stateChangeStart', () => {
 			ns.emit('forceDisconnect');
 		});
 

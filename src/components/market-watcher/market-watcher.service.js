@@ -1,53 +1,37 @@
+import angular from 'angular';
 import AppMarketWatcher from './market-watcher.module';
 
 const MarketWatcher = function ($q, $http, $rootScope, vm) {
-	const self = this;
 	let interval;
-
-	vm.setTab = (tab) => {
-		vm.oldTab = vm.tab;
-		vm.tab = tab;
-
-		if (!vm.oldTab) { return; }
-		console.log('Switched tab from', vm.oldTab, 'to', vm.tab);
-
-		switch (tab) {
-		case 'stockChart':
-			if (vm.oldTab !== 'stockChart') {
-				$rootScope.$broadcast('$candlesUpdated');
-			}
-			break;
-		case 'depthChart':
-			if (vm.oldTab !== 'depthChart') {
-				$rootScope.$broadcast('$ordersUpdated');
-			}
-			break;
-		}
-	};
-
-	vm.setExchange = (exchange, duration) => {
-		vm.oldExchange = vm.exchange;
-		vm.exchange = (exchange || vm.exchange || vm.exchanges[0]);
-		vm.newExchange = (vm.exchange !== vm.oldExchange);
-		if (vm.newExchange) {
-			console.log('Changed exchange from:', vm.oldExchange, 'to:', vm.exchange);
-		}
-		return vm.setDuration(duration);
-	};
-
-	vm.setDuration = (duration) => {
-		vm.oldDuration = vm.duration;
-		vm.duration = (duration || vm.duration || 'hour');
-		vm.newDuration = (vm.duration !== vm.oldDuration);
-		if (vm.newDuration) {
-			console.log('Changed duration from:', vm.oldDuration, 'to:', vm.duration);
-		}
-		return getData();
-	};
 
 	const updateAll = () => vm.newExchange || (!vm.newExchange && !vm.newDuration);
 
-	var getData = () => {
+	const getCandles = () => {
+		console.log('Retrieving candles...');
+		return $http.get(['/api/exchanges/getCandles',
+			'?e=', angular.lowercase(vm.exchange),
+			'&d=', vm.duration].join(''));
+	};
+
+	const getStatistics = () => {
+		if (!updateAll()) {
+			return false;
+		}
+		console.log('Retrieving statistics...');
+		return $http.get(['/api/exchanges/getStatistics',
+			'?e=', angular.lowercase(vm.exchange)].join(''));
+	};
+
+	const getOrders = () => {
+		if (!updateAll()) {
+			return false;
+		}
+		console.log('Retrieving orders...');
+		return $http.get(['/api/exchanges/getOrders',
+			'?e=', angular.lowercase(vm.exchange)].join(''));
+	};
+
+	const getData = () => {
 		console.log('New exchange:', vm.newExchange);
 		console.log('New duration:', vm.newDuration);
 		console.log('Updating all:', updateAll());
@@ -76,11 +60,12 @@ const MarketWatcher = function ($q, $http, $rootScope, vm) {
 		$http.get('/api/exchanges').then((result) => {
 			if (result.data.success) {
 				vm.exchangeLogos = {};
-				vm.exchanges = Object.keys(result.data.exchanges).filter((key, idx) => {
+				vm.exchanges = Object.keys(result.data.exchanges).filter((key) => {
 					System.import(`../../assets/img/exchanges/${key}.png`).then((value) => {
 						vm.exchangeLogos[key] = value;
 					});
 					if (result.data.exchanges[key]) return key;
+					return false;
 				});
 
 				if (vm.exchanges.length > 0) {
@@ -95,52 +80,63 @@ const MarketWatcher = function ($q, $http, $rootScope, vm) {
 		});
 	};
 
-	var getCandles = () => {
-		console.log('Retrieving candles...');
-		return $http.get(['/api/exchanges/getCandles',
-			'?e=', angular.lowercase(vm.exchange),
-			'&d=', vm.duration].join(''));
+	vm.setTab = (tab) => {
+		vm.oldTab = vm.tab;
+		vm.tab = tab;
+
+		if (!vm.oldTab) { return; }
+		console.log('Switched tab from', vm.oldTab, 'to', vm.tab);
+
+		if (tab === 'stockChart' && vm.oldTab !== 'stockChart') {
+			$rootScope.$broadcast('$candlesUpdated');
+		} else if (tab === 'depthChart' && vm.oldTab !== 'depthChart') {
+			$rootScope.$broadcast('$ordersUpdated');
+		}
 	};
 
-	var getStatistics = () => {
-		if (!updateAll()) { return; }
-		console.log('Retrieving statistics...');
-		return $http.get(['/api/exchanges/getStatistics',
-			'?e=', angular.lowercase(vm.exchange)].join(''));
+	vm.setExchange = (exchange, duration) => {
+		vm.oldExchange = vm.exchange;
+		vm.exchange = (exchange || vm.exchange || vm.exchanges[0]);
+		vm.newExchange = (vm.exchange !== vm.oldExchange);
+		if (vm.newExchange) {
+			console.log('Changed exchange from:', vm.oldExchange, 'to:', vm.exchange);
+		}
+		return vm.setDuration(duration);
 	};
 
-	var getOrders = () => {
-		if (!updateAll()) { return; }
-		console.log('Retrieving orders...');
-		return $http.get(['/api/exchanges/getOrders',
-			'?e=', angular.lowercase(vm.exchange)].join(''));
+	vm.setDuration = (duration) => {
+		vm.oldDuration = vm.duration;
+		vm.duration = (duration || vm.duration || 'hour');
+		vm.newDuration = (vm.duration !== vm.oldDuration);
+		if (vm.newDuration) {
+			console.log('Changed duration from:', vm.oldDuration, 'to:', vm.duration);
+		}
+		return getData();
 	};
 
 	getExchanges();
 	vm.isCollapsed = false;
 
-	$rootScope.$on('$locationChangeStart', (event, next, current) => {
+	$rootScope.$on('$locationChangeStart', () => {
 		clearInterval(interval);
 	});
 
-	$rootScope.$on('$stockChartUpdated', (event, next, current) => {
-		vm.newExchange = vm.newDuration = false;
+	$rootScope.$on('$stockChartUpdated', () => {
+		vm.newExchange = false;
+		vm.newDuration = false;
 	});
 };
 
 AppMarketWatcher.factory('marketWatcher',
 	($q, $http, $socket, $rootScope) => (vm) => {
-		const marketWatcher = new MarketWatcher($q, $http, $rootScope, vm),
-			ns = $socket('/marketWatcher');
+		const marketWatcher = new MarketWatcher($q, $http, $rootScope, vm);
+		const ns = $socket('/marketWatcher');
 
-		ns.on('data', (res) => {
-		});
-
-		$rootScope.$on('$destroy', (event) => {
+		$rootScope.$on('$destroy', () => {
 			ns.removeAllListeners();
 		});
 
-		$rootScope.$on('$stateChangeStart', (event, next, current) => {
+		$rootScope.$on('$stateChangeStart', () => {
 			ns.emit('forceDisconnect');
 		});
 

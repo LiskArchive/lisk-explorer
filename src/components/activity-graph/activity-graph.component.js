@@ -1,4 +1,3 @@
-import 'angular';
 import AppActivityGraph from './activity-graph.module';
 import template from './activity-graph.html';
 import './activity-graph.css';
