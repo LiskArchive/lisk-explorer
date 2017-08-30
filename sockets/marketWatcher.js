@@ -1,13 +1,16 @@
-
-
 const api = require('../lib/api');
-const logger = require('../utils/logger');
+// const logger = require('../utils/logger');
 
 module.exports = function (app, connectionHandler, socket) {
-	let candles = new api.candles(app),
-		connection = new connectionHandler('Market Watcher:', socket, this),
-		interval = null,
-		data = {};
+	const holder = {};
+	holder.candles = new api.candles(app);
+	holder.connection = new connectionHandler('Market Watcher:', socket, this);
+	// let interval = null;
+	// let data = {};
+
+	// const log = function (level, msg) {
+	// 	logger[level]('Market Watcher:', msg);
+	// };
 
 	this.onInit = function () {
 	};
@@ -16,12 +19,6 @@ module.exports = function (app, connectionHandler, socket) {
 	};
 
 	this.onDisconnect = function () {
-	};
-
-	// Private
-
-	const log = function (level, msg) {
-		logger[level]('Market Watcher:', msg);
 	};
 };
 

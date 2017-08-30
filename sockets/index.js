@@ -1,5 +1,3 @@
-
-
 const logger = require('../utils/logger');
 
 module.exports = function (app, io) {
@@ -11,15 +9,20 @@ module.exports = function (app, io) {
 		networkMonitor: io.of('/networkMonitor'),
 	};
 
-	let header = require('./header'),
-		activityGraph = require('./activityGraph'),
-		delegateMonitor = require('./delegateMonitor'),
-		marketWatcher = require('./marketWatcher'),
-		networkMonitor = require('./networkMonitor');
+	const header = require('./header');
+	const activityGraph = require('./activityGraph');
+	const delegateMonitor = require('./delegateMonitor');
+	const marketWatcher = require('./marketWatcher');
+	const networkMonitor = require('./networkMonitor');
 
-	const connectionHandler = function (name, ns, object) {
-		ns.on('connection', (socket) => {
-			if (clients() <= 1) {
+	const clients = _ns => Object.keys(_ns.connected).length;
+
+	/**
+	 * @todo Which ns variable?
+	 */
+	const connectionHandler = function (name, _ns, object) {
+		_ns.on('connection', (socket) => {
+			if (clients(_ns) <= 1) {
 				object.onInit();
 				logger.info(name, 'First connection');
 			} else {
@@ -27,7 +30,7 @@ module.exports = function (app, io) {
 				logger.info(name, 'New connection');
 			}
 			socket.on('disconnect', () => {
-				if (clients() <= 0) {
+				if (clients(_ns) <= 0) {
 					object.onDisconnect();
 					logger.info(name, 'Closed connection');
 				}
@@ -36,18 +39,19 @@ module.exports = function (app, io) {
 				socket.disconnect();
 			});
 		});
-
-		// Private
-
-		var clients = function () {
-			return Object.keys(ns.connected).length;
-		};
 	};
 
-	new header(app, connectionHandler, ns.header);
-	new activityGraph(app, connectionHandler, ns.activityGraph);
-	new delegateMonitor(app, connectionHandler, ns.delegateMonitor);
-	new marketWatcher(app, connectionHandler, ns.marketWatcher);
-	new networkMonitor(app, connectionHandler, ns.networkMonitor);
+	/**
+	 * @todo I've used this object to eliminate no-new error
+	 * Creating an instance of a constructor while not storing the results
+	 * is a clear sign of side effects.
+	 */
+	const sideEffects = {};
+
+	sideEffects.header = new header(app, connectionHandler, ns.header);
+	sideEffects.activityGraph = new activityGraph(app, connectionHandler, ns.activityGraph);
+	sideEffects.delegateMonitor = new delegateMonitor(app, connectionHandler, ns.delegateMonitor);
+	sideEffects.marketWatcher = new marketWatcher(app, connectionHandler, ns.marketWatcher);
+	sideEffects.networkMonitor = new networkMonitor(app, connectionHandler, ns.networkMonitor);
 };
 
