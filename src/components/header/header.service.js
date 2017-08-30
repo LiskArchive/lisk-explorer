@@ -42,4 +42,5 @@ const HeaderConstructor = function ($rootScope) {
 	return this;
 };
 
+// eslint-disable-next-line no-unused-vars
 AppHeader.factory('Header', $rootScope => HeaderConstructor);

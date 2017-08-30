@@ -201,11 +201,9 @@ const NetworkMonitor = function (vm) {
 			};
 		};
 
-		console.log('outside', peers);
-		this.calculatePercent = function (peers) {
-			console.log('inside', peers);
+		this.calculatePercent = function (connectedPeers) {
 			for (let i = 0; i < this.counter.length; i++) {
-				this.percent[i] = Math.round((this.counter[i] / peers.length) * 100);
+				this.percent[i] = Math.round((this.counter[i] / connectedPeers.length) * 100);
 			}
 
 			return this.percent;
@@ -222,8 +220,6 @@ const NetworkMonitor = function (vm) {
 			versions.detect(item.version);
 			heights.detect(item.height);
 		});
-
-		console.log('passed', peers.connected);
 
 		return {
 			connected: peers.connected.length,
