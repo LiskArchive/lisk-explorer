@@ -1,5 +1,3 @@
-/* jslint mocha:true, expr:true */
-
 const node = require('./../node.js');
 
 describe('Exchanges API (Market Watcher)', () => {
@@ -55,8 +53,8 @@ describe('Exchanges API (Market Watcher)', () => {
 	function checkValues(id) {
 		for (let i = 0; i < id.length; i++) {
 			if (id[i + 1]) {
-				node.expect(id[i][0]).to.be.a.number;
-				node.expect(id[i][1]).to.be.a.number;
+				node.expect(typeof id[i][0]).to.be.equal('number');
+				node.expect(typeof id[i][1]).to.be.equal('number');
 			}
 		}
 	}
@@ -65,10 +63,10 @@ describe('Exchanges API (Market Watcher)', () => {
 	describe('GET /api/exchanges', () => {
 		it('should be ok', (done) => {
 			getExchanges((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
-				node.expect(res.body).to.have.property('enabled').to.be.ok;
-				node.expect(res.body).to.have.deep.property('exchanges.poloniex').to.be.ok;
-				node.expect(res.body).to.have.deep.property('exchanges.bittrex').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('enabled').to.be.equal(true);
+				node.expect(res.body).to.have.deep.property('exchanges.poloniex').to.be.equal(true);
+				node.expect(res.body).to.have.deep.property('exchanges.bittrex').to.be.equal(true);
 				done();
 			});
 		});
@@ -77,7 +75,7 @@ describe('Exchanges API (Market Watcher)', () => {
 	describe('GET /api/exchanges/getCandles', () => {
 		it('using no inputs should fail', (done) => {
 			getCandles('', '', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});
@@ -85,7 +83,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using bittrex should be ok', (done) => {
 			getCandles('bittrex', '', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('exchange').to.be.equal('bittrex');
 				checkCandles(res.body.candles);
 				done();
@@ -94,7 +92,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using poloniex should be ok', (done) => {
 			getCandles('poloniex', '', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('exchange').to.be.equal('poloniex');
 				checkCandles(res.body.candles);
 				done();
@@ -103,7 +101,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using unknown_exchange should not be ok', (done) => {
 			getCandles('unknown_exchange', '', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});
@@ -111,7 +109,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using minute for bittrex should be ok and return timeframe minute', (done) => {
 			getCandles('bittrex', 'minute', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('timeframe').to.be.equal('minute');
 				node.expect(res.body).to.have.property('exchange').to.be.equal('bittrex');
 				checkCandles(res.body.candles);
@@ -121,7 +119,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using hour for bittrex should be ok and return timeframe hour', (done) => {
 			getCandles('bittrex', 'hour', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('timeframe').to.be.equal('hour');
 				node.expect(res.body).to.have.property('exchange').to.be.equal('bittrex');
 				checkCandles(res.body.candles);
@@ -131,7 +129,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using day for bittrex should be ok and return timeframe day', (done) => {
 			getCandles('bittrex', 'day', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('timeframe').to.be.equal('day');
 				node.expect(res.body).to.have.property('exchange').to.be.equal('bittrex');
 				checkCandles(res.body.candles);
@@ -141,7 +139,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using minute for poloniex should be ok and return timeframe minute', (done) => {
 			getCandles('poloniex', 'minute', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('timeframe').to.be.equal('minute');
 				node.expect(res.body).to.have.property('exchange').to.be.equal('poloniex');
 				checkCandles(res.body.candles);
@@ -151,7 +149,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using hour for poloniex should be ok and return timeframe hour', (done) => {
 			getCandles('poloniex', 'hour', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('timeframe').to.be.equal('hour');
 				node.expect(res.body).to.have.property('exchange').to.be.equal('poloniex');
 				checkCandles(res.body.candles);
@@ -161,7 +159,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using day for poloniex should be ok and return timeframe day', (done) => {
 			getCandles('poloniex', 'day', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('timeframe').to.be.equal('day');
 				node.expect(res.body).to.have.property('exchange').to.be.equal('poloniex');
 				checkCandles(res.body.candles);
@@ -173,7 +171,7 @@ describe('Exchanges API (Market Watcher)', () => {
 	describe('GET /api/exchanges/getOrders', () => {
 		it('using bittrex should be ok', (done) => {
 			getOrders('bittrex', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('orders');
 				checkOrders(res.body.orders.depth);
 				checkValues(res.body.orders.asks);
@@ -184,7 +182,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using poloniex should be ok', (done) => {
 			getOrders('poloniex', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('orders');
 				checkOrders(res.body.orders.depth);
 				checkValues(res.body.orders.asks);
@@ -195,7 +193,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using no input should fail', (done) => {
 			getOrders('', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});
@@ -203,7 +201,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using unknown_exchange should fail', (done) => {
 			getOrders('unknown_exchange', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});
@@ -213,7 +211,7 @@ describe('Exchanges API (Market Watcher)', () => {
 	describe('GET /api/exchanges/getStatistics', () => {
 		it('using no input should fail', (done) => {
 			getStatistics('', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});
@@ -221,7 +219,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using bittrex should be ok', (done) => {
 			getStatistics('bittrex', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('exchange').to.be.equal('bittrex');
 				done();
 			});
@@ -229,7 +227,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using poloniex should be ok', (done) => {
 			getStatistics('poloniex', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('exchange').to.be.equal('poloniex');
 				done();
 			});
@@ -237,7 +235,7 @@ describe('Exchanges API (Market Watcher)', () => {
 
 		it('using unknown_exchange should not be ok', (done) => {
 			getStatistics('unknown_exchange', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});

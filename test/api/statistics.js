@@ -1,6 +1,3 @@
-/* jslint mocha:true, expr:true */
-
-
 const node = require('./../node.js');
 
 describe('Statistics API', () => {
@@ -29,7 +26,7 @@ describe('Statistics API', () => {
 					'broadhash',
 					'height',
 					'osBrand',
-					'humanState'); // 'location' doesnt always get populated so we have removed it from the check
+					'humanState'); // 'location' doesn't always get populated so we have removed it from the check
 			}
 		}
 	}
@@ -58,7 +55,7 @@ describe('Statistics API', () => {
 	describe('GET /api/statistics/getLastBlock', () => {
 		it('should be ok', (done) => {
 			getLastBlock((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('block');
 				checkBlock(res.body.block);
 				done();
@@ -69,7 +66,7 @@ describe('Statistics API', () => {
 	describe('GET /api/statistics/getBlocks', () => {
 		it('should be ok', (done) => {
 			getBlocks((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('volume');
 				node.expect(res.body.volume).to.have.property('end');
 				node.expect(res.body.volume).to.have.property('beginning');
@@ -88,7 +85,7 @@ describe('Statistics API', () => {
 	describe('GET /api/statistics/getPeers', () => {
 		it('should be ok', (done) => {
 			getPeers((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('list');
 				checkPeersList(res.body.list.connected);
 				checkPeersList(res.body.list.disconnected);

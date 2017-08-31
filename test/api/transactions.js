@@ -1,6 +1,3 @@
-/* jslint mocha:true, expr:true */
-
-
 const node = require('./../node.js');
 
 const params = {
@@ -64,7 +61,7 @@ describe('Transactions API', () => {
 	describe('GET /api/getTransaction', () => {
 		it('should be ok with Genesis transaction', (done) => {
 			getTransaction(params.transactionId, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transaction');
 				node.expect(res.body.transaction).to.contain.all.keys(
 					'recipientId',
@@ -90,7 +87,7 @@ describe('Transactions API', () => {
 
 		it('should be not ok with no transaction', (done) => {
 			getTransaction('', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});
@@ -101,7 +98,7 @@ describe('Transactions API', () => {
 	describe('GET /api/getUnconfirmedTransactions', () => {
 		it.skip('should be ok', (done) => {
 			getUnconfirmedTransactions((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				done();
 			});
 		});
@@ -110,7 +107,7 @@ describe('Transactions API', () => {
 	describe('GET /api/getLastTransactions', () => {
 		it('should be ok', (done) => {
 			getLastTransactions((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				checkTransactionsBody(res.body.transactions);
 				done();
@@ -121,7 +118,7 @@ describe('Transactions API', () => {
 	describe('GET /api/getTransactionsByAddress', () => {
 		it('using known address should be ok', (done) => {
 			getTransactionsByAddress(params.address, '0', params.limit, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				checkTransactionsBody(res.body.transactions);
 				done();
@@ -130,7 +127,7 @@ describe('Transactions API', () => {
 
 		it('using known address and offset of 20 should be ok', (done) => {
 			getTransactionsByAddress(params.address, params.offset, params.limit, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				checkTransactionsBody(res.body.transactions);
 				done();
@@ -139,7 +136,7 @@ describe('Transactions API', () => {
 
 		it('using invalid address should fail', (done) => {
 			getTransactionsByAddress('', '0', params.limit, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});
@@ -149,7 +146,7 @@ describe('Transactions API', () => {
 	describe('GET /api/getTransactionsByBlock', () => {
 		it('using known block should be ok', (done) => {
 			getTransactionsByBlock(params.blockId, '0', params.limit, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				checkTransactionsBody(res.body.transactions);
 				done();
@@ -158,7 +155,7 @@ describe('Transactions API', () => {
 
 		it('using known block and offset of 20 should be ok', (done) => {
 			getTransactionsByBlock(params.blockId, params.offset, params.limit, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions');
 				checkTransactionsBody(res.body.transactions);
 				done();
@@ -167,7 +164,7 @@ describe('Transactions API', () => {
 
 		it('using invalid block should fail', (done) => {
 			getTransactionsByBlock('', '0', params.limit, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});

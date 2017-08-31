@@ -1,5 +1,3 @@
-/* jslint mocha:true, expr:true */
-
 const node = require('./../node.js');
 
 const params = {
@@ -14,48 +12,39 @@ const params = {
 
 describe('Delegates API', () => {
 	/* Define functions for use within tests */
-	function getActive(done) {
+	const getActive = (done) => {
 		node.get('/api/delegates/getActive', done);
-	}
+	};
 
-	function getStandby(id, done) {
+	const getStandby = (id, done) => {
 		node.get(`/api/delegates/getStandby?n=${id}`, done);
-	}
+	};
 
-	function getLatestRegistrations(done) {
+	const getLatestRegistrations = (done) => {
 		node.get('/api/delegates/getLatestRegistrations', done);
-	}
+	};
 
-	function getLastBlock(done) {
+	const getLastBlock = (done) => {
 		node.get('/api/delegates/getLastBlock', done);
-	}
+	};
 
-	function getLastBlocks(id1, id2, done) {
+	const getLastBlocks = (id1, id2, done) => {
 		node.get(`/api/delegates/getLastBlocks?publicKey=${id1}&limit=${id2}`, done);
-	}
+	};
 
-	function getSearch(id, done) {
+	const getSearch = (id, done) => {
 		node.get(`/api/getSearch?q=${id}`, done);
-	}
+	};
 
-	function getNextForgers(done) {
+	const getNextForgers = (done) => {
 		node.get('/api/delegates/getNextForgers', done);
-	}
+	};
 
-	function getDelegateProposals(done) {
+	const getDelegateProposals = (done) => {
 		node.get('/api/delegates/getDelegateProposals', done);
-	}
+	};
 
-	/* Testing functions */
-	function checkBlocks(id) {
-		for (let i = 0; i < id.length; i++) {
-			if (id[i + 1]) {
-				checkBlock(id[i]);
-			}
-		}
-	}
-
-	function checkBlock(id) {
+	const checkBlock = (id) => {
 		node.expect(id).to.contain.all.keys(
 			'totalForged',
 			'confirmations',
@@ -73,17 +62,18 @@ describe('Delegates API', () => {
 			'numberOfTransactions',
 			'totalAmount',
 			'totalFee');
-	}
+	};
 
-	function checkDelegates(id) {
+	/* Testing functions */
+	const checkBlocks = (id) => {
 		for (let i = 0; i < id.length; i++) {
 			if (id[i + 1]) {
-				checkDelegate(id[i]);
+				checkBlock(id[i]);
 			}
 		}
-	}
+	};
 
-	function checkDelegate(id) {
+	const checkDelegate = (id) => {
 		node.expect(id).to.contain.all.keys(
 			'productivity',
 			'username',
@@ -94,9 +84,17 @@ describe('Delegates API', () => {
 			'missedblocks',
 			'rate',
 			'approval');
-	}
+	};
 
-	function checkDelegateProposals(id) {
+	const checkDelegates = (id) => {
+		for (let i = 0; i < id.length; i++) {
+			if (id[i + 1]) {
+				checkDelegate(id[i]);
+			}
+		}
+	};
+
+	const checkDelegateProposals = (id) => {
 		for (let i = 0; i < id.length; i++) {
 			if (id[i + 1]) {
 				node.expect(id[i]).to.contain.all.keys(
@@ -105,17 +103,17 @@ describe('Delegates API', () => {
 					'description');
 			}
 		}
-	}
+	};
 
-	function checkPublicKeys(id) {
+	const checkPublicKeys = (id) => {
 		for (let i = 0; i < id.length; i++) {
 			if (id[i + 1]) {
-				node.expect(id[i]).to.be.a.string;
+				node.expect(typeof id[i]).to.be.equal('string');
 			}
 		}
-	}
+	};
 
-	function checkTransactions(id) {
+	const checkTransactions = (id) => {
 		for (let i = 0; i < id.length; i++) {
 			if (id[i + 1]) {
 				node.expect(id[i]).to.contain.all.keys(
@@ -137,14 +135,14 @@ describe('Delegates API', () => {
 				checkDelegate(id[i].delegate);
 			}
 		}
-	}
+	};
 
 
 	/* Define api endpoints to test */
 	describe('GET /api/delegates/getActive', () => {
 		it('should be ok', (done) => {
 			getActive((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('delegates');
 				node.expect(res.body).to.have.property('totalCount');
 				checkDelegates(res.body.delegates);
@@ -156,20 +154,20 @@ describe('Delegates API', () => {
 	describe('GET /api/delegates/getStandby', () => {
 		it('using no offset should be ok', (done) => {
 			getStandby('', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('delegates');
 				checkDelegates(res.body.delegates);
 				node.expect(res.body).to.have.property('pagination');
 				node.expect(res.body).to.have.property('totalCount');
 				node.expect(res.body.pagination).to.have.property('currentPage');
-				node.expect(res.body.pagination.currentPage).to.be.null;
+				node.expect(res.body.pagination.currentPage).to.be.equal(null);
 				done();
 			});
 		});
 
 		it('using offset of 1 should be ok', (done) => {
 			getStandby('1', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('delegates');
 				checkDelegates(res.body.delegates);
 				node.expect(res.body).to.have.property('pagination');
@@ -183,7 +181,7 @@ describe('Delegates API', () => {
 
 		it('using offset of 20 should be ok', (done) => {
 			getStandby(params.offset, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('delegates');
 				checkDelegates(res.body.delegates);
 				node.expect(res.body).to.have.property('pagination');
@@ -199,7 +197,7 @@ describe('Delegates API', () => {
 
 		it('using offset of 100000 should be ok', (done) => {
 			getStandby(params.excessiveOffset, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('delegates');
 				checkDelegates(res.body.delegates);
 				node.expect(res.body).to.have.property('pagination');
@@ -215,7 +213,7 @@ describe('Delegates API', () => {
 	describe('GET /api/delegates/getLatestRegistrations', () => {
 		it('should be ok', (done) => {
 			getLatestRegistrations((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions');
 				checkTransactions(res.body.transactions);
 				done();
@@ -226,7 +224,7 @@ describe('Delegates API', () => {
 	describe('GET /api/delegates/getLastBlock', () => {
 		it('should be ok', (done) => {
 			getLastBlock((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('block');
 				checkBlock(res.body.block);
 				checkDelegate(res.body.block.delegate);
@@ -238,7 +236,7 @@ describe('Delegates API', () => {
 	describe('GET /api/delegates/getLastBlocks', () => {
 		it('should be ok', (done) => {
 			getLastBlocks(params.publicKey, '', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('blocks');
 				checkBlocks(res.body.blocks);
 				done();
@@ -247,7 +245,7 @@ describe('Delegates API', () => {
 
 		it('using limit 10 should be ok', (done) => {
 			getLastBlocks(params.publicKey, '10', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('blocks').to.be.an('array');
 				node.expect(res.body).to.have.property('blocks');
 				node.expect(res.body.blocks.length).to.equal(10);
@@ -258,7 +256,7 @@ describe('Delegates API', () => {
 
 		it('using limit 100 should be ok and return 20', (done) => {
 			getLastBlocks(params.publicKey, '100', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('blocks');
 				node.expect(res.body.blocks.length).to.equal(20);
 				checkBlocks(res.body.blocks);
@@ -268,7 +266,7 @@ describe('Delegates API', () => {
 
 		it('using publicKey with no blocks should be ok', (done) => {
 			getLastBlocks(params.noBlocksKey, '', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('blocks');
 				done();
 			});
@@ -276,7 +274,7 @@ describe('Delegates API', () => {
 
 		it.skip('using invalid publickey should fail', (done) => {
 			getLastBlocks(params.invalidPublicKey, '', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('blocks');
 				done();
 			});
@@ -284,7 +282,7 @@ describe('Delegates API', () => {
 
 		it('using no parameters should fail', (done) => {
 			getLastBlocks('', '', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});
@@ -294,7 +292,7 @@ describe('Delegates API', () => {
 	describe('GET /api/getSearch', () => {
 		it('should be ok', (done) => {
 			getSearch(params.delegate, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.address).to.have.equal(params.address);
 				done();
 			});
@@ -302,7 +300,7 @@ describe('Delegates API', () => {
 
 		it('using no parameters should fail', (done) => {
 			getSearch('', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});
@@ -310,7 +308,7 @@ describe('Delegates API', () => {
 
 		it('using partial name should autocomplete', (done) => {
 			getSearch('gene', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.address).to.have.equal(params.address);
 				done();
 			});
@@ -320,7 +318,7 @@ describe('Delegates API', () => {
 	describe('GET /api/delegates/getNextForgers', () => {
 		it('should be ok', (done) => {
 			getNextForgers((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('delegates');
 				checkPublicKeys(res.body.delegates);
 				done();
@@ -332,7 +330,7 @@ describe('Delegates API', () => {
 	describe('GET /api/delegates/getDelegateProposals', () => {
 		it('should be ok', (done) => {
 			getDelegateProposals((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('proposals');
 				node.expect(res.body).to.have.property('count');
 				checkDelegateProposals(res.body.proposals);
