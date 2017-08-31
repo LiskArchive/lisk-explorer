@@ -13,7 +13,8 @@
   "scripts": {
     "karma-test": "karma start",
     "test-live": "npm test -- --auto-watch --no-single-run",
-    "eslint": "eslint ./benchmarks ./utils ./libs ./api ./src",
+    "eslint": "eslint ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js",
+    "eslint-fix": "eslint --fix ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js",
     "test": "./node_modules/.bin/grunt travis --verbose",
     "e2e-test": "protractor protractor.conf.js",
     "start": "npm run copy-files && webpack -w",
@@ -93,6 +94,7 @@
     "eslint-loader": "^1.9.0",
     "eslint-plugin-html": "^3.2.0",
     "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-protractor": "^1.40.0",
     "eslint-plugin-react": "^7.3.0",
     "exports-loader": "^0.6.4",
     "file-loader": "^0.11.1",
