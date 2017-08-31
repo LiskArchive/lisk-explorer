@@ -1,4 +1,4 @@
-import AppTools from '../app/app-tools.module.js';
+import AppTools from '../app/app-tools.module';
 
 const accountHref = AppTools.directive('accountHref', () => {
 	/**

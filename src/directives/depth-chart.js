@@ -1,4 +1,4 @@
-import AppTools from '../app/app-tools.module.js';
+import AppTools from '../app/app-tools.module';
 
 AppTools.directive('depthChart', ($timeout) => {
 	const { AmCharts } = window;

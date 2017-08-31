@@ -1,5 +1,5 @@
 import Clipboard from 'clipboard';
-import AppTools from '../app/app-tools.module.js';
+import AppTools from '../app/app-tools.module';
 
 AppTools.directive('clipCopy', () => ({
 	restric: 'A',
