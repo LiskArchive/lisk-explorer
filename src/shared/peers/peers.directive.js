@@ -7,7 +7,7 @@ const peers = AppTools.directive('peers', orderBy => ({
 	template,
 	replace: true,
 
-	link(scope, element, attr) {
+	link(scope) {
 		scope.table = orderBy('ip');
 	},
 }));
