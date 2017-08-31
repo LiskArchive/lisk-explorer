@@ -1,5 +1,5 @@
-import AppFilters from './filters.module';
 import moment from 'moment';
+import AppFilters from './filters.module';
 
 AppFilters.filter('timeSpan', epochStampFilter => (a, b) => moment.duration(
 	epochStampFilter(a) -

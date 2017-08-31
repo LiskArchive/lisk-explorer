@@ -1,5 +1,5 @@
-import AppTools from '../app/app-tools.module.js';
 import Clipboard from 'clipboard';
+import AppTools from '../app/app-tools.module';
 
 AppTools.directive('clipCopy', () => ({
 	restric: 'A',
@@ -8,15 +8,16 @@ AppTools.directive('clipCopy', () => ({
 	link(scope, elm) {
 		scope.tooltipText = 'Copied!';
 		const clip = new Clipboard(elm[0], {
+			// eslint-disable-next-line no-unused-vars
 			text: target => scope.clipCopy,
 		});
-		clip.on('success', (e) => {
+		clip.on('success', () => {
 			elm.addClass('active');
 		});
-		elm.on('mouseleave', (e) => {
+		elm.on('mouseleave', () => {
 			elm.removeClass('active');
 		});
-		clip.on('error', (e) => {
+		clip.on('error', () => {
 			scope.tooltipText = 'Press Ctrl+C to copy!';
 			scope.$apply();
 			elm.addClass('active');

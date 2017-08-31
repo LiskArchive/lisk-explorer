@@ -11,10 +11,11 @@ const osIcon = AppTools.directive('osIcon', () => ({
 	template: '<span></span>',
 	replace: true,
 
-	link(scope, element, attr) {
+	link(scope, element) {
 		const el = element[0];
 
-		el.alt = el.title = scope.os;
+		el.alt = scope.os;
+		el.title = scope.os;
 		el.className += (` os-icon os-${scope.brand.name}`);
 	},
 }));

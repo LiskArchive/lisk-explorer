@@ -1,7 +1,9 @@
-import AppTools from '../app/app-tools.module.js';
+import AppTools from '../app/app-tools.module';
 
 AppTools.directive('depthChart', ($timeout) => {
-	function DepthChart(scope, elm, attr) {
+	const { AmCharts } = window;
+
+	function DepthChart(scope, elm) {
 		const self = this;
 
 		this.style = {
@@ -58,7 +60,6 @@ AppTools.directive('depthChart', ($timeout) => {
 
 			if (!scope.data.depthChart) {
 				delay = 500;
-				console.log('Initializing depth chart...');
 				scope.data.depthChart = AmCharts.makeChart('depthChart', self.config);
 				scope.data.depthChart.categoryAxesSettings = new AmCharts.CategoryAxesSettings();
 			}
@@ -71,10 +72,8 @@ AppTools.directive('depthChart', ($timeout) => {
 				if (scope.data.orders.depth.length > 0) {
 					scope.data.depthChart.dataProvider = scope.data.orders.depth;
 					scope.data.depthChart.validateData();
-					console.log('Depth chart data updated');
 					elm.contents().css('display', 'block');
 				} else {
-					console.log('Depth chart data is empty');
 					scope.data.depthChart.dataProvider = [];
 					scope.data.depthChart.validateData();
 					elm.contents().css('display', 'none');
@@ -90,7 +89,7 @@ AppTools.directive('depthChart', ($timeout) => {
 	}
 
 	return {
-		restric: 'E',
+		restrict: 'E',
 		replace: true,
 		template: '<div id="depthChart"></div>',
 		scope: {

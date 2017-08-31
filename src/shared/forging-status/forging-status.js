@@ -1,5 +1,5 @@
-import AppTools from '../../app/app-tools.module';
 import moment from 'moment';
+import AppTools from '../../app/app-tools.module';
 import template from './forging-status.html';
 
 const forgingStatus = AppTools.directive('forgingStatus', $sce => ({
@@ -10,9 +10,7 @@ const forgingStatus = AppTools.directive('forgingStatus', $sce => ({
 	template,
 	replace: true,
 	transclude: true,
-	link(scope, element, attr) {
-		const el = element[0];
-
+	link(scope, element) {
 		const updateStatus = () => {
 			element.removeClass('fa-circle-o').addClass('fa-circle');
 			scope.tooltip = {};

@@ -1,4 +1,4 @@
-import 'angular';
+import angular from 'angular';
 import 'angular-ui-router';
 import 'angular-resource';
 import 'angular-animate';
@@ -38,7 +38,7 @@ import '../components/network-monitor';
 import '../filters';
 import '../services';
 import '../directives';
-import './app-tools.module.js';
+import './app-tools.module';
 import '../shared';
 
 const App = angular.module('lisk_explorer', [

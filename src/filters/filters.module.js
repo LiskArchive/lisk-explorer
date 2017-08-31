@@ -1,4 +1,4 @@
-import 'angular';
+import angular from 'angular';
 
 const AppFilters = angular.module('lisk_explorer.filters', []);
 

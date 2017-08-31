@@ -1,3 +1,4 @@
+import angular from 'angular';
 import AppServices from './services.module';
 
 const LessMore = function ($http, $q, params) {
@@ -11,9 +12,9 @@ const LessMore = function ($http, $q, params) {
 	this.maximum = params.maximum || 2000;
 	this.limit = params.limit || 50;
 
-	for (const key in ['url', 'parent', 'key', 'offset', 'maximum', 'limit']) {
+	['url', 'parent', 'key', 'offset', 'maximum', 'limit'].forEach((key) => {
 		delete params[key];
-	}
+	});
 
 	this.params = params;
 	this.results = [];
@@ -24,7 +25,8 @@ const LessMore = function ($http, $q, params) {
 };
 
 LessMore.prototype.disable = function () {
-	this.moreData = this.lessData = false;
+	this.moreData = false;
+	this.lessData = false;
 };
 
 LessMore.prototype.disabled = function () {
@@ -41,13 +43,14 @@ LessMore.prototype.getData = function (offset, limit, cb) {
 		if (resp.data.success && angular.isArray(resp.data[this.key])) {
 			cb(resp.data[this.key]);
 		} else {
-			throw 'LessMore failed to get valid response data';
+			throw new Error('LessMore failed to get valid response data');
 		}
 	});
 };
 
 LessMore.prototype.anyMore = function (length) {
-	return (this.limit <= 1 && (this.limit % length) === 1) || (length > 1 && this.limit >= 1 && (length % this.limit) === 1);
+	return (this.limit <= 1 && (this.limit % length) === 1) ||
+		(length > 1 && this.limit >= 1 && (length % this.limit) === 1);
 };
 
 LessMore.prototype.spliceData = function (data) {
@@ -93,9 +96,9 @@ LessMore.prototype.loadMore = function () {
 };
 
 LessMore.prototype.reloadMore = function () {
-	const maxOffset = (this.offset + this.limit),
-		promises = [],
-		self = this;
+	const maxOffset = (this.offset + this.limit);
+	const promises = [];
+	const self = this;
 
 	self.offset = 0;
 	self.results = [];
@@ -110,7 +113,7 @@ LessMore.prototype.reloadMore = function () {
 			if (resp.data.success && angular.isArray(resp.data[this.key])) {
 				self.acceptData(resp.data[self.key]);
 			} else {
-				throw 'LessMore failed to reload results on change';
+				throw new Error('LessMore failed to reload results on change');
 			}
 		});
 	});

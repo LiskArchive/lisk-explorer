@@ -1,5 +1,5 @@
-import AppTools from '../app/app-tools.module.js';
 import qrcode from 'qrcode-generator';
+import AppTools from '../app/app-tools.module';
 
 AppTools.directive('qrcode', () => {
 	const QrcodeLinK = ($scope, $element, $attrs) => {
