@@ -1,4 +1,3 @@
-import 'angular';
 import App from './app';
 
 App.run((
