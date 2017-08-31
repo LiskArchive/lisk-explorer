@@ -1,6 +1,4 @@
-
-
-// Root object
+/* eslint-disable import/no-extraneous-dependencies */
 const node = {};
 
 // Requires
@@ -8,9 +6,9 @@ node.async = require('async');
 node.popsicle = require('popsicle');
 node.expect = require('chai').expect;
 node.chai = require('chai');
+node.supertest = require('supertest');
 
 node.chai.config.includeStack = true;
-node.supertest = require('supertest');
 
 // Node configuration
 node.baseUrl = 'http://localhost:6040';
@@ -29,12 +27,11 @@ function abstractRequest(options, done) {
 
 
 	if (done) {
-		request.end((err, res) => {
+		return request.end((err, res) => {
 			done(err, res);
 		});
-	} else {
-		return request;
 	}
+	return request;
 }
 
 

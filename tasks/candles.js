@@ -1,16 +1,14 @@
-
-
-let config = require('../config'),
-	client = require('../redis')(config),
-	candles = require('../lib/candles'),
-	async = require('async');
+const config = require('../config');
+const client = require('../redis')(config);
+const candles = require('../lib/candles');
+const async = require('async');
 
 module.exports = function (grunt) {
 	grunt.registerTask('candles:build', 'Build exchange candle data.', function () {
 		const done = this.async();
 
 		async.series([
-			function (callback) {
+			(callback) => {
 				// Skip exchange if not enabled
 				if (!config.marketWatcher.exchanges.poloniex) {
 					return callback(null);
@@ -18,14 +16,14 @@ module.exports = function (grunt) {
 
 				const poloniex = new candles.poloniex(client, config.marketWatcher.candles.poloniex);
 
-				poloniex.buildCandles((err, res) => {
+				return poloniex.buildCandles((err, res) => {
 					if (err) {
 						return callback(err);
 					}
 					return callback(null, res);
 				});
 			},
-			function (callback) {
+			(callback) => {
 				// Skip exchange if not enabled
 				if (!config.marketWatcher.exchanges.bittrex) {
 					return callback(null);
@@ -33,7 +31,7 @@ module.exports = function (grunt) {
 
 				const bittrex = new candles.bittrex(client);
 
-				bittrex.buildCandles((err, res) => {
+				return bittrex.buildCandles((err, res) => {
 					if (err) {
 						return callback(err);
 					}
@@ -41,7 +39,7 @@ module.exports = function (grunt) {
 				});
 			},
 		],
-		(err, results) => {
+		(err) => {
 			if (err) {
 				grunt.log.error(err);
 				done(false);
@@ -55,7 +53,7 @@ module.exports = function (grunt) {
 		const done = this.async();
 
 		async.series([
-			function (callback) {
+			(callback) => {
 				// Skip exchange if not enabled
 				if (!config.marketWatcher.exchanges.poloniex) {
 					return callback(null);
@@ -63,14 +61,14 @@ module.exports = function (grunt) {
 
 				const poloniex = new candles.poloniex(client);
 
-				poloniex.updateCandles((err, res) => {
+				return poloniex.updateCandles((err, res) => {
 					if (err) {
 						return callback(err);
 					}
 					return callback(null, res);
 				});
 			},
-			function (callback) {
+			(callback) => {
 				// Skip exchange if not enabled
 				if (!config.marketWatcher.exchanges.bittrex) {
 					return callback(null);
@@ -78,7 +76,7 @@ module.exports = function (grunt) {
 
 				const bittrex = new candles.bittrex(client);
 
-				bittrex.updateCandles((err, res) => {
+				return bittrex.updateCandles((err, res) => {
 					if (err) {
 						return callback(err);
 					}
@@ -86,7 +84,7 @@ module.exports = function (grunt) {
 				});
 			},
 		],
-		(err, results) => {
+		(err) => {
 			if (err) {
 				grunt.log.error(err);
 				done(false);

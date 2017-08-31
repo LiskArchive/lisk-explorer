@@ -1,5 +1,3 @@
-/* jslint mocha:true, expr:true */
-
 const node = require('./../node.js');
 
 const params = {
@@ -11,17 +9,17 @@ const params = {
 
 describe('Common API', () => {
 	/* Define functions for use within tests */
-	function getVersion(done) {
+	const getVersion = (done) => {
 		node.get('/api/version', done);
-	}
+	};
 
-	function getPriceTicker(done) {
+	const getPriceTicker = (done) => {
 		node.get('/api/getPriceTicker', done);
-	}
+	};
 
-	function getSearch(id, done) {
+	const getSearch = (id, done) => {
 		node.get(`/api/search?id=${id}`, done);
-	}
+	};
 
 	/* Define api endpoints to test */
 	describe('GET /api/version', () => {
@@ -36,13 +34,13 @@ describe('Common API', () => {
 	describe('GET /api/getPriceTicker', () => {
 		it('should be ok', (done) => {
 			getPriceTicker((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
-				node.expect(res.body).to.have.deep.property('tickers.LSK.BTC').to.be.a.number;
-				node.expect(res.body).to.have.deep.property('tickers.LSK.EUR').to.be.a.number;
-				node.expect(res.body).to.have.deep.property('tickers.LSK.USD').to.be.a.number;
-				node.expect(res.body).to.have.deep.property('tickers.LSK.CNY').to.be.a.number;
-				node.expect(res.body).to.have.deep.property('tickers.BTC.USD').to.be.a.number;
-				node.expect(res.body).to.have.deep.property('tickers.BTC.EUR').to.be.a.number;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.deep.property('tickers.LSK.BTC').to.be.at.least(0);
+				node.expect(res.body).to.have.deep.property('tickers.LSK.EUR').to.be.at.least(0);
+				node.expect(res.body).to.have.deep.property('tickers.LSK.USD').to.be.at.least(0);
+				node.expect(res.body).to.have.deep.property('tickers.LSK.CNY').to.be.at.least(0);
+				node.expect(res.body).to.have.deep.property('tickers.BTC.USD').to.be.at.least(0);
+				node.expect(res.body).to.have.deep.property('tickers.BTC.EUR').to.be.at.least(0);
 				done();
 			});
 		});
@@ -52,7 +50,7 @@ describe('Common API', () => {
 	describe('GET /api/search', () => {
 		it('using known block should be ok', (done) => {
 			getSearch(params.blockId, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.type).to.equal('block');
 				node.expect(res.body.id).to.equal(params.blockId);
 				done();
@@ -61,7 +59,7 @@ describe('Common API', () => {
 
 		it('using known height should be ok', (done) => {
 			getSearch('1', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.type).to.equal('block');
 				node.expect(res.body.id).to.equal(params.blockId);
 				done();
@@ -70,7 +68,7 @@ describe('Common API', () => {
 
 		it('using known address should be ok', (done) => {
 			getSearch(params.address, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.type).to.equal('address');
 				node.expect(res.body.id).to.equal(params.address);
 				done();
@@ -79,7 +77,7 @@ describe('Common API', () => {
 
 		it('using known transaction should be ok', (done) => {
 			getSearch(params.tx, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.type).to.equal('tx');
 				node.expect(res.body.id).to.equal(params.tx);
 				done();
@@ -88,7 +86,7 @@ describe('Common API', () => {
 
 		it('using known delegate should be ok', (done) => {
 			getSearch(params.username, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.type).to.equal('address');
 				node.expect(res.body.id).to.equal(params.address);
 				done();
@@ -97,7 +95,7 @@ describe('Common API', () => {
 
 		it('using partial known delegate should be ok', (done) => {
 			getSearch('gene', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.type).to.equal('address');
 				node.expect(res.body.id).to.equal(params.address);
 				done();
@@ -106,7 +104,7 @@ describe('Common API', () => {
 
 		it('using no input should fail', (done) => {
 			getSearch('', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.not.ok;
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error').to.be.a('string');
 				done();
 			});
