@@ -4,7 +4,6 @@ import './approval';
 import './currency';
 import './epoch-stamp';
 import './fiat';
-import './filters.module';
 import './forging-time';
 import './lisk';
 import './net-hash';

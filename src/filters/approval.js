@@ -5,5 +5,5 @@ AppFilters.filter('approval', () => (votes) => {
 		return 0;
 	}
 	// (votes / 1e16) * 100
-	return (parseInt(votes) / 1e14).toFixed(2);
+	return (parseInt(votes, 10) / 1e14).toFixed(2);
 });

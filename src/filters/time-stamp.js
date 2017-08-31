@@ -19,8 +19,8 @@ AppFilters.filter('timestamp', epochStampFilter => (timestamp) => {
 	let seconds = stamp.getSeconds();
 
 	/**
-     * @todo use zeroFill istead
-     */
+	 * @todo use zeroFill instead
+	 */
 	if (hours < 10) {
 		hours = `0${hours}`;
 	}

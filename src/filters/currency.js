@@ -1,6 +1,6 @@
 import AppFilters from './filters.module';
 
-AppFilters.filter('currency', (numberFilter, liskFilter) => (amount, currency, decimal_places) => {
+AppFilters.filter('currency', (numberFilter, liskFilter) => (amount, currency, decimalPlaces) => {
 	const lisk = liskFilter(amount);
 	let factor = 1;
 
@@ -11,7 +11,7 @@ AppFilters.filter('currency', (numberFilter, liskFilter) => (amount, currency, d
 		return 'N/A';
 	}
 
-	const decimals = (currency.symbol === 'LSK' || currency.symbol === 'BTC') ? decimal_places : 2;
+	const decimals = (currency.symbol === 'LSK' || currency.symbol === 'BTC') ? decimalPlaces : 2;
 	if (decimals && lisk > 0) {
 		return numberFilter((lisk * factor), decimals);
 	}
