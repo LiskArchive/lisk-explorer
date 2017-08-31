@@ -12,5 +12,7 @@
     "15434119221255134066L" : { "owner" : "Bounty Assets", "description" : "LiskHQ" },
     "14175575863689886451L" : { "owner" : "Adviser Assets", "description" : "LiskHQ" },
     "5726759782318848681L"  : { "owner" : "Lisk Foundation", "description" : "LiskHQ" },
-    "15841793714384967784L"  : { "owner" : "Lisk Community Assets", "description" : "LiskHQ" }
+    "15841793714384967784L"  : { "owner" : "Lisk Community Assets", "description" : "LiskHQ" },
+    "3040783849904107057L" : { "owner": "Coincheck.com", "description": "Main Wallet" },
+    "6300322192409448238L": { "owner": "Iconomi ICO", "description": "Main Wallet"}
 }
