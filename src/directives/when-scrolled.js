@@ -1,12 +1,13 @@
+import angular from 'angular';
 import AppTools from '../app/app-tools.module.js';
 
 AppTools.directive('whenScrolled', $window => ({
-	restric: 'A',
+	restrict: 'A',
 
 	link(scope, elm, attr) {
-		let pageHeight,
-			clientHeight,
-			scrollPos;
+		let pageHeight;
+		let clientHeight;
+		let scrollPos;
 		$window = angular.element($window);
 
 		const handler = () => {

@@ -1,6 +1,7 @@
+import angular from 'angular';
 import AppTools from '../app/app-tools.module.js';
 
-AppTools.directive('scroll', $window => (scope, element, attrs) => {
+AppTools.directive('scroll', $window => (scope) => {
 	angular.element($window).bind('scroll', function () {
 		if (this.pageYOffset >= 200) {
 			scope.secondaryNavbar = true;
