@@ -1,9 +1,9 @@
+import io from 'socket.io-client';
 import AppServices from './services.module';
 
 
 /**
  * @todo isolate socket.io
- * @todo why sicket is not mounted in bundle?
  */
 AppServices.factory('$socket',
 	($location, $rootScope) => (namespace) => {
@@ -11,9 +11,7 @@ AppServices.factory('$socket',
 
 		return {
 			on(eventName, callback) {
-				socket.on(eventName, function () {
-					const args = arguments;
-
+				socket.on(eventName, (...args) => {
 					$rootScope.$apply(() => {
 						callback.apply(socket, args);
 					});
@@ -21,9 +19,7 @@ AppServices.factory('$socket',
 			},
 
 			emit(eventName, data, callback) {
-				socket.emit(eventName, data, function () {
-					const args = arguments;
-
+				socket.emit(eventName, data, (...args) => {
 					$rootScope.$apply(() => {
 						if (callback) {
 							callback.apply(socket, args);
@@ -33,9 +29,7 @@ AppServices.factory('$socket',
 			},
 
 			removeAllListeners(eventName, callback) {
-				socket.removeAllListeners(eventName, function () {
-					const args = arguments;
-
+				socket.removeAllListeners(eventName, (...args) => {
 					$rootScope.$apply(() => {
 						callback.apply(socket, args);
 					});

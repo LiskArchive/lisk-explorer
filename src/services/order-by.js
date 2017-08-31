@@ -4,9 +4,9 @@ const OrderBy = function (predicate) {
 	this.reverse = false;
 	this.predicate = predicate;
 
-	this.order = function (predicate) {
-		this.reverse = (this.predicate === predicate) ? !this.reverse : false;
-		this.predicate = predicate;
+	this.order = function (currentPredicate) {
+		this.reverse = (this.predicate === currentPredicate) ? !this.reverse : false;
+		this.predicate = currentPredicate;
 	};
 };
 

@@ -1,4 +1,4 @@
-import 'angular';
+import angular from 'angular';
 import 'angular-naturalsort';
 
 const AppServices = angular.module('lisk_explorer.services', ['naturalSort']);

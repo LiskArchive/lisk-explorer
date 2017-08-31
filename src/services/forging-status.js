@@ -1,11 +1,8 @@
 import AppServices from './services.module';
-import moment from 'moment';
 
 AppServices.service('forgingStatus',
 	($rootScope, epochStampFilter, roundFilter) => (delegate) => {
 		const status = { updatedAt: delegate.blocksAt };
-		let statusAge = 0;
-		let blockAge = 0;
 
 		// if (delegate.blocksAt && _.size(delegate.blocks) > 0) {
 		if (delegate.blocksAt && delegate.blocks.length > 0) {
@@ -14,9 +11,6 @@ AppServices.service('forgingStatus',
 			status.networkRound = roundFilter($rootScope.blockStatus.height);
 			status.delegateRound = roundFilter(status.lastBlock.height);
 			status.awaitingSlot = status.networkRound - status.delegateRound;
-
-			statusAge = moment().diff(delegate.blocksAt, 'minutes');
-			blockAge = moment().diff(status.blockAt, 'minutes');
 		} else {
 			status.lastBlock = null;
 		}

@@ -20,21 +20,24 @@ const ForgingMonitor = function (forgingStatus) {
 
 	this.getForgingTotals = (delegates) => {
 		const cnt1 = countBy(delegates, (d) => {
+			let value;
 			switch (d.forgingStatus.code) {
 			case 0:
 			case 3:
-				return 'forging';
+				value = 'forging';
+				break;
 			case 1:
 			case 4:
-				return 'missedBlock';
+				value = 'missedBlock';
+				break;
 			case 2:
-				return 'notForging';
-			case 3:
-			case 4:
-				return 'awaitingSlot';
+				value = 'notForging';
+				break;
 			default:
-				return 'unprocessed';
+				value = 'unprocessed';
+				break;
 			}
+			return value;
 		});
 		const cnt2 = countBy(delegates, (d) => {
 			switch (d.forgingStatus.code) {
