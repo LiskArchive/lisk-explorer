@@ -1,34 +1,11 @@
-const logger = require('../utils/logger');
+const handler = require('./handler');
 
 module.exports = function (app, api) {
-	const accounts = new api.accounts(app);
+	const accountsApi = new api.accounts(app);
 
-	this.getAccount = function (deferred) {
-		accounts.getAccount(
-			{ address: '12907382053545086321L' },
-			(data) => {
-				deferred.resolve();
-				logger.error('accounts.getAccount ~>', 'Error retrieving account:', data.error);
-			},
-			() => {
-				deferred.resolve();
-				logger.info('accounts.getAccount ~>', 'account retrieved in', String(deferred.elapsed), 'seconds');
-			},
-		);
-	};
+	this.getAccount = deferred =>
+		handler(accountsApi, 'getAccount', { address: '12907382053545086321L' }, deferred, 'accounts');
 
-	this.getTopAccounts = function (deferred) {
-		accounts.getTopAccounts(
-			{ offset: 0, limit: 50 },
-			(data) => {
-				deferred.resolve();
-				logger.error('accounts.getTopAccounts ~>', 'Error retrieving accounts:', data.error);
-			},
-			(data) => {
-				deferred.resolve();
-				logger.info('accounts.getTopAccounts ~>', data.accounts.length, 'accounts retrieved in', String(deferred.elapsed), 'seconds');
-			},
-		);
-	};
+	this.getTopAccounts = deferred =>
+		handler(accountsApi, 'getTopAccounts', { offset: 0, limit: 50 }, deferred, 'accounts', data => data.accounts.length);
 };
-
