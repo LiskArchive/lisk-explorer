@@ -1,44 +1,18 @@
 const blocks = require('../lib/api/blocks');
+const handler = require('./handler');
 
 module.exports = function (app) {
-	const api = new blocks(app);
+	const blocksApi = new blocks(app);
 
-	app.get('/api/getLastBlocks', (req, res, next) => {
-		api.getLastBlocks(
-			req.query.n,
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
+	app.get('/api/getLastBlocks', (req, res, next) =>
+		handler(blocksApi, 'getLastBlocks', req.query.n, req, res, next));
 
-	app.get('/api/getBlock', (req, res, next) => {
-		api.getBlock(
-			req.query.blockId,
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
+	app.get('/api/getBlock', (req, res, next) =>
+		handler(blocksApi, 'getBlock', req.query.blockId, req, res, next));
 
-	app.get('/api/getHeight', (req, res, next) => {
-		api.getHeight(
-			req.query.height,
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
+	app.get('/api/getHeight', (req, res, next) =>
+		handler(blocksApi, 'getHeight', req.query.height, req, res, next));
 
-	app.get('/api/getBlockStatus', (req, res, next) => {
-		api.getBlockStatus(
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
+	app.get('/api/getBlockStatus', (req, res, next) =>
+		handler(blocksApi, 'getBlockStatus', undefined, req, res, next));
 };

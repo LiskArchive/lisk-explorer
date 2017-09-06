@@ -1,46 +1,17 @@
-const logger = require('../utils/logger');
+const handler = require('./handler');
 
 module.exports = function (app, api) {
-	const statistics = new api.statistics(app);
+	const statisticsApi = new api.statistics(app);
 
-	this.getBlocks = (deferred) => {
-		statistics.getBlocks(
-			(data) => {
-				deferred.resolve();
-				logger.error('statistics.getBlocks ~>', 'Error retrieving blocks:', data.error);
-			},
-			(data) => {
-				deferred.resolve();
-				logger.info('statistics.getBlocks ~>', String(data.volume.blocks), 'blocks retrieved in', String(deferred.elapsed), 'seconds');
-			},
-		);
-	};
+	this.getBlocks = deferred =>
+		handler(statisticsApi, 'getBlocks', undefined, deferred, 'blocks', data => data.volume.blocks);
 
-	this.getLastBlock = (deferred) => {
-		statistics.getLastBlock(
-			(data) => {
-				deferred.resolve();
-				logger.error('statistics.getLastBlock ~>', 'Error retrieving block:', data.error);
-			},
-			() => {
-				deferred.resolve();
-				logger.info('statistics.getLastBlock ~>', 'block retrieved in', String(deferred.elapsed), 'seconds');
-			},
-		);
-	};
+	this.getLastBlock = deferred =>
+		handler(statisticsApi, 'getLastBlock', undefined, deferred, 'blocks');
 
 	this.getPeers = (deferred) => {
-		statistics.locator.disabled = true;
-		statistics.getPeers(
-			(data) => {
-				deferred.resolve();
-				logger.error('statistics.getPeers ~>', 'Error retrieving peers:', data.error);
-			},
-			(data) => {
-				deferred.resolve();
-				logger.info('statistics.getPeers ~>', (data.list.connected.length + data.list.disconnected.length), 'peers retrieved in', String(deferred.elapsed), 'seconds');
-			},
-		);
+		statisticsApi.locator.disabled = true;
+		handler(statisticsApi, 'getPeers', undefined, deferred, 'peers', data => (data.list.connected.length + data.list.disconnected.length));
 	};
 };
 
