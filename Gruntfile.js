@@ -53,7 +53,7 @@ module.exports = function (grunt) {
 			target: [
 				'lib/**/*.js',
 				'utils/**/*.js',
-        'benchmarks/**/*.js',
+				'benchmarks/**/*.js',
 			],
 		},
 	});
