@@ -8,24 +8,28 @@ const transactions = require('./transactions.js');
 const handler = require('./handler');
 const config = require('../config');
 
-const routes = [].concat(accounts, blocks, common,
-	delegates, exchanges, statistics, transactions);
+const routes = [].concat(transactions, accounts, blocks, common,
+	delegates, exchanges, statistics);
 
-let serviceModule;
-let service;
+const modules = {};
+const services = {};
 let commonServiceModule;
 
 module.exports = (app) => {
 	routes.forEach((route) => {
-		// eslint-disable-next-line import/no-dynamic-require
-		serviceModule = require(`../lib/api/${route.service}`);
-		if (route.service === '') {
-			commonServiceModule = new serviceModule.common(app, serviceModule);
+		const name = route.service === '' ? 'common' : route.service;
+		if (!modules[name]) {
+			// eslint-disable-next-line import/no-dynamic-require
+			modules[name] = require(`../lib/api/${route.service}`);
 		}
-		service = (route.service === '') ? commonServiceModule : new serviceModule(app);
-		app.get(`/api/${route.path}`, (req, res, next) => {
-			handler(service, route.path.split('/').slice(-1).pop(), route.params(req), req, res, next);
-		});
+
+		if (!services[name]) {
+			services[name] = (name === 'common') ?
+				new modules[name].common(app, modules[name]) :
+				new modules[name](app);
+		}
+		app.get(`/api/${route.path}`, (req, res, next) =>
+			handler(services[name], route.path.split('/').slice(-1).pop(), route.params(req), req, res, next));
 	});
 
 	app.get('/api/exchanges', (req, res) => {

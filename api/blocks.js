@@ -4,7 +4,7 @@ module.exports = [
 		service: 'blocks',
 		params: req => req.query.n,
 	}, {
-		path: 'getTopAccounts',
+		path: 'getBlock',
 		service: 'blocks',
 		params: req => req.query.blockId,
 	}, {
