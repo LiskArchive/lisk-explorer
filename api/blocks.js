@@ -1,44 +1,19 @@
-const blocks = require('../lib/api/blocks');
-
-module.exports = function (app) {
-	const api = new blocks(app);
-
-	app.get('/api/getLastBlocks', (req, res, next) => {
-		api.getLastBlocks(
-			req.query.n,
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
-
-	app.get('/api/getBlock', (req, res, next) => {
-		api.getBlock(
-			req.query.blockId,
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
-
-	app.get('/api/getHeight', (req, res, next) => {
-		api.getHeight(
-			req.query.height,
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
-
-	app.get('/api/getBlockStatus', (req, res, next) => {
-		api.getBlockStatus(
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
-};
+module.exports = [
+	{
+		path: 'getLastBlocks',
+		service: 'blocks',
+		params: req => req.query.n,
+	}, {
+		path: 'getBlock',
+		service: 'blocks',
+		params: req => req.query.blockId,
+	}, {
+		path: 'getHeight',
+		service: 'blocks',
+		params: req => req.query.height,
+	}, {
+		path: 'getBlockStatus',
+		service: 'blocks',
+		params: () => undefined,
+	},
+];

@@ -1,56 +1,27 @@
-const transactions = require('../lib/api/transactions');
-
-module.exports = function (app) {
-	const api = new transactions(app);
-
-	app.get('/api/getTransaction', (req, res, next) => {
-		api.getTransaction(
-			req.query.transactionId,
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
-
-	app.get('/api/getUnconfirmedTransactions', (req, res, next) => {
-		api.getUnconfirmedTransactions(
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
-
-	app.get('/api/getLastTransactions', (req, res, next) => {
-		api.getLastTransactions(
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
-
-	app.get('/api/getTransactionsByAddress', (req, res, next) => {
-		api.getTransactionsByAddress(
-			req.query,
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
-
-	app.get('/api/getTransactionsByBlock', (req, res, next) => {
-		api.getTransactionsByBlock(
-			{ blockId: req.query.blockId,
-				offset: req.query.offset,
-				limit: req.query.limit },
-			(data) => { res.json(data); },
-			(data) => {
-				req.json = data;
-				return next();
-			});
-	});
-};
-
+module.exports = [
+	{
+		path: 'getTransaction',
+		service: 'transactions',
+		params: req => req.query.transactionId,
+	}, {
+		path: 'getUnconfirmedTransactions',
+		service: 'transactions',
+		params: () => undefined,
+	}, {
+		path: 'getLastTransactions',
+		service: 'transactions',
+		params: () => undefined,
+	}, {
+		path: 'getTransactionsByAddress',
+		service: 'transactions',
+		params: req => req.query,
+	}, {
+		path: 'getTransactionsByBlock',
+		service: 'transactions',
+		params: req => ({
+			blockId: req.query.blockId,
+			offset: req.query.offset,
+			limit: req.query.limit,
+		}),
+	},
+];
