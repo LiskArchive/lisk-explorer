@@ -1,16 +1,29 @@
-const accounts = require('./accounts');
-const blocks = require('./blocks');
-const common = require('./common');
-const delegates = require('./delegates');
-const statistics = require('./statistics');
-const transactions = require('./transactions');
+const accounts = require('./accounts.js');
+const blocks = require('./blocks.js');
+const common = require('./common.js');
+const delegates = require('./delegates.js');
+// const exchanges = require('./exchanges.js');
+const statistics = require('./statistics.js');
+const transactions = require('./transactions.js');
+const handler = require('./handler');
+
+const routes = [].concat(transactions, accounts, blocks, common,
+	delegates, statistics);
+
+const apis = {};
 
 module.exports = function (app, api) {
-	this.accounts = new accounts(app, api);
-	this.blocks = new blocks(app, api);
-	this.common = new common(app, api);
-	this.delegates = new delegates(app, api);
-	this.statistics = new statistics(app, api);
-	this.transactions = new transactions(app, api);
-};
+	routes.forEach((route) => {
+		if (!apis[route.service]) {
+			apis[route.service] = new api[route.service](app);
+		}
 
+		if (!this[route.service]) {
+			this[route.service] = {};
+		}
+
+		this[route.service][route.endpoint] = deferred =>
+			handler(apis[route.service], route.endpoint, route.params,
+				deferred, (route.title || route.service), route.data);
+	});
+};
