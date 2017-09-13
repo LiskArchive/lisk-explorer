@@ -13,7 +13,6 @@ const routes = [].concat(transactions, accounts, blocks, common,
 
 const modules = {};
 const services = {};
-let commonServiceModule;
 
 module.exports = (app) => {
 	routes.forEach((route) => {
@@ -42,7 +41,7 @@ module.exports = (app) => {
 	});
 
 	app.get('/api/version', (req, res) => {
-		const data = commonServiceModule.version();
+		const data = services.common.version();
 		return res.json(data);
 	});
 };

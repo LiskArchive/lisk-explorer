@@ -16,13 +16,20 @@ module.exports = [
 		service: 'delegates',
 		params: () => undefined,
 	}, {
+		path: 'getSearch',
+		service: 'delegates',
+		params: req => req.query.q,
+	}, {
 		path: 'delegates/getLastBlock',
 		service: 'delegates',
 		params: () => undefined,
 	}, {
 		path: 'delegates/getLastBlocks',
 		service: 'delegates',
-		params: req => req.query.n,
+		params: req => ({
+			publicKey: req.query.publicKey,
+			limit: req.query.limit,
+		}),
 	}, {
 		path: 'delegates/getNextForgers',
 		service: 'delegates',
