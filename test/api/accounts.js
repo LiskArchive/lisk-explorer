@@ -58,10 +58,12 @@ describe('Accounts API', () => {
 	};
 
 	/* Define api endpoints to test */
-	describe('GET /api/getAccount', () => {
+	describe.only('GET /api/getAccount', () => {
 		it('using known address should be ok', (done) => {
 			getAccount(params.address, (err, res) => {
-				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
+				console.log('known', res.status, Object.keys(res.body));
+				node.expect(res.status).to.be.equal(200);
+				node.expect(res.body.address).to.be.equal(params.address);
 				checkAccount(res.body);
 				done();
 			});
@@ -69,15 +71,18 @@ describe('Accounts API', () => {
 
 		it('using invalid address should fail', (done) => {
 			getAccount('L', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.equal(false);
+				console.log('invalid', res.status, Object.keys(res.body));
+				node.expect(res.status).to.be.equal(204);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});
 		});
 
 		it('using unknown address should fail', (done) => {
+			console.log('Running the test');
 			getAccount('999999999L', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.equal(false);
+				console.log('unknown address', res.body);
+				node.expect(res.status).to.be.equal(204);
 				node.expect(res.body).to.have.property('error');
 				done();
 			});

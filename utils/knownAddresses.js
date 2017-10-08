@@ -22,8 +22,8 @@ module.exports = function () {
 		};
 
 		this.inAccount = (account) => {
-			if (account.username) {
-				return { owner: account.username };
+			if (account.delegate) {
+				return { owner: account.delegate.username };
 			}
 			return this.inAddress(account.address);
 		};
