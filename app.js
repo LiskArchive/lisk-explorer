@@ -40,7 +40,7 @@ app.orders = new utils.orders(config, client);
 app.set('version', '0.3');
 app.set('strict routing', true);
 // app.set('lisk address', `http://${config.lisk.host}:${config.lisk.port}`);
-app.set('lisk address', 'http://localhost:8080');
+app.set('lisk address', 'http://localhost:8081');
 app.set('freegeoip address', `http://${config.freegeoip.host}:${config.freegeoip.port}`);
 app.set('exchange enabled', config.exchangeRates.enabled);
 

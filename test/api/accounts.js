@@ -27,12 +27,10 @@ describe('Accounts API', () => {
 			'multisignatures',
 			'secondPublicKey',
 			'secondSignature',
-			'unconfirmedSignature',
 			'publicKey',
 			'balance',
 			'unconfirmedBalance',
 			'address',
-			'u_multisignatures',
 			'knowledge',
 			'delegate',
 			'votes',
@@ -58,10 +56,10 @@ describe('Accounts API', () => {
 	};
 
 	/* Define api endpoints to test */
-	describe('GET /api/getAccount', () => {
+	describe.only('GET /api/getAccount', () => {
 		it('using known address should be ok', (done) => {
 			getAccount(params.address, (err, res) => {
-				node.expect(res.success).to.be.equal(true);
+				node.expect(res.body.success).to.not.be.equal(false);
 				node.expect(res.body.address).to.be.equal(params.address);
 				checkAccount(res.body);
 				done();
@@ -91,9 +89,8 @@ describe('Accounts API', () => {
 			});
 		});
 
-		it.only('using known pk should be ok', (done) => {
+		it('using known pk should be ok', (done) => {
 			getAccountByPublicKey(params.publicKey, (err, res) => {
-				console.log('known pk', res.body);
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				checkAccount(res.body);
 				done();
@@ -102,7 +99,6 @@ describe('Accounts API', () => {
 
 		it('using invalid pk should fail', (done) => {
 			getAccountByPublicKey('invalid_pk', (err, res) => {
-				console.log('invalid pk', res.body);
 				node.expect(res.body).to.have.property('success').to.be.not.equal(true);
 				node.expect(res.body).to.have.property('error');
 				done();
@@ -111,7 +107,6 @@ describe('Accounts API', () => {
 
 		it('using unknown pk should fail', (done) => {
 			getAccountByPublicKey('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', (err, res) => {
-				console.log('unknown pk', res.body);
 				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
@@ -120,7 +115,6 @@ describe('Accounts API', () => {
 
 		it('using no pk should fail', (done) => {
 			getAccountByPublicKey('', (err, res) => {
-				console.log('no pk', res.body);
 				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
