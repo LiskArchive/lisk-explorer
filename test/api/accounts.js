@@ -58,11 +58,10 @@ describe('Accounts API', () => {
 	};
 
 	/* Define api endpoints to test */
-	describe.only('GET /api/getAccount', () => {
+	describe('GET /api/getAccount', () => {
 		it('using known address should be ok', (done) => {
 			getAccount(params.address, (err, res) => {
-				console.log('known', res.status, Object.keys(res.body));
-				node.expect(res.status).to.be.equal(200);
+				node.expect(res.success).to.be.equal(true);
 				node.expect(res.body.address).to.be.equal(params.address);
 				checkAccount(res.body);
 				done();
@@ -71,19 +70,15 @@ describe('Accounts API', () => {
 
 		it('using invalid address should fail', (done) => {
 			getAccount('L', (err, res) => {
-				console.log('invalid', res.status, Object.keys(res.body));
-				node.expect(res.status).to.be.equal(204);
-				node.expect(res.body).to.have.property('error');
+				node.expect(res.body).to.have.property('error').to.be.equal('Missing/Invalid address parameter');
 				done();
 			});
 		});
 
 		it('using unknown address should fail', (done) => {
-			console.log('Running the test');
 			getAccount('999999999L', (err, res) => {
-				console.log('unknown address', res.body);
-				node.expect(res.status).to.be.equal(204);
-				node.expect(res.body).to.have.property('error');
+				node.expect(res.success).to.not.be.equal(false);
+				node.expect(res.body).to.have.property('error').to.be.equal('Account not found');
 				done();
 			});
 		});
@@ -91,13 +86,14 @@ describe('Accounts API', () => {
 		it('using no address should fail', (done) => {
 			getAccount('', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(false);
-				node.expect(res.body).to.have.property('error');
+				node.expect(res.body).to.have.property('error').to.be.equal('Missing/Invalid publicKey parameter');
 				done();
 			});
 		});
 
-		it('using known pk should be ok', (done) => {
+		it.only('using known pk should be ok', (done) => {
 			getAccountByPublicKey(params.publicKey, (err, res) => {
+				console.log('known pk', res.body);
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				checkAccount(res.body);
 				done();
@@ -106,6 +102,7 @@ describe('Accounts API', () => {
 
 		it('using invalid pk should fail', (done) => {
 			getAccountByPublicKey('invalid_pk', (err, res) => {
+				console.log('invalid pk', res.body);
 				node.expect(res.body).to.have.property('success').to.be.not.equal(true);
 				node.expect(res.body).to.have.property('error');
 				done();
@@ -114,6 +111,7 @@ describe('Accounts API', () => {
 
 		it('using unknown pk should fail', (done) => {
 			getAccountByPublicKey('ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff', (err, res) => {
+				console.log('unknown pk', res.body);
 				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
@@ -122,6 +120,7 @@ describe('Accounts API', () => {
 
 		it('using no pk should fail', (done) => {
 			getAccountByPublicKey('', (err, res) => {
+				console.log('no pk', res.body);
 				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
 				done();
