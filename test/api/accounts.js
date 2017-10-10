@@ -7,7 +7,7 @@ const params = {
 	publicKey: 'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f',
 };
 
-describe('Accounts API', () => {
+describe.only('Accounts API', () => {
 	/* Define functions for use within tests */
 	function getAccount(id, done) {
 		node.get(`/api/getAccount?address=${id}`, done);
@@ -43,8 +43,13 @@ describe('Accounts API', () => {
 		node.expect(id).to.have.all.keys(
 			'address',
 			'balance',
+			'delegate',
+			'knowledge',
+			'multisignatureMaster',
+			'multisignatureMember',
 			'publicKey',
-			'knowledge');
+			'secondPublicKey',
+			'unconfirmedBalance');
 	};
 
 	const checkTopAccounts = (id) => {
@@ -56,11 +61,10 @@ describe('Accounts API', () => {
 	};
 
 	/* Define api endpoints to test */
-	describe.only('GET /api/getAccount', () => {
+	describe('GET /api/getAccount', () => {
 		it('using known address should be ok', (done) => {
 			getAccount(params.address, (err, res) => {
-				node.expect(res.body.success).to.not.be.equal(false);
-				node.expect(res.body.address).to.be.equal(params.address);
+				node.expect(res.body.success).to.be.equal(true);
 				checkAccount(res.body);
 				done();
 			});
@@ -68,6 +72,7 @@ describe('Accounts API', () => {
 
 		it('using invalid address should fail', (done) => {
 			getAccount('L', (err, res) => {
+				// node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error').to.be.equal('Missing/Invalid address parameter');
 				done();
 			});
