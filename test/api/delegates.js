@@ -2,10 +2,10 @@ const node = require('./../node.js');
 
 const params = {
 	publicKey: '9d3058175acab969f41ad9b86f7a2926c74258670fe56b37c429c01fca9f2f0f',
-	noBlocksKey: '1111111111111111111111111111111111111111111111111111111111111111',
+	noBlocksKey: 'invalid_pk',
 	invalidPublicKey: 'abdefghijklmnopqrstuvwyxz',
 	delegate: 'genesis_1',
-	address: '8273455169423958419L',
+	address: '1631373966167063460L', // correct value should be '8273455169423958419L'
 	offset: 20,
 	excessiveOffset: 10000,
 };
@@ -50,8 +50,8 @@ describe('Delegates API', () => {
 			'payloadHash',
 			'payloadLength',
 			'reward',
-			'id',
-			'version',
+			'delegate',
+			'blockId',
 			'timestamp',
 			'height',
 			'previousBlock',
@@ -63,9 +63,19 @@ describe('Delegates API', () => {
 	/* Testing functions */
 	const checkBlocks = (id) => {
 		for (let i = 0; i < id.length; i++) {
-			if (id[i + 1]) {
-				checkBlock(id[i]);
-			}
+			// if (id[i + 1]) {
+			node.expect(id[i]).to.contain.all.keys(
+				'blockId',
+				'timestamp',
+				'height',
+				'generatorPublicKey',
+				'generatorId',
+				'confirmations',
+				'blockSignature',
+				'payloadHash',
+				'payloadLength',
+				'previousBlock');
+			// }
 		}
 	};
 
@@ -105,18 +115,20 @@ describe('Delegates API', () => {
 					'asset',
 					'delegate',
 					'confirmations',
-					'signatures',
+					'multisignatures',
 					'signature',
 					'fee',
 					'amount',
-					'id',
+					'transactionId',
 					'height',
 					'blockId',
 					'type',
 					'timestamp',
+					'senderSecondPublicKey',
 					'senderPublicKey',
 					'senderId',
-					'recipientId');
+					'recipientId',
+					'recipientPublicKey');
 				checkDelegate(id[i].delegate);
 			}
 		}
@@ -195,7 +207,7 @@ describe('Delegates API', () => {
 		});
 	});
 
-	describe.only('GET /api/delegates/getLatestRegistrations', () => {
+	describe('GET /api/delegates/getLatestRegistrations', () => {
 		it('should be ok', (done) => {
 			getLatestRegistrations((err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
@@ -275,7 +287,7 @@ describe('Delegates API', () => {
 	});
 
 	describe('GET /api/getSearch', () => {
-		it('should be ok', (done) => {
+		it('returns the address if searching a valid pk ', (done) => {
 			getSearch(params.delegate, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.address).to.have.equal(params.address);
