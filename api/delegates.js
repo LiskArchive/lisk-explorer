@@ -34,9 +34,5 @@ module.exports = [
 		path: 'delegates/getNextForgers',
 		service: 'delegates',
 		params: () => undefined,
-	}, {
-		path: 'delegates/getDelegateProposals',
-		service: 'delegates',
-		params: () => undefined,
 	},
 ];
