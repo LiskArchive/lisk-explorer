@@ -10,7 +10,7 @@ const params = {
 	totalFee: 0,
 };
 
-describe('Blocks API', () => {
+describe.skip('Blocks API', () => {
 	/* Define functions for use within tests */
 	const getLastBlocks = (id, done) => {
 		node.get(`/api/getLastBlocks?n=${id}`, done);

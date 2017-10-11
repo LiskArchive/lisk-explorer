@@ -139,9 +139,10 @@ describe('Delegates API', () => {
 
 
 	/* Define api endpoints to test */
-	describe('GET /api/delegates/getActive', () => {
+	describe.only('GET /api/delegates/getActive', () => {
 		it('should be ok', (done) => {
 			getActive((err, res) => {
+				console.log(Object.keys(res));
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('delegates');
 				node.expect(res.body).to.have.property('totalCount');

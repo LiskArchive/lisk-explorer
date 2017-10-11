@@ -8,7 +8,7 @@ const params = {
 	limit: 100,
 };
 
-describe('Transactions API', () => {
+describe.skip('Transactions API', () => {
 	/* Define functions for use within tests */
 	function getTransaction(id, done) {
 		node.get(`/api/getTransaction?transactionId=${id}`, done);
