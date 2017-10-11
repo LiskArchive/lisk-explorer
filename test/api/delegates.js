@@ -80,8 +80,8 @@ describe('Delegates API', () => {
 			'address',
 			'publicKey',
 			'vote',
-			'producedblocks',
-			'missedblocks',
+			'producedBlocks',
+			'missedBlocks',
 			'rate',
 			'approval');
 	};
@@ -139,10 +139,9 @@ describe('Delegates API', () => {
 
 
 	/* Define api endpoints to test */
-	describe.only('GET /api/delegates/getActive', () => {
+	describe('GET /api/delegates/getActive', () => {
 		it('should be ok', (done) => {
 			getActive((err, res) => {
-				console.log(Object.keys(res));
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('delegates');
 				node.expect(res.body).to.have.property('totalCount');
@@ -161,7 +160,7 @@ describe('Delegates API', () => {
 				node.expect(res.body).to.have.property('pagination');
 				node.expect(res.body).to.have.property('totalCount');
 				node.expect(res.body.pagination).to.have.property('currentPage');
-				node.expect(res.body.pagination.currentPage).to.be.equal(null);
+				node.expect(res.body.pagination.currentPage).to.be.equal(1);
 				done();
 			});
 		});
@@ -211,7 +210,7 @@ describe('Delegates API', () => {
 		});
 	});
 
-	describe('GET /api/delegates/getLatestRegistrations', () => {
+	describe.only('GET /api/delegates/getLatestRegistrations', () => {
 		it('should be ok', (done) => {
 			getLatestRegistrations((err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
