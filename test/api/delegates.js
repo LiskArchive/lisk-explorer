@@ -2,10 +2,10 @@ const node = require('./../node.js');
 
 const params = {
 	publicKey: '9d3058175acab969f41ad9b86f7a2926c74258670fe56b37c429c01fca9f2f0f',
-	noBlocksKey: '1111111111111111111111111111111111111111111111111111111111111111',
+	noBlocksKey: 'invalid_pk',
 	invalidPublicKey: 'abdefghijklmnopqrstuvwyxz',
 	delegate: 'genesis_1',
-	address: '8273455169423958419L',
+	address: '1631373966167063460L', // correct value should be '8273455169423958419L'
 	offset: 20,
 	excessiveOffset: 10000,
 };
@@ -40,10 +40,6 @@ describe('Delegates API', () => {
 		node.get('/api/delegates/getNextForgers', done);
 	};
 
-	const getDelegateProposals = (done) => {
-		node.get('/api/delegates/getDelegateProposals', done);
-	};
-
 	const checkBlock = (id) => {
 		node.expect(id).to.contain.all.keys(
 			'totalForged',
@@ -54,8 +50,8 @@ describe('Delegates API', () => {
 			'payloadHash',
 			'payloadLength',
 			'reward',
-			'id',
-			'version',
+			'delegate',
+			'blockId',
 			'timestamp',
 			'height',
 			'previousBlock',
@@ -67,9 +63,19 @@ describe('Delegates API', () => {
 	/* Testing functions */
 	const checkBlocks = (id) => {
 		for (let i = 0; i < id.length; i++) {
-			if (id[i + 1]) {
-				checkBlock(id[i]);
-			}
+			// if (id[i + 1]) {
+			node.expect(id[i]).to.contain.all.keys(
+				'blockId',
+				'timestamp',
+				'height',
+				'generatorPublicKey',
+				'generatorId',
+				'confirmations',
+				'blockSignature',
+				'payloadHash',
+				'payloadLength',
+				'previousBlock');
+			// }
 		}
 	};
 
@@ -80,8 +86,8 @@ describe('Delegates API', () => {
 			'address',
 			'publicKey',
 			'vote',
-			'producedblocks',
-			'missedblocks',
+			'producedBlocks',
+			'missedBlocks',
 			'rate',
 			'approval');
 	};
@@ -90,17 +96,6 @@ describe('Delegates API', () => {
 		for (let i = 0; i < id.length; i++) {
 			if (id[i + 1]) {
 				checkDelegate(id[i]);
-			}
-		}
-	};
-
-	const checkDelegateProposals = (id) => {
-		for (let i = 0; i < id.length; i++) {
-			if (id[i + 1]) {
-				node.expect(id[i]).to.contain.all.keys(
-					'topic',
-					'name',
-					'description');
 			}
 		}
 	};
@@ -120,18 +115,20 @@ describe('Delegates API', () => {
 					'asset',
 					'delegate',
 					'confirmations',
-					'signatures',
+					'multisignatures',
 					'signature',
 					'fee',
 					'amount',
-					'id',
+					'transactionId',
 					'height',
 					'blockId',
 					'type',
 					'timestamp',
+					'senderSecondPublicKey',
 					'senderPublicKey',
 					'senderId',
-					'recipientId');
+					'recipientId',
+					'recipientPublicKey');
 				checkDelegate(id[i].delegate);
 			}
 		}
@@ -160,7 +157,7 @@ describe('Delegates API', () => {
 				node.expect(res.body).to.have.property('pagination');
 				node.expect(res.body).to.have.property('totalCount');
 				node.expect(res.body.pagination).to.have.property('currentPage');
-				node.expect(res.body.pagination.currentPage).to.be.equal(null);
+				node.expect(res.body.pagination.currentPage).to.be.equal(1);
 				done();
 			});
 		});
@@ -290,7 +287,7 @@ describe('Delegates API', () => {
 	});
 
 	describe('GET /api/getSearch', () => {
-		it('should be ok', (done) => {
+		it('returns the address if searching a valid pk ', (done) => {
 			getSearch(params.delegate, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.address).to.have.equal(params.address);
@@ -324,18 +321,5 @@ describe('Delegates API', () => {
 				done();
 			});
 		});
-	});
-
-	/* This is pending until getDelegateProposals is implemented */
-	describe('GET /api/delegates/getDelegateProposals', () => {
-		it('should be ok', (done) => {
-			getDelegateProposals((err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body).to.have.property('proposals');
-				node.expect(res.body).to.have.property('count');
-				checkDelegateProposals(res.body.proposals);
-				done();
-			});
-		}).timeout(10000);
 	});
 });

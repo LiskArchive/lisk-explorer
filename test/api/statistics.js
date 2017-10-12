@@ -1,6 +1,6 @@
 const node = require('./../node.js');
 
-describe('Statistics API', () => {
+describe.skip('Statistics API', () => {
 	/* Define functions for use within tests */
 	function getLastBlock(done) {
 		node.get('/api/statistics/getLastBlock', done);
