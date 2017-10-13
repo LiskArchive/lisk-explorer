@@ -61,8 +61,10 @@ node('lisk-explorer-01'){
     stage ('Start Lisk ') {
       try {
         sh '''
+        N=${EXECUTOR_NUMBER:-0}
         cd lisk-mock
-        npm run dev > results.txt &
+        npm install
+        PORT=808$N npm run dev > results.txt &
         '''
       } catch (err) {
         currentBuild.result = 'FAILURE'
@@ -73,9 +75,9 @@ node('lisk-explorer-01'){
     stage ('Start Explorer') {
       try {
       sh '''
-
+      N=${EXECUTOR_NUMBER:-0}
       cp test/config.test ./config.js
-      node $(pwd)/app.js &> ./explorer.log &
+      PORT=808$N node $(pwd)/app.js &> ./explorer.log &
       sleep 20
       '''
       } catch (err) {
