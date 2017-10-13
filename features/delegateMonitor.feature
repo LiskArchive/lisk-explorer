@@ -1,4 +1,7 @@
 Feature: Delegate Monitor
+
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should show delegates, last block, next forgers, ...
     Given I'm on page "/delegateMonitor"
     Then I should see table "votes" containing:
@@ -72,6 +75,8 @@ Feature: Delegate Monitor
       | 4    | /genesis_\d{1,3}/ | /\d{10,20}L/ | /1,\d{3}.\d{8} LSK/ | /.+/         |        | /\d{2,3}(\.\d{2})?%/ |/\d{2,3}(\.\d{2})?%/ |
       | 5    | /genesis_\d{1,3}/ | /\d{10,20}L/ | /1,\d{3}.\d{8} LSK/ | /.+/         |        | /\d{2,3}(\.\d{2})?%/ |/\d{2,3}(\.\d{2})?%/ |
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should allow to sort active delegates
     Given I'm on page "/delegateMonitor"
     When I click link on header cell no. 2 of "active delegates" table
@@ -84,6 +89,8 @@ Feature: Delegate Monitor
       | /\d{1,3}/ | genesis_4 | /\d{10,20}L/ | /1,\d{3}.\d{8} LSK/ | /.+/         |        | /\d{2,3}(\.\d{2})?%/ |/\d{2,3}(\.\d{2})?%/ |
       | /\d{1,3}/ | genesis_5 | /\d{10,20}L/ | /1,\d{3}.\d{8} LSK/ | /.+/         |        | /\d{2,3}(\.\d{2})?%/ |/\d{2,3}(\.\d{2})?%/ |
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should allow show delegate status tooltip
     Given I'm on page "/delegateMonitor"
     When I hover "forging status" no. 1
@@ -94,31 +101,43 @@ Feature: Delegate Monitor
       (\d+|a few|an|a) \w+ ago
       """
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: latest votes should link to voter
     Given I'm on page "/delegateMonitor"
     When I click link on row no. 1 cell no. 1 of "votes" table
     Then I should be on page "/delegate/14895491440237132212L"
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: latest votes should link to transaction
     Given I'm on page "/delegateMonitor"
     When I click link on row no. 1 cell no. 2 of "votes" table
     Then I should be on page "/tx/11267727202420741572"
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: newest delegates should link to delegate
     Given I'm on page "/delegateMonitor"
     When I click link on row no. 1 cell no. 1 of "registrations" table
     Then I should be on page "/delegate/4401082358022424760L"
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: newest delegates should link to transaction
     Given I'm on page "/delegateMonitor"
     When I click link on row no. 1 cell no. 2 of "registrations" table
     Then I should be on page "/tx/2535943083975103126"
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: active delegates should link to delegate
     Given I'm on page "/delegateMonitor"
     And I click link on row no. 5 cell no. 2 of "active delegates" table
     Then I should be on page that matches "/delegate/\d{10,20}L"
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: allows to see standby delegates
     Given I'm on page "/delegateMonitor"
     When I click "standby delegates tab"
@@ -131,6 +150,8 @@ Feature: Delegate Monitor
       | 105  | /standby_\d{1,3}/ | /\d{10,20}L/ | 0%           | 0%       |
       | 106  | /standby_\d{1,3}/ | /\d{10,20}L/ | 0%           | 0%       |
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: allows to go to next page of standby delegates
     Given I'm on page "/delegateMonitor"
     When I click "standby delegates tab"
@@ -144,6 +165,8 @@ Feature: Delegate Monitor
       | 125  | /standby_\d{1,3}/ | /\d{10,20}L/ | 0%           | 0%       |
       | 126  | /standby_\d{1,3}/ | /\d{10,20}L/ | 0%           | 0%       |
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: allows to go to previous page of standby delegates
     Given I'm on page "/delegateMonitor"
     When I click "standby delegates tab"
@@ -158,6 +181,8 @@ Feature: Delegate Monitor
       | 105  | /standby_\d{1,3}/ | /\d{10,20}L/ | 0%           | 0%       |
       | 106  | /standby_\d{1,3}/ | /\d{10,20}L/ | 0%           | 0%       |
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: standby delegates should link to delegate
     Given I'm on page "/delegateMonitor"
     When I click "standby delegates tab"
