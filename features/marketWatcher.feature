@@ -1,4 +1,7 @@
 Feature: Market Watcher
+
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should show statistics
     Given I'm on page "/marketWatcher"
     Then I should see "Market Watcher" in "h1" html element
@@ -39,6 +42,8 @@ Feature: Market Watcher
       \d+
       """
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should allow to switch to Bittrex 
     Given I'm on page "/marketWatcher"
     When I click "bittrex tab"
@@ -53,6 +58,8 @@ Feature: Market Watcher
       0\.0+
       """
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should allow to hide statistics
     Given I'm on page "/marketWatcher"
     When I click "toggle statistics button"
@@ -80,6 +87,8 @@ Feature: Market Watcher
   @ignore
   Scenario: should allow to switch to depth chart
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should allow to switch to Order Book
     Given I'm on page "/marketWatcher"
     When I click "order book tab"

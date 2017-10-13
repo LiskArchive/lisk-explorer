@@ -1,4 +1,7 @@
 Feature: Home page
+
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should show latest transactions
     Given I'm on page "/"
     Then I should see "Latest Transactions" in "h1" html element no. 1
@@ -11,6 +14,8 @@ Feature: Home page
       | 2799279669192005501  | /2017\/06\/19 \d\d:17:39/ | standby_301 | 18234943547133247982L | 0.123456     | 0.1       |
       | 4146285315366899005  | /2017\/06\/19 \d\d:17:29/ | standby_301 | 18234943547133247982L | 123.4567     | 0.1       |
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should show latest blocks
     Given I'm on page "/"
     Then I should see "Latest Blocks" in "h1" html element no. 2
@@ -22,6 +27,8 @@ Feature: Home page
       | /\d{1,20}/ | /\d+/  | /20\d\d/\d\d/\d\d \d\d?:\d\d:\d\d/ | /\d+/        | /genesis_\d{1,3}/ | /\d+/        | /\d+/        |
       | /\d{1,20}/ | /\d+/  | /20\d\d/\d\d/\d\d \d\d?:\d\d:\d\d/ | /\d+/        | /genesis_\d{1,3}/ | /\d+/        | /\d+/        |
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: links to all blocks
     Given I'm on page "/"
     And I click "see all blocks"

@@ -1,4 +1,6 @@
 Feature: Network Monitor
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should show stats
     Given I'm on page "/networkMonitor"
     Then I should see "active nodes" element with content that matches:
