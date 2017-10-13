@@ -1,0 +1,128 @@
+def cleanUp() {
+    sh '''
+    pkill -f app.js || true
+    bash ~/lisk-test/lisk.sh stop
+    pkill -f selenium -9 || true
+    pkill -f Xvfb -9 || true
+    rm -rf /tmp/.X0-lock || true
+    pkill -f webpack -9 || true
+  '''
+  deleteDir()
+}
+
+node('lisk-explorer-01'){
+  lock(resource: "lisk-explorer-01", inversePrecedence: true) {
+    stage ('Prepare Workspace') {
+      cleanUp()
+      checkout scm
+    }
+
+    stage ('Build Dependencies') {
+      try {
+        dir("lisk-mock") { checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/reyraa/lisk-mock.git']]])}
+
+        sh '''
+
+        # Install Deps
+        npm install
+
+        #npm install
+        '''
+      } catch (err) {
+        currentBuild.result = 'FAILURE'
+        error('Stopping build, installation failed')
+      }
+    }
+
+    stage ('Run Webpack Build') {
+      try {
+        sh '''
+        # Build Bundles
+        npm run build
+        '''
+      } catch (err) {
+        currentBuild.result = 'FAILURE'
+        error('Stopping build, webpack failed')
+      }
+    }
+
+    stage ('Build Candles') {
+      try {
+        sh '''
+        # Generate market data
+        grunt candles:build
+        '''
+      } catch (err) {
+        currentBuild.result = 'FAILURE'
+        error('Stopping build, candles build failed')
+      }
+    }
+
+    stage ('Start Lisk ') {
+      try {
+        sh '''
+        N=${EXECUTOR_NUMBER:-0}
+        cd lisk-mock
+        npm install
+        PORT=808$N npm run dev > results.txt &
+        '''
+      } catch (err) {
+        currentBuild.result = 'FAILURE'
+        error('Stopping build, lisk-core failed')
+      }
+    }
+
+    stage ('Start Explorer') {
+      try {
+      sh '''
+      N=${EXECUTOR_NUMBER:-0}
+      cp test/config.test ./config.js
+      PORT=808$N node $(pwd)/app.js &> ./explorer.log &
+      sleep 20
+      '''
+      } catch (err) {
+        currentBuild.result = 'FAILURE'
+        error('Stopping build, Explorer failed to start')
+      }
+    }
+
+    stage ('Run tests') {
+      try {
+        sh '''
+        # Run Tests
+        npm run test
+        '''
+      } catch (err) {
+        cleanUp()
+        currentBuild.result = 'FAILURE'
+        error('Stopping build, tests failed')
+      }
+    }
+
+    stage ('Run e2e tests') {
+      try {
+        sh '''
+
+        # End to End test configuration
+        export DISPLAY=:99
+        Xvfb :99 -ac -screen 0 1280x1024x24 &
+        ./node_modules/protractor/bin/webdriver-manager update
+        ./node_modules/protractor/bin/webdriver-manager start &
+
+        # Run E2E Tests
+        npm run e2e-test
+        '''
+      } catch (err) {
+        cleanUp()
+        currentBuild.result = 'FAILURE'
+        error('Stopping build, e2e tests failed')
+      }
+    }
+
+    stage ('Set milestone and cleanup') {
+      milestone 1
+      currentBuild.result = 'SUCCESS'
+      cleanUp()
+    }
+  }
+}

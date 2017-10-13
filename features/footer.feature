@@ -1,4 +1,7 @@
 Feature: Footer
+
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should contain links to Lisk website, forum, BBT thread, reddit twitter, Explorer Github
     Given I'm on page "/"
     Then I should see "website link" element that links to "https://lisk.io/"
@@ -8,6 +11,8 @@ Feature: Footer
     Then I should see "twitter link" element that links to "https://twitter.com/LiskHQ"
     Then I should see "github link" element that links to "https://github.com/LiskHQ/lisk-explorer"
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: allows to show all 8 decimal places
     Given I'm on page "/"
     When I click "decimal places menu"
@@ -20,6 +25,8 @@ Feature: Footer
       | 16747360986039780565 | /2017\/06\/19 \d\d:17:49/ | standby_301 | 18234943547133247982L | 100.12345678 | 0.1       |
       | 2799279669192005501  | /2017\/06\/19 \d\d:17:39/ | standby_301 | 18234943547133247982L |   0.12345600 | 0.1       |
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: allows to round to 4 decimal places
     Given I'm on page "/"
     When I click "decimal places menu"
@@ -32,6 +39,8 @@ Feature: Footer
       | 16747360986039780565 | /2017\/06\/19 \d\d:17:49/ | standby_301 | 18234943547133247982L | 100.1235     | 0.1       |
       | 2799279669192005501  | /2017\/06\/19 \d\d:17:39/ | standby_301 | 18234943547133247982L |   0.1235     | 0.1       |
 
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: allows to trim floating points 
     Given I'm on page "/"
     When I click "decimal places menu"
