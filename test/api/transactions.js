@@ -8,7 +8,7 @@ const params = {
 	limit: 100,
 };
 
-describe.skip('Transactions API', () => {
+describe('Transactions API', () => {
 	/* Define functions for use within tests */
 	function getTransaction(id, done) {
 		node.get(`/api/getTransaction?transactionId=${id}`, done);
@@ -30,29 +30,35 @@ describe.skip('Transactions API', () => {
 		node.get(`/api/getTransactionsByBlock?blockId=${id}&offset=${id2}&limit=${id3}`, done);
 	}
 
-	function checkTransactionsBody(id) {
-		for (let i = 0; i < id.length; i++) {
-			if (id[i + 1]) {
-				node.expect(id[i]).to.contain.all.keys(
-					'recipientId',
-					'senderId',
-					'senderPublicKey',
-					'senderDelegate',
-					'knownSender',
-					'timestamp',
-					'type',
-					'blockId',
-					'height',
-					'id',
-					'amount',
-					'fee',
-					'signature',
-					'signatures',
-					'confirmations',
-					'asset',
-					'recipientDelegate',
-					'knownRecipient',
-					'recipientPublicKey');
+	function checkTransactionsBody(tx) {
+		const commonKeys = [
+			'recipientId',
+			'senderId',
+			'senderPublicKey',
+			'senderSecondPublicKey',
+			'senderDelegate',
+			'secondSignature',
+			'knownSender',
+			'timestamp',
+			'type',
+			'id',
+			'amount',
+			'fee',
+			'signature',
+			'asset',
+			'recipientDelegate',
+			'knownRecipient',
+			'recipientPublicKey',
+		];
+		const confirmedKeys = ['blockId', 'height', 'signatures', 'confirmations'];
+		const unConfirmedKeys = ['propagation'];
+		for (let i = 0; i < tx.length; i++) {
+			if (tx[i + 1]) {
+				if (!tx[i].blockId) {
+					node.expect(tx[i]).to.contain.all.keys(...commonKeys, ...unConfirmedKeys);
+				} else {
+					node.expect(tx[i]).to.contain.all.keys(...commonKeys, ...confirmedKeys);
+				}
 			}
 		}
 	}
@@ -67,6 +73,10 @@ describe.skip('Transactions API', () => {
 					'recipientId',
 					'senderId',
 					'senderPublicKey',
+					'senderSecondPublicKey',
+					'recipientDelegate',
+					'secondSignature',
+					'senderDelegate',
 					'knownSender',
 					'timestamp',
 					'type',
@@ -96,9 +106,10 @@ describe.skip('Transactions API', () => {
 
 	/* We are skipping this temporarily, theres a call back error that needs to be fixed */
 	describe('GET /api/getUnconfirmedTransactions', () => {
-		it.skip('should be ok', (done) => {
+		it('should be ok', (done) => {
 			getUnconfirmedTransactions((err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				checkTransactionsBody(res.body.transactions);
 				done();
 			});
 		});
