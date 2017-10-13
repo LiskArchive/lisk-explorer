@@ -1,4 +1,6 @@
 Feature: Activity Graph
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should display table with statistics
     Given I'm on page "/activityGraph"
     Then I should see "Activity Graph" in "h1" html element

@@ -1,4 +1,7 @@
 Feature: Top Accounts page
+
+  # Temporary before Api update is accomplished
+  @ignore
   Scenario: should show title, summary, and transactions
     Given I'm on page "/topAccounts"
     Then I should see "Top Accounts" in "h1" html element
@@ -12,6 +15,7 @@ Feature: Top Accounts page
       | 4    | 14895491440237132212L | 3,735.41000576 LSK    | /0\.\d{2}%/  | standby_301    |
       | 5    | 537318935439898807L   | /3,288.\d{8} LSK/     | /0\.\d{2}%/  | genesis_17     |
 
+  @ignore
   Scenario: should link address to address page
     Given I'm on page "/topAccounts"
     And I click link on row no. 1 cell no. 2 of "top accounts" table
