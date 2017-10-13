@@ -1,5 +1,5 @@
 def cleanUp() {
-    sh '''#!/bin/bash
+    sh '''
     pkill -f app.js || true
     bash ~/lisk-test/lisk.sh stop
     pkill -f selenium -9 || true
@@ -21,7 +21,7 @@ node('lisk-explorer-01'){
       try {
         dir("lisk-mock") { checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/reyraa/lisk-mock.git']]])}
 
-        sh '''#!/bin/bash
+        sh '''
 
         # Install Deps
         npm install
@@ -36,7 +36,7 @@ node('lisk-explorer-01'){
 
     stage ('Run Webpack Build') {
       try {
-        sh '''#!/bin/bash
+        sh '''
         # Build Bundles
         npm run build
         '''
@@ -48,7 +48,7 @@ node('lisk-explorer-01'){
 
     stage ('Build Candles') {
       try {
-        sh '''#!/bin/bash
+        sh '''
         # Generate market data
         grunt candles:build
         '''
@@ -60,7 +60,7 @@ node('lisk-explorer-01'){
 
     stage ('Start Lisk ') {
       try {
-        sh '''#!/bin/bash
+        sh '''
         cd lisk-mock
         npm run dev > results.txt &
         '''
@@ -72,7 +72,7 @@ node('lisk-explorer-01'){
 
     stage ('Start Explorer') {
       try {
-      sh '''#!/bin/bash
+      sh '''
 
       cp test/config.test ./config.js
       node $(pwd)/app.js &> ./explorer.log &
@@ -86,7 +86,7 @@ node('lisk-explorer-01'){
 
     stage ('Run tests') {
       try {
-        sh '''#!/bin/bash
+        sh '''
         # Run Tests
         npm run test
         '''
@@ -99,7 +99,7 @@ node('lisk-explorer-01'){
 
     stage ('Run e2e tests') {
       try {
-        sh '''#!/bin/bash
+        sh '''
 
         # End to End test configuration
         export DISPLAY=:99
