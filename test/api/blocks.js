@@ -10,7 +10,7 @@ const params = {
 	totalFee: 0,
 };
 
-describe.skip('Blocks API', () => {
+describe('Blocks API', () => {
 	/* Define functions for use within tests */
 	const getLastBlocks = (id, done) => {
 		node.get(`/api/getLastBlocks?n=${id}`, done);
@@ -94,7 +94,7 @@ describe.skip('Blocks API', () => {
 	};
 
 	/* Define api endpoints to test */
-	describe('GET /api/getLastBlocks', () => {
+	describe.only('GET /api/getLastBlocks', () => {
 		it('should be ok', (done) => {
 			getLastBlocks('0', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
@@ -120,7 +120,7 @@ describe.skip('Blocks API', () => {
 		});
 	});
 
-	describe('GET /api/getBlockStatus', () => {
+	describe.skip('GET /api/getBlockStatus', () => {
 		it('should be ok', (done) => {
 			getBlockStatus((err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
