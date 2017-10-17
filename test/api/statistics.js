@@ -1,6 +1,6 @@
 const node = require('./../node.js');
 
-describe.skip('Statistics API', () => {
+describe('Statistics API', () => {
 	/* Define functions for use within tests */
 	function getLastBlock(done) {
 		node.get('/api/statistics/getLastBlock', done);
@@ -19,9 +19,10 @@ describe.skip('Statistics API', () => {
 			if (id[i + 1]) {
 				node.expect(id[i]).to.contain.all.keys(
 					'ip',
-					'port',
-					'state',
+					'httpPort',
+					'wsPort',
 					'os',
+					'state',
 					'version',
 					'broadhash',
 					'height',
@@ -42,7 +43,6 @@ describe.skip('Statistics API', () => {
 			'payloadLength',
 			'reward',
 			'id',
-			'version',
 			'timestamp',
 			'height',
 			'previousBlock',
