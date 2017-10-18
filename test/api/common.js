@@ -11,7 +11,7 @@ const mockApiParams = {
 	address: '1631373966167063460L',
 };
 
-describe.only('Common API', () => {
+describe('Common API', () => {
 	/* Define functions for use within tests */
 	const getVersion = (done) => {
 		node.get('/api/version', done);
