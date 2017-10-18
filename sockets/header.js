@@ -1,12 +1,10 @@
 const api = require('../lib/api');
-const config = require('../config');
 const async = require('async');
 const logger = require('../utils/logger');
 
 module.exports = function (app, connectionHandler, socket) {
 	const blocks = new api.blocks(app);
 	const common = new api.common(app);
-	const delegates = new api.delegates(app);
 	const connection = new connectionHandler('Header:', socket, this);
 	let intervals = [];
 	let data = {};
@@ -15,7 +13,7 @@ module.exports = function (app, connectionHandler, socket) {
 	const running = {
 		getBlockStatus: false,
 		getPriceTicker: false,
-		getDelegateProposals: false,
+		// getDelegateProposals: false,
 	};
 
 	const log = (level, msg) => {
@@ -50,16 +48,6 @@ module.exports = function (app, connectionHandler, socket) {
 			(res) => { running.getPriceTicker = false; cb(null, res); });
 	};
 
-	const getDelegateProposals = (cb) => {
-		if (running.getDelegateProposals) {
-			return cb('getDelegateProposals (already running)');
-		}
-		running.getDelegateProposals = true;
-		return delegates.getDelegateProposals(
-			() => { running.getDelegateProposals = false; cb('DelegateProposals'); },
-			(res) => { running.getDelegateProposals = false; cb(null, res); });
-	};
-
 	const emitData = () => {
 		const thisData = {};
 
@@ -78,26 +66,6 @@ module.exports = function (app, connectionHandler, socket) {
 				log('info', 'Emitting data');
 				socket.emit('data', thisData);
 			}
-		});
-	};
-
-	const emitDelegateProposals = () => {
-		if (!config.proposals.enabled) {
-			return false;
-		}
-
-		return async.parallel([
-			getDelegateProposals,
-		],
-		(err, res) => {
-			if (err) {
-				log('error', `Error retrieving: ${err}`);
-			} else {
-				tmpData.proposals = res[0];
-			}
-
-			log('info', 'Emitting updated delegate proposals');
-			socket.emit('delegateProposals', tmpData.proposals);
 		});
 	};
 
@@ -121,11 +89,8 @@ module.exports = function (app, connectionHandler, socket) {
 
 				newInterval(0, 10000, emitData);
 				// Update and emit delegate proposals every 10 minutes by default
-				newInterval(1, config.proposals.updateInterval || 600000, emitDelegateProposals);
 			}
 		});
-
-		emitDelegateProposals();
 	};
 
 	this.onConnect = function () {
