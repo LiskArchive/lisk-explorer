@@ -40,6 +40,10 @@ describe('Delegates API', () => {
 		node.get('/api/delegates/getNextForgers', done);
 	};
 
+	const getLatestVotes = (done) => {
+		node.get('/api/delegates/getLatestVotes', done);
+	};
+
 	const checkBlock = (id) => {
 		node.expect(id).to.contain.all.keys(
 			'totalForged',
@@ -134,6 +138,30 @@ describe('Delegates API', () => {
 		}
 	};
 
+	const checkVotes = (votes) => {
+		votes.forEach((vote) => {
+			node.expect(vote).to.contain.all.keys(
+				'amount',
+				'asset',
+				'blockId',
+				'confirmations',
+				'delegate',
+				'fee',
+				'height',
+				'multisignatures',
+				'recipientId',
+				'recipientPublicKey',
+				'secondSignature',
+				'id',
+				'senderId',
+				'senderPublicKey',
+				'senderSecondPublicKey',
+				'signature',
+				'timestamp',
+				'transactionId',
+				'type');
+		});
+	};
 
 	/* Define api endpoints to test */
 	describe('GET /api/delegates/getActive', () => {
@@ -207,7 +235,7 @@ describe('Delegates API', () => {
 		});
 	});
 
-	describe('GET /api/delegates/getLatestRegistrations', () => {
+	describe.only('GET /api/delegates/getLatestRegistrations', () => {
 		it('should be ok', (done) => {
 			getLatestRegistrations((err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
@@ -318,6 +346,17 @@ describe('Delegates API', () => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('delegates');
 				checkPublicKeys(res.body.delegates);
+				done();
+			});
+		});
+	});
+
+	describe('GET /api/delegates/getLatestVotes', () => {
+		it('should be ok', (done) => {
+			getLatestVotes((err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions');
+				checkVotes(res.body.transactions);
 				done();
 			});
 		});
