@@ -36,13 +36,11 @@
     "no-restricted-properties": "off",
     "no-return-assign": "off",
     "no-underscore-dangle": "off",
-    "import/no-extraneous-dependencies": ["error", 
+    "import/no-extraneous-dependencies": ["error",
       {
-      "devDependencies": [
-        "./src/**/*.test.js",
-        "./features/*/*.js",
-        "./src/**/stories.js"
-        ]
+        "devDependencies": true,
+        "optionalDependencies": false,
+        "peerDependencies": false
       }
     ],
     "no-param-reassign": "off",
