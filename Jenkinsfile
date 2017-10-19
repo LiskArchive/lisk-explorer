@@ -30,6 +30,18 @@ node('lisk-explorer-01'){
       }
     }
 
+    stage ('Run Eslint') {
+      try {
+        sh '''#!/bin/bash
+        # Run Eslint
+        npm run eslint
+        '''
+      } catch (err) {
+        currentBuild.result = 'FAILURE'
+        error('Stopping build, Eslint failed')
+      }
+    }
+
     stage ('Run Webpack Build') {
       try {
         sh '''#!/bin/bash
