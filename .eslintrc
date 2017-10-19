@@ -4,7 +4,8 @@
   ],
   "plugins": [
     "import",
-    "protractor"
+    "protractor",
+    "mocha"
   ],
   "globals": {
     "ipc": true,
@@ -17,6 +18,7 @@
     "mocha": true
   },
   "rules": {
+    "mocha/no-exclusive-tests": "error",
     "func-names": "off",
     "global-require": "off",
     "new-cap": ["error", {
@@ -30,7 +32,6 @@
         "Before"
       ]
     }],
-
     "no-loop-func": "off",
     "no-plusplus": "off",
     "no-restricted-properties": "off",
@@ -47,5 +48,10 @@
     ],
     "no-param-reassign": "off",
     "camelcase": [ "error", { "properties": "never" }]
-  }
+  },
+  "settings": {
+    "mocha/additionalTestFunctions": [
+        "describeModule"
+    ]
+ }
 }
