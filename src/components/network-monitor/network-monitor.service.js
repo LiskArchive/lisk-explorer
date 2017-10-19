@@ -108,8 +108,8 @@ const NetworkMonitor = function (vm) {
 		this.platforms = ['Darwin', 'Linux', 'FreeBSD'];
 
 		this.detect = function (platform) {
-			if (angular.isNumber(platform.group)) {
-				this.counter[parseInt(platform.group, 10)]++;
+			if (typeof platform.group === 'number') {
+				this.counter[platform.group]++;
 			}
 		};
 
@@ -215,7 +215,8 @@ const NetworkMonitor = function (vm) {
 		const versions = new Versions(peers.connected);
 		const heights = new Heights(peers.connected);
 
-		Object.keys(peers.connected).forEach((item) => {
+		// @todo this was an object, now it's an array
+		peers.connected.forEach((item) => {
 			platforms.detect(item.osBrand);
 			versions.detect(item.version);
 			heights.detect(item.height);

@@ -2,14 +2,14 @@ import AppHeader from './header.module';
 
 const HeaderConstructor = function ($rootScope) {
 	this.updateBlockStatus = (res) => {
-		if (res.success) {
+		if (!!res.height && !!res.broadhash) {
 			$rootScope.blockStatus = {
 				height: res.height,
 				fee: res.fee,
 				milestone: res.milestone,
 				reward: res.reward,
 				supply: res.supply,
-				nethash: res.nethash,
+				nethash: res.broadhash,
 			};
 		}
 	};

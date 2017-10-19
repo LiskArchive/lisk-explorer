@@ -21,6 +21,14 @@ module.exports = function (app, connectionHandler, socket) {
 		getNextForgers: false,
 	};
 
+	const getErrorMessage = (body) => {
+		let message = 'Response was unsuccessful';
+		if (body && body.error) {
+			message = body.error;
+		}
+		return message;
+	};
+
 	const newInterval = function (i, delay, cb) {
 		if (intervals[i] !== undefined) {
 			return null;
@@ -152,15 +160,13 @@ module.exports = function (app, connectionHandler, socket) {
 		return async.waterfall([
 			(callback) => {
 				request.get({
-					url: `${app.get('lisk address')}/api/blocks?orderBy=height:desc&limit=${limit}`,
+					url: `${app.get('lisk address')}/blocks?sort=height:desc&limit=${limit}`,
 					json: true,
 				}, (err, response, body) => {
-					if (err || response.statusCode !== 200) {
-						return callback((err || 'Response was unsuccessful'));
-					} else if (body.success === true) {
+					if (response.statusCode === 200) {
 						return callback(null, { blocks: body.blocks });
 					}
-					return callback(body.error);
+					return callback(getErrorMessage(body));
 				});
 			},
 			(result, callback) => {
@@ -204,8 +210,7 @@ module.exports = function (app, connectionHandler, socket) {
 						return cb(null);
 					}
 					return delegates.getLastBlocks(
-						{ publicKey: delegate.publicKey,
-							limit: 1 },
+						{ publicKey: delegate.publicKey, limit: 1 },
 						(res) => {
 							log('error', `Error retrieving last blocks for: ${delegateName(delegate)}`);
 							callback(res.error);
@@ -285,7 +290,6 @@ module.exports = function (app, connectionHandler, socket) {
 				log('error', `Error retrieving: ${err}`);
 			} else {
 				tmpData.nextForgers = res[3];
-
 				data.active = updateActive(res[0]);
 				data.registrations = res[1];
 				data.votes = res[2];

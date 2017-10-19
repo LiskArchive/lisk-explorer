@@ -1,6 +1,6 @@
 const node = require('./../node.js');
 
-describe.skip('Exchanges API (Market Watcher)', () => {
+describe('Exchanges API (Market Watcher)', () => {
 	/* Define functions for use within tests */
 	function getExchanges(done) {
 		node.get('/api/exchanges', done);
@@ -137,7 +137,7 @@ describe.skip('Exchanges API (Market Watcher)', () => {
 			});
 		});
 
-		it('using minute for poloniex should be ok and return timeframe minute', (done) => {
+		it.skip('using minute for poloniex should be ok and return timeframe minute', (done) => {
 			getCandles('poloniex', 'minute', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('timeframe').to.be.equal('minute');
@@ -157,7 +157,7 @@ describe.skip('Exchanges API (Market Watcher)', () => {
 			});
 		});
 
-		it('using day for poloniex should be ok and return timeframe day', (done) => {
+		it.skip('using day for poloniex should be ok and return timeframe day', (done) => {
 			getCandles('poloniex', 'day', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('timeframe').to.be.equal('day');
