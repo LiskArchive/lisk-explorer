@@ -327,7 +327,7 @@ describe('Delegates API', () => {
 	});
 
 	/* This is pending until getDelegateProposals is implemented */
-	describe('GET /api/delegates/getDelegateProposals', () => {
+	describe.skip('GET /api/delegates/getDelegateProposals', () => {
 		it('should be ok', (done) => {
 			getDelegateProposals((err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
