@@ -215,7 +215,7 @@ const NetworkMonitor = function (vm) {
 		const versions = new Versions(peers.connected);
 		const heights = new Heights(peers.connected);
 
-		Object.keys(peers.connected).forEach((item) => {
+		peers.connected.forEach((item) => {
 			platforms.detect(item.osBrand);
 			versions.detect(item.version);
 			heights.detect(item.height);
