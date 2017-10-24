@@ -1,3 +1,5 @@
+
+
 const config = require('./config.global');
 
 /**
@@ -31,7 +33,7 @@ config.cacheTTL = 20;
 // Collect logs (true - enabled, false - disabled)
 config.log.enabled = true;
 // Output for logs - can be device file or ordinary path
-config.log.file = '/dev/stdout';
+config.log.file = './logs/explorer.log';
 // Log level - (trace, debug, info, warn, error)
 config.log.level = 'info';
 
@@ -42,6 +44,7 @@ config.log.level = 'info';
 config.exchangeRates.enabled = true;
 // Interval in ms for checking exchange rates (default: 30 seconds)
 config.exchangeRates.updateInterval = 30000;
+
 // Configuration for different currency pairs, set false to disable pair
 // LSK/BTC pair, supported: poloniex
 config.exchangeRates.exchanges.LSK.BTC = 'poloniex';
