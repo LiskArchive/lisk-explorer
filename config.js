@@ -1,3 +1,5 @@
+
+
 const config = require('./config.global');
 
 /**
@@ -42,6 +44,7 @@ config.log.level = 'info';
 config.exchangeRates.enabled = true;
 // Interval in ms for checking exchange rates (default: 30 seconds)
 config.exchangeRates.updateInterval = 30000;
+
 // Configuration for different currency pairs, set false to disable pair
 // LSK/BTC pair, supported: poloniex
 config.exchangeRates.exchanges.LSK.BTC = 'poloniex';
