@@ -75,6 +75,11 @@ npm install
  
 `npm run build`
 
+ If you want to add a meta tag with name and content defined (For example to verify your ownership to Google analytics) run:
+ 
+ `SERVICE_NAME='your service name' CLIENT_ID='you client id' npm run build`
+
+
 
 #### Market Watcher
  Candlestick data needs to be initialized prior to starting Lisk Explorer. During runtime candlestick data is updated automatically.
