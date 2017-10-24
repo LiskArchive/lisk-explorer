@@ -87,7 +87,6 @@ node('lisk-explorer-01'){
         npm run test
         '''
       } catch (err) {
-        cleanUp()
         currentBuild.result = 'FAILURE'
         error('Stopping build, tests failed')
       }
@@ -107,7 +106,6 @@ node('lisk-explorer-01'){
         npm run e2e-test
         '''
       } catch (err) {
-        cleanUp()
         currentBuild.result = 'FAILURE'
         error('Stopping build, e2e tests failed')
       }
