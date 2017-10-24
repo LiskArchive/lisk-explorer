@@ -126,10 +126,30 @@ const NetworkMonitor = function (vm) {
 	const uniq = arrArg => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
 
 	function Versions(peers) {
+		const sort = (a, b) => {
+			const normA = a.split('.').reduce((sum, value, index) =>
+				sum + (parseInt(value, 10) * Math.pow(10, (4 * (index + 1)))), 0);
+			const normB = b.split('.').reduce((sum, value, index) =>
+				sum + (parseInt(value, 10) * Math.pow(10, (4 * (index + 1)))), 0);
+			const charA = a.match(/[a-zA-Z]$/);
+			const charB = b.match(/[a-zA-Z]$/);
+
+			if (normA > normB) {
+				return 1;
+			} else if (normA < normB) {
+				return -1;
+			} else if (charA[0] > charB[0]) {
+				return 1;
+			} else if (charA[0] < charB[0]) {
+				return -1;
+			}
+			return 0;
+		};
+
 		const inspect = () => {
 			if (angular.isArray(peers)) {
 				return uniq(peers.map(p => p.version)
-					.sort()).reverse().slice(0, 3);
+					.sort(sort)).reverse().slice(0, 3);
 			}
 			return [];
 		};
