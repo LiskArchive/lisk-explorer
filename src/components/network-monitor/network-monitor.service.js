@@ -133,14 +133,15 @@ const NetworkMonitor = function (vm) {
 				sum + (parseInt(value, 10) * Math.pow(10, (4 * (index + 1)))), 0);
 			const charA = a.match(/[a-zA-Z]$/);
 			const charB = b.match(/[a-zA-Z]$/);
+			const hasChars = (charA && charB && charA.length > 0 && charB.length > 0);
 
 			if (normA > normB) {
 				return 1;
 			} else if (normA < normB) {
 				return -1;
-			} else if (charA[0] > charB[0]) {
+			} else if (hasChars && charA[0] > charB[0]) {
 				return 1;
-			} else if (charA[0] < charB[0]) {
+			} else if (hasChars && charA[0] < charB[0]) {
 				return -1;
 			}
 			return 0;
