@@ -2,6 +2,7 @@ const Path = require('path');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const Webpack = require('webpack');
 const NgAnnotatePlugin = require('ng-annotate-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 /**
  * Utils
@@ -44,6 +45,11 @@ module.exports = () => ({
 		},
 	},
 	plugins: removeEmpty([
+		new HtmlWebpackPlugin({
+			template: 'src/index.ejs',
+			serviceName: process.env.SERVICE_NAME,
+			clientId: process.env.CLIENT_ID,
+		}),
 		new BundleAnalyzerPlugin({
 			openAnalyzer: false,
 			analyzerMode: 'static',
