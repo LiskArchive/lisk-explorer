@@ -143,7 +143,7 @@ node('lisk-explorer-01'){
         # End to End test configuration
         export DISPLAY=:9$N
         Xvfb :9$N -ac -screen 0 1280x1024x24 &
-        ./node_modules/protractor/bin/webdriver-manager start &
+        ./node_modules/protractor/bin/webdriver-manager start --seleniumPort 443$N &
 
         # Run E2E Tests
         npm run e2e-test -- --params.baseURL http://localhost:604$N
