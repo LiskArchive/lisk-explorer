@@ -161,7 +161,6 @@ node('lisk-explorer-01'){
 
   } catch(err) {
     echo "Error: ${err}"
-    fail("top level fail")
   } finally {
     sh '''
     N=${EXECUTOR_NUMBER:-0}
