@@ -1,4 +1,9 @@
 def fail(reason) {
+  sh '''
+  ps aux > ps_log.log
+  netstat -tunap > netstat_log.log
+  '''
+
   def pr_branch = ''
   if (env.CHANGE_BRANCH != null) {
     pr_branch = " (${env.CHANGE_BRANCH})"
