@@ -6,11 +6,11 @@ var config = require('./config.global');
 // =======================================================================================
 
 config.host = '0.0.0.0'; // Interface to listen on, 0.0.0.0 to listen on all available
-config.port = 6040;      // Port to listen on
+config.port = process.env.LISTEN_PORT || 6040;      // Port to listen on
 
 // LISK node
 config.lisk.host = '127.0.0.1';
-config.lisk.port = 4000;
+config.lisk.port = process.env.PORT || 4000;
 
 // FreeGeoIP server
 config.freegeoip.host = '127.0.0.1';
@@ -18,7 +18,7 @@ config.freegeoip.port = 8080;
 
 // Redis server
 config.redis.host     = '127.0.0.1';
-config.redis.port     = 6379;
+config.redis.port     = process.env.REDIS_PORT || 6379;
 config.redis.password = '';
 
 config.cacheTTL = 20; // Time in seconds to store cache in Redis
