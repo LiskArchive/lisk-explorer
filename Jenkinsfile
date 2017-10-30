@@ -95,8 +95,7 @@ node('lisk-explorer-01'){
         jq '.cacheEnabled = false' config_stage.json > config.json
 
         if [[ ! $(pgrep -f '.*lisk-test/app.js') ]]; then
-          JENKINS_NODE_COOKIE=dontKillMe bash lisk.sh start_db
-          JENKINS_NODE_COOKIE=dontKillMe bash lisk.sh rebuild -f blockchain_explorer.db.gz
+          JENKINS_NODE_COOKIE=dontKillMe bash lisk.sh start
         fi
 
         '''
