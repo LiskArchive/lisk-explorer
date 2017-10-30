@@ -23,12 +23,9 @@ node('lisk-explorer-01'){
     stage ('Build Dependencies') {
       try {
         sh '''
-
         # Install Deps
         npm install
         ./node_modules/protractor/bin/webdriver-manager update
-        wget https://downloads.liskwallet.net/lisk/redis/redis-3.2.9-Linux-x86_64.tar.gz
-        tar -zvxf redis-3.2.9-Linux-x86_64.tar.gz
         '''
       } catch (err) {
         echo "Error: ${err}"
@@ -91,21 +88,16 @@ node('lisk-explorer-01'){
       try {
 
         sh '''
-        N=${EXECUTOR_NUMBER:-0}
         # work around core bug: config.json gets overwritten; use backup
-        cp test/config_lisk.json ~/lisk-test/config_$N.json
+        cp test/config_lisk.json ~/lisk-test/config_stage.json
         cd ~/lisk-test
-        # change core port
-        sed -i -r -e "s/^(.*ort\\":) 4000,/\\1 400$N,/" config_$N.json
         # disable redis
-        sed -i -r -e "s/^(\\s*\\"cacheEnabled\\":) true/\\1 false/" config_$N.json
-        # change postgres databse
-        sed -i -r -e "s/^(\\s*\\"database\\": \\"lisk_test)\\",/\\1_$N\\",/" config_$N.json
-        cp etc/pm2-lisk.json etc/pm2-lisk_$N.json
-        sed -i -r -e "s/config.json/config_$N.json/" etc/pm2-lisk_$N.json
-        sed -i -r -e "s/(lisk.app)/\\1_$N/" etc/pm2-lisk_$N.json
-        JENKINS_NODE_COOKIE=dontKillMe bash lisk.sh start_db -p etc/pm2-lisk_$N.json
-        bash lisk.sh rebuild -p etc/pm2-lisk_$N.json -f blockchain_explorer.db.gz
+        jq '.cacheEnabled = false' config_stage.json > config.json
+
+        if [[ ! $(pgrep -f '.*lisk-test/app.js') ]]; then
+          JENKINS_NODE_COOKIE=dontKillMe bash lisk.sh rebuild -f blockchain_explorer.db.gz
+        fi
+
         '''
       } catch (err) {
         echo "Error: ${err}"
@@ -117,7 +109,7 @@ node('lisk-explorer-01'){
       try {
       sh '''
       N=${EXECUTOR_NUMBER:-0}
-      PORT=400$N LISTEN_PORT=604$N REDIS_PORT=700$N node $(pwd)/app.js --redisPort 700$N &> ./explorer$N.log &
+      LISTEN_PORT=604$N REDIS_PORT=700$N node $(pwd)/app.js --redisPort 700$N &> ./explorer$N.log &
       sleep 20
       '''
       } catch (err) {
@@ -169,7 +161,6 @@ node('lisk-explorer-01'){
   } finally {
     sh '''
     N=${EXECUTOR_NUMBER:-0}
-    ( cd ~/lisk-test && bash lisk.sh stop_node -p etc/pm2-lisk_$N.json ) || true
     pkill -f "Xvfb :9$N" -9 || true
     pkill -f "webpack.*808$N" -9 || true
     pkill -f "explorer$N.log" || true
