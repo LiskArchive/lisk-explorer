@@ -61,7 +61,7 @@ node('lisk-explorer-01'){
       try {
         sh '''
         N=${EXECUTOR_NUMBER:-0}
-        ./redis-server --port 700$N > redis$N.log &
+        ~/redis-server --port 700$N > redis$N.log &
         cp test/config.test ./config.js
 
         '''
