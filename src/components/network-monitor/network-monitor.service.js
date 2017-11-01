@@ -1,4 +1,3 @@
-import angular from 'angular';
 import leaflet from 'leaflet';
 import 'leaflet.markercluster';
 import AppNetworkMonitor from './network-monitor.module';
@@ -23,8 +22,8 @@ const NetworkMap = function () {
 		},
 	});
 
-	const validLocation = location => location && angular.isNumber(location.latitude) &&
-	angular.isNumber(location.longitude);
+	const validLocation = location => location && typeof location.latitude === 'number' &&
+	typeof location.longitude === 'number';
 
 	const popupContent = (p) => {
 		let content = '<p class="ip">'.concat(p.ip, '</p>');
@@ -68,8 +67,7 @@ const NetworkMap = function () {
 
 	this.addConnected = function (peers) {
 		const connected = [];
-
-		Object.keys(peers.connected).forEach((item) => {
+		peers.connected.forEach((item) => {
 			if (validLocation(item.location)) {
 				if (!Object.keys(this.markers).includes(item.ip)) {
 					this.cluster.addLayer(
@@ -108,7 +106,7 @@ const NetworkMonitor = function (vm) {
 		this.platforms = ['Darwin', 'Linux', 'FreeBSD'];
 
 		this.detect = function (platform) {
-			if (angular.isNumber(platform.group)) {
+			if (typeof platform.group === 'number') {
 				this.counter[parseInt(platform.group, 10)]++;
 			}
 		};
@@ -148,7 +146,7 @@ const NetworkMonitor = function (vm) {
 		};
 
 		const inspect = () => {
-			if (angular.isArray(peers)) {
+			if (peers instanceof Array) {
 				return uniq(peers.map(p => p.version)
 					.sort(sort)).reverse().slice(0, 3);
 			}
@@ -161,7 +159,7 @@ const NetworkMonitor = function (vm) {
 		this.detect = function (version) {
 			let detected = null;
 
-			if (angular.isString(version)) {
+			if (typeof version === 'string') {
 				for (let i = 0; i < this.versions.length; i++) {
 					if (version === this.versions[i]) {
 						detected = version;
@@ -187,8 +185,8 @@ const NetworkMonitor = function (vm) {
 
 	function Heights(peers) {
 		const inspect = () => {
-			if (angular.isArray(peers)) {
-				return uniq(peers.map(p => p.height)
+			if (peers instanceof Array) {
+				return uniq(peers.map(p => parseInt(p.height, 10))
 					.sort()).reverse().slice(0, 4);
 			}
 			return [];
