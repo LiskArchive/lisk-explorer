@@ -197,7 +197,7 @@ const NetworkMonitor = function (vm) {
 	function Heights(peers) {
 		const inspect = () => {
 			if (angular.isArray(peers)) {
-				return uniq(peers.map(p => p.height)
+				return uniq(peers.map(p => parseInt(p.height, 10))
 					.sort()).reverse().slice(0, 4);
 			}
 			return [];
