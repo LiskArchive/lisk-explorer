@@ -19,6 +19,7 @@ config.freegeoip.port = 8080;
 // Redis server
 config.redis.host     = '127.0.0.1';
 config.redis.port     = process.env.REDIS_PORT || 6379;
+config.redis.db       = process.env.REDIS_DB || 0;
 config.redis.password = '';
 
 config.cacheTTL = 20; // Time in seconds to store cache in Redis
