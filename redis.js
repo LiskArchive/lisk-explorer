@@ -6,7 +6,8 @@ const logger = require('./utils/logger');
 module.exports = function (config) {
 	const client = redis.createClient(
 		config.redis.port,
-		config.redis.host);
+		config.redis.host,
+		{ db: config.redis.db });
 
 	if (config.redis.password) {
 		client.auth(config.redis.password, (err) => {
