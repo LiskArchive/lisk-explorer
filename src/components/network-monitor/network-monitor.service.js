@@ -126,24 +126,33 @@ const NetworkMonitor = function (vm) {
 	const uniq = arrArg => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
 
 	function Versions(peers) {
-		const sort = (a, b) => {
-			const normA = a.split('.').reduce((sum, value, index) =>
-				sum + (parseInt(value, 10) * Math.pow(10, (4 * (index + 1)))), 0);
-			const normB = b.split('.').reduce((sum, value, index) =>
-				sum + (parseInt(value, 10) * Math.pow(10, (4 * (index + 1)))), 0);
-			const charA = a.match(/[a-zA-Z]$/);
-			const charB = b.match(/[a-zA-Z]$/);
-			const hasChars = (charA && charB && charA.length > 0 && charB.length > 0);
+		/**
+		 * Sorts given version strings
+		 *
+		 * @param {String} v1
+		 * @param {String} v2
+		 *
+		 * @returns {Number} 1, -1, 0 if respectively greater, smaller or equal
+		 */
+		const sort = (v1, v2) => {
+			if (v1 === v2) return 0;
 
-			if (normA > normB) {
-				return 1;
-			} else if (normA < normB) {
-				return -1;
-			} else if (hasChars && charA[0] > charB[0]) {
-				return 1;
-			} else if (hasChars && charA[0] < charB[0]) {
-				return -1;
+			const v1Components = v1.toString().split('.').map(n => parseInt(n, 10));
+			const v2Components = v2.toString().split('.').map(n => parseInt(n, 10));
+			const char1 = v1.match(/[a-zA-Z]$/);
+			const char2 = v2.match(/[a-zA-Z]$/);
+			if (char1) v1Components.push(char1[0]);
+			if (char2) v2Components.push(char2[0]);
+
+			for (let i = 0; i < v1Components.length && i < v2Components.length; i++) {
+				if (v1Components[i] > v2Components[i]) return 1;
+				else if (v1Components[i] < v2Components[i]) return -1;
 			}
+
+			const diff = v1Components.length - v2Components.length;
+
+			if (diff > 0) return 1;
+			else if (diff < 0) return -1;
 			return 0;
 		};
 
@@ -188,7 +197,7 @@ const NetworkMonitor = function (vm) {
 	function Heights(peers) {
 		const inspect = () => {
 			if (angular.isArray(peers)) {
-				return uniq(peers.map(p => p.height)
+				return uniq(peers.map(p => parseInt(p.height, 10))
 					.sort()).reverse().slice(0, 4);
 			}
 			return [];
