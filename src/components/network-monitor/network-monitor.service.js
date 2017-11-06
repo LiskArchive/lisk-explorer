@@ -195,8 +195,9 @@ const NetworkMonitor = function (vm) {
 	function Heights(peers) {
 		const inspect = () => {
 			if (peers instanceof Array) {
-				return uniq(peers.map(p => parseInt(p.height, 10))
-					.sort()).reverse().slice(0, 4);
+				return uniq(peers.map(p => p.height))
+					.sort((a, b) => (a - b)).reverse()
+					.slice(0, 4);
 			}
 			return [];
 		};
