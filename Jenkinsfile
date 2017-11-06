@@ -50,20 +50,7 @@ node('lisk-explorer-01'){
         sh '''
         # Build Bundles
         npm run build
-        '''
-      } catch (err) {
-        echo "Error: ${err}"
-        fail('Stopping build, webpack failed')
-      }
-    }
-
-    stage ('Start Redis') {
-      try {
-        sh '''
-        N=${EXECUTOR_NUMBER:-0}
-        ~/redis-server --port 700$N > redis$N.log &
         cp test/config.test ./config.js
-
         '''
       } catch (err) {
         echo "Error: ${err}"
@@ -76,7 +63,7 @@ node('lisk-explorer-01'){
         sh '''
         N=${EXECUTOR_NUMBER:-0}
         # Generate market data
-        REDIS_PORT=700$N grunt candles:build
+        REDIS_DB=$N grunt candles:build
         '''
       } catch (err) {
         echo "Error: ${err}"
@@ -109,7 +96,7 @@ node('lisk-explorer-01'){
       try {
       sh '''
       N=${EXECUTOR_NUMBER:-0}
-      LISTEN_PORT=604$N REDIS_PORT=700$N node $(pwd)/app.js --redisPort 700$N &> ./explorer$N.log &
+      LISTEN_PORT=604$N REDIS_DB=$N node $(pwd)/app.js &> ./explorer$N.log &
       sleep 20
       '''
       } catch (err) {
@@ -124,7 +111,7 @@ node('lisk-explorer-01'){
         # Run Tests
         N=${EXECUTOR_NUMBER:-0}
         sed -i -r -e "s/6040/604$N/" test/node.js
-        REDIS_PORT=700$N npm run test
+        REDIS_DB=$N npm run test
         '''
       } catch (err) {
         echo "Error: ${err}"
@@ -164,7 +151,6 @@ node('lisk-explorer-01'){
     pkill -f "Xvfb :9$N" -9 || true
     pkill -f "webpack.*808$N" -9 || true
     pkill -f "explorer$N.log" || true
-    pkill -f "redis-server.*700$N" || true
     '''
     dir('node_modules') {
       deleteDir()
