@@ -49,16 +49,8 @@ module.exports = function (grunt) {
 				],
 			},
 		},
-		eslint: {
-			target: [
-				'lib/**/*.js',
-				'utils/**/*.js',
-				'benchmarks/**/*.js',
-			],
-		},
 	});
 
 	// Register tasks for travis.
 	grunt.registerTask('travis', ['mochaTest']);
-	grunt.registerTask('lint', ['eslint']);
 };

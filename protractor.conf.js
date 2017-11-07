@@ -1,5 +1,3 @@
-// const SpecReporter = require('jasmine-spec-reporter').SpecReporter;
-
 exports.config = {
 	specs: [
 		'features/*.feature',
