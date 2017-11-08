@@ -684,7 +684,11 @@ qrcode svg {
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
-#wrap > .container { padding: 70px 15px 0; }
+#wrap > .container { padding: 90px 15px 0; }
+
+@media (max-width: 991px) {
+  #wrap > .container { padding-top: 120px; }
+}
 
 #footer > .container {
   padding-left: 30px;
