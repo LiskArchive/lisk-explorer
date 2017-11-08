@@ -1,0 +1,32 @@
+.navbar-fixed-top .network-status {
+  width: 100%;
+  background: #666769;
+  position: relative;
+  z-index: 1;
+}
+
+.navbar-fixed-top .main-header {
+  position: relative;
+  z-index: 2;
+}
+
+.navbar-fixed-top .network-status .container {
+   display: table;
+ }
+
+.navbar-fixed-top .network-status span {
+  color: #fff;
+  display: table-cell;
+  text-align: center;
+  line-height: 24px;
+  letter-spacing: 1px;
+}
+
+@media (max-width: 991px) {
+  .navbar-fixed-top .network-status span {
+    display: inline-block;
+    vertical-align: middle;
+    width: 33.3%;
+    text-align: left;
+  }
+}
