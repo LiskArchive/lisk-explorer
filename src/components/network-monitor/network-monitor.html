@@ -104,31 +104,33 @@
 		</div>
 	</div>
 	<div class="row" data-ng-if="vm.peers" data-ng-cloak>
-		<div class="col-xs-12 col-sm-6 big-info platforms-block">
-			<p class="small-title">Platforms</p>
+		<div class="col-xs-12 col-sm-12 col-md-5 big-info platforms-block">
+			<p class="small-title text-center">Platforms</p>
 
 			<div class="row platforms">
-				<div class="col-xs-4">
+				<div class="col-xs-12">
 					<div class="platform">
-						<p class="big-details">
-							<img os-icon os="'Darwin'" brand="{ name: 'darwin' }">
-							<span class="counter mac-counter">{{vm.counter.platforms.one.counter || 0}}</span>
+						<p class="details-wrapper">
+							<span class="main-info">
+								<img os-icon os="'Darwin'" brand="{ name: 'darwin' }">
+							</span>
+							<span class="counter peers mac-counter">{{vm.counter.platforms.one.counter || 0}}</span>
 						</p>
 					</div>
-				</div>
-				<div class="col-xs-4">
 					<div class="platform">
-						<p class="big-details">
-							<img os-icon os="'Linux'" brand="{ name: 'linux' }">
-							<span class="counter linux-counter">{{vm.counter.platforms.two.counter || 0}}</span>
+						<p class="details-wrapper">
+							<span class="main-info">
+								<img os-icon os="'Linux'" brand="{ name: 'linux' }">
+							</span>
+							<span class="counter peers linux-counter">{{vm.counter.platforms.two.counter || 0}}</span>
 						</p>
 					</div>
-				</div>
-				<div class="col-xs-4">
 					<div class="platform">
-						<p class="big-details">
-							<img os-icon os="'FreeBSD'" brand="{ name: 'freebsd' }">
-							<span class="counter freebsd-counter">{{vm.counter.platforms.three.counter || 0}}</span>
+						<p class="details-wrapper">
+							<span class="main-info">
+								<img os-icon os="'FreeBSD'" brand="{ name: 'freebsd' }">
+							</span>
+							<span class="counter peers freebsd-counter">{{vm.counter.platforms.three.counter || 0}}</span>
 						</p>
 					</div>
 				</div>
@@ -139,27 +141,27 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-xs-12 col-sm-6 big-info versions-block">
-			<p class="small-title">Versions</p>
+		<div class="col-xs-12 col-sm-12 col-md-7 big-info versions-block">
+			<p class="small-title text-center">Versions</p>
 
 			<div class="row versions">
 				<div class="col-xs-12">
 					<div class="version" data-ng-if="vm.counter.versions.one.num">
-						<p class="big-details">
-							<span class="version-num">{{vm.counter.versions.one.num || '~'}}</span>
-							<span class="counter version-counter">{{vm.counter.versions.one.counter || 0}}</span>
+						<p class="details-wrapper">
+							<span class="main-info best">{{vm.counter.versions.one.num || '~'}}</span>
+							<span class="counter peers">{{vm.counter.versions.one.counter || 0}}</span>
 						</p>
 					</div>
 					<div class="version" data-ng-if="vm.counter.versions.two.num">
-						<p class="big-details">
-							<span class="version-num">{{vm.counter.versions.two.num || '~'}}</span>
-							<span class="counter version-counter">{{vm.counter.versions.two.counter || 0}}</span>
+						<p class="details-wrapper">
+							<span class="main-info">{{vm.counter.versions.two.num || '~'}}</span>
+							<span class="counter peers">{{vm.counter.versions.two.counter || 0}}</span>
 						</p>
 					</div>
 					<div class="version" data-ng-if="vm.counter.versions.three.num">
-						<p class="big-details">
-							<span class="version-num">{{vm.counter.versions.three.num || '~'}}</span>
-							<span class="counter version-counter">{{vm.counter.versions.three.counter || 0}}</span>
+						<p class="details-wrapper">
+							<span class="main-info">{{vm.counter.versions.three.num || '~'}}</span>
+							<span class="counter peers">{{vm.counter.versions.three.counter || 0}}</span>
 						</p>
 					</div>
 				</div>
@@ -173,32 +175,36 @@
 	</div>
 	<div class="row" data-ng-if="vm.peers" data-ng-cloak>
 		<div class="col-xs-12 col-sm-12 big-info best-heights-block">
-			<p class="small-title">Best heights</p>
+			<p class="small-title text-center">Best heights</p>
 
 			<div class="row heights">
 				<div class="col-xs-12">
 					<div class="height" data-ng-if="vm.counter.heights.heights[0]">
-						<p class="big-details">
-							<span class="height-num height-best">{{vm.counter.heights.heights[0] || '~'}}</span>
-							<span class="counter height-counter">{{vm.counter.heights.counter[0] || 0}} &bull; {{vm.counter.percents[0] || 0}}%</span>
+						<p class="details-wrapper">
+							<span class="main-info best">{{vm.counter.heights.heights[0] || '~'}}</span>
+							<span class="counter peers">{{vm.counter.heights.counter[0] || 0}}</span>
+							<span class="counter percetage">{{vm.counter.percents[0] || 0}}%</span>
 						</p>
 					</div>
 					<div class="height" data-ng-if="vm.counter.heights.heights[1]">
-						<p class="big-details">
-							<span class="height-num">{{vm.counter.heights.heights[1] || '~'}}</span>
-							<span class="counter height-counter">{{vm.counter.heights.counter[1] || 0}} &bull; {{vm.counter.percents[1] || 0}}%</span>
+						<p class="details-wrapper">
+							<span class="main-info">{{vm.counter.heights.heights[1] || '~'}}</span>
+							<span class="counter peers">{{vm.counter.heights.counter[1] || 0}}</span>
+							<span class="counter percetage">{{vm.counter.percents[1] || 0}}%</span>
 						</p>
 					</div>
 					<div class="height" data-ng-if="vm.counter.heights.heights[2]">
-						<p class="big-details">
-							<span class="height-num">{{vm.counter.heights.heights[2] || '~'}}</span>
-							<span class="counter height-counter">{{vm.counter.heights.counter[2] || 0}} &bull; {{vm.counter.percents[2] || 0}}%</span>
+						<p class="details-wrapper">
+							<span class="main-info">{{vm.counter.heights.heights[2] || '~'}}</span>
+							<span class="counter peers">{{vm.counter.heights.counter[2] || 0}}</span>
+							<span class="counter percetage">{{vm.counter.percents[2] || 0}}%</span>
 						</p>
 					</div>
 					<div class="height" data-ng-if="vm.counter.heights.heights[3]">
-						<p class="big-details">
-							<span class="height-num">{{vm.counter.heights.heights[3] || '~'}}</span>
-							<span class="counter height-counter">{{vm.counter.heights.counter[3] || 0}} &bull; {{vm.counter.percents[3] || 0}}%</span>
+						<p class="details-wrapper">
+							<span class="main-info">{{vm.counter.heights.heights[3] || '~'}}</span>
+							<span class="counter peers">{{vm.counter.heights.counter[3] || 0}}</span>
+							<span class="counter percetage">{{vm.counter.percents[3] || 0}}%</span>
 						</p>
 					</div>
 				</div>
