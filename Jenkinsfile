@@ -1,134 +1,175 @@
-def cleanUp() {
-	sh '''#!/bin/bash
-	pkill -f app.js || true
-	bash ~/lisk-test/lisk.sh stop
-	pkill -f selenium -9 || true
-	pkill -f Xvfb -9 || true
-	rm -rf /tmp/.X0-lock || true
-	pkill -f webpack -9 || true
-	'''
-	deleteDir()
+def fail(reason) {
+  sh '''
+  ps aux > ps_log.log
+  netstat -tunap > netstat_log.log
+  '''
+
+  def pr_branch = ''
+  if (env.CHANGE_BRANCH != null) {
+    pr_branch = " (${env.CHANGE_BRANCH})"
+  }
+  slackSend color: 'danger', message: "Build #${env.BUILD_NUMBER} of <${env.BUILD_URL}|${env.JOB_NAME}>${pr_branch} failed (<${env.BUILD_URL}/console|console>, <${env.BUILD_URL}/changes|changes>)\nCause: ${reason}", channel: '#lisk-explorer-jenkins'
+  currentBuild.result = 'FAILURE'
+  error("${reason}")
 }
 
-node('lisk-explorer-01') {
-	lock(resource: "lisk-explorer-01", inversePrecedence: true) {
-		stage ('Prepare Workspace') {
-			cleanUp()
-			checkout scm
-		}
+node('lisk-explorer-01'){
+  try {
+    stage ('Prepare Workspace') {
+      deleteDir()
+      checkout scm
+    }
 
-		stage ('Build Dependencies') {
-			try {
-				sh '''#!/bin/bash
+    stage ('Build Dependencies') {
+      try {
+        sh '''
+        # Install Deps
+        npm install
+        ./node_modules/protractor/bin/webdriver-manager update
+        '''
+      } catch (err) {
+        echo "Error: ${err}"
+        fail('Stopping build, installation failed')
+      }
+    }
 
-				# Install Deps
-				npm install
-				'''
-			} catch (err) {
-				currentBuild.result = 'FAILURE'
-				error('Stopping build, installation failed')
-			}
-		}
+    stage ('Run Eslint') {
+      try {
+        sh '''
+        # Run Eslint
+        npm run eslint
+        '''
+      } catch (err) {
+        echo "Error: ${err}"
+        fail('Stopping build, webpack failed')
+      }
+    }
 
-		stage ('Run Eslint') {
-			try {
-				sh '''#!/bin/bash
-				# Run Eslint
-				npm run eslint
-				'''
-			} catch (err) {
-				currentBuild.result = 'FAILURE'
-				error('Stopping build, Eslint failed')
-			}
-		}
+    stage ('Run Webpack Build') {
+      try {
+        sh '''
+        # Build Bundles
+        npm run build
+        cp test/config.test ./config.js
+        '''
+      } catch (err) {
+        echo "Error: ${err}"
+        fail('Stopping build, webpack failed')
+      }
+    }
 
-		stage ('Run Webpack Build') {
-			try {
-				sh '''#!/bin/bash
-				# Build Bundles
-				npm run build
-				'''
-			} catch (err) {
-				currentBuild.result = 'FAILURE'
-				error('Stopping build, webpack failed')
-			}
-		}
+    stage ('Build Candles') {
+      try {
+        sh '''
+        N=${EXECUTOR_NUMBER:-0}
+        # Generate market data
+        REDIS_DB=$N grunt candles:build
+        '''
+      } catch (err) {
+        echo "Error: ${err}"
+        fail('Stopping build, candles build failed')
+      }
+    }
 
-		stage ('Build Candles') {
-			try {
-				sh '''#!/bin/bash
-				# Generate market data
-				grunt candles:build
-				'''
-			} catch (err) {
-				currentBuild.result = 'FAILURE'
-				error('Stopping build, candles build failed')
-			}
-		}
+    stage ('Start Lisk ') {
+      try {
 
-		stage ('Start Lisk ') {
-			try {
-				sh '''#!/bin/bash
-				cp test/config_lisk.json ~/lisk-test/config.json
-				bash ~/lisk-test/lisk.sh rebuild -f ~/lisk-test/blockchain_explorer.db.gz
-				'''
-			} catch (err) {
-				currentBuild.result = 'FAILURE'
-				error('Stopping build, lisk-core failed')
-			}
-		}
+        sh '''
+        # work around core bug: config.json gets overwritten; use backup
+        cp test/config_lisk.json ~/lisk-test/config_stage.json
+        cd ~/lisk-test
+        # disable redis
+        jq '.cacheEnabled = false' config_stage.json > config.json
 
-		stage ('Start Explorer') {
-			try {
-			sh '''#!/bin/bash
+        if [[ ! $(pgrep -f '.*lisk-test/app.js') ]]; then
+          JENKINS_NODE_COOKIE=dontKillMe bash lisk.sh start
+        fi
 
-			cp test/config.test ./config.js
-			node $(pwd)/app.js &> ./explorer.log &
-			sleep 20
-			'''
-			} catch (err) {
-				currentBuild.result = 'FAILURE'
-				error('Stopping build, Explorer failed to start')
-			}
-		}
+        '''
+      } catch (err) {
+        echo "Error: ${err}"
+        fail('Stopping build, lisk-core failed')
+      }
+    }
 
-		stage ('Run tests') {
-			try {
-				sh '''#!/bin/bash
-				# Run Tests
-				npm run test
-				'''
-			} catch (err) {
-				cleanUp()
-				currentBuild.result = 'FAILURE'
-				error('Stopping build, tests failed')
-			}
-		}
+    stage ('Start Explorer') {
+      try {
+      sh '''
+      N=${EXECUTOR_NUMBER:-0}
+      LISTEN_PORT=604$N REDIS_DB=$N node $(pwd)/app.js &> ./explorer$N.log &
+      sleep 20
+      '''
+      } catch (err) {
+        echo "Error: ${err}"
+        fail('Stopping build, Explorer failed to start')
+      }
+    }
 
-		stage ('Run e2e tests') {
-			try {
-				sh '''#!/bin/bash
+    stage ('Run tests') {
+      try {
+        sh '''
+        # Run Tests
+        N=${EXECUTOR_NUMBER:-0}
+        sed -i -r -e "s/6040/604$N/" test/node.js
+        REDIS_DB=$N npm run test
+        '''
+      } catch (err) {
+        echo "Error: ${err}"
+        fail('Stopping build, tests failed')
+      }
+    }
 
-				# End to End test configuration
-				export DISPLAY=:99
-				Xvfb :99 -ac -screen 0 1280x1024x24 &
-				./node_modules/protractor/bin/webdriver-manager update
-				./node_modules/protractor/bin/webdriver-manager start &
+    stage ('Run e2e tests') {
+      try {
+        sh '''
+        N=${EXECUTOR_NUMBER:-0}
 
-				# Run E2E Tests
-				npm run e2e-test
-				'''
-			} catch (err) {
-				cleanUp()
-				currentBuild.result = 'FAILURE'
-				error('Stopping build, e2e tests failed')
-			}
-		}
+        # End to End test configuration
+        export DISPLAY=:9$N
+        Xvfb :9$N -ac -screen 0 1280x1024x24 &
+        ./node_modules/protractor/bin/webdriver-manager start --seleniumPort 443$N &
 
-		stage ('Set milestone and cleanup') {
-			milestone 1
-			currentBuild.result = 'SUCCESS'
-			cleanUp()
-		}
-	}
+        # Run E2E Tests
+        npm run e2e-test -- --params.baseURL http://localhost:604$N
+        '''
+      } catch (err) {
+        echo "Error: ${err}"
+        fail('Stopping build, e2e tests failed')
+      }
+    }
+
+    stage ('Set milestone and cleanup') {
+      milestone 1
+      currentBuild.result = 'SUCCESS'
+    }
+
+  } catch(err) {
+    echo "Error: ${err}"
+  } finally {
+    sh '''
+    N=${EXECUTOR_NUMBER:-0}
+    pkill -f "Xvfb :9$N" -9 || true
+    pkill -f "webpack.*808$N" -9 || true
+    pkill -f "explorer$N.log" || true
+    '''
+    dir('node_modules') {
+      deleteDir()
+    }
+
+    def pr_branch = ''
+    if (env.CHANGE_BRANCH != null) {
+      pr_branch = " (${env.CHANGE_BRANCH})"
+    }
+    if (currentBuild.result == 'SUCCESS') {
+      /* delete all files on success */
+      deleteDir()
+      /* notify of success if previous build failed */
+      previous_build = currentBuild.getPreviousBuild()
+      if (previous_build != null && previous_build.result == 'FAILURE') {
+        slackSend color: 'good',
+                  message: "Recovery: build #${env.BUILD_NUMBER} of <${env.BUILD_URL}|${env.JOB_NAME}>${pr_branch} was successful.",
+                  channel: '#lisk-explorer-jenkins'
+      }
+    }
+  }
 }
