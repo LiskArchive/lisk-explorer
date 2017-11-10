@@ -1,0 +1,204 @@
+#header {
+  min-height: 65px;
+}
+
+.navbar-fixed-top {
+  min-height: 65px;
+}
+
+.navbar-default .navbar-brand {
+  padding: 5px 13px;
+  height: 65px;
+}
+
+.navbar-default .navbar-header {
+  height: 65px;
+  line-height: 65px;
+}
+
+.navbar-default .navbar-form {
+  margin-top: 11px;
+  padding: 0 4px;
+  margin-left: 10px;
+}
+
+.navbar-default .navbar-form form
+{
+  border-bottom: solid 1px #7b7c7e;
+  position: relative;
+  outline: none;
+}
+
+.navbar-default .navbar-form form.loading:before
+{
+  content: '';
+  left: 0;
+  top: 100%;
+  height: 1px;
+  width: 50%;
+  position: absolute;
+  display: block;
+  background: #fff;
+  animation: loading;
+  -webkit-animation: loading 2s infinite cubic-bezier(0.5, 0, 0.5, 1);
+  -moz-animation: loading 2s infinite cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+.navbar-default .navbar-form .glyphicon
+{
+  font-size: 20px;
+  color: #7b7c7e;
+  padding: 10px 5px;
+  vertical-align: middle;
+}
+
+.navbar-default .navbar-form input {
+  background-color: transparent;
+  font-family: 'Roboto', 'Ubuntu', sans-serif;
+  padding: 0;
+  height: 45px;
+  width: 290px;
+  font-weight: lighter;
+  box-shadow: none;
+  font-size: 16px;
+  line-height: 45px;
+  color: #f2f2e0;
+  border: 0;
+  border-radius: 0;
+  vertical-align: middle;
+  position: relative;
+  z-index: 2;
+}
+
+.navbar-default .has-error .form-control:focus {
+  border: none;
+  box-shadow: none;
+  -webkit-box-shadow: none;
+}
+
+.navbar-default .navbar-form input + span.gradient {
+  position: absolute;
+  display: block;
+  z-index: 0;
+  width: 0;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: all ease 200ms;
+  -webkit-transition: all ease 200ms;
+  -moz-transition: all ease 200ms;
+  background: -moz-linear-gradient(left, transparent 0%, rgba(255,255,255,0.15) 100%);
+  background: -webkit-linear-gradient(left, transparent 0%,rgba(255,255,255,0.15) 100%);
+  background: linear-gradient(to right, transparent 0%,rgba(255,255,255,0.15) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#26ffffff',GradientType=1 )
+}
+
+.navbar-default .navbar-form input:focus + span.gradient {
+  width: 100%;
+  opacity: 1;
+}
+
+#search::-webkit-input-placeholder {
+  color: #7b7c7e;
+  font-size: 14px;
+  font-family: 'Roboto', 'Ubuntu', sans-serif;
+}
+
+#search::-moz-placeholder {
+  color: #7b7c7e;
+  font-size: 14px;
+  font-family: 'Roboto', 'Ubuntu', sans-serif;
+}
+
+.navbar-default .navbar-nav > li > a {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+.navbar-fixed-top .network-status {
+  width: 100%;
+  background: #666769;
+  position: relative;
+  z-index: 1;
+}
+
+.navbar-fixed-top .main-header {
+  position: relative;
+  z-index: 2;
+}
+
+.navbar-fixed-top .network-status .container {
+   display: table;
+ }
+
+.navbar-fixed-top .network-status span {
+  color: #fff;
+  display: table-cell;
+  text-align: center;
+  line-height: 24px;
+  letter-spacing: 1px;
+}
+
+#search-form-mobile {
+  margin-top: 20px;
+}
+
+#search-form-mobile #search { width: 100%; }
+
+#search-form-mobile .not-found {
+  width: 50%;
+}
+
+.navbar-fixed-top .not-found {
+  -moz-border-radius-bottomleft: 2px;
+  -moz-border-radius-bottomright: 2px;
+  -webkit-border-bottom-left-radius: 2px;
+  -webkit-border-bottom-right-radius: 2px;
+  color: white;
+  background-color: #0299eb;
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+  border-top: none;
+  border: 1px solid #1b89c4;
+  padding: 10px 20px;
+  position: absolute;
+  text-align: center;
+  top: 45px;
+  width: 100%;
+  z-index: 9999;
+}
+
+@media (max-width: 991px) {
+  .navbar-fixed-top .network-status span {
+    display: inline-block;
+    vertical-align: middle;
+    width: 33.3%;
+    text-align: left;
+  }
+
+  #header {
+    margin: 0;
+  }
+
+  .navbar-default a.navbar-brand {
+    padding-left: 0;
+  }
+}
+
+@-webkit-keyframes loading {
+  0 { left: 0%; }
+  50% { left: 50%; }
+  100% { left: 0%; }
+}
+
+@-moz-keyframes loading {
+  0 { left: 0%; }
+  50% { left: 50%; }
+  100% { left: 0%; }
+}
+
+@keyframes loading {
+  0 { left: 0%; }
+  50% { left: 50%; }
+  100% { left: 0%; }
+}

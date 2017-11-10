@@ -1,7 +1,9 @@
-<form role="search" data-ng-submit="sch.search()">
+<form role="search" data-ng-submit="sch.search()" data-ng-class="{'loading': sch.loading}">
 	<div class="form-group" data-ng-class="{'has-error': sch.badQuery}">
-		<input id="search" type="text" class="form-control search" data-ng-model="sch.q" data-ng-class="{'loading': sch.loading}" placeholder="Find a block, transaction, address or delegate"
+		<span class="glyphicon glyphicon-search hidden-xs" aria-hidden="true"></span>
+		<input id="search" type="text" class="form-control search" data-ng-model="sch.q" placeholder="Find a transaction, address, delegate or block"
 			data-ng-submit="sch.search()" />
+		<span class="gradient"></span>
 	</div>
-	<div class="no_matching text-danger" data-ng-if="sch.badQuery">No matching records found!</div>
+	<div class="not-found text-danger" data-ng-if="sch.badQuery">No matching records found!</div>
 </form>
