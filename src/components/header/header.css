@@ -53,7 +53,7 @@
 }
 
 .navbar-default .navbar-form input {
-  background-color: #3a3c3e;
+  background-color: transparent;
   font-family: 'Roboto', 'Ubuntu', sans-serif;
   padding: 0;
   height: 45px;
@@ -66,13 +66,37 @@
   border: 0;
   border-radius: 0;
   vertical-align: middle;
+  position: relative;
+  z-index: 2;
 }
 
 .navbar-default .has-error .form-control:focus {
   border: none;
   box-shadow: none;
   -webkit-box-shadow: none;
+}
 
+.navbar-default .navbar-form input + span.gradient {
+  position: absolute;
+  display: block;
+  z-index: 0;
+  width: 0;
+  height: 100%;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: all ease 200ms;
+  -webkit-transition: all ease 200ms;
+  -moz-transition: all ease 200ms;
+  background: -moz-linear-gradient(left, transparent 0%, rgba(255,255,255,0.15) 100%);
+  background: -webkit-linear-gradient(left, transparent 0%,rgba(255,255,255,0.15) 100%);
+  background: linear-gradient(to right, transparent 0%,rgba(255,255,255,0.15) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#26ffffff',GradientType=1 )
+}
+
+.navbar-default .navbar-form input:focus + span.gradient {
+  width: 100%;
+  opacity: 1;
 }
 
 #search::-webkit-input-placeholder {
