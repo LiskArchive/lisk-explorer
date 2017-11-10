@@ -232,7 +232,7 @@ const NetworkMonitor = function (vm) {
 
 		this.calculatePercent = function (connectedPeers) {
 			const peersCount = connectedPeers.length;
-			for (let i = 0; i < peersCount; i++) {
+			for (let i = 0; i < this.counter.length; i++) {
 				this.percent[i] = Math.round((this.counter[i] / peersCount) * 100);
 			}
 
