@@ -1,6 +1,7 @@
 import angular from 'angular';
 import AppBreadCrumb from './bread-crumb.module';
 import template from './bread-crumb.html';
+import './bread-crumb.css';
 
 AppBreadCrumb.directive('breadCrumb', ($state, $transitions) => {
 	const BreadCrumbCtrl = function () {

@@ -176,18 +176,6 @@ qrcode svg {
   background-color: #E8E8E9;
 }
 
-#header {
-  margin-left: 21px;
-  margin-right: 21px;
-}
-
-@media (max-width: 767px) {
-  #header {
-    margin-left: -9px;
-    margin-right: 0px;
-  }
-}
-
 .navbar { min-height: 80px; }
 
 .navbar-collapse {
@@ -317,21 +305,6 @@ qrcode svg {
   color: white;
   padding: 13px;
   height: 76px;
-}
-
-.navbar-brand .logo {
-  height: 55px;
-  width: 100px;
-  background: url('../img/logo.png');
-}
-@media (-webkit-min-device-pixel-ratio: 2),
-       (min-device-pixel-ratio: 2),
-       (min-resolution: 192dpi) {
-
-  .navbar-brand .logo {
-    background: url('../img/logo2x.png') no-repeat top left;
-    background-size: 100px 55px;
-  }
 }
 
 .navbar-form .form-control {
