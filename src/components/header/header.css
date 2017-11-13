@@ -16,6 +16,21 @@
   background-size: auto 35px;
 }
 
+.navbar-default .nethash
+{
+  display: inline-block;
+  vertical-align: middle;
+  color: #3a3c3e;
+  background: #fff;
+  height: 17px;
+  border-radius: 3px;
+  padding: 2px 4px;
+  min-width: 52px;
+  line-height: 15px;
+  margin-top: 16px;
+  font-size: 12px;
+}
+
 .navbar-default .navbar-brand {
   padding: 16px 5px 16px 13px;
   height: 68px;
