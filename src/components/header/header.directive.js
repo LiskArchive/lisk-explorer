@@ -13,6 +13,13 @@ AppHeader.directive('mainHeader', ($socket, $rootScope, Header) => {
 			symbol: 'LSK',
 		};
 
+		$rootScope.showNethash = (hash) => {
+			if (typeof hash === 'string' && hash.length > 0) {
+				return hash.toLowerCase() !== 'mainnet';
+			}
+			return false;
+		};
+
 		const header = new Header($rootScope);
 		const ns = $socket('/header');
 
