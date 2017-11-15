@@ -36,6 +36,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getBlockStatus = true;
 		return blocks.getBlockStatus(
+			'preserved',
 			() => { running.getBlockStatus = false; cb('Status'); },
 			(res) => { running.getBlockStatus = false; cb(null, res); });
 	};
@@ -46,6 +47,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getPriceTicker = true;
 		return common.getPriceTicker(
+			'preserved',
 			() => { running.getPriceTicker = false; cb('PriceTicker'); },
 			(res) => { running.getPriceTicker = false; cb(null, res); });
 	};

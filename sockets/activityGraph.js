@@ -39,6 +39,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getLastBlock = true;
 		return statistics.getLastBlock(
+			'preserved',
 			() => {
 				running.getLastBlock = false;
 				cb('LastBlock');

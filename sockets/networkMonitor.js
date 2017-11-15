@@ -32,6 +32,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getLastBlock = true;
 		return statistics.getLastBlock(
+			'preserved',
 			() => {
 				running.getLastBlock = false;
 				cb('LastBlock');
@@ -48,6 +49,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getBlocks = true;
 		return statistics.getBlocks(
+			'preserved',
 			() => {
 				running.getBlocks = false;
 				cb('Blocks');
@@ -64,6 +66,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getPeers = true;
 		return statistics.getPeers(
+			'preserved',
 			() => {
 				running.getPeers = false;
 				cb('Peers');
