@@ -993,3 +993,7 @@ a.sort-order span.reverse:after {
 .advancedSearchBox .search-parameter-input {
   width: 100% !important;
 }
+
+[data-aria-labelledby="main-currency-selector"] li.RUB {
+  display: none;
+}
