@@ -12,7 +12,7 @@ config.port = 6040; // Port to listen on
  * LISK node
  */
 config.lisk.host = process.env.LISK_HOST;
-config.lisk.port = 4000;
+config.lisk.port = process.env.LISK_PORT;
 
 /**
  * FreeGeoIP server
