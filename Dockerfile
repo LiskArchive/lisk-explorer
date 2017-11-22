@@ -3,7 +3,6 @@ FROM node:6 AS builder
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get --assume-yes install --no-install-recommends \
         build-essential \
-        jq \
 	redis-server && \
     npm install -g grunt && \
     npm install -g bower
@@ -24,7 +23,7 @@ RUN cd /home/lisk/lisk-explorer && \
 FROM node:6-alpine
 
 RUN adduser -D lisk 
-COPY --chown=lisk:lisk --from=builder /home/lisk /home/lisk
+COPY --chown=lisk:lisk --from=builder /home/lisk/lisk-explorer /home/lisk/lisk-explorer
 COPY --chown=lisk:lisk config.docker.js /home/lisk/lisk-explorer/config.js
 
 USER lisk
