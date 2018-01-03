@@ -18,6 +18,14 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 		const _resetSearch = () => {
 			this.q = '';
 			this.loading = false;
+
+			$timeout(() => {
+				sch.showingResults = false;
+			}, 200);
+		};
+
+		this.hideSuggestion = () => {
+			_resetSearch();
 		};
 
 		this.search = () => {
@@ -36,7 +44,7 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 				} else if (resp.data.result.id) {
 					_resetSearch();
 
-					$location.path(`/${resp.data.type}/${resp.data.id}`);
+					$location.path(`/${resp.data.result.type}/${resp.data.result.id}`);
 				} else if (resp.data.result.delegates) {
 					sch.results = resp.data.result.delegates.slice(0, 5);
 					sch.showingResults = true;
