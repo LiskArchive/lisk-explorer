@@ -1,3 +1,4 @@
+/* global System */
 import angular from 'angular';
 import AppMarketWatcher from './market-watcher.module';
 
