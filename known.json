@@ -15,5 +15,6 @@
 	"15841793714384967784L": { "owner": "Lisk Community Assets", "description": "LiskHQ" },
 	"3040783849904107057L": { "owner": "Coincheck.com", "description": "Main Wallet" },
 	"6300322192409448238L": { "owner": "Iconomi ICO", "description": "Main Wallet"},
-	"11737606468871099380L" : { "owner" : "Changelly", "description" : "Main Wallet" }
+	"11737606468871099380L" : { "owner" : "Changelly", "description" : "Main Wallet" },
+	"2797034409072178585L" : { "owner" : "BitBay.net", "description" : "Withdrawal Wallet" }
 }
