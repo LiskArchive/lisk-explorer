@@ -11,8 +11,8 @@
 					</button>
 					<a class="navbar-brand" href="/">
 						<div class="logo" title="Lisk"></div>
+						<span class="nethash text-center" ng-if="showNethash(blockStatus.nethash | nethash)">{{blockStatus.nethash | nethash}}</span>
 					</a>
-					<span class="nethash text-center" ng-if="showNethash(blockStatus.nethash | nethash)">{{blockStatus.nethash | nethash}}</span>
 				</div>
 				<div class="navbar-collapse" data-ng-class="{collapse: $root.isCollapsed}">
 					<search class="navbar-form navbar-left hidden-xs" />

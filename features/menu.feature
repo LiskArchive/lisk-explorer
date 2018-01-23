@@ -21,13 +21,15 @@ Feature: Top menu
     Given I'm on page "/"
     When  I fill in "genesis_17" to "search" field
     And I hit "enter" in "search" field
+    And I wait 1 seconds
+    And I click "search suggestion item" no. 1
     Then I should be on page "/address/537318935439898807L"
 
   Scenario: should show an error message on invalid input
     Given I'm on page "/"
     When  I fill in "invalid" to "search" field
     And I hit "enter" in "search" field
-    Then I should see "No matching records found!" in "text danger" element
+    Then I should see "No matching records found!" in "empty-result-title" element
 
   Scenario: should allow to switch currency to BTC
     Given I'm on page "/"
