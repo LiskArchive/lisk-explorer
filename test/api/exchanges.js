@@ -32,7 +32,7 @@ describe('Exchanges API (Market Watcher)', () => {
 	function checkCandles(id) {
 		for (let i = 0; i < id.length; i++) {
 			if (id[i + 1]) {
-				node.expect(id[i]).to.have.all.keys(
+				node.expect(id[i]).to.contain.all.keys(
 					'timestamp',
 					'date',
 					'high',
@@ -40,11 +40,7 @@ describe('Exchanges API (Market Watcher)', () => {
 					'open',
 					'close',
 					'liskVolume',
-					'btcVolume',
-					'firstTrade',
-					'lastTrade',
-					'nextEnd',
-					'numTrades');
+					'btcVolume');
 			}
 		}
 	}

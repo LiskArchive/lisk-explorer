@@ -2,7 +2,25 @@
 	<div class="form-group" data-ng-class="{'has-error': sch.badQuery}">
 		<span class="glyphicon glyphicon-search hidden-xs" aria-hidden="true"></span>
 		<input id="search" type="text" class="form-control search" data-ng-model="sch.q" placeholder="Find a transaction, address, delegate or block"
-			data-ng-submit="sch.search()" />
+			data-ng-submit="sch.search()" data-ng-blur="sch.hideSuggestion()" autocomplete="off" />
+		
+		<div class="search-suggestion-list list-group"
+			ng-if="sch.showingResults && sch.results">
+			<a href="/address/{{result.address}}" class="search-suggestion-item list-group-item list-group-item-action flex-column align-items-start"
+				ng-repeat="result in sch.results" ng-class="result.similarity === 1 ? 'match' : ''">
+				<div class="d-flex w-100 justify-content-between">
+					<h5 class="mb-1">{{result.address}}</h5>
+					<small ng-if='result.similarity === 1'>Matching result</small>
+				</div>
+				<p class="mb-1">{{result.username}}</p>
+			</a>
+			<span class="arrow"></span>
+		</div>
+		<div class="not-found text-danger"
+			data-ng-if="sch.badQuery">
+			<h5 class="empty-result-title">No matching records found!</h5>
+			<p>If you are searching for an address, it might be not initialized yet.</p>
+			<span class="arrow"></span>
+		</div>
 	</div>
-	<div class="not-found text-danger" data-ng-if="sch.badQuery">No matching records found!</div>
 </form>
