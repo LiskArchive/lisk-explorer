@@ -14,6 +14,8 @@
   width: 76px;
   background: url('../../assets/img/lisk-logo.svg');
   background-size: auto 35px;
+  vertical-align: middle ;
+  display: inline-block ;
 }
 
 .navbar-default .nethash
@@ -77,7 +79,8 @@
   vertical-align: middle;
 }
 
-.navbar-default .navbar-form input {
+.navbar-default .navbar-form input,
+.navbar-default .navbar-form input:focus {
   background-color: transparent;
   font-family: 'Roboto', 'Ubuntu', sans-serif;
   padding: 0;
@@ -93,6 +96,8 @@
   vertical-align: middle;
   position: relative;
   z-index: 2;
+  outline: none;
+  box-shadow: none;
 }
 
 #search::-webkit-input-placeholder {
@@ -148,23 +153,95 @@
   width: 50%;
 }
 
-.navbar-fixed-top .not-found {
-  -moz-border-radius-bottomleft: 2px;
-  -moz-border-radius-bottomright: 2px;
-  -webkit-border-bottom-left-radius: 2px;
-  -webkit-border-bottom-right-radius: 2px;
-  color: white;
-  background-color: #0299eb;
+.search-suggestion-list,
+.search-suggestion-list span.arrow,
+.navbar-fixed-top .not-found,
+.navbar-fixed-top .not-found span.arrow {
+  background-color: #fff;
+  border: 1px solid #d2d2d2;
+  position: absolute;
+}
+.navbar-fixed-top .not-found,
+.search-suggestion-list {
+  position: absolute;
+  width: 100%;
+  top: 45px;
+  z-index: 9999;
+  border-radius: 2px;
+}
+
+.navbar-fixed-top .list-group-item:first-child {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+.navbar-fixed-top .list-group-item:last-child {
   border-bottom-left-radius: 2px;
   border-bottom-right-radius: 2px;
-  border-top: none;
-  border: 1px solid #1b89c4;
+}
+
+.navbar-fixed-top .not-found {
   padding: 10px 20px;
-  position: absolute;
-  text-align: center;
-  top: 45px;
+  text-align: left;
+}
+.search-suggestion-list span.arrow,
+.navbar-fixed-top .not-found span.arrow {
+  display: block;
+  left: 20px;
+  top: -6px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-width: 1px 0 0 1px;
+  transform: rotate(45deg);
+  z-index: 2;
+}
+
+.search-suggestion-list .list-group-item:first-child:hover ~ span.arrow {
+  background-color: #f5f5f5;
+}
+
+.navbar-fixed-top .not-found h5 {
+  font-weight: bold;
+  color: #AC0015;
+}
+
+.navbar-fixed-top .not-found p {
+  color: #666;
+}
+
+.search-suggestion-list {
+  background-color: transparent;
+  border-width: 0 0 1px 0;
+}
+
+.search-suggestion-list:last-child {
+  border-bottom: none;
+}
+
+.search-suggestion-list h5 {
+  float: left;
+  margin-top: 3px;
+  font-weight: bold;
+  color: #333;
+}
+
+.search-suggestion-list small {
+  float: right;
+  color: #999;
+}
+
+.search-suggestion-list p {
+  clear: both;
   width: 100%;
-  z-index: 9999;
+  margin: 0;
+  float: none;
+  color: #333;
+}
+
+.search-suggestion-list a.match h5,
+.search-suggestion-list a.match p {
+  color: #1b89c4;
 }
 
 @media (max-width: 991px) {
