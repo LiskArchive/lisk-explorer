@@ -10,3 +10,5 @@ po/*.pot
 Thumbs.db
 sftp-config.json
 blockchain_explorer.db.gz
+.vscode
+logs/*.log

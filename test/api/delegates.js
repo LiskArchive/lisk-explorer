@@ -137,6 +137,17 @@ describe('Delegates API', () => {
 		}
 	};
 
+	const checkDelegateSuggestions = (list) => {
+		for (let i = 0; i < list.length; i++) {
+			if (list[i + 1]) {
+				node.expect(list[i]).to.contain.all.keys(
+					'username',
+					'address',
+					'similarity');
+			}
+		}
+	};
+
 
 	/* Define api endpoints to test */
 	describe('GET /api/delegates/getActive', () => {
@@ -293,7 +304,8 @@ describe('Delegates API', () => {
 		it('should be ok', (done) => {
 			getSearch(params.delegate, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.address).to.have.equal(params.address);
+				node.expect(res.body.results.length).to.be.above(1);
+				checkDelegateSuggestions(res.body.results);
 				done();
 			});
 		});
@@ -309,7 +321,8 @@ describe('Delegates API', () => {
 		it('using partial name should autocomplete', (done) => {
 			getSearch('gene', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.address).to.have.equal(params.address);
+				node.expect(res.body.results.length).to.be.above(1);
+				checkDelegateSuggestions(res.body.results);
 				done();
 			});
 		});
