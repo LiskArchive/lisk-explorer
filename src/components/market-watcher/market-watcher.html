@@ -100,7 +100,8 @@
 							<div class="pull-left num-trades">
 								<p class="small-title">Num Trades</p>
 								<p class="big-details">
-									<span class="num-trades">{{vm.statistics.numTrades}}</span>
+									<span ng-if="vm.statistics.numTrades" class="num-trades">{{vm.statistics.numTrades}}</span>
+									<span ng-if="!vm.statistics.numTrades" class="num-trades">n&#47;a</span>
 								</p>
 							</div>
 						</div>
