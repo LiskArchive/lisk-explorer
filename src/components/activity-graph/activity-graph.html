@@ -1,3 +1,20 @@
+<!--
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
+-->
 <div>
 	<div class="row">
 		<div class="col-xs-12">
@@ -20,10 +37,10 @@
 				</div>
 				<div class="hud hud-node" data-ng-if="vm.nodeSelect.selected()">
 					<div class="btn-group" role="group" aria-label="Node Buttons">
-						<button type="button" class="btn btn-default btn-lg" data-ng-click="nodeSelect.remove()" title="Cancel/remove node selection">
+						<button type="button" class="btn btn-default btn-lg" data-ng-click="vm.nodeSelect.remove()" title="Cancel/remove node selection">
 							<span class="glyphicon glyphicon-remove-sign"></span>
 						</button>
-						<a class="btn btn-default btn-lg" data-ng-href="{{nodeSelect.href()}}" target="_new" role="button" title="Open selected node in block explorer">
+						<a class="btn btn-default btn-lg" data-ng-href="{{vm.nodeSelect.href()}}" target="_new" role="button" title="Open selected node in block explorer">
 							<span class="glyphicon glyphicon-new-window"></span>
 						</a>
 					</div>
