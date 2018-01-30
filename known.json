@@ -16,7 +16,8 @@
 	"3040783849904107057L": { "owner": "Coincheck.com", "description": "Main Wallet" },
 	"6300322192409448238L": { "owner": "Iconomi ICO", "description": "Main Wallet"},
 	"11737606468871099380L" : { "owner" : "Changelly", "description" : "Main Wallet" },
-  "15441526754256992144L" : { "owner" : "HitBTC.com", "description" : "Hot Wallet" },
+  	"15441526754256992144L" : { "owner" : "HitBTC.com", "description" : "Hot Wallet" },
 	"2797034409072178585L" : { "owner" : "BitBay.net", "description" : "Withdrawal Wallet" },
-	"15610359283786884938L" : { "owner" : "Binance", "description" : "Hot Wallet" }
+	"15610359283786884938L" : { "owner" : "Binance", "description" : "Hot Wallet" },
+	"14367838290034827614L" : { "owner" : "Coincheck.com", "description" : "Main Wallet" }
 }
