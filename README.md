@@ -22,10 +22,18 @@ These programs and resources are required to install and run Lisk Explorer
 
 - Freegeoip (<https://github.com/fiorix/freegeoip>) -- Freegeoip is used by the Network Monitor for IP address geo-location.
 
+  Linux:
   ```
-  wget https://github.com/fiorix/freegeoip/releases/download/v3.1.5/freegeoip-3.1.5-linux-amd64.tar.gz
-  tar -zxf freegeoip-3.1.5-linux-amd64.tar.gz
-  ln -s freegeoip-3.1.5-linux-amd64 freegeoip
+  wget https://github.com/fiorix/freegeoip/releases/download/v3.4.1/freegeoip-3.4.1-linux-amd64.tar.gz
+  tar -zxf freegeoip-3.4.1-linux-amd64.tar.gz
+  ln -s freegeoip-3.4.1-linux-amd64 freegeoip
+  nohup ./freegeoip/freegeoip > ./freegeoip/freegeoip.log 2>&1 &
+
+  MacOS:
+  ```
+  wget https://github.com/fiorix/freegeoip/releases/download/v3.4.1/freegeoip-3.4.1-darwin-amd64.tar.gz
+  tar -zxf freegeoip-3.4.1-darwin-amd64.tar.gz
+  ln -s freegeoip-3.4.1-darwin-amd64 freegeoip
   nohup ./freegeoip/freegeoip > ./freegeoip/freegeoip.log 2>&1 &
   ```
 
