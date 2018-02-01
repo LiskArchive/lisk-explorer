@@ -1,6 +1,6 @@
 # Lisk Blockchain Explorer
 
-Lisk Explorer version 1.4.1 works in conjunction with the Lisk Core API. It uses Redis for caching data and Freegeoip to parse IP geo-location data.
+Lisk Explorer works in conjunction with the Lisk Core API. It uses Redis for caching data and Freegeoip to parse IP geo-location data.
 
 [![Build Status](https://travis-ci.org/LiskHQ/lisk-explorer.svg?branch=development)](https://travis-ci.org/LiskHQ/lisk-explorer)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
@@ -9,7 +9,7 @@ Lisk Explorer version 1.4.1 works in conjunction with the Lisk Core API. It uses
 
 These programs and resources are required to install and run Lisk Explorer
 
-- Nodejs v6.10.1 or higher (<https://nodejs.org/>) -- Nodejs serves as the underlying engine for code execution.
+- Nodejs v6.12.3 or higher (<https://nodejs.org/>) -- Nodejs serves as the underlying engine for code execution.
 
   ```
   curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
@@ -22,16 +22,28 @@ These programs and resources are required to install and run Lisk Explorer
 
 - Freegeoip (<https://github.com/fiorix/freegeoip>) -- Freegeoip is used by the Network Monitor for IP address geo-location.
 
+  Linux:
   ```
-  wget https://github.com/fiorix/freegeoip/releases/download/v3.1.5/freegeoip-3.1.5-linux-amd64.tar.gz
-  tar -zxf freegeoip-3.1.5-linux-amd64.tar.gz
-  ln -s freegeoip-3.1.5-linux-amd64 freegeoip
+  wget https://github.com/fiorix/freegeoip/releases/download/v3.4.1/freegeoip-3.4.1-linux-amd64.tar.gz
+  tar -zxf freegeoip-3.4.1-linux-amd64.tar.gz
+  ln -s freegeoip-3.4.1-linux-amd64 freegeoip
+  nohup ./freegeoip/freegeoip > ./freegeoip/freegeoip.log 2>&1 &
+
+  MacOS:
+  ```
+  wget https://github.com/fiorix/freegeoip/releases/download/v3.4.1/freegeoip-3.4.1-darwin-amd64.tar.gz
+  tar -zxf freegeoip-3.4.1-darwin-amd64.tar.gz
+  ln -s freegeoip-3.4.1-darwin-amd64 freegeoip
   nohup ./freegeoip/freegeoip > ./freegeoip/freegeoip.log 2>&1 &
   ```
 
 - Grunt.js (<http://gruntjs.com/>) -- Grunt is used to run eslint and unit tests.
 
   `sudo npm install -g grunt`
+
+- Bower (<https://bower.io/>) -- Bower is used to look after frontend libraries.
+
+  `sudo npm install -g bower`
 
 - PM2 (https://github.com/Unitech/pm2) -- PM2 manages the node process for Lisk Explorer and handles log rotation (Highly Recommended)
 
@@ -141,17 +153,7 @@ To stop Explorer after it has been started with `PM2`, issue the following comma
 
 Before running any tests, please ensure Lisk Explorer and Lisk Client are configured to run on the Lisk Testnet.
 
-Replace **config.js** with **config.test** file from the **test** directory:
-
-`cp test/config.test ./config.js`
-
-Replace the **config.json** for the Lisk Client the corresponding file under the **test** directory:
-
-`cp test/config_lisk.json  /PATH_TO_LISK_DIR/config.json`
-
-Then restart the Lisk Client (example):
-
-`pm2 restart /PATH_TO_LISK_DIR/app.js`
+`bash ./e2e-test-setup.sh /PATH_TO_LISK_DIR`
 
 Launch Lisk Explorer (runs on port 6040):
 
@@ -197,6 +199,10 @@ npm run e2e-test -s
 ```
 npm run e2e-test -s -- --specs=features/address.feature
 ```
+
+## Contributors
+
+https://github.com/LiskHQ/lisk-explorer/graphs/contributors
 
 ## License
 
