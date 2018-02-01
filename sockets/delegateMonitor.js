@@ -1,3 +1,18 @@
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
 const api = require('../lib/api');
 const moment = require('moment');
 const async = require('async');
@@ -45,6 +60,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getActive = true;
 		return delegates.getActive(
+			'preserved',
 			() => { running.getActive = false; cb('Active'); },
 			(res) => { running.getActive = false; cb(null, res); });
 	};
@@ -76,6 +92,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getLastBlock = true;
 		return delegates.getLastBlock(
+			'preserved',
 			() => {
 				running.getLastBlock = false;
 				cb('LastBlock');
@@ -92,6 +109,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getRegistrations = true;
 		return delegates.getLatestRegistrations(
+			'preserved',
 			() => {
 				running.getRegistrations = false;
 				cb('Registrations');
@@ -108,6 +126,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getVotes = true;
 		return delegates.getLatestVotes(
+			'preserved',
 			() => {
 				running.getVotes = false;
 				cb('Votes');
@@ -124,6 +143,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getNextForgers = true;
 		return delegates.getNextForgers(
+			'preserved',
 			() => {
 				running.getNextForgers = false;
 				cb('NextForgers');

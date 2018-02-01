@@ -1,3 +1,18 @@
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
 const node = require('./../node.js');
 
 describe('Exchanges API (Market Watcher)', () => {
@@ -17,7 +32,7 @@ describe('Exchanges API (Market Watcher)', () => {
 	function checkCandles(id) {
 		for (let i = 0; i < id.length; i++) {
 			if (id[i + 1]) {
-				node.expect(id[i]).to.have.all.keys(
+				node.expect(id[i]).to.contain.all.keys(
 					'timestamp',
 					'date',
 					'high',
@@ -25,11 +40,7 @@ describe('Exchanges API (Market Watcher)', () => {
 					'open',
 					'close',
 					'liskVolume',
-					'btcVolume',
-					'firstTrade',
-					'lastTrade',
-					'nextEnd',
-					'numTrades');
+					'btcVolume');
 			}
 		}
 	}

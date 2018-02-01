@@ -1,0 +1,6 @@
+.git
+.github
+.gitignore
+.travis.yml
+Dockerfile
+node_modules/

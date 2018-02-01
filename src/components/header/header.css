@@ -1,0 +1,288 @@
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
+#header {
+  min-height: 65px;
+}
+
+.navbar-fixed-top {
+  min-height: 65px;
+}
+.navbar-default .navbar-right {
+  margin-right: 0;
+}
+
+.navbar-brand .logo {
+  height: 35px;
+  width: 76px;
+  background: url('../../assets/img/lisk-logo.svg');
+  background-size: auto 35px;
+  vertical-align: middle ;
+  display: inline-block ;
+}
+
+.navbar-default .nethash
+{
+  display: inline-block;
+  vertical-align: middle;
+  color: #3a3c3e;
+  background: #fff;
+  height: 17px;
+  border-radius: 3px;
+  padding: 2px 4px;
+  min-width: 52px;
+  line-height: 15px;
+  margin-top: 16px;
+  font-size: 12px;
+}
+
+.navbar-default .navbar-brand {
+  padding: 16px 5px 16px 13px;
+  height: 68px;
+}
+
+.navbar-default .navbar-header {
+  height: 65px;
+  line-height: 65px;
+}
+
+.navbar-default .navbar-form {
+  margin-top: 15px;
+  padding: 0 4px;
+  margin-left: 10px;
+}
+
+.navbar-default .navbar-form form
+{
+  border-bottom: solid 1px #7b7c7e;
+  position: relative;
+  outline: none;
+}
+
+.navbar-default .navbar-form form.loading:before
+{
+  content: '';
+  left: 0;
+  top: 100%;
+  height: 1px;
+  width: 50%;
+  position: absolute;
+  display: block;
+  background: #fff;
+  animation: loading;
+  -webkit-animation: loading 2s infinite cubic-bezier(0.5, 0, 0.5, 1);
+  -moz-animation: loading 2s infinite cubic-bezier(0.5, 0, 0.5, 1);
+}
+
+.navbar-default .navbar-form .glyphicon
+{
+  font-size: 20px;
+  color: #7b7c7e;
+  padding: 7px 5px;
+  vertical-align: middle;
+}
+
+.navbar-default .navbar-form input,
+.navbar-default .navbar-form input:focus {
+  background-color: transparent;
+  font-family: 'Roboto', 'Ubuntu', sans-serif;
+  padding: 0;
+  height: 35px;
+  width: 290px;
+  font-weight: lighter;
+  box-shadow: none;
+  font-size: 16px;
+  line-height: 45px;
+  color: #f2f2e0;
+  border: 0;
+  border-radius: 0;
+  vertical-align: middle;
+  position: relative;
+  z-index: 2;
+  outline: none;
+  box-shadow: none;
+}
+
+#search::-webkit-input-placeholder {
+  color: #a3a4a6;
+  font-size: 14px;
+  font-family: 'Roboto', 'Ubuntu', sans-serif;
+}
+
+#search::-moz-placeholder {
+  color: #a3a4a6;
+  font-size: 14px;
+  font-family: 'Roboto', 'Ubuntu', sans-serif;
+}
+
+.navbar-default .navbar-nav > li > a {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+.navbar-fixed-top .network-status {
+  width: 100%;
+  background: #464647;
+  position: relative;
+  z-index: 1;
+}
+
+.navbar-fixed-top .network-status .row  {
+  margin: 0;
+}
+
+.navbar-fixed-top .main-header {
+  position: relative;
+  z-index: 2;
+}
+
+.navbar-fixed-top .network-status .container {
+   display: table;
+ }
+
+.navbar-fixed-top .network-status span {
+  color: #a3a4a6;
+  line-height: 24px;
+  letter-spacing: 1px;
+  padding: 0 12px;
+}
+
+#search-form-mobile {
+  margin-top: 20px;
+}
+
+#search-form-mobile #search { width: 100%; }
+
+#search-form-mobile .not-found {
+  width: 50%;
+}
+
+.search-suggestion-list,
+.search-suggestion-list span.arrow,
+.navbar-fixed-top .not-found,
+.navbar-fixed-top .not-found span.arrow {
+  background-color: #fff;
+  border: 1px solid #d2d2d2;
+  position: absolute;
+}
+.navbar-fixed-top .not-found,
+.search-suggestion-list {
+  position: absolute;
+  width: 100%;
+  top: 45px;
+  z-index: 9999;
+  border-radius: 2px;
+}
+
+.navbar-fixed-top .list-group-item:first-child {
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
+
+.navbar-fixed-top .list-group-item:last-child {
+  border-bottom-left-radius: 2px;
+  border-bottom-right-radius: 2px;
+}
+
+.navbar-fixed-top .not-found {
+  padding: 10px 20px;
+  text-align: left;
+}
+.search-suggestion-list span.arrow,
+.navbar-fixed-top .not-found span.arrow {
+  display: block;
+  left: 20px;
+  top: -6px;
+  width: 14px;
+  height: 14px;
+  background: #fff;
+  border-width: 1px 0 0 1px;
+  transform: rotate(45deg);
+  z-index: 2;
+}
+
+.search-suggestion-list .list-group-item:first-child:hover ~ span.arrow {
+  background-color: #f5f5f5;
+}
+
+.navbar-fixed-top .not-found h5 {
+  font-weight: bold;
+  color: #AC0015;
+}
+
+.navbar-fixed-top .not-found p {
+  color: #666;
+}
+
+.search-suggestion-list {
+  background-color: transparent;
+  border-width: 0 0 1px 0;
+}
+
+.search-suggestion-list:last-child {
+  border-bottom: none;
+}
+
+.search-suggestion-list h5 {
+  float: left;
+  margin-top: 3px;
+  font-weight: bold;
+  color: #333;
+}
+
+.search-suggestion-list small {
+  float: right;
+  color: #999;
+}
+
+.search-suggestion-list p {
+  clear: both;
+  width: 100%;
+  margin: 0;
+  float: none;
+  color: #333;
+}
+
+.search-suggestion-list a.match h5,
+.search-suggestion-list a.match p {
+  color: #1b89c4;
+}
+
+@media (max-width: 991px) {
+  #header {
+    margin: 0 0 0 12px;
+  }
+
+  .navbar-default a.navbar-brand {
+    padding-left: 0;
+  }
+}
+
+@-webkit-keyframes loading {
+  0 { left: 0%; }
+  50% { left: 50%; }
+  100% { left: 0%; }
+}
+
+@-moz-keyframes loading {
+  0 { left: 0%; }
+  50% { left: 50%; }
+  100% { left: 0%; }
+}
+
+@keyframes loading {
+  0 { left: 0%; }
+  50% { left: 50%; }
+  100% { left: 0%; }
+}

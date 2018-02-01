@@ -1,3 +1,19 @@
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
+/* global System */
 import angular from 'angular';
 import AppMarketWatcher from './market-watcher.module';
 
@@ -49,6 +65,7 @@ const MarketWatcher = function ($q, $http, $rootScope, vm) {
 			if (result.data.success) {
 				vm.exchangeLogos = {};
 				vm.exchanges = Object.keys(result.data.exchanges).filter((key) => {
+					// eslint-disable-next-line no-undef
 					System.import(`../../assets/img/exchanges/${key}.png`).then((value) => {
 						vm.exchangeLogos[key] = value;
 					});
