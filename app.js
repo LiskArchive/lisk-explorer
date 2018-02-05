@@ -166,17 +166,12 @@ app.use((req, res, next) => {
 	if (cache.cacheIgnoreList.indexOf(req.originalUrl) >= 0) {
 		return res.json(req.json);
 	}
-	req.redis.set(req.originalUrl, JSON.stringify(req.json), (err) => {
+
+	const ttl = cache.cacheTTLOverride[req.originalUrl] || config.cacheTTL;
+
+	req.redis.setex(req.originalUrl, ttl, JSON.stringify(req.json), (err) => {
 		if (err) {
 			logger.info(err);
-		} else {
-			const ttl = cache.cacheTTLOverride[req.originalUrl] || config.cacheTTL;
-
-			req.redis.send_command('EXPIRE', [req.originalUrl, ttl], (expErr) => {
-				if (expErr) {
-					logger.info(expErr);
-				}
-			});
 		}
 	});
 
