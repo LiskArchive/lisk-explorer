@@ -91,10 +91,12 @@ npm install
  
  `SERVICE_NAME='your service name' CLIENT_ID='you client id' npm run build`
 
-
+## Post-deployment Actions
 
 #### Market Watcher
  Candlestick data needs to be initialized prior to starting Lisk Explorer. During runtime candlestick data is updated automatically.
+
+This step writes data to the local Redis instance. Make sure that your application is already deployed and has access to the production Redis database. 
 
 To build candlestick data for each exchange run:
 
