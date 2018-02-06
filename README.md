@@ -91,8 +91,7 @@ npm install
  
  `SERVICE_NAME='your service name' CLIENT_ID='you client id' npm run build`
 
-
-## Post-deployment actions
+## Post-deployment Actions
 
 #### Market Watcher
  Candlestick data needs to be initialized prior to starting Lisk Explorer. During runtime candlestick data is updated automatically.
