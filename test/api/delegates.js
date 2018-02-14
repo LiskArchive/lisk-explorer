@@ -17,7 +17,7 @@ const node = require('./../node.js');
 
 const params = {
 	publicKey: '9d3058175acab969f41ad9b86f7a2926c74258670fe56b37c429c01fca9f2f0f',
-	noBlocksKey: '1111111111111111111111111111111111111111111111111111111111111111',
+	noBlocksKey: '968ba2fa993ea9dc27ed740da0daf49eddd740dbd7cb1cb4fc5db3a20baf341b',
 	invalidPublicKey: 'abdefghijklmnopqrstuvwyxz',
 	delegate: 'genesis_1',
 	address: '8273455169423958419L',
@@ -177,7 +177,7 @@ describe('Delegates API', () => {
 		});
 	});
 
-	describe('GET /api/delegates/getStandby', () => {
+	describe.skip('GET /api/delegates/getStandby', () => {
 		it('using no offset should be ok', (done) => {
 			getStandby('', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
