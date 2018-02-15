@@ -46,8 +46,8 @@ module.exports = function (app, connectionHandler, socket) {
 
 	const log = (level, msg) => logger[level]('Delegate Monitor:', msg);
 
-	const findActiveByPublicKey = publicKey =>
-		data.active.delegates.find(d => d.publicKey === publicKey);
+	const findActiveByPublicKey = delegate =>
+		data.active.delegates.find(d => d.account.publicKey === delegate.publicKey);
 
 	const cutNextForgers = () => {
 		const next10Forgers = tmpData.nextForgers.delegates.slice(0, 10);
@@ -66,10 +66,10 @@ module.exports = function (app, connectionHandler, socket) {
 	};
 
 	const findActive = delegate =>
-		data.active.delegates.find(d => d.publicKey === delegate.publicKey);
+		data.active.delegates.find(d => d.account.publicKey === delegate.account.publicKey);
 
 	const findActiveByBlock = block =>
-		data.active.delegates.find(d => d.publicKey === block.generatorPublicKey);
+		data.active.delegates.find(d => d.account.publicKey === block.generatorPublicKey);
 
 	const updateDelegate = (delegate, updateForgingTime) => {
 		// Update delegate with forging time
@@ -172,13 +172,13 @@ module.exports = function (app, connectionHandler, socket) {
 		return async.waterfall([
 			(callback) => {
 				request.get({
-					url: `${app.get('lisk address')}/api/blocks?orderBy=height:desc&limit=${limit}`,
+					url: `${app.get('lisk address')}/api/blocks?sort=height:desc&limit=${limit}`,
 					json: true,
 				}, (err, response, body) => {
 					if (err || response.statusCode !== 200) {
 						return callback((err || 'Response was unsuccessful'));
-					} else if (body.success === true) {
-						return callback(null, { blocks: body.blocks });
+					} else if (body.data) {
+						return callback(null, { blocks: body.data });
 					}
 					return callback(body.error);
 				});
