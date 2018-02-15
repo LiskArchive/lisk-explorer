@@ -177,7 +177,7 @@ describe('Delegates API', () => {
 		});
 	});
 
-	describe.skip('GET /api/delegates/getStandby', () => {
+	describe('GET /api/delegates/getStandby', () => {
 		it('using no offset should be ok', (done) => {
 			getStandby('', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
