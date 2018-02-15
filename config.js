@@ -26,6 +26,7 @@ config.port = 6040; // Port to listen on
  */
 config.lisk.host = '127.0.0.1';
 config.lisk.port = 4000;
+config.lisk.apiPath = '/api';
 
 /**
  * FreeGeoIP server
