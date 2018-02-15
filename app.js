@@ -54,8 +54,8 @@ app.orders = new utils.orders(config, client);
 
 app.set('version', '0.3');
 app.set('strict routing', true);
-app.set('lisk address', `http://${config.lisk.host}:${config.lisk.port}`);
-app.set('freegeoip address', `http://${config.freegeoip.host}:${config.freegeoip.port}`);
+app.set('lisk address', `http://${config.lisk.host}:${config.lisk.port}${config.lisk.apiPath}`);
+app.set('freegeoip address', `http://${config.lisk.host}:${config.lisk.port}/freegeoip`);
 app.set('exchange enabled', config.exchangeRates.enabled);
 
 app.use((req, res, next) => {
