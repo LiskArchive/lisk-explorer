@@ -90,7 +90,7 @@ describe('Common API', () => {
 			});
 		});
 
-		it('using known transaction should be ok', (done) => {
+		it.skip('using known transaction should be ok', (done) => {
 			getSearch(params.tx, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.result.type).to.equal('tx');
@@ -108,7 +108,7 @@ describe('Common API', () => {
 			});
 		});
 
-		it('using partial known delegate should be ok', (done) => {
+		it.skip('using partial known delegate should be ok', (done) => {
 			getSearch('gene', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.result.type).to.equal('delegate');
