@@ -151,6 +151,48 @@ To stop Explorer after it has been started with `PM2`, issue the following comma
 
 `pm2 stop lisk-explorer`
 
+## Docker
+
+First, build a new docker image in your local repository.
+Replace `<TAG_NAME>` with the branch or tag name ex. `1.4.3`.
+
+```
+docker build https://github.com/LiskHQ/lisk-explorer.git#<TAG_NAME> -t lisk-explorer:<TAG_NAME>
+```
+
+Create dedicated virtual network for Lisk. This method replaces deprecated Docker parameter `--link`. In this example the virtual network is called `lisk-net`, but it may be changed to any other valid name. It is important to keep consistency and apply that name for every `--network` parameter used in commands below.
+
+```
+docker network create lisk-net
+```
+
+Create containers with Redis and FreeGeoIP.
+```
+docker run --name=lisk-redis --network=lisk-net -d redis:alpine
+docker run --name=lisk-freegeoip --network=lisk-net --restart=always -d fiorix/freegeoip
+```
+Run the application within the same network that you created in the second step.
+
+Replace `<LISK_NODE_IP>` and `<LISK_NODE_PORT>` accordingly.
+Remember that in order to use any Lisk node your IP must be whitelisted, or the node must be configured to accept unknown IPs.
+
+```
+docker run -p 6040:6040 \
+	-e LISK_HOST=<LISK_NODE_IP> \
+	-e LISK_PORT=<LISK_NODE_PORT> \
+	-e REDIS_HOST=lisk-redis \
+	-e FREEGEOIP_HOST=lisk-freegeoip \
+	--network=lisk-net \
+	--name=lisk-explorer \
+	-d lisk-explorer:1.4.3
+```
+
+You may also want to initialize Market Watcher data.
+
+```
+docker exec -it lisk-explorer ~/lisk-explorer/node_modules/grunt/bin/grunt candles:build
+```
+
 ## Tests
 
 Before running any tests, please ensure Lisk Explorer and Lisk Client are configured to run on the Lisk Testnet.
