@@ -45,6 +45,160 @@ html, body {
   /* The html and body elements cannot have any padding or margin. */
 }
 
+body {
+    background-color: #013165;
+}
+
+.splash-screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background-stripes {
+    background-color: #013165;
+    background-image: linear-gradient(109deg,#00335d,#001a56);
+    overflow: hidden;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+    -webkit-transform: skewY(21deg) translateZ(0);
+    transform: skewY(21deg) translateZ(0);
+    -webkit-transform-origin: right top;
+    transform-origin: right top;
+}
+
+.background-stripes,
+.stripe {
+    position: absolute;
+}
+
+.stripe:first-child {
+    background-image:linear-gradient(4deg,#002759 5%,#002667 87%);
+    opacity:1;
+    top:23.7rem;
+    height:.45rem;
+    width:61.5%;
+    right:-1.66666%;
+}
+
+.stripe:nth-child(2) {
+    background-image:linear-gradient(180deg,#003986 1%,#00305c 95%);
+    opacity:.8;
+    top:37.5rem;
+    height:6rem;
+    width:152.49999%;
+    right:-1.66666%;
+}
+
+.stripe:nth-child(3) {
+    background-image:linear-gradient(-44deg,#0057b8,#003061 98%);
+    opacity:1;
+    top:43.5rem;
+    height:.45rem;
+    width:106.5%;
+    right:-1.66666%;
+}
+
+.stripe:nth-child(4) {
+    background-image:linear-gradient(180deg,#003986 1%,#00305c 95%);
+    opacity:.8;
+    top:43.95rem;
+    height:6rem;
+    width:152.49999%;
+    right:-1.66666%;
+}
+
+.stripe:nth-child(5) {
+    background-image:linear-gradient(243deg,rgba(0,28,86,0) 6%,rgba(0,36,88,.18) 43%,#0b3b67 73%,#005ea0 99%);
+    opacity:1;
+    top:61.95rem;
+    height:34.5rem;
+    width:106.5%;
+    left:-1.66666%;
+}
+
+.stripe:nth-child(6) {
+    background-image:linear-gradient(243deg,transparent 6%,#002e5b 64%,transparent 77%,transparent 98%);
+    opacity:.8;
+    top:68.1rem;
+    height:28.5rem;
+    width:99%;
+    left:-1.66666%;
+}
+
+.stripe:nth-child(7) {
+    top:64.95rem;
+    width:46.5%;
+}
+
+.stripe:nth-child(7) ,.stripe:nth-child(8) {
+    background-image:linear-gradient(-120deg,#003767 19%,#002e5d 30%,#00285a 45%,rgba(0,38,103,.3) 90%);
+    opacity:1;
+    height:.6rem;
+    right:-1.66666%;
+}
+
+.stripe:nth-child(8) {
+    top:79.95rem;
+    width:51%;
+}
+
+.stripe:nth-child(9) {
+    background-image:linear-gradient(180deg,rgba(0,83,140,.3) 11%,#00266f 87%);
+    opacity:.6;
+    top:117rem;
+    height:33rem;
+    width:152.49999%;
+    left:-1.66666%;
+}
+
+.stripe:nth-child(10) {
+    background-image:linear-gradient(106deg,rgba(0,96,156,.3) 11%,#004880 19%,transparent 87%);
+    opacity:.8;
+    top:117rem;
+    height:9rem;
+    width:61.5%;
+    left:-1.66666%;
+}
+
+.stripe:nth-child(11) {
+    background-image:linear-gradient(29deg,#007dbb 15%,#00417c 38%,#003372 66%,transparent);
+    opacity:.8;
+    top:130.5rem;
+    height:1.5rem;
+    width:76.5%;
+    left:-1.66666%;
+}
+
+.stripe:nth-child(12) {
+    background-image:linear-gradient(16deg,transparent 19%,#004780 29%,#00437d 39%,#003877 61%,#005c97);
+    opacity:.8;
+    top:120rem;
+    height:.75rem;
+    width:76.5%;
+    right:-1.66666%;
+}
+
+@media (max-width: 1024px) {
+  body {
+      /* background-color: #f9fbfd; */
+  }
+
+  .splash-screen .background-stripes {
+      display: none;
+  }
+}
+
+.main-view {
+  background: #fff;
+  border-radius: 3px;
+}
+
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
   color: #000;
   font-family: Gilroy, Open Sans, sans-serif;
@@ -68,6 +222,13 @@ a:hover {
   color: #f57c00;
   text-decoration: none;
   transition: color 0.3s ease 0s;
+}
+
+.horizontal-adding-l {
+  margin-right: 0;
+  margin-left: 0;
+  padding-right: 17px;
+  padding-left: 17px;
 }
 
 /* Bootstrap fix for ui.bootstrap */
@@ -564,7 +725,7 @@ qrcode svg {
 
 /* Set the fixed height of the footer here */
 #footer {
-  background-color: #393C3E;
+  background: rgba(0, 36, 73, 0.5);
   color: white;
   height: 48px;
   /*overflow: hidden;*/
