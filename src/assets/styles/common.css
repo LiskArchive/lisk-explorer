@@ -17,34 +17,42 @@
 -------------------------------------------------- */
 @charset "UTF-8";
 
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700');
+
 @font-face {
-    font-family: Roboto;
-    src: url('../fonts/Roboto-Regular.ttf')
+  font-family: 'gilroy';
+  src:
+    url('../fonts/gilroy/gilroy-bold.woff2') format('woff2'),
+    url('../fonts/gilroy/gilroy-bold.woff') format('woff'),
+    url('../fonts/gilroy/gilroy-bold.ttf')  format('truetype');
+  font-weight: 500;
+  font-style: normal;
 }
 
 @font-face {
-    font-family: Roboto;
-    src: url('../fonts/Roboto-Bold.ttf');
-    font-weight: 700;
-}
-
-@font-face {
-    font-family: Roboto;
-    src: url('../fonts/Roboto-BoldItalic.ttf');
-    font-weight: 700;
-    font-style: italic;
+  font-family: 'gilroy';
+  src:
+    url('../fonts/gilroy/gilroy-extra-bold.woff2') format('woff2'),
+    url('../fonts/gilroy/gilroy-extra-bold.woff') format('woff'),
+    url('../fonts/gilroy/gilroy-extra-bold.ttf')  format('truetype');
+  font-weight: 700;
+  font-style: normal;
 }
 
 html, body {
-  color: #393C3E;
-  font-family: 'Roboto', 'Ubuntu', sans-serif;
+  font-family: Open Sans, sans-serif;
   height: 100%;
   /* The html and body elements cannot have any padding or margin. */
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-  color: #393C3E;
-  font-family: 'Roboto', 'Ubuntu', sans-serif;
+  color: #000;
+  font-family: Gilroy, Open Sans, sans-serif;
+}
+
+h1 {
+  padding: 50px 32px;
+  margin: 0;
 }
 
 h1>small {
