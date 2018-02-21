@@ -25,12 +25,10 @@
 }
 
 .navbar-brand .logo {
-  height: 35px;
-  width: 76px;
-  background: url('../../assets/img/lisk-logo.svg');
-  background-size: auto 35px;
-  vertical-align: middle ;
-  display: inline-block ;
+  height: 44px;
+  width: 120px;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 .navbar-default .nethash
@@ -49,8 +47,8 @@
 }
 
 .navbar-default .navbar-brand {
-  padding: 16px 5px 16px 13px;
-  height: 68px;
+  padding: 12px 5px 8px 8px;
+  height: 62px;
 }
 
 .navbar-default .navbar-header {
