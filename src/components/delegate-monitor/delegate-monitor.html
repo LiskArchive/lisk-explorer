@@ -16,14 +16,8 @@
  */
 -->
 <div>
-	<div class="row">
-		<div class="col-xs-12">
-			<h1>Delegate Monitor</h1>
-
-			<hr />
-		</div>
-	</div>
-	<div class="row">
+	<h1>Delegate Monitor</h1>
+	<div class="row horizontal-adding-l">
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-xs-12 col-sm-4">
@@ -92,7 +86,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row horizontal-adding-l">
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-xs-12 col-sm-3">
@@ -156,7 +150,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row">
+	<div class="row horizontal-adding-l">
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-6">
@@ -244,10 +238,10 @@
 	<div class="row">
 		<div class="col-xs-12 big-info">
 			<uib-tabset vertical="true" type="pills">
-				<uib-tab heading="Active Delegates" class="active-delegates-tab">
-					<p class="small-title">Active Delegates</p>
+				<uib-tab heading="Active Delegates" class="active-delegates-tab horizontal-adding-l">
+					<p class="small-title horizontal-adding-l">Active Delegates</p>
 
-					<div class="row forging-totals">
+					<div class="row forging-totals horizontal-adding-l">
 						<div class="col-xs-12 col-sm-3">
 							<div class="forging-total green">
 								<p class="big-details">{{vm.forgingTotals.forging || 0}}</p>
@@ -274,7 +268,7 @@
 						</div>
 					</div>
 
-					<div class="row forging-progress" data-ng-if="vm.forgingProgress">
+					<div class="row forging-progress horizontal-adding-l" data-ng-if="vm.forgingProgress">
 						<div class="col-xs-12">
 							<uib-progressbar max="101" type="forging" value="vm.forgingTotals.processed" data-ng-class="{'progress-striped active': vm.forgingTotals.processed < 101,'inactive': vm.forgingTotals.processed == 101}">
 								<p data-ng-if="vm.forgingTotals.processed > 5">
@@ -324,8 +318,12 @@
 						</table>
 					</div>
 				</uib-tab>
-				<uib-tab heading="Standby Delegates" data-ng-click="vm.getStandby(1)" class="standby-delegates-tab">
-					<p class="small-title">Standby Delegates</p>
+				<uib-tab heading="Standby Delegates" data-ng-click="vm.getStandby(1)" class="standby-delegates-tab horizontal-adding-l">
+					<div class='row horizontal-adding-l'>
+						<div class="col-lg-12">
+							<p class="small-title">Standby Delegates</p>
+						</div>
+					</div>
 
 					<div class="table-responsive">
 						<table class="table table-hover table-striped standby-delegates">
@@ -359,9 +357,11 @@
 							</tbody>
 						</table>
 					</div>
-					<div data-ng-if="vm.pagination.more || vm.pagination.before">
-						<button class="btn btn-primary previous-page-button" data-ng-click="vm.getStandby(vm.pagination.previousPage)" data-ng-if="vm.pagination.before">Previous page</button>
-						<button class="btn btn-primary next-page-button" data-ng-click="vm.getStandby(vm.pagination.nextPage)" data-ng-if="vm.pagination.more">Next page</button>
+					<div class='row horizontal-adding-l' data-ng-if="vm.pagination.more || vm.pagination.before">
+						<div class="col-lg-12">
+							<button class="btn btn-primary previous-page-button" data-ng-click="vm.getStandby(vm.pagination.previousPage)" data-ng-if="vm.pagination.before">Previous page</button>
+							<button class="btn btn-primary next-page-button" data-ng-click="vm.getStandby(vm.pagination.nextPage)" data-ng-if="vm.pagination.more">Next page</button>
+						</div>
 					</div>
 				</uib-tab>
 			</uib-tabset>

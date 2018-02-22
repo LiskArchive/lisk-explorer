@@ -19,13 +19,12 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<h1>Market Watcher</h1>
-			<hr />
 		</div>
 	</div>
 
 	<div class="alert alert-warning" data-ng-if="vm.exchanges && vm.noExchange">No exchanges available.</div>
 
-	<div class="row" data-ng-show="!vm.noExchange">
+	<div class="row horizontal-adding-l" data-ng-show="!vm.noExchange">
 		<div class="col-xs-12">
 			<div class="progress progress-striped active" data-ng-hide="vm.statistics">
 				<div class="progress-bar progress-bar-loading" style="width: 100%">
