@@ -15,7 +15,11 @@
  *
  */
 -->
-<div class="alert alert-warning" data-ng-if="!txs.loading && !txs.results.length">There are no transactions involving this {{txs.parent}}.</div>
+<div class="row horizontal-adding-l" data-ng-if="!txs.loading && !txs.results.length">
+	<div class="col-md-12">
+		<div class='alert alert-warning'>There are no transactions involving this {{txs.parent}}.</div>
+	</div>
+</div>
 <div id="table-mobile" class="table-responsive" data-ng-if="txs.results.length">
 	<table class="table transactions">
 		<thead>
