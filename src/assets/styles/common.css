@@ -197,6 +197,7 @@ body {
 .main-view {
   background: #fff;
   border-radius: 3px;
+  padding-bottom: 32px;
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
@@ -214,7 +215,7 @@ h1>small {
 }
 
 a, a:visited, a:focus {
-  color: #0288d1;
+  color: #2475b9;
   text-decoration: none;
 }
 
@@ -229,6 +230,10 @@ a:hover {
   margin-left: 0;
   padding-right: 17px;
   padding-left: 17px;
+}
+
+.text-muted {
+  color: #3c5068;
 }
 
 /* Bootstrap fix for ui.bootstrap */
@@ -427,7 +432,7 @@ qrcode svg {
   }
   .navbar-default .navbar-nav .open .dropdown-menu>li>a {
     background-color: white;
-    color: #333;
+    color: #3c5068;
   }
   .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
     background-color: #27292A;
@@ -462,7 +467,7 @@ qrcode svg {
 }
 
 .nav-tabs>li>a {
-  color: #393C3E;
+  color: #3c5068;
 }
 
 .nav-tabs.nav-justified>.active>a,
@@ -725,7 +730,7 @@ qrcode svg {
 
 /* Set the fixed height of the footer here */
 #footer {
-  background: rgba(0, 36, 73, 0.5);
+  background: #002449;
   color: white;
   height: 48px;
   /*overflow: hidden;*/
@@ -780,14 +785,14 @@ qrcode svg {
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
-#wrap > .container { padding: 85px 15px 0; }
+#wrap > .container { padding: 100px 15px 0; }
 
 @media (max-width: 991px) {
-  #wrap > .container { padding-top: 110px; }
+  #wrap > .container { padding-top: 125px; }
 }
 
 @media (max-width: 768px) {
-  #wrap > .container { padding-top: 65px; }
+  #wrap > .container { padding-top: 80px; }
 }
 
 #footer > .container {
@@ -1070,6 +1075,7 @@ a.v_highlight_more {
   text-transform: uppercase;
   padding-top: 6px;
   opacity: 0.7;
+  color: black;
 }
 
 .big-info p.big-details {
@@ -1108,7 +1114,7 @@ a.v_highlight_more {
 /* Sort Order */
 
 a.sort-order {
-  color: #393C3E;
+  color: #3c5068;
 }
 
 a.sort-order:focus, .sort-order:hover {
@@ -1142,9 +1148,6 @@ a.sort-order span.reverse:after {
 .proposal-icon {
     vertical-align: middle;
     margin-top: -5px;
-}
-.breadcrumb > li + li:before {
-    padding: 0 0 0 7px;
 }
 
 .decimal-places-selector {
@@ -1181,3 +1184,25 @@ a.sort-order span.reverse:after {
 [data-aria-labelledby="main-currency-selector"] li.RUB {
   display: none;
 }
+
+/* Table striped */
+.table-striped thead tr th,
+.table-striped tbody tr td {
+  border: 0 !important;
+  line-height: 32px;
+}
+
+.table-striped thead tr th:first-child,
+.table-striped tbody tr td:first-child {
+  padding-left: 32px;
+}
+
+.table-striped thead tr th:last-child,
+.table-striped tbody tr td:last-child {
+  padding-right: 32px;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background: #f5f8fc !important;
+}
+

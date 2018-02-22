@@ -47,8 +47,8 @@
 }
 
 .navbar-default .navbar-brand {
-  padding: 12px 5px 8px 8px;
-  height: 62px;
+  padding: 21px 5px 17px 8px;
+  height: 80px;
 }
 
 .navbar-default .navbar-header {
@@ -64,9 +64,9 @@
 
 .navbar-default .navbar-form form
 {
-  border-bottom: solid 1px #7b7c7e;
   position: relative;
   outline: none;
+  background: #012b58;
 }
 
 .navbar-default .navbar-form form.loading:before
@@ -88,7 +88,7 @@
 {
   font-size: 20px;
   color: #7b7c7e;
-  padding: 7px 5px;
+  padding: 7px 15px 7px 5px;
   vertical-align: middle;
 }
 
@@ -97,13 +97,13 @@
   background-color: transparent;
   font-family: 'Roboto', 'Ubuntu', sans-serif;
   padding: 0;
-  height: 35px;
-  width: 290px;
+  height: 50px;
+  width: 245px;
   font-weight: lighter;
   box-shadow: none;
   font-size: 16px;
-  line-height: 45px;
-  color: #f2f2e0;
+  line-height: 22px;
+  color: #74869b;
   border: 0;
   border-radius: 0;
   vertical-align: middle;
@@ -111,27 +111,37 @@
   z-index: 2;
   outline: none;
   box-shadow: none;
+  text-indent: 15px;
 }
 
 #search::-webkit-input-placeholder {
-  color: #a3a4a6;
+  color: #74869b;
   font-size: 14px;
   font-family: 'Roboto', 'Ubuntu', sans-serif;
 }
 
 #search::-moz-placeholder {
-  color: #a3a4a6;
+  color: #74869b;
   font-size: 14px;
   font-family: 'Roboto', 'Ubuntu', sans-serif;
 }
 
-.navbar-default .navbar-nav > li > a {
-  padding-top: 24px;
-  padding-bottom: 24px;
+.navbar-default {
+  background: transparent;
 }
+
+.navbar-default .navbar-nav > li > a {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.navbar-default .navbar-nav > li.open > a,
+.navbar-default .navbar-nav > li a:hover {
+  background-color: #002449 !important;
+}
+
 .navbar-fixed-top .network-status {
   width: 100%;
-  background: #464647;
+  background: #012b58;
   position: relative;
   z-index: 1;
 }
@@ -141,6 +151,7 @@
 }
 
 .navbar-fixed-top .main-header {
+  background: #002449;
   position: relative;
   z-index: 2;
 }
