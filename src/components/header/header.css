@@ -47,7 +47,7 @@
 }
 
 .navbar-default .navbar-brand {
-  padding: 21px 5px 17px 8px;
+  padding: 19px 5px 20px 8px;
   height: 80px;
 }
 
@@ -67,6 +67,7 @@
   position: relative;
   outline: none;
   background: #012b58;
+  min-width: 50px;
 }
 
 .navbar-default .navbar-form form.loading:before
@@ -87,8 +88,8 @@
 .navbar-default .navbar-form .glyphicon
 {
   font-size: 20px;
-  color: #7b7c7e;
-  padding: 7px 15px 7px 5px;
+  color: #fff;
+  padding: 7px 15px;
   vertical-align: middle;
 }
 
@@ -98,7 +99,7 @@
   font-family: 'Roboto', 'Ubuntu', sans-serif;
   padding: 0;
   height: 50px;
-  width: 245px;
+  width: 0px;
   font-weight: lighter;
   box-shadow: none;
   font-size: 16px;
@@ -112,6 +113,13 @@
   outline: none;
   box-shadow: none;
   text-indent: 15px;
+  transition: all ease 300ms;
+  -webkit-transition: all ease 300ms;
+  -moz-transition: all ease 300ms;
+}
+
+.navbar-default .navbar-form form.active input {
+  width: 245px;
 }
 
 #search::-webkit-input-placeholder {
