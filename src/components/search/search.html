@@ -17,10 +17,9 @@
 -->
 <form role="search" data-ng-submit="sch.search()" data-ng-class="{'loading': sch.loading}">
 	<div class="form-group" data-ng-class="{'has-error': sch.badQuery}">
-		<span class="glyphicon glyphicon-search hidden-xs" aria-hidden="true"></span>
 		<input id="search" type="text" class="form-control search" data-ng-model="sch.q" placeholder="Find a transaction, address, delegate or block"
 			data-ng-submit="sch.search()" data-ng-blur="sch.hideSuggestion()" autocomplete="off" />
-		
+		<span class="glyphicon glyphicon-search hidden-xs" aria-hidden="true"></span>
 		<div class="search-suggestion-list list-group"
 			ng-if="sch.showingResults && sch.results">
 			<a href="/address/{{result.address}}" class="search-suggestion-item list-group-item list-group-item-action flex-column align-items-start"
