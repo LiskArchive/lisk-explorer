@@ -154,7 +154,7 @@ To stop Explorer after it has been started with `PM2`, issue the following comma
 ## Docker
 
 First, build a new docker image in your local repository.
-Replace `<TAG_NAME>` with the branch or tag name ex. `1.4.3`.
+Replace `<TAG_NAME>` with the branch or tag name ex. `1.5.0`.
 
 ```
 docker build https://github.com/LiskHQ/lisk-explorer.git#<TAG_NAME> -t lisk-explorer:<TAG_NAME>
