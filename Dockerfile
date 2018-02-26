@@ -1,5 +1,8 @@
 FROM node:6 AS builder
 
+ENV LISK_HOST=node01.lisk.io
+ENV LISK_PORT=8000
+
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get --assume-yes install --no-install-recommends \
         build-essential \
