@@ -177,7 +177,7 @@ docker-compose down --volumes --rmi local
 
 #### Building other version than latest
 
-If you want to build other version you have to change the tag name in `docker-compose.yml`. You can also build from you local branch by adding `build .` under section `lisk-explorer:`.
+If you want to build other version, you have to change the tag name in `docker-compose.yml`. You can also build from your local branch by adding `build .` under section `lisk-explorer:`.
 
 ### Manual Docker deployment
 
