@@ -162,19 +162,22 @@ Update `docker-lisk-core.env` to choose your preferred node. You can easily swit
 To start Explorer type the following command:
 
 ```
-docker-compose up
+docker-compose up -d
 ```
 
-It will build a local container based on the branch in your local directory.
+It will use lastest available version from local hub by default.
 
 #### Stopping application
 
-To stop current Explorer instance press `Ctrl+C` and wait for the process to stop.
 The following command will remove all containers defined by the `docker-compose.yml`.
 
 ```
-docker-compose down
+docker-compose down --volumes --rmi local
 ```
+
+#### Building other version than latest
+
+If you want to build other version you have to change the tag name in `docker-compose.yml`. You can also build from you local branch by adding `build .` under section `lisk-explorer:`.
 
 ### Manual Docker deployment
 
