@@ -153,6 +153,31 @@ To stop Explorer after it has been started with `PM2`, issue the following comma
 
 ## Docker
 
+### Using docker-compose
+
+Update `docker-lisk-core.env` to choose your preferred node. You can easily switch between Mainnet and Testnet nodes by changing content of the env file.
+
+#### Starting application
+
+To start Explorer type the following command:
+
+```
+docker-compose up
+```
+
+It will build a local container based on the branch in your local directory.
+
+#### Stopping application
+
+To stop current Explorer instance press `Ctrl+C` and wait for the process to stop.
+The following command will remove all containers defined by the `docker-compose.yml`.
+
+```
+docker-compose down
+```
+
+### Manual Docker deployment
+
 First, build a new docker image in your local repository.
 Replace `<TAG_NAME>` with the branch or tag name ex. `1.5.0`.
 
