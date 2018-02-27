@@ -2,7 +2,8 @@ version: "3"
 services:
 
   lisk-explorer:
-    image: lisk/explorer:${EXPLORER_TAG}
+    build: .
+    image: lisk/explorer:local
     depends_on:
       - explorer-cache
       - freegeoip
@@ -12,9 +13,9 @@ services:
       - lisk-explorer
       - localhost
     restart: on-failure
+    env_file:
+      - ./docker-lisk-core.env
     environment:
-      - LISK_HOST=${LISK_HOST}
-      - LISK_PORT=${LISK_PORT}
       - REDIS_HOST=explorer-cache
       - FREEGEOIP_HOST=freegeoip
 
@@ -25,7 +26,7 @@ services:
     restart: on-failure
 
   explorer-cache-candles:
-    image: lisk/explorer:${EXPLORER_TAG}
+    image: lisk/explorer:local
     depends_on:
       - explorer-cache
     networks:
