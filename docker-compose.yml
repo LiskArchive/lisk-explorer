@@ -2,8 +2,7 @@ version: "3"
 services:
 
   lisk-explorer:
-    build: .
-    image: lisk/explorer:local
+    image: lisk/explorer:latest
     depends_on:
       - explorer-cache
       - freegeoip
@@ -26,7 +25,7 @@ services:
     restart: on-failure
 
   explorer-cache-candles:
-    image: lisk/explorer:local
+    image: lisk/explorer:latest
     depends_on:
       - explorer-cache
     networks:
