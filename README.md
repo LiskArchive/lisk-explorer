@@ -172,8 +172,10 @@ It will use lastest available version from local hub by default.
 The following command will remove all containers defined by the `docker-compose.yml`.
 
 ```
-docker-compose down --volumes --rmi local
+docker-compose down
 ```
+
+The example above will stop whole application gracefully but it leaves volumes and images in your repository. It is useful especially if you plan to run the solution again. Otherwise you may want to clean up after these containers. You can use additional params for this purpose: `--volumes` to remove all associated volumes and `--rmi local` to remove untagged images. In case you want to remove all images related to this application add `--rmi all` to the `docker-compose` command.
 
 #### Building other version than latest
 
