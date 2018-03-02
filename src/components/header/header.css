@@ -56,6 +56,7 @@
   line-height: 65px;
 }
 
+/* Search form */
 .navbar-default .navbar-form {
   margin-top: 15px;
   padding: 0 4px;
@@ -134,6 +135,7 @@
   font-family: 'Roboto', 'Ubuntu', sans-serif;
 }
 
+/* Menu */
 .navbar-default {
   background: transparent;
 }
@@ -142,9 +144,12 @@
   padding-top: 30px;
   padding-bottom: 30px;
 }
+.navbar-default .navbar-nav > li > a,
 .navbar-default .navbar-nav > li.open > a,
-.navbar-default .navbar-nav > li a:hover {
+.navbar-default .navbar-nav > li a:hover,
+.navbar-default .navbar-nav > li a:focus {
   background-color: #002449 !important;
+  font-family: Open Sans, sans-serif;
 }
 
 .navbar-fixed-top .network-status {
@@ -169,7 +174,7 @@
  }
 
 .navbar-fixed-top .network-status span {
-  color: #a3a4a6;
+  color: #74869b;
   line-height: 24px;
   letter-spacing: 1px;
   padding: 0 12px;
