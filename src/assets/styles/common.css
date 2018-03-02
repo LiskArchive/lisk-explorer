@@ -1046,9 +1046,9 @@ a.v_highlight_more {
 
 .secondary_navbar {
   width: 100%;
-  background: white;
+  background: rgba(0, 36, 73, 0.8);
   position: fixed;
-  top: 80px;
+  top: 103px;
   left: 0;
   text-align: center;
   z-index: 1000;
@@ -1060,11 +1060,13 @@ a.v_highlight_more {
 
 .secondary_navbar .container {
   margin: 0 auto;
-  padding: 1.8em 0;
+  padding: 1.8em 32px;
+  color: #fff;
 }
 
 .secondary_navbar h3, .secondary_navbar p, .secondary_navbar .lead {
   margin: 0;
+  color: #fff;
 }
 
 .secondary_navbar p {
@@ -1233,6 +1235,10 @@ table tr td {
   line-height: 32px !important;
 }
 
+table.transactions thead th .glyphicon {
+  top: 10px;
+}
+
 table tr th:first-child,
 table tr td:first-child {
   padding-left: 32px !important;
@@ -1241,6 +1247,16 @@ table tr td:first-child {
 table tr th:last-child,
 table tr td:last-child {
   padding-right: 32px !important;
+}
+
+table.inner tr th:first-child,
+table.inner tr td:first-child {
+  padding-left: 16px !important;
+}
+
+table.inner tr th:last-child,
+table.inner tr td:last-child {
+  padding-right: 16px !important;
 }
 
 table tbody tr:nth-of-type(odd) {
