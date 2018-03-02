@@ -50,11 +50,11 @@
 		<span>Loading Transactions...</span>
 	</div>
 </div>
-<div class="btn-group btn-group-justified" role="group" aria-label="Less/More Transactions" data-ng-hide="txs.disabled()">
+<div class="btn-group btn-group-justified paginator" role="group" aria-label="Less/More Transactions" data-ng-hide="txs.disabled()">
 	<div class="btn-group" role="group">
-		<button class="btn btn-default less-button" data-ng-disabled="!txs.lessData" data-ng-click="txs.loadLess()">Less</a>
+		<button class="btn btn-default less-button bordered-button" data-ng-disabled="!txs.lessData" data-ng-click="txs.loadLess()">Less</button>
 	</div>
 	<div class="btn-group" role="group">
-		<button class="btn btn-default more-button" data-ng-disabled="!txs.moreData" data-ng-click="txs.loadMore()">More</a>
+		<button class="btn btn-default more-button bordered-button" data-ng-disabled="!txs.moreData" data-ng-click="txs.loadMore()">More</button>
 	</div>
 </div>
