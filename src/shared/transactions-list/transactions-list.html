@@ -17,7 +17,10 @@
 -->
 <div class="row horizontal-adding-l" data-ng-if="!txs.loading && !txs.results.length">
 	<div class="col-md-12">
-		<div class='alert alert-warning'>There are no transactions involving this {{txs.parent}}.</div>
+		<div class='empty-state'>
+			<h2>No transactions</h2>
+			<p>There are no transactions involving this {{txs.parent}}.</p>
+		</div>
 	</div>
 </div>
 <div id="table-mobile" class="table-responsive" data-ng-if="txs.results.length">
