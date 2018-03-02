@@ -217,10 +217,13 @@ h1>small {
 a, a:visited, a:focus {
   color: #2475b9;
   text-decoration: none;
+  transition: color linear 100ms;
+  -webkit-transition: color linear 100ms;
+  -moz-transition: color linear 100ms;
 }
 
 a:hover {
-  color: #f57c00;
+  color: #008bff;
   text-decoration: none;
   transition: color 0.3s ease 0s;
 }
@@ -709,16 +712,22 @@ qrcode svg {
   background-color: #0288d1;
 }
 
-.txvalues-default {
-  background-color: #5f696e;
+.tx-other,
+.tx-incoming,
+.tx-outgoing {
+  font-weight: bold;
 }
 
-.txvalues-success {
-  background-color: #7CB342;
+.tx-other {
+  color: #5f696e;
 }
 
-.txvalues-danger {
-  background-color: #AC0015;
+.tx-incoming {
+  color: #008722;
+}
+
+.tx-outgoing {
+  color: #da1d00;
 }
 
 .txvalues-normal {
@@ -1302,4 +1311,16 @@ table tbody tr:nth-of-type(odd) {
 .bordered-button:hover {
   color: #012b58;
   border: solid 2px #012b58;
+}
+
+
+/* Empty state of lists */
+.empty-state {
+  text-align: center;
+}
+
+.empty-state p {
+  font-size: 16px;
+  line-height: 26px;
+  color: #3c5068;
 }
