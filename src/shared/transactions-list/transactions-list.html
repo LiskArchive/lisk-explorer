@@ -45,9 +45,11 @@
 		</tbody>
 	</table>
 </div>
-<div class="progress progress-striped active" data-ng-if="txs.loading">
-	<div class="progress-bar progress-bar-loading" style="width: 100%">
-		<span>Loading Transactions...</span>
+<div class="progress progress-striped horizontal-adding-l double  active" data-ng-if="txs.loading">
+	<div class="wrapper">
+		<div class="progress-bar progress-bar-loading" style="width: 100%">
+			<span>Loading Transactions...</span>
+		</div>
 	</div>
 </div>
 <div class="btn-group btn-group-justified paginator" role="group" aria-label="Less/More Transactions" data-ng-hide="txs.disabled()">
