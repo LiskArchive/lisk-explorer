@@ -1230,3 +1230,43 @@ table tbody tr:nth-of-type(odd) {
   background: #f5f8fc !important;
 }
 
+.paginator {
+  text-align: center;
+  width: 100%;
+  padding: 0 16px;
+  font-size: 0;
+  margin: 0 auto;
+  max-width: 500px;
+}
+
+.paginator .btn-group {
+  display: inline-block;
+  width: 50%;
+  vertical-align: middle;
+  padding: 0 16px;
+}
+
+.bordered-button:hover,
+.bordered-button {
+  background: transparent;
+  border: solid 2px #2475b9;
+  color: #2475b9;
+  border-radius: 3px;
+  line-height: 36px;
+  height: 42px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 10px;
+}
+
+.bordered-button:disabled:hover,
+.bordered-button:disabled {
+  opacity: 1;
+  color: #ccd9e4;
+  border: solid 2px #ccd9e4;
+}
+
+.bordered-button:hover {
+  color: #012b58;
+  border: solid 2px #012b58;
+}
