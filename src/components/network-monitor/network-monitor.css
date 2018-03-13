@@ -1,3 +1,18 @@
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
 .big-details span.connected-peers {
   font-weight: 700;
 }
@@ -53,82 +68,108 @@
   color: #393C3E;
 }
 
-div.platforms {
-  text-align: center;
-  min-height: 58px;
-}
-
 div.platforms .os-icon {
-  width: 48px;
-  height: 48px;
-  line-height: 48px;
-  background-size: 48px 48px;
-}
-
-div.platforms span.windows-counter {
-  color: #00adf3;
-}
-
-div.platforms span.mac-counter {
-  color: #000000;
+  width: 38px;
+  height: 38px;
+  line-height: 50px;
+  background-size: 38px 38px;
 }
 
 div.platforms span.linux-counter {
-  color: #EC2100;
+  color: #d23211;
 }
 
 div.platforms span.freebsd-counter {
-  color: #FF3300;
+  color: #ff3400;
 }
 
+div.platforms,
 div.versions,
 div.heights {
   text-align: center;
   min-height: 58px;
 }
 
+div.platforms div.platform,
 div.versions div.version,
 div.heights div.height {
   display: inline-block;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
-div.versions span.version-num {
-  height: 48px;
-  line-height: 48px;
-  display: inline-block;
-  padding: 0px 3px 0px 3px;
+div.platforms div.platform .details-wrapper,
+div.versions div.version .details-wrapper,
+div.heights div.height .details-wrapper {
+  font-weight: 200;
+  font-size: 24px;
+  line-height: 32px;
+  background: #f1f1f1;
   border-radius: 10px;
-  color: white;
-  background-color: #35393B;
+  padding: 3px;
 }
 
-div.versions span.counter,
-div.heights span.counter {
+div.platforms div.platform .main-info,
+div.versions div.version .main-info,
+div.heights div.height .main-info {
+  border-radius: 10px;
+  display: inline-block;
+  height: 50px;
+  line-height: 50px;
+  padding: 0 3px;
+  vertical-align: middle;
+}
+div.platforms div.platform .main-info.best,
+div.versions div.version .main-info.best,
+div.heights div.height .main-info.best {
+  color: #2dcd2d;
+}
+
+div.platforms div.platform .counter,
+div.versions div.version .counter,
+div.heights div.height .counter {
   padding: 3px;
   border-radius: 10px;
   background-color: #E8E8E9;
-}
-
-div.heights span.height-num {
-  background-color: #35393b;
-  border-radius: 10px;
-  color: #fff;
   display: inline-block;
-  height: 48px;
-  line-height: 48px;
-  padding: 0 3px;
+  min-width: 50px;
+  height: 50px;
+  padding-top: 12px;
+  line-height: 38px;
+  vertical-align: middle;
+  position: relative;
 }
 
-div.heights span.height-best {
-  background-color: green;
+div.platforms div.platform .counter:before,
+div.versions div.version .counter:before,
+div.heights div.height .counter:before {
+  font-size: 11px;
+  color: #999;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  line-height: 14px;
+  width: 100%;
+  text-align: center;
+}
+
+div.platforms span.counter.peers:before,
+div.versions span.counter.peers:before,
+div.heights span.counter.peers:before {
+  content: 'Peers';
+}
+div.heights span.counter.percetage:before {
+  content: 'Overall';
 }
 
 @media (max-width: 1200px) {
   div.versions div.version {
     padding-left: 15px;
     padding-right: 15px;
+  }
+  div.platforms div.platform {
+    padding-left: 5px;
+    padding-right: 5px;
   }
 
   div.platforms span.counter,
@@ -142,6 +183,13 @@ div.heights span.height-best {
   }
   div.heights span.height-num {
     margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 991px) {
+  div.platforms div.platform {
+    padding-left: 20px;
+    padding-right: 20px;
   }
 }
 

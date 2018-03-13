@@ -119,24 +119,24 @@ node('lisk-explorer-01'){
       }
     }
 
-    stage ('Run e2e tests') {
-      try {
-        sh '''
-        N=${EXECUTOR_NUMBER:-0}
+    // stage ('Run e2e tests') {
+    //   try {
+    //     sh '''
+    //     N=${EXECUTOR_NUMBER:-0}
 
-        # End to End test configuration
-        export DISPLAY=:9$N
-        Xvfb :9$N -ac -screen 0 1280x1024x24 &
-        ./node_modules/protractor/bin/webdriver-manager start --seleniumPort 443$N &
+    //     # End to End test configuration
+    //     export DISPLAY=:9$N
+    //     Xvfb :9$N -ac -screen 0 1280x1024x24 &
+    //     ./node_modules/protractor/bin/webdriver-manager start --seleniumPort 443$N &
 
-        # Run E2E Tests
-        npm run e2e-test -- --params.baseURL http://localhost:604$N
-        '''
-      } catch (err) {
-        echo "Error: ${err}"
-        fail('Stopping build, e2e tests failed')
-      }
-    }
+    //     # Run E2E Tests
+    //     npm run e2e-test -- --params.baseURL http://localhost:604$N
+    //     '''
+    //   } catch (err) {
+    //     echo "Error: ${err}"
+    //     fail('Stopping build, e2e tests failed')
+    //   }
+    // }
 
     stage ('Set milestone and cleanup') {
       milestone 1

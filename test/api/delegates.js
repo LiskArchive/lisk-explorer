@@ -1,3 +1,18 @@
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
 const node = require('./../node.js');
 
 const params = {
@@ -133,6 +148,17 @@ describe('Delegates API', () => {
 					'senderId',
 					'recipientId');
 				checkDelegate(id[i].delegate);
+			}
+		}
+	};
+
+	const checkDelegateSuggestions = (list) => {
+		for (let i = 0; i < list.length; i++) {
+			if (list[i + 1]) {
+				node.expect(list[i]).to.contain.all.keys(
+					'username',
+					'address',
+					'similarity');
 			}
 		}
 	};
@@ -293,7 +319,8 @@ describe('Delegates API', () => {
 		it('should be ok', (done) => {
 			getSearch(params.delegate, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.address).to.have.equal(params.address);
+				node.expect(res.body.results.length).to.be.above(1);
+				checkDelegateSuggestions(res.body.results);
 				done();
 			});
 		});
@@ -309,7 +336,8 @@ describe('Delegates API', () => {
 		it('using partial name should autocomplete', (done) => {
 			getSearch('gene', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.address).to.have.equal(params.address);
+				node.expect(res.body.results.length).to.be.above(1);
+				checkDelegateSuggestions(res.body.results);
 				done();
 			});
 		});

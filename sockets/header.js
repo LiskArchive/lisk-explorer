@@ -1,3 +1,18 @@
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
 const api = require('../lib/api');
 const config = require('../config');
 const async = require('async');
@@ -36,6 +51,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getBlockStatus = true;
 		return blocks.getBlockStatus(
+			'preserved',
 			() => { running.getBlockStatus = false; cb('Status'); },
 			(res) => { running.getBlockStatus = false; cb(null, res); });
 	};
@@ -46,6 +62,7 @@ module.exports = function (app, connectionHandler, socket) {
 		}
 		running.getPriceTicker = true;
 		return common.getPriceTicker(
+			'preserved',
 			() => { running.getPriceTicker = false; cb('PriceTicker'); },
 			(res) => { running.getPriceTicker = false; cb(null, res); });
 	};

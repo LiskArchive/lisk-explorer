@@ -1,12 +1,22 @@
-
-
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
 module.exports = function (grunt) {
 	// Load NPM Tasks
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-markdown');
 	grunt.loadNpmTasks('grunt-mocha-test');
-	grunt.loadNpmTasks('grunt-eslint');
 
 	// Load Custom Tasks
 	grunt.loadTasks('tasks');
@@ -14,17 +24,6 @@ module.exports = function (grunt) {
 	// Project Configuration
 	grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
-		concat: {
-			options: {
-				process(src, filepath) {
-					if (filepath.substr(filepath.length - 2) === 'js') {
-						return `// Source: ${filepath}\n${
-							src.replace(/(^|\n)[ \t]*('use strict'|"use strict");?\s*/g, '$1')}`;
-					}
-					return src;
-				},
-			},
-		},
 		mochaTest: {
 			test: {
 				options: {
@@ -49,16 +48,8 @@ module.exports = function (grunt) {
 				],
 			},
 		},
-		eslint: {
-			target: [
-				'lib/**/*.js',
-				'utils/**/*.js',
-				'benchmarks/**/*.js',
-			],
-		},
 	});
 
 	// Register tasks for travis.
-	grunt.registerTask('travis', ['mochaTest']);
-	grunt.registerTask('lint', ['eslint']);
+	grunt.registerTask('test', ['mochaTest']);
 };

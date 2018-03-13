@@ -1,3 +1,18 @@
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
 const node = require('./../node.js');
 
 const params = {
@@ -51,8 +66,8 @@ describe('Common API', () => {
 		it('using known block should be ok', (done) => {
 			getSearch(params.blockId, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.type).to.equal('block');
-				node.expect(res.body.id).to.equal(params.blockId);
+				node.expect(res.body.result.type).to.equal('block');
+				node.expect(res.body.result.id).to.equal(params.blockId);
 				done();
 			});
 		});
@@ -60,8 +75,8 @@ describe('Common API', () => {
 		it('using known height should be ok', (done) => {
 			getSearch('1', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.type).to.equal('block');
-				node.expect(res.body.id).to.equal(params.blockId);
+				node.expect(res.body.result.type).to.equal('block');
+				node.expect(res.body.result.id).to.equal(params.blockId);
 				done();
 			});
 		});
@@ -69,8 +84,8 @@ describe('Common API', () => {
 		it('using known address should be ok', (done) => {
 			getSearch(params.address, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.type).to.equal('address');
-				node.expect(res.body.id).to.equal(params.address);
+				node.expect(res.body.result.type).to.equal('address');
+				node.expect(res.body.result.id).to.equal(params.address);
 				done();
 			});
 		});
@@ -78,8 +93,8 @@ describe('Common API', () => {
 		it('using known transaction should be ok', (done) => {
 			getSearch(params.tx, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.type).to.equal('tx');
-				node.expect(res.body.id).to.equal(params.tx);
+				node.expect(res.body.result.type).to.equal('tx');
+				node.expect(res.body.result.id).to.equal(params.tx);
 				done();
 			});
 		});
@@ -87,8 +102,8 @@ describe('Common API', () => {
 		it('using known delegate should be ok', (done) => {
 			getSearch(params.username, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.type).to.equal('address');
-				node.expect(res.body.id).to.equal(params.address);
+				node.expect(res.body.result.type).to.equal('delegate');
+				node.expect(res.body.result.delegates[0].address).to.equal(params.address);
 				done();
 			});
 		});
@@ -96,8 +111,8 @@ describe('Common API', () => {
 		it('using partial known delegate should be ok', (done) => {
 			getSearch('gene', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.type).to.equal('address');
-				node.expect(res.body.id).to.equal(params.address);
+				node.expect(res.body.result.type).to.equal('delegate');
+				node.expect(res.body.result.delegates[0].address).to.equal(params.address);
 				done();
 			});
 		});

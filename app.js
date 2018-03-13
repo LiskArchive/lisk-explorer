@@ -1,3 +1,18 @@
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
 const express = require('express');
 let config = require('./config');
 const routes = require('./api');
@@ -151,17 +166,12 @@ app.use((req, res, next) => {
 	if (cache.cacheIgnoreList.indexOf(req.originalUrl) >= 0) {
 		return res.json(req.json);
 	}
-	req.redis.set(req.originalUrl, JSON.stringify(req.json), (err) => {
+
+	const ttl = cache.cacheTTLOverride[req.originalUrl] || config.cacheTTL;
+
+	req.redis.setex(req.originalUrl, ttl, JSON.stringify(req.json), (err) => {
 		if (err) {
 			logger.info(err);
-		} else {
-			const ttl = cache.cacheTTLOverride[req.originalUrl] || config.cacheTTL;
-
-			req.redis.send_command('EXPIRE', [req.originalUrl, ttl], (expErr) => {
-				if (expErr) {
-					logger.info(expErr);
-				}
-			});
 		}
 	});
 

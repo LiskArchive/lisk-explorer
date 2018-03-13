@@ -1,4 +1,18 @@
-import angular from 'angular';
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
 import leaflet from 'leaflet';
 import 'leaflet.markercluster';
 import AppNetworkMonitor from './network-monitor.module';
@@ -23,8 +37,8 @@ const NetworkMap = function () {
 		},
 	});
 
-	const validLocation = location => location && angular.isNumber(location.latitude) &&
-	angular.isNumber(location.longitude);
+	const validLocation = location => location && typeof location.latitude === 'number' &&
+	typeof location.longitude === 'number';
 
 	const popupContent = (p) => {
 		let content = '<p class="ip">'.concat(p.ip, '</p>');
@@ -68,8 +82,7 @@ const NetworkMap = function () {
 
 	this.addConnected = function (peers) {
 		const connected = [];
-
-		Object.keys(peers.connected).forEach((item) => {
+		peers.connected.forEach((item) => {
 			if (validLocation(item.location)) {
 				if (!Object.keys(this.markers).includes(item.ip)) {
 					this.cluster.addLayer(
@@ -108,7 +121,7 @@ const NetworkMonitor = function (vm) {
 		this.platforms = ['Darwin', 'Linux', 'FreeBSD'];
 
 		this.detect = function (platform) {
-			if (angular.isNumber(platform.group)) {
+			if (typeof platform.group === 'number') {
 				this.counter[parseInt(platform.group, 10)]++;
 			}
 		};
@@ -126,29 +139,38 @@ const NetworkMonitor = function (vm) {
 	const uniq = arrArg => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
 
 	function Versions(peers) {
-		const sort = (a, b) => {
-			const normA = a.split('.').reduce((sum, value, index) =>
-				sum + (parseInt(value, 10) * Math.pow(10, (4 * (index + 1)))), 0);
-			const normB = b.split('.').reduce((sum, value, index) =>
-				sum + (parseInt(value, 10) * Math.pow(10, (4 * (index + 1)))), 0);
-			const charA = a.match(/[a-zA-Z]$/);
-			const charB = b.match(/[a-zA-Z]$/);
-			const hasChars = (charA && charB && charA.length > 0 && charB.length > 0);
+		/**
+		 * Sorts given version strings
+		 *
+		 * @param {String} v1
+		 * @param {String} v2
+		 *
+		 * @returns {Number} 1, -1, 0 if respectively greater, smaller or equal
+		 */
+		const sort = (v1, v2) => {
+			if (v1 === v2) return 0;
 
-			if (normA > normB) {
-				return 1;
-			} else if (normA < normB) {
-				return -1;
-			} else if (hasChars && charA[0] > charB[0]) {
-				return 1;
-			} else if (hasChars && charA[0] < charB[0]) {
-				return -1;
+			const v1Components = v1.toString().split('.').map(n => parseInt(n, 10));
+			const v2Components = v2.toString().split('.').map(n => parseInt(n, 10));
+			const char1 = v1.match(/[a-zA-Z]$/);
+			const char2 = v2.match(/[a-zA-Z]$/);
+			if (char1) v1Components.push(char1[0]);
+			if (char2) v2Components.push(char2[0]);
+
+			for (let i = 0; i < v1Components.length && i < v2Components.length; i++) {
+				if (v1Components[i] > v2Components[i]) return 1;
+				else if (v1Components[i] < v2Components[i]) return -1;
 			}
+
+			const diff = v1Components.length - v2Components.length;
+
+			if (diff > 0) return 1;
+			else if (diff < 0) return -1;
 			return 0;
 		};
 
 		const inspect = () => {
-			if (angular.isArray(peers)) {
+			if (peers instanceof Array) {
 				return uniq(peers.map(p => p.version)
 					.sort(sort)).reverse().slice(0, 3);
 			}
@@ -161,7 +183,7 @@ const NetworkMonitor = function (vm) {
 		this.detect = function (version) {
 			let detected = null;
 
-			if (angular.isString(version)) {
+			if (typeof version === 'string') {
 				for (let i = 0; i < this.versions.length; i++) {
 					if (version === this.versions[i]) {
 						detected = version;
@@ -187,9 +209,10 @@ const NetworkMonitor = function (vm) {
 
 	function Heights(peers) {
 		const inspect = () => {
-			if (angular.isArray(peers)) {
-				return uniq(peers.map(p => p.height)
-					.sort()).reverse().slice(0, 4);
+			if (peers instanceof Array) {
+				return uniq(peers.map(p => p.height))
+					.sort((a, b) => (a - b)).reverse()
+					.slice(0, 4);
 			}
 			return [];
 		};
@@ -223,8 +246,9 @@ const NetworkMonitor = function (vm) {
 		};
 
 		this.calculatePercent = function (connectedPeers) {
+			const peersCount = connectedPeers.length;
 			for (let i = 0; i < this.counter.length; i++) {
-				this.percent[i] = Math.round((this.counter[i] / connectedPeers.length) * 100);
+				this.percent[i] = Math.round((this.counter[i] / peersCount) * 100);
 			}
 
 			return this.percent;

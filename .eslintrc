@@ -1,55 +1,56 @@
 {
-  "extends": [
-    "lisk-base"
-  ],
-  "plugins": [
-    "import",
-    "protractor",
-    "mocha"
-  ],
-  "globals": {
-    "ipc": true,
-    "PRODUCTION": true,
-    "TEST": true
-  },
-  "env": {
-    "browser": true,
-    "node": true,
-    "mocha": true
-  },
-  "rules": {
-    "mocha/no-exclusive-tests": "error",
-    "func-names": "off",
-    "global-require": "off",
-    "new-cap": ["error", {
-      "newIsCap": false,
-      "capIsNew": false,
-      "capIsNewExceptions" : [
-        "When",
-        "Then",
-        "Given",
-        "After",
-        "Before"
-      ]
-    }],
-    "no-loop-func": "off",
-    "no-plusplus": "off",
-    "no-restricted-properties": "off",
-    "no-return-assign": "off",
-    "no-underscore-dangle": "off",
-    "import/no-extraneous-dependencies": ["error",
-      {
-        "devDependencies": true,
-        "optionalDependencies": false,
-        "peerDependencies": false
-      }
-    ],
-    "no-param-reassign": "off",
-    "camelcase": [ "error", { "properties": "never" }]
-  },
-  "settings": {
-    "mocha/additionalTestFunctions": [
-        "describeModule"
-    ]
- }
+	"extends": [
+		"lisk-base"
+	],
+	"plugins": [
+		"import",
+		"protractor",
+		"mocha",
+		"json"
+	],
+	"globals": {
+		"ipc": true,
+		"PRODUCTION": true,
+		"TEST": true
+	},
+	"env": {
+		"browser": true,
+		"node": true,
+		"mocha": true
+	},
+	"rules": {
+		"mocha/no-exclusive-tests": "error",
+		"func-names": "off",
+		"global-require": "off",
+		"new-cap": ["error", {
+		"newIsCap": false,
+		"capIsNew": false,
+		"capIsNewExceptions" : [
+			"When",
+			"Then",
+			"Given",
+			"After",
+			"Before"
+		]
+		}],
+		"no-loop-func": "off",
+		"no-plusplus": "off",
+		"no-restricted-properties": "off",
+		"no-return-assign": "off",
+		"no-underscore-dangle": "off",
+		"import/no-extraneous-dependencies": ["error",
+		{
+			"devDependencies": true,
+			"optionalDependencies": false,
+			"peerDependencies": false
+		}
+		],
+		"no-param-reassign": "off",
+		"camelcase": [ "error", { "properties": "never" }]
+	},
+	"settings": {
+		"mocha/additionalTestFunctions": [
+			"describeModule"
+		]
+	}
 }
