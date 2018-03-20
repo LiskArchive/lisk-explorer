@@ -46,8 +46,8 @@ module.exports = function (app, connectionHandler, socket) {
 
 	const log = (level, msg) => logger[level]('Delegate Monitor:', msg);
 
-	const findActiveByPublicKey = publicKey =>
-		data.active.delegates.find(d => d.publicKey === publicKey);
+	const findActiveByPublicKey = delegate =>
+		data.active.delegates.find(d => d.account.publicKey === delegate.publicKey);
 
 	const cutNextForgers = () => {
 		const next10Forgers = tmpData.nextForgers.delegates.slice(0, 10);
@@ -66,10 +66,10 @@ module.exports = function (app, connectionHandler, socket) {
 	};
 
 	const findActive = delegate =>
-		data.active.delegates.find(d => d.publicKey === delegate.publicKey);
+		data.active.delegates.find(d => d.account.publicKey === delegate.account.publicKey);
 
 	const findActiveByBlock = block =>
-		data.active.delegates.find(d => d.publicKey === block.generatorPublicKey);
+		data.active.delegates.find(d => d.account.publicKey === block.generatorPublicKey);
 
 	const updateDelegate = (delegate, updateForgingTime) => {
 		// Update delegate with forging time
