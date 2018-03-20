@@ -25,7 +25,7 @@ const params = {
 	excessiveOffset: 10000,
 };
 
-describe.skip('Delegates API', () => {
+describe('Delegates API', () => {
 	/* Define functions for use within tests */
 	const getActive = (done) => {
 		node.get('/api/delegates/getActive', done);
