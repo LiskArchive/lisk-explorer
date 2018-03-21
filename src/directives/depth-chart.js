@@ -31,7 +31,7 @@ AppTools.directive('depthChart', ($timeout) => {
 			theme: 'light',
 			pathToImages: '/img/amcharts/',
 			precision: 8,
-			colors: ['#38B449', '#d32f2f'],
+			colors: ['#008722', '#c80039'],
 			dataProvider: [{}],
 			valueAxes: [{
 				stackType: 'regular',
@@ -57,7 +57,7 @@ AppTools.directive('depthChart', ($timeout) => {
 				valueLineBalloonEnabled: true,
 				valueLineEnabled: true,
 				valueLineAlpha: 0.5,
-				cursorColor: '#0299eb',
+				cursorColor: '#0077bd',
 			},
 			categoryField: 'price',
 			categoryAxis: {

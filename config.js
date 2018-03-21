@@ -30,7 +30,7 @@ config.lisk.port = 4000;
 /**
  * FreeGeoIP server
  */
-config.freegeoip.host = '127.0.0.1';
+config.freegeoip.host = '94.237.41.248';
 config.freegeoip.port = 8080;
 
 /**

@@ -44,12 +44,16 @@
 		<span>Loading Transaction <i class="fa fa-spinner fa-spin"></i>
 	</div>
 	<div data-ng-if="vm.tx.id">
-	<div class="well well-sm ellipsis">
-	<strong>Transaction ID</strong>
-	<span class="txid text-muted">{{vm.tx.id}}</span>
-		<span class="btn-copy" clip-copy="vm.tx.id"></span>
+	<div class="row horizontal-adding-l">
+		<div class="col-md-12">
+			<div class="well well-sm ellipsis">
+				<strong>Transaction ID</strong>
+				<span class="txid text-muted">{{vm.tx.id}}</span>
+				<span class="btn-copy" clip-copy="vm.tx.id"></span>
+			</div>
+		</div>
 	</div>
-	<h2>Summary</h2>
+	<h1>Summary</h1>
 	<div class="table-responsive">
 		<table class="table summary">
 			<tbody>
@@ -103,7 +107,7 @@
 		</table>
 	</div>
 
-	<div class="delegate" data-ng-if="vm.tx.votes.added">
+	<div class="delegate horizontal-adding-l double" data-ng-if="vm.tx.votes.added">
 		<h2>Added votes <small>{{vm.tx.votes.added.length}}</small></h2>
 		<div class="row">
 			<div class="col-md-12">
@@ -120,7 +124,7 @@
 		</div>
 	</div>
 
-	<div class="delegate" data-ng-if="vm.tx.votes.deleted">
+	<div class="delegate horizontal-adding-l double" data-ng-if="vm.tx.votes.deleted">
 		<h2>Deleted votes <small>{{vm.tx.votes.deleted.length}}</small></h2>
 		<div class="row">
 			<div class="col-md-12">
@@ -136,7 +140,7 @@
 			</div>
 		</div>
 	</div>
-	<h2>Details</h2>
+	<h1>Details</h1>
 	<div id="table-mobile" class="table-responsive">
 		<table class="table details">
 			<thead>
