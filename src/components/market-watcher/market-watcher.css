@@ -20,7 +20,7 @@
 .exchanges .nav-tabs.nav-justified>.active>a,
 .exchanges .nav-tabs.nav-justified>.active>a:hover,
 .exchanges .nav-tabs.nav-justified>.active>a:focus {
-  color: #0077bd;
+  color: #0299eb;
   background-color: white;
 }
 
@@ -53,8 +53,8 @@
 }
 
 #stockChart .amChartsButtonSelected {
-  background-color: #0077bd;
-  border-color: #0077bd;
+  background-color: #0299eb;
+  border-color: #0299eb;
 }
 
 #stockChart .amChartsEmpty,
@@ -86,7 +86,7 @@
 
 .btn-durations .active:focus {
   color: white;
-  background-color: #0077bd;
+  background-color: #1b89c4;
 }
 
 .exchanges img {

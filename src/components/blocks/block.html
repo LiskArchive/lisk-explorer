@@ -24,14 +24,12 @@
 		<span>Loading Block <i class="fa fa-spinner fa-spin"></i>
 	</div>
 	<div data-ng-if="vm.block.height">
-	<div class="horizontal-adding-l double">
-		<div class='well well-sm ellipsis'>
-			<strong>Block ID</strong>
-			<span class="txid text-muted">{{vm.block.id}}</span>
-			<span class="btn-copy" clip-copy="vm.block.id"></span>
-		</div>
+	<div class="well well-sm ellipsis">
+		<strong>Block ID</strong>
+		<span class="txid text-muted">{{vm.block.id}}</span>
+		<span class="btn-copy" clip-copy="vm.block.id"></span>
 	</div>
-	<h1>Summary</h1>
+	<h2>Summary</h2>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="table-responsive">
@@ -94,7 +92,7 @@
 	</div>
 	</div>
 	<div data-ng-if="vm.block.height" data-ng-init="vm.txs.loadData()">
-		<h1>Transactions</h1>
+		<h2>Transactions</h2>
 		<transactions-list data-txs="vm.txs"></transactions-list>
 	</div>
 </section>

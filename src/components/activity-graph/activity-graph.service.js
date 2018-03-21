@@ -36,11 +36,11 @@ const ActivityGraph = function () {
 	this.indexes = [];
 
 	this.colors = {
-		account: '#0077bd', // Steel Blue: Account
-		credit: '#008722', // Lawn Green : Credit
-		debit: '#c80039', // Red : Debit
-		block: '#ff6236', // Dark Orange: Block
-		tx: '#3c5068', // Grey : Tx
+		account: '#0288d1', // Steel Blue
+		credit: '#7CB342', // Lawn Green
+		debit: '#d32f2f', // Red
+		block: '#f57c00', // Dark Orange
+		tx: '#5f696e', // Grey
 	};
 
 	this.renderer = {

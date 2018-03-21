@@ -15,19 +15,4 @@
  */
 .breadcrumb {
   padding: 8px 12px;
-  background-color: rgba(0, 36, 73, 0.59);
-  
-}
-
-.breadcrumb > li a,
-.breadcrumb > li span {
-  color: #74869b;
-}
-
-.breadcrumb > li a:hover {
-  color: #fff;
-}
-
-.breadcrumb > li + li:before {
-    padding: 0 0 0 7px;
 }
