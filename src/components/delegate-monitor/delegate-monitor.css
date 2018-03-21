@@ -75,45 +75,45 @@
 }
 
 .tooltip-grey .tooltip-inner {
-  background-color: #5f696e !important;
+  background-color: #3c5068 !important;
 }
 
 .tooltip-grey.left .tooltip-arrow {
-  border-left-color: #5f696e;
+  border-left-color: #3c5068;
 }
 
 .forging-status.green {
-  color: #7CB342;
+  color: #008722;
 }
 
 .tooltip-green .tooltip-inner {
-  background-color: #7CB342 !important;
+  background-color: #008722 !important;
 }
 
 .tooltip-green.left .tooltip-arrow {
-  border-left-color: #7CB342;
+  border-left-color: #008722;
 }
 
 .forging-status.orange {
-  color: #f57c00;
+  color: #ff6236;
 }
 
 .tooltip-orange .tooltip-inner {
-  background-color: #f57c00 !important;
+  background-color: #ff6236 !important;
 }
 
 .tooltip-orange.left .tooltip-arrow {
-  border-left-color:  #f57c00;
+  border-left-color:  #ff6236;
 }
 
 .forging-status.red {
-  color: #d32f2f;
+  color: #c80039;
 }
 
 .tooltip-red .tooltip-inner {
-  background-color: #d32f2f;
+  background-color: #c80039;
 }
 
 .tooltip-red.left .tooltip-arrow {
-  border-left-color:  #d32f2f;
+  border-left-color:  #c80039;
 }
