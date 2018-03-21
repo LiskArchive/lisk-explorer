@@ -24,8 +24,8 @@ config.port = 6040; // Port to listen on
 /**
  * LISK node
  */
-config.lisk.host = '94.237.41.248';
-config.lisk.port = 7000;
+config.lisk.host = '127.0.0.1';
+config.lisk.port = 4000;
 
 /**
  * FreeGeoIP server
