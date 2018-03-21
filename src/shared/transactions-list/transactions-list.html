@@ -15,14 +15,7 @@
  *
  */
 -->
-<div class="row horizontal-adding-l" data-ng-if="!txs.loading && !txs.results.length">
-	<div class="col-md-12">
-		<div class='empty-state'>
-			<h2>No transactions</h2>
-			<p>There are no transactions involving this {{txs.parent}}.</p>
-		</div>
-	</div>
-</div>
+<div class="alert alert-warning" data-ng-if="!txs.loading && !txs.results.length">There are no transactions involving this {{txs.parent}}.</div>
 <div id="table-mobile" class="table-responsive" data-ng-if="txs.results.length">
 	<table class="table transactions">
 		<thead>
@@ -48,18 +41,16 @@
 		</tbody>
 	</table>
 </div>
-<div class="progress progress-striped horizontal-adding-l double  active" data-ng-if="txs.loading">
-	<div class="wrapper">
-		<div class="progress-bar progress-bar-loading" style="width: 100%">
-			<span>Loading Transactions...</span>
-		</div>
+<div class="progress progress-striped active" data-ng-if="txs.loading">
+	<div class="progress-bar progress-bar-loading" style="width: 100%">
+		<span>Loading Transactions...</span>
 	</div>
 </div>
-<div class="btn-group btn-group-justified paginator" role="group" aria-label="Less/More Transactions" data-ng-hide="txs.disabled()">
+<div class="btn-group btn-group-justified" role="group" aria-label="Less/More Transactions" data-ng-hide="txs.disabled()">
 	<div class="btn-group" role="group">
-		<button class="btn btn-default less-button bordered-button" data-ng-disabled="!txs.lessData" data-ng-click="txs.loadLess()">Less</button>
+		<button class="btn btn-default less-button" data-ng-disabled="!txs.lessData" data-ng-click="txs.loadLess()">Less</a>
 	</div>
 	<div class="btn-group" role="group">
-		<button class="btn btn-default more-button bordered-button" data-ng-disabled="!txs.moreData" data-ng-click="txs.loadMore()">More</button>
+		<button class="btn btn-default more-button" data-ng-disabled="!txs.moreData" data-ng-click="txs.loadMore()">More</a>
 	</div>
 </div>

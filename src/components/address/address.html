@@ -37,7 +37,7 @@
 	<div class="text-muted" data-ng-if="!vm.address.balance">
 		<span>Loading Address <i class="fa fa-spinner fa-spin"></i></span>
 	</div>
-	<h1>
+	<h2>
 		Address Summary&nbsp;
 		<small data-ng-if="vm.address.secondSignature" data-uib-tooltip="Second signature">
 			<i class="glyphicon glyphicon-lock"></i>
@@ -45,8 +45,8 @@
 		<small data-ng-if="vm.address.multisignatures && vm.address.multisignatures.length" data-uib-tooltip="Multi Signature">
 			<i class="glyphicon glyphicon-info-sign"></i>
 		</small>
-	</h1>
-	<div class="row horizontal-adding-l">
+	</h2>
+	<div class="row">
 		<div class="col-md-10">
 			<div class="table-responsive">
 				<table class="table summary">
@@ -108,8 +108,8 @@
 	<votes data-votes="vm.address.votes"></votes>
 
 	<div data-ng-if="vm.address.balance" data-ng-init="vm.txs.loadData()">
-		<h1>Transactions</h1>
-		<section class='horizontal-adding-l double'>
+		<h2>Transactions</h2>
+		<section>
 			<nit-advanced-searchbox
 				ng-model="vm.searchParams"
 				parameters="vm.availableSearchParams"
@@ -122,12 +122,20 @@
 				Please provide a valid address for sender id and/or recipient id. Username is not accepted.
 			</div>
 		</section>
-		<div class="transactions-filter-header horizontal-adding-l double" role="group"
+		<div class="btn-group btn-group-justified transactions-filter-header" role="group"
 			aria-label="All/Sent/Received Transactions" data-ng-class="{disabled: vm.direction === 'search'}">
-				<button data-ng-disabled="!vm.direction" data-ng-click="vm.filterTxs();vm.txs.loadData();vm.onFiltersUsed();">All</button>
-				<button class="sent-tab" data-ng-disabled="vm.direction==='sent'" data-ng-click="vm.filterTxs('sent');vm.txs.loadData();vm.onFiltersUsed();">Sent</button>
-				<button class="received-tab" data-ng-disabled="vm.direction==='received'" data-ng-click="vm.filterTxs('received');vm.txs.loadData();vm.onFiltersUsed();">Received</button>
-				<button class="received-tab" data-ng-disabled="vm.direction==='others'" data-ng-click="vm.filterTxs('others');vm.txs.loadData();vm.onFiltersUsed();">Others</button>
+			<div class="btn-group" role="group">
+				<button class="btn btn-default" data-ng-disabled="!vm.direction" data-ng-click="vm.filterTxs();vm.txs.loadData();vm.onFiltersUsed();">All</button>
+			</div>
+			<div class="btn-group" role="group">
+				<button class="btn btn-default sent-tab" data-ng-disabled="vm.direction==='sent'" data-ng-click="vm.filterTxs('sent');vm.txs.loadData();vm.onFiltersUsed();">Sent</button>
+			</div>
+			<div class="btn-group" role="group">
+				<button class="btn btn-default received-tab" data-ng-disabled="vm.direction==='received'" data-ng-click="vm.filterTxs('received');vm.txs.loadData();vm.onFiltersUsed();">Received</button>
+			</div>
+			<div class="btn-group" role="group">
+				<button class="btn btn-default received-tab" data-ng-disabled="vm.direction==='others'" data-ng-click="vm.filterTxs('others');vm.txs.loadData();vm.onFiltersUsed();">Others</button>
+			</div>
 		</div>
 		<transactions-list data-txs="vm.txs" data-address="vm.address.address"></transactions-list>
 	</div>
