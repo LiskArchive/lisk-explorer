@@ -15,7 +15,7 @@
  */
 const node = require('./../node.js');
 
-describe('Exchanges API (Market Watcher)', () => {
+describe.skip('Exchanges API (Market Watcher)', () => {
 	/* Define functions for use within tests */
 	function getExchanges(done) {
 		node.get('/api/exchanges', done);
