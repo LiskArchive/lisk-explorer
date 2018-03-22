@@ -89,12 +89,4 @@ config.marketWatcher.candles.poloniex.buildTimeframe = 60 * 60 * 24 * 30;
 // Interval in ms for updating order book data (default: 15 seconds)
 config.marketWatcher.orders.updateInterval = 15000;
 
-/**
- * Delegate Proposals
- */
-// Delegate proposals support (true - enabled, false - disabled)
-config.proposals.enabled = true;
-// Interval in ms for updating delegate proposals (default: 10 minutes)
-config.proposals.updateInterval = 600000;
-
 module.exports = config;
