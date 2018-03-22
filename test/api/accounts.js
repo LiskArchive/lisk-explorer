@@ -22,7 +22,7 @@ const params = {
 	publicKey: 'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f',
 };
 
-describe.skip('Accounts API', () => {
+describe('Accounts API', () => {
 	/* Define functions for use within tests */
 	function getAccount(id, done) {
 		node.get(`/api/getAccount?address=${id}`, done);

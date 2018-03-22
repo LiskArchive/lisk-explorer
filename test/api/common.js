@@ -22,7 +22,7 @@ const params = {
 	username: 'genesis_1',
 };
 
-describe.skip('Common API', () => {
+describe('Common API', () => {
 	/* Define functions for use within tests */
 	const getVersion = (done) => {
 		node.get('/api/version', done);
@@ -90,7 +90,7 @@ describe.skip('Common API', () => {
 			});
 		});
 
-		it.skip('using known transaction should be ok', (done) => {
+		it('using known transaction should be ok', (done) => {
 			getSearch(params.tx, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.result.type).to.equal('tx');
@@ -108,11 +108,13 @@ describe.skip('Common API', () => {
 			});
 		});
 
-		it.skip('using partial known delegate should be ok', (done) => {
-			getSearch('gene', (err, res) => {
+		it('using partial known delegate should be ok', (done) => {
+			const partialName = 'gene';
+			getSearch(partialName, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.result.type).to.equal('delegate');
-				node.expect(res.body.result.delegates[0].address).to.equal(params.address);
+				res.body.result.delegates.map(delegate =>
+					node.expect(delegate.username).to.have.string(partialName));
 				done();
 			});
 		});
