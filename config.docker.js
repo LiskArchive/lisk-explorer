@@ -55,7 +55,7 @@ config.log.level = 'info';
  * Header price tickers, Currency switcher
  */
 // Exchange rates support (true - enabled, false - disabled)
-config.exchangeRates.enabled = true;
+config.exchangeRates.enabled = false;
 // Interval in ms for checking exchange rates (default: 30 seconds)
 config.exchangeRates.updateInterval = 30000;
 
@@ -77,7 +77,7 @@ config.exchangeRates.exchanges.BTC.PLN = false;
  * Market watcher
  */
 // Market watcher support (true - enabled, false - disabled)
-config.marketWatcher.enabled = true;
+config.marketWatcher.enabled = false;
 // Poloniex exchange support (true - enabled, false - disabled)
 config.marketWatcher.exchanges.poloniex = true;
 // Bittrex exchange support (true - enabled, false - disabled);
