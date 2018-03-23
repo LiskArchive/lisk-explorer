@@ -109,11 +109,11 @@ describe('Transactions API', () => {
 		});
 	});
 
-	/* We are skipping this temporarily, theres a call back error that needs to be fixed */
 	describe('GET /api/getUnconfirmedTransactions', () => {
-		it.skip('should be ok', (done) => {
+		it('should be ok', (done) => {
 			getUnconfirmedTransactions((err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').to.be.an('array');
 				done();
 			});
 		});

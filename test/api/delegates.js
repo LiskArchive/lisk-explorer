@@ -298,10 +298,10 @@ describe('Delegates API', () => {
 			});
 		});
 
-		it.skip('using invalid publickey should fail', (done) => {
+		it('using invalid publickey should fail', (done) => {
 			getLastBlocks(params.invalidPublicKey, '', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(false);
-				node.expect(res.body).to.have.property('blocks');
+				node.expect(res.body).to.have.property('error');
 				done();
 			});
 		});
