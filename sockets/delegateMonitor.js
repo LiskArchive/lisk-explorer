@@ -21,6 +21,7 @@ const logger = require('../utils/logger');
 
 module.exports = function (app, connectionHandler, socket) {
 	const delegates = new api.delegates(app);
+	// eslint-disable-next-line no-unused-vars
 	const connection = new connectionHandler('Delegate Monitor:', socket, this);
 	let intervals = [];
 	const data = {};
@@ -46,8 +47,10 @@ module.exports = function (app, connectionHandler, socket) {
 
 	const log = (level, msg) => logger[level]('Delegate Monitor:', msg);
 
-	const findActiveByPublicKey = delegate =>
-		data.active.delegates.find(d => d.account.publicKey === delegate.publicKey);
+	// eslint-disable-next-line arrow-body-style, arrow-parens
+	const findActiveByPublicKey = delegate => {
+		return data.active.delegates.find(d => d.publicKey === delegate);
+	};
 
 	const cutNextForgers = () => {
 		const next10Forgers = tmpData.nextForgers.delegates.slice(0, 10);
@@ -65,11 +68,15 @@ module.exports = function (app, connectionHandler, socket) {
 			(res) => { running.getActive = false; cb(null, res); });
 	};
 
-	const findActive = delegate =>
-		data.active.delegates.find(d => d.account.publicKey === delegate.account.publicKey);
+	// eslint-disable-next-line arrow-body-style, arrow-parens
+	const findActive = delegate => {
+		return data.active.delegates.find(d => d.publicKey === delegate.publicKey);
+	};
 
-	const findActiveByBlock = block =>
-		data.active.delegates.find(d => d.account.publicKey === block.generatorPublicKey);
+	// eslint-disable-next-line arrow-body-style, arrow-parens
+	const findActiveByBlock = block => {
+		return data.active.delegates.find(d => d.account.publicKey === block.generatorPublicKey);
+	};
 
 	const updateDelegate = (delegate, updateForgingTime) => {
 		// Update delegate with forging time
