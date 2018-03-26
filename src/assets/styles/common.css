@@ -369,15 +369,22 @@ qrcode svg {
 }
 
 .navbar-default .navbar-toggle {
-  border-color: white;
+  border: none;
   margin-top: 20px;
   margin-right: 1px;
-  padding: 9px 10px;
+  padding: 13px 10px;
+  background: #013165;
+  transition: all ease 200ms;
+  -webkit-transition: all ease 200ms;
+  -ms-transition: all ease 200ms;
 }
 
 .navbar-default .navbar-toggle .icon-bar { background-color: white; }
 
-.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {background-color: #393C3E;}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+  background-color: #0288d1;
+}
 
 .navbar-default {
   background-color: #393C3E;
@@ -423,18 +430,27 @@ qrcode svg {
 }
 
 @media (max-width: 767px) {
+  .navbar-nav .caret {
+    display: none;
+  }
+
   .navbar-default .navbar-nav>li>a {
     margin-left: 0px;
     margin-bottom: 1px;
   }
-  .navbar-default .navbar-nav .open .dropdown-menu>li>a {
-    background-color: white;
-    color: #3c5068;
+
+  .navbar-default .navbar-nav .dropdown-menu>li>a {
+    background: #013165;
+    line-height: 25px;
+    color: white !important;
+    padding: 5px 15px 5px 45px;
   }
-  .navbar-default .navbar-nav .open .dropdown-menu>li>a:hover {
-    background-color: #27292A;
+
+  .navbar-default .navbar-nav .dropdown-menu>li>a:hover {
+    background: #0288d1 !important;
     color: white;
   }
+
   .navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse, .pre-scrollable {
     max-height: none;
   }
@@ -850,7 +866,6 @@ qrcode svg {
 }
 
 .pk-mobile-style {
-    border: 1px solid #D3D3D3;
     padding: 7px;
 }
 
