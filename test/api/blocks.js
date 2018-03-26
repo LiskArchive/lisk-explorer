@@ -45,10 +45,16 @@ describe('Blocks API', () => {
 
 	const checkPagination = (id) => {
 		node.expect(id).to.have.property('currentPage');
-		node.expect(id).to.have.property('more');
-		node.expect(id).to.have.property('previousPage');
-		node.expect(id).to.have.property('before');
-		node.expect(id).to.have.property('nextPage');
+
+		if (id.before) {
+			node.expect(id).to.have.property('previousPage');
+			node.expect(id.currentPage).to.gt(id.previousPage);
+		}
+
+		if (id.more) {
+			node.expect(id).to.have.property('nextPage');
+			node.expect(id.nextPage).to.gt(id.currentPage);
+		}
 	};
 
 	const checkLastBlock = (id) => {
