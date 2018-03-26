@@ -24,41 +24,41 @@
 					<table class="table summary">
 						<tbody>
 							<tr>
-								<td><strong>Name</strong></td>
-								<td class="text-right">
+								<td class="left-padding-s left-padding-m left-padding-l"><strong>Name</strong></td>
+								<td class="right-padding-s right-padding-m right-padding-l text-right">
 									<a class="glyphicon glyphicon-user" data-ng-if="vm.address.delegate.username | proposal:$root.delegateProposals" data-ng-href="https://forum.lisk.io/viewtopic.php?f=48&t={{vm.address.delegate.username | proposal:$root.delegateProposals: 'topic'}}" title="{{vm.address.delegate.username | proposal:$root.delegateProposals: 'description'}}" target="_blank"></a>
 									<a href="/delegate/{{vm.address.delegate.address}}">{{vm.address.delegate.username}}</a>
 								</td>
 							</tr>
 							<tr>
-								<td><strong>Address</strong></td>
-								<td class="text-right">
+								<td class="left-padding-s left-padding-m left-padding-l"><strong>Address</strong></td>
+								<td class="right-padding-s right-padding-m right-padding-l text-right">
 									<a href="/address/{{vm.address.address}}">{{vm.address.address}}</a>
 								</td>
 							</tr>
 							<tr>
-								<td><strong>Uptime</strong></td>
-								<td class="text-right">{{vm.address.delegate.productivity || 0.00}}%</td>
+								<td class="left-padding-s left-padding-m left-padding-l"><strong>Uptime</strong></td>
+								<td class="right-padding-s right-padding-m right-padding-l text-right">{{vm.address.delegate.productivity || 0.00}}%</td>
 							</tr>
 							<tr>
-								<td><strong>Rank / Status</strong></td>
-								<td class="text-right">{{vm.address.delegate.rate}} / <span class="text-muted">{{(vm.address.delegate.rate &lt;= 101) ? 'Active' : 'Standby'}}</span></td>
+								<td class="left-padding-s left-padding-m left-padding-l"><strong>Rank / Status</strong></td>
+								<td class="right-padding-s right-padding-m right-padding-l text-right">{{vm.address.delegate.rate}} / <span class="text-muted">{{(vm.address.delegate.rate &lt;= 101) ? 'Active' : 'Standby'}}</span></td>
 							</tr>
 							<tr>
-								<td><strong>Approval</strong></td>
-								<td class="text-right">{{vm.address.delegate.approval}}%</td>
+								<td class="left-padding-s left-padding-m left-padding-l"><strong>Approval</strong></td>
+								<td class="right-padding-s right-padding-m right-padding-l text-right">{{vm.address.delegate.approval}}%</td>
 							</tr>
 							<tr>
-								<td><strong>Vote weight</strong></td>
-								<td class="text-right">{{vm.address.delegate.vote || 0 | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+								<td class="left-padding-s left-padding-m left-padding-l"><strong>Vote weight</strong></td>
+								<td class="right-padding-s right-padding-m right-padding-l text-right">{{vm.address.delegate.vote || 0 | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
 							</tr>
 							<tr>
-								<td><strong>Forged</strong></td>
-								<td class="text-right">{{vm.address.delegate.forged || 0 | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+								<td class="left-padding-s left-padding-m left-padding-l"><strong>Forged</strong></td>
+								<td class="right-padding-s right-padding-m right-padding-l text-right">{{vm.address.delegate.forged || 0 | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
 							</tr>
 							<tr>
-								<td><strong>Blocks</strong></td>
-								<td class="text-right">{{vm.address.delegate.producedblocks}} <span class="text-muted">({{vm.address.delegate.missedblocks}} missed)</span></td>
+								<td class="left-padding-s left-padding-m left-padding-l"><strong>Blocks</strong></td>
+								<td class="right-padding-s right-padding-m right-padding-l text-right">{{vm.address.delegate.producedblocks}} <span class="text-muted">({{vm.address.delegate.missedblocks}} missed)</span></td>
 							</tr>
 						</tbody>
 					</table>
@@ -74,7 +74,7 @@
 			<a href="" data-ng-show="!showVoters" data-ng-click="showVoters=!showVoters" class="show-voters-button"><small><i class="fa fa-plus-square-o"></i></small></a>
 			<a href="" data-ng-show="showVoters" data-ng-click="showVoters=!showVoters"><small><i class="fa fa-minus-square-o"></i></small></a>            Voters <small>{{vm.address.voters.length}}</small>
 		</h1>
-		<div class="row horizontal-adding-l" data-ng-init="showVoters=false" data-ng-show="showVoters">
+		<div class="row horizontal-adding-s horizontal-adding-m horizontal-adding-l" data-ng-init="showVoters=false" data-ng-show="showVoters">
 			<div class="col-md-12 voters">
 				<span data-ng-repeat='voter in vm.address.voters'>
 					<span data-ng-if="!$last">
