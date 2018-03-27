@@ -1465,23 +1465,23 @@ table tbody tr:nth-of-type(odd) {
   .horizontal-padding-l,
   .left-padding-l {
     margin-left: 0;
-    padding-left: 17px;
+    padding-left: 17px !important;
   }
 
   .horizontal-padding-l.double,
   .left-padding-l.double {
-    padding-left: 32px;
+    padding-left: 32px !important;
   }
 
   .horizontal-padding-l,
   .right-padding-l {
     margin-right: 0;
-    padding-right: 17px;
+    padding-right: 17px !important;
   }
 
   .horizontal-padding-l.double,
   .right-padding-l.double {
-    padding-right: 32px;
+    padding-right: 32px !important;
   }
 
   h1 {

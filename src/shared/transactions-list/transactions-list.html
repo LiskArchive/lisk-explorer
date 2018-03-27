@@ -27,7 +27,7 @@
 	<table class="table transactions">
 		<thead>
 			<tr>
-				<th class="left-padding-xs left-padding-s left-padding-m left-padding-l" role="button" data-ng-class="filter.predicate === 'id' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('id')">
+				<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double" role="button" data-ng-class="filter.predicate === 'id' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('id')">
 					<span>Transaction ID</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'id'" /></th>
 				<th role="button" data-ng-class="filter.predicate === 'date' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('date')" class="hidden-md">
 					<span>Date</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'date'" /></th>
@@ -39,7 +39,7 @@
 					<span>Amount</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'amount'" /></th>
 				<th role="button" data-ng-class="filter.predicate === 'fee' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('fee')" class="hidden-md">
 					<span>Fee</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'fee'" /></th>
-				<th role="button" data-ng-class="filter.predicate === 'confirmations' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('confirmations')" class="right-padding-m">
+				<th role="button" data-ng-class="filter.predicate === 'confirmations' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('confirmations')" class="right-padding-m right-padding-l">
 					<span>Confirmations</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'confirmations'" /></th>
 			</tr>
 		</thead>

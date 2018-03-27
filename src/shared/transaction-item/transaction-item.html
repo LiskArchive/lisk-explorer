@@ -15,7 +15,7 @@
  *
  */
 -->
-<td data-title="Transaction ID" class="text-nowrap left-padding-m left-padding-l">
+<td data-title="Transaction ID" class="text-nowrap left-padding-m left-padding-l double">
 	<a class="txid" href="/tx/{{tx.id}}">{{tx.id}}</a>
 	<span class="btn-copy" clip-copy="tx.id"></span>
 </td>
@@ -36,7 +36,7 @@
 	</span>
 </td>
 <td data-title="Fee" class="text-nowrap hidden-md"><span>{{tx.fee | currency:$root.currency}} {{$root.currency.symbol}}</span></td>
-<td data-title="Confirmations" class="right-padding-m">
+<td data-title="Confirmations" class="right-padding-m right-padding-l">
 	<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">Unconfirmed Transaction!</span>
 	<span data-ng-if="(block.confirmations > 0  && block.confirmations < 101) || (tx.confirmations > 0 && tx.confirmations < 101)" class="text-warning">{{block.confirmations || tx.confirmations}}</span>
 	<span data-ng-if="block.confirmations >= 101 || tx.confirmations >= 101" class="text-success" data-uib-tooltip="{{block.confirmations || tx.confirmations}} Confirmations">Confirmed</span>
