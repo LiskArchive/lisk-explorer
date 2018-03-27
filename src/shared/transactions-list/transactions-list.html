@@ -15,7 +15,7 @@
  *
  */
 -->
-<div class="row horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-if="!txs.loading && !txs.results.length">
+<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-l" data-ng-if="!txs.loading && !txs.results.length">
 	<div class="col-md-12">
 		<div class='empty-state'>
 			<h2>No transactions</h2>
@@ -27,7 +27,7 @@
 	<table class="table transactions">
 		<thead>
 			<tr>
-				<th class="left-padding-s left-padding-m left-padding-l" role="button" data-ng-class="filter.predicate === 'id' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('id')">
+				<th class="left-padding-xs left-padding-s left-padding-l" role="button" data-ng-class="filter.predicate === 'id' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('id')">
 					<span>Transaction ID</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'id'" /></th>
 				<th role="button" data-ng-class="filter.predicate === 'date' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('date')">
 					<span>Date</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'date'" /></th>
@@ -48,7 +48,7 @@
 		</tbody>
 	</table>
 </div>
-<div class="progress progress-striped horizontal-padding-s horizontal-padding-m horizontal-padding-l double  active" data-ng-if="txs.loading">
+<div class="progress progress-striped horizontal-padding-xs horizontal-padding-s horizontal-padding-l double  active" data-ng-if="txs.loading">
 	<div class="wrapper">
 		<div class="progress-bar progress-bar-loading" style="width: 100%">
 			<span>Loading Transactions...</span>

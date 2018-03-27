@@ -17,7 +17,7 @@
 -->
 <div>
 	<h1>Activity Graph</h1>
-	<div class="row horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-l">
 		<div class="col-xs-12">
 			<p class="text-justify">The following is a live graphical visualisation of the lisk blockchain. Upon initialization only the latest block
 				is shown. Subsequent blocks are added to the graph as they are forged by the network. After reaching a maximum
@@ -25,7 +25,7 @@
 				start again.</p>
 		</div>
 	</div>
-	<div class="row horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-l">
 		<div class="col-md-8">
 			<div id="sigma-canvas" width="512" height="512" style="height: 512px;">
 				<div class="hud hud-loading" data-ng-if="vm.activityGraph.loading">
@@ -84,24 +84,24 @@
 				<table class="table statistics">
 					<tbody>
 						<tr>
-							<th class='left-padding-s left-padding-m left-padding-l'>Txs</th>
-							<td class='right-padding-s right-padding-m right-padding-l'>{{vm.statistics.txs}}</td>
+							<th class='left-padding-xs left-padding-s left-padding-l'>Txs</th>
+							<td class='right-padding-xs right-padding-s right-padding-l'>{{vm.statistics.txs}}</td>
 						</tr>
 						<tr>
-							<th class='left-padding-s left-padding-m left-padding-l'>Volume</th>
-							<td class='right-padding-s right-padding-m right-padding-l'>{{vm.statistics.volume | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+							<th class='left-padding-xs left-padding-s left-padding-l'>Volume</th>
+							<td class='right-padding-xs right-padding-s right-padding-l'>{{vm.statistics.volume | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
 						</tr>
 						<tr>
-							<th class='left-padding-s left-padding-m left-padding-l'>Blocks</th>
-							<td class='right-padding-s right-padding-m right-padding-l'>{{vm.statistics.blocks}}</td>
+							<th class='left-padding-xs left-padding-s left-padding-l'>Blocks</th>
+							<td class='right-padding-xs right-padding-s right-padding-l'>{{vm.statistics.blocks}}</td>
 						</tr>
 						<tr>
-							<th class='left-padding-s left-padding-m left-padding-l'>Timespan</th>
-							<td class='right-padding-s right-padding-m right-padding-l'>{{vm.statistics.beginning | timeSpan:vm.statistics.end}}</td>
+							<th class='left-padding-xs left-padding-s left-padding-l'>Timespan</th>
+							<td class='right-padding-xs right-padding-s right-padding-l'>{{vm.statistics.beginning | timeSpan:vm.statistics.end}}</td>
 						</tr>
 						<tr>
-							<th class='left-padding-s left-padding-m left-padding-l'>Accounts</th>
-							<td class='right-padding-s right-padding-m right-padding-l'>{{vm.statistics.accounts}}</td>
+							<th class='left-padding-xs left-padding-s left-padding-l'>Accounts</th>
+							<td class='right-padding-xs right-padding-s right-padding-l'>{{vm.statistics.accounts}}</td>
 						</tr>
 					</tbody>
 				</table>

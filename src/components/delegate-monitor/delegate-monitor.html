@@ -17,7 +17,7 @@
 -->
 <div>
 	<h1>Delegate Monitor</h1>
-	<div class="row horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-l">
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-xs-12 col-sm-4">
@@ -86,7 +86,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-l">
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-xs-12 col-sm-3">
@@ -150,7 +150,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-l">
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
@@ -163,19 +163,19 @@
 									<table class="table table-condensed votes inner">
 										<thead>
 											<tr>
-												<th class="left-padding-s left-padding-m left-padding-l">Voter</th>
+												<th class="left-padding-xs left-padding-s left-padding-l">Voter</th>
 												<th class="hidden-xs">Transaction</th>
 												<th>Time</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr data-ng-if="!vm.votes">
-												<td class="left-padding-s left-padding-m left-padding-l" colspan="4">Waiting for votes <i class="fa fa-spinner fa-spin"></i></td>
+												<td class="left-padding-xs left-padding-s left-padding-l" colspan="4">Waiting for votes <i class="fa fa-spinner fa-spin"></i></td>
 											</tr>
 										</tbody>
 										<tbody>
 											<tr data-ng-repeat='v in vm.votes track by $index'>
-												<td class="voter left-padding-s left-padding-m left-padding-l">
+												<td class="voter left-padding-xs left-padding-s left-padding-l">
 													<a data-account-href="v" data-type="sender" data-ng-if="v.senderId && !v.delegate.username">{{v.senderId}}</a>
 													<a data-account-href="v.delegate" data-type="delegate" data-ng-if="v.delegate.username">{{v.delegate.username}}</a>
 												</td>
@@ -238,10 +238,10 @@
 	<div class="row">
 		<div class="col-xs-12 big-info">
 			<uib-tabset vertical="true" type="pills">
-				<uib-tab heading="Active Delegates" class="active-delegates-tab horizontal-padding-s horizontal-padding-m horizontal-padding-l">
-					<p class="small-title horizontal-padding-s horizontal-padding-m horizontal-padding-l double">Active Delegates</p>
+				<uib-tab heading="Active Delegates" class="active-delegates-tab horizontal-padding-xs horizontal-padding-s horizontal-padding-l">
+					<p class="small-title horizontal-padding-xs horizontal-padding-s horizontal-padding-l double">Active Delegates</p>
 
-					<div class="row forging-totals horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+					<div class="row forging-totals horizontal-padding-xs horizontal-padding-s horizontal-padding-l">
 						<div class="col-xs-12 col-sm-3">
 							<div class="forging-total green">
 								<p class="big-details">{{vm.forgingTotals.forging || 0}}</p>
@@ -268,7 +268,7 @@
 						</div>
 					</div>
 
-					<div class="row forging-progress horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-if="vm.forgingProgress">
+					<div class="row forging-progress horizontal-padding-xs horizontal-padding-s horizontal-padding-l" data-ng-if="vm.forgingProgress">
 						<div class="col-xs-12">
 							<uib-progressbar max="101" type="forging" value="vm.forgingTotals.processed" data-ng-class="{'progress-striped active': vm.forgingTotals.processed < 101,'inactive': vm.forgingTotals.processed == 101}">
 								<p data-ng-if="vm.forgingTotals.processed > 5">
@@ -284,24 +284,24 @@
 						<table class="table table-hover table-striped active-delegates">
 							<thead>
 								<tr>
-									<th class="left-padding-s left-padding-m left-padding-l"><a href="" data-ng-click="vm.tables.active.order('rate')" class="sort-order">Rank <span data-ng-show="vm.tables.active.predicate === 'rate'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
+									<th class="left-padding-xs left-padding-s left-padding-l"><a href="" data-ng-click="vm.tables.active.order('rate')" class="sort-order">Rank <span data-ng-show="vm.tables.active.predicate === 'rate'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
 									<th><a href="" data-ng-click="vm.tables.active.order('username')" class="sort-order">Name <span data-ng-show="vm.tables.active.predicate === 'username'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
 									<th class="hidden-xs hidden-md"><a href="" data-ng-click="vm.tables.active.order('address')" class="sort-order">Address <span data-ng-show="vm.tables.active.predicate === 'address'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
 									<th class="hidden-xs hidden-sm"><a href="" data-ng-click="vm.tables.active.order('forged')" class="sort-order">Forged <span data-ng-show="vm.tables.active.predicate === 'forged'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
 									<th class="hidden-xs hidden-sm"><a href="" data-ng-click="vm.tables.active.order('forgingTime')" class="sort-order">Forging time <span data-ng-show="vm.tables.active.predicate === 'forgingTime'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
 									<th><a href="" data-ng-click="vm.tables.active.order('status')" class="sort-order">Status <span data-ng-show="vm.tables.active.predicate === 'forgingStatus.rating'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
-									<th class="right-padding-s right-padding-m"><a href="" data-ng-click="vm.tables.active.order('productivity')" class="sort-order">Productivity <span data-ng-show="vm.tables.active.predicate === 'productivity'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
+									<th class="right-padding-xs right-padding-s"><a href="" data-ng-click="vm.tables.active.order('productivity')" class="sort-order">Productivity <span data-ng-show="vm.tables.active.predicate === 'productivity'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
 									<th class="right-padding-l hidden-xs"><a href="" data-ng-click="vm.tables.active.order('vote')" class="sort-order">Approval <span data-ng-show="vm.tables.active.predicate === 'vote'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
 								</tr>
 							</thead>
 							<tbody>
 								<tr data-ng-if="!vm.activeDelegates">
-									<td class="left-padding-s left-padding-m left-padding-l" colspan="12">Waiting for delegates <i class="fa fa-spinner fa-spin"></i></td>
+									<td class="left-padding-xs left-padding-s left-padding-l" colspan="12">Waiting for delegates <i class="fa fa-spinner fa-spin"></i></td>
 								</tr>
 							</tbody>
 							<tbody>
 								<tr data-ng-repeat="d in vm.activeDelegates | orderBy:$root.natural(vm.tables.active.predicate):vm.tables.active.reverse track by d.rate">
-									<td class="left-padding-s left-padding-m left-padding-l">{{d.rate}}</td>
+									<td class="left-padding-xs left-padding-s left-padding-l">{{d.rate}}</td>
 									<td>
 										<a data-ng-if="d.proposal" class="glyphicon glyphicon-user proposal-icon" data-ng-href="https://forum.lisk.io/viewtopic.php?f=48&t={{d.proposal.topic}}"
 											title="{{d.proposal.description}}" target="_new"></a>&nbsp;
@@ -311,15 +311,15 @@
 									<td class="hidden-xs hidden-sm">{{d.forged | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
 									<td class="hidden-xs hidden-sm">{{d.forgingTime | forgingTime}}</td>
 									<td><i forging-status="d.forgingStatus"></i></td>
-									<td class="right-padding-s right-padding-m">{{d.productivity || 0}}%</td>
+									<td class="right-padding-xs right-padding-s">{{d.productivity || 0}}%</td>
 									<td class="right-padding-l hidden-xs"><span data-uib-tooltip="{{d.vote | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}">{{d.approval}}%</span></td>
 								</tr>
 							</tbody>
 						</table>
 					</div>
 				</uib-tab>
-				<uib-tab heading="Standby Delegates" data-ng-click="vm.getStandby(1)" class="standby-delegates-tab horizontal-padding-s horizontal-padding-m horizontal-padding-l">
-					<div class='row horizontal-padding-s horizontal-padding-m horizontal-padding-l'>
+				<uib-tab heading="Standby Delegates" data-ng-click="vm.getStandby(1)" class="standby-delegates-tab horizontal-padding-xs horizontal-padding-s horizontal-padding-l">
+					<div class='row horizontal-padding-xs horizontal-padding-s horizontal-padding-l'>
 						<div class="col-lg-12">
 							<p class="small-title">Standby Delegates</p>
 						</div>
@@ -329,8 +329,8 @@
 						<table class="table table-hover table-striped standby-delegates">
 							<thead>
 								<tr>
-									<th class="left-padding-s left-padding-m left-padding-l"><a href="" data-ng-click="vm.tables.standby.order('rate')" class="sort-order">Rank <span data-ng-show="vm.tables.standby.predicate === 'rate'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
-									<th class="right-padding-s right-padding-m"><a href="" data-ng-click="vm.tables.standby.order('username')" class="sort-order">Name <span data-ng-show="vm.tables.standby.predicate === 'username'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
+									<th class="left-padding-xs left-padding-s left-padding-l"><a href="" data-ng-click="vm.tables.standby.order('rate')" class="sort-order">Rank <span data-ng-show="vm.tables.standby.predicate === 'rate'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
+									<th class="right-padding-xs right-padding-s"><a href="" data-ng-click="vm.tables.standby.order('username')" class="sort-order">Name <span data-ng-show="vm.tables.standby.predicate === 'username'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
 									<th class="hidden-xs"><a href="" data-ng-click="vm.tables.standby.order('address')" class="sort-order">Address <span data-ng-show="vm.tables.standby.predicate === 'address'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
 									<th class="hidden-xs"><a href="" data-ng-click="vm.tables.standby.order('productivity')" class="sort-order">Productivity <span data-ng-show="vm.tables.standby.predicate === 'productivity'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
 									<th class="right-padding-l hidden-xs"><a href="" data-ng-click="vm.tables.standby.order('vote')" class="sort-order">Approval <span data-ng-show="vm.tables.standby.predicate === 'vote'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
@@ -338,13 +338,13 @@
 							</thead>
 							<tbody>
 								<tr data-ng-if="!vm.standbyDelegates">
-									<td class="left-padding-s left-padding-m left-padding-l" colspan="12">Waiting for delegates <i class="fa fa-spinner fa-spin"></i></td>
+									<td class="left-padding-xs left-padding-s left-padding-l" colspan="12">Waiting for delegates <i class="fa fa-spinner fa-spin"></i></td>
 								</tr>
 							</tbody>
 							<tbody>
 								<tr data-ng-repeat='d in vm.standbyDelegates | orderBy:$root.natural(vm.tables.standby.predicate):vm.tables.standby.reverse track by d.rate'>
-									<td class="left-padding-s left-padding-m left-padding-l">{{d.rate}}</td>
-									<td class="right-padding-s right-padding-m">
+									<td class="left-padding-xs left-padding-s left-padding-l">{{d.rate}}</td>
+									<td class="right-padding-xs right-padding-s">
 										<a data-ng-if="d.proposal" class="glyphicon glyphicon-user proposal-icon" data-ng-href="https://forum.lisk.io/viewtopic.php?f=48&t={{d.proposal.topic}}"
 											title="{{d.proposal.description}}" target="_new"></a>&nbsp;
 										<a data-account-href="d" data-type="delegate">{{d.username}}</a>

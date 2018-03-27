@@ -19,17 +19,17 @@
 	<table class="table table-hover table-striped {{name}}">
 		<thead>
 			<tr>
-				<th class="left-padding-s left-padding-m left-padding-l">{{heading}} <span class="text-muted">(BTC)</span></th>
+				<th class="left-padding-xs left-padding-s left-padding-l">{{heading}} <span class="text-muted">(BTC)</span></th>
 				<th>Amount <span class="text-muted">(LSK)</span></th>
 				<th>Total <span class="text-muted">(BTC)</span></th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr data-ng-if="!orders">
-				<td class="left-padding-s left-padding-m left-padding-l" colspan="6">Waiting for {{name}} <i class="fa fa-spinner fa-spin"></i></td>
+				<td class="left-padding-xs left-padding-s left-padding-l" colspan="6">Waiting for {{name}} <i class="fa fa-spinner fa-spin"></i></td>
 			</tr>
 			<tr data-ng-repeat='o in orders track by $index'>
-				<td class="left-padding-s left-padding-m left-padding-l">{{o[0] | number:8}}</td>
+				<td class="left-padding-xs left-padding-s left-padding-l">{{o[0] | number:8}}</td>
 				<td>{{o[1] | number:8}}</td>
 				<td>{{o[0] * o[1] | number:8}}</td>
 			</tr>
