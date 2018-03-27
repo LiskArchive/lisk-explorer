@@ -19,7 +19,7 @@
 	<a class="txid" href="/tx/{{tx.id}}">{{tx.id}}</a>
 	<span class="btn-copy" clip-copy="tx.id"></span>
 </td>
-<td data-title="Date">{{tx.timestamp | timestamp }}</td>
+<td data-title="Date" class="hidden-md">{{tx.timestamp | timestamp }}</td>
 <td data-title="Sender">
 	<a data-account-href="tx" data-type="sender">{{tx | txSender}}</a>
 </td>
@@ -35,7 +35,7 @@
 	}">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}
 	</div>
 </td>
-<td data-title="Fee" class="text-nowrap">{{tx.fee | currency:$root.currency}} {{$root.currency.symbol}}</td>
+<td data-title="Fee" class="text-nowrap hidden-md">{{tx.fee | currency:$root.currency}} {{$root.currency.symbol}}</td>
 <td data-title="Confirmations">
 	<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">Unconfirmed Transaction!</span>
 	<span data-ng-if="(block.confirmations > 0  && block.confirmations < 101) || (tx.confirmations > 0 && tx.confirmations < 101)" class="text-warning">{{block.confirmations || tx.confirmations}}</span>
