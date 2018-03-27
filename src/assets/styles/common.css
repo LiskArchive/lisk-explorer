@@ -1310,25 +1310,25 @@ table tbody tr:nth-of-type(odd) {
 }
 
 @media (max-width: 767px) {
-  .horizontal-adding-s,
-  .left-padding-s {
+  .horizontal-padding-xs,
+  .left-padding-xs {
     margin-left: 0;
     padding-left: 12px !important;
   }
 
-  .horizontal-adding-s.double,
-  .left-padding-s.double {
+  .horizontal-padding-xs.double,
+  .left-padding-xs.double {
     padding-left: 16px !important;
   }
 
-  .horizontal-adding-s,
-  .right-padding-s {
+  .horizontal-padding-xs,
+  .right-padding-xs {
     margin-right: 0;
     padding-right: 12px !important;
   }
 
-  .horizontal-adding-s.double,
-  .right-padding-s.double {
+  .horizontal-padding-xs.double,
+  .right-padding-xs.double {
     padding-right: 16px !important;
   }
 
@@ -1392,25 +1392,54 @@ table tbody tr:nth-of-type(odd) {
   }
 }
 
-@media (min-width: 768px) and (max-width: 1199px) {
-  .horizontal-adding-m,
+@media (min-width: 768px) and (max-width: 991px) {
+  .horizontal-padding-s,
+  .left-padding-s {
+    margin-left: 0;
+    padding-left: 16px !important;
+  }
+
+  .horizontal-padding-s.double,
+  .left-padding-s.double {
+    padding-left: 32px !important;
+  }
+
+  .horizontal-padding-s,
+  .right-padding-s {
+    margin-right: 0;
+    padding-right: 16px !important;
+  }
+
+  .horizontal-padding-s.double,
+  .right-padding-s.double {
+    padding-right: 32px !important;
+  }
+
+  h1 {
+    padding-right: 16px !important;
+    padding-left: 16px !important;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .horizontal-padding-m,
   .left-padding-m {
     margin-left: 0;
     padding-left: 16px !important;
   }
 
-  .horizontal-adding-m.double,
+  .horizontal-padding-m.double,
   .left-padding-m.double {
     padding-left: 32px !important;
   }
 
-  .horizontal-adding-m,
+  .horizontal-padding-m,
   .right-padding-m {
     margin-right: 0;
     padding-right: 16px !important;
   }
 
-  .horizontal-adding-m.double,
+  .horizontal-padding-m.double,
   .right-padding-m.double {
     padding-right: 32px !important;
   }
@@ -1422,24 +1451,24 @@ table tbody tr:nth-of-type(odd) {
 }
 
 @media (min-width: 992px) {
-  .horizontal-adding-s,
+  .horizontal-padding-s,
   .left-padding-s {
     margin-left: 0;
     padding-left: 17px;
   }
 
-  .horizontal-adding-s.double,
+  .horizontal-padding-s.double,
   .left-padding-s.double {
     padding-left: 32px;
   }
 
-  .horizontal-adding-s,
+  .horizontal-padding-s,
   .right-padding-s {
     margin-right: 0;
     padding-right: 17px;
   }
 
-  .horizontal-adding-s.double,
+  .horizontal-padding-s.double,
   .right-padding-s.double {
     padding-right: 32px;
   }
