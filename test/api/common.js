@@ -46,7 +46,7 @@ describe('Common API', () => {
 		});
 	});
 
-	describe('GET /api/getPriceTicker', () => {
+	describe.skip('GET /api/getPriceTicker', () => {
 		it('should be ok', (done) => {
 			getPriceTicker((err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
