@@ -274,13 +274,19 @@ a:hover {
 }
 
 qrcode {
-  width: 160px;
-  height: 160px;
+  width: 100%;
+  height: 100%;
   display: inline-block;
+  max-width: 250px;
 }
 qrcode svg {
-  widows: 100%;
+  width: 100%;
   height: 100%;
+}
+
+qrcode + span {
+  display: inline-block;
+  width: 100%;
 }
 /* QR modal */
 #qr-canvas { display: none; }
@@ -697,20 +703,6 @@ qrcode svg {
 
 .btn-default {
   background-color: #E7E7E7;
-}
-
-.txvalues {
-  display: inline-block;
-  padding: .7em 2em;
-  font-size: 13px;
-  text-transform: uppercase;
-  font-weight:100;
-  color: white;
-  text-align: center;
-  white-space: nowrap;
-  vertical-align: baseline;
-  border-radius: .25em;
-  display: block;
 }
 
 .txvalues-primary {
@@ -1316,21 +1308,11 @@ table tbody tr:nth-of-type(odd) {
     padding-left: 12px !important;
   }
 
-/*  .horizontal-padding-xs.double,
-  .left-padding-xs.double {
-    padding-left: 16px !important;
-  } */
-
   .horizontal-padding-xs,
   .right-padding-xs {
     margin-right: 0;
     padding-right: 12px !important;
   }
-
-/*  .horizontal-padding-xs.double,
-  .right-padding-xs.double {
-    padding-right: 16px !important;
-  } */
 
   .row {
     margin-left: 0;
@@ -1399,21 +1381,11 @@ table tbody tr:nth-of-type(odd) {
     padding-left: 16px !important;
   }
 
-/*  .horizontal-padding-s.double,
-  .left-padding-s.double {
-    padding-left: 32px !important;
-  } */
-
   .horizontal-padding-s,
   .right-padding-s {
     margin-right: 0;
     padding-right: 16px !important;
   }
-
-/*  .horizontal-padding-s.double,
-  .right-padding-s.double {
-    padding-right: 32px !important;
-  } */
 
   h1 {
     padding-right: 16px !important;
@@ -1445,7 +1417,7 @@ table tbody tr:nth-of-type(odd) {
   .horizontal-padding-m,
   .left-padding-m {
     margin-left: 0;
-    padding-left: 16px !important;
+    padding-left: 32px !important;
   }
 
   .horizontal-padding-m.double,
@@ -1456,7 +1428,7 @@ table tbody tr:nth-of-type(odd) {
   .horizontal-padding-m,
   .right-padding-m {
     margin-right: 0;
-    padding-right: 16px !important;
+    padding-right: 32px !important;
   }
 
   .horizontal-padding-m.double,
@@ -1464,32 +1436,51 @@ table tbody tr:nth-of-type(odd) {
     padding-right: 32px !important;
   }
 
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  *[class*=' col-'],
+  *[class^='col-'] {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .host-row {
+    max-width: 20%;
+  }
+
   h1 {
-    padding-right: 16px !important;
-    padding-left: 16px !important;
+    padding-right: 32px !important;
+    padding-left: 32px !important;
+  }
+
+  .transactions .amount span {
+    text-align: left !important;
   }
 }
 
-@media (min-width: 992px) {
-  .horizontal-padding-s,
-  .left-padding-s {
+@media (min-width: 1200px) {
+  .horizontal-padding-l,
+  .left-padding-l {
     margin-left: 0;
     padding-left: 17px;
   }
 
-  .horizontal-padding-s.double,
-  .left-padding-s.double {
+  .horizontal-padding-l.double,
+  .left-padding-l.double {
     padding-left: 32px;
   }
 
-  .horizontal-padding-s,
-  .right-padding-s {
+  .horizontal-padding-l,
+  .right-padding-l {
     margin-right: 0;
     padding-right: 17px;
   }
 
-  .horizontal-padding-s.double,
-  .right-padding-s.double {
+  .horizontal-padding-l.double,
+  .right-padding-l.double {
     padding-right: 32px;
   }
 
