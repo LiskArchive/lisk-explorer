@@ -1,7 +1,7 @@
 pipeline {
 	agent { node { label 'lisk-explorer' } } 
 	environment { 
-		LISK_VERSION = '1.0.0-alpha.2'
+		LISK_VERSION = '1.0.0-alpha.3'
 		//
 		EXPLORER_PORT = "604$EXECUTOR_NUMBER"
 		LISK_HOST = 'localhost'
