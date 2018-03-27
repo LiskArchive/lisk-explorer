@@ -20,7 +20,7 @@
 		<a href="" data-ng-show="!showVotes" data-ng-click="showVotes=!showVotes" class="show-votes-button"><small><i class="fa fa-plus-square-o"></i></small></a>
 		<a href="" data-ng-show="showVotes" data-ng-click="showVotes=!showVotes" class="hide-votes-button"><small><i class="fa fa-minus-square-o"></i></small></a> Votes <small>{{votes.length}}</small>
 	</h1>
-	<div class="row votes horizontal-padding-xs horizontal-padding-s horizontal-padding-l" data-ng-init="showVotes=false" data-ng-show="showVotes">
+	<div class="row votes horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-init="showVotes=false" data-ng-show="showVotes">
 		<div class="col-md-12">
 			<span data-ng-repeat='vote in votes'>
 				<span data-ng-if="!$last">

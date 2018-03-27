@@ -35,11 +35,6 @@
   font-weight: 700;
 }
 
-.forging-totals {
-  margin-top: 1em;
-  margin-bottom: 1em;
-}
-
 .forging-total {
   color: white;
   padding: 1em;
@@ -116,4 +111,29 @@
 
 .tooltip-red.left .tooltip-arrow {
   border-left-color:  #c80039;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .forging-totals {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+
+  .forging-total {
+    margin-left: 10px;
+    margin-right: 10px;
+    min-height: 110px;
+  }
+}
+
+@media (min-width: 992px) and (max-width: 1199px) {
+  .forging-totals {
+    margin-left: -10px;
+    margin-right: -10px;
+  }
+
+  .forging-total {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
 }

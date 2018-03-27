@@ -24,7 +24,7 @@
 		<span>Loading Block <i class="fa fa-spinner fa-spin"></i>
 	</div>
 	<div data-ng-if="vm.block.height">
-	<div class="horizontal-padding-xs horizontal-padding-s horizontal-padding-l double">
+	<div class="horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double">
 		<div class='well well-sm ellipsis'>
 			<strong>Block ID</strong>
 			<span class="txid text-muted">{{vm.block.id}}</span>
@@ -38,52 +38,52 @@
 				<table class="table summary">
 					<tbody>
 						<tr>
-							<td class='left-padding-xs left-padding-s left-padding-l'><strong>Transactions</strong></td>
-							<td class="right-padding-xs right-padding-s right-padding-l text-right">{{vm.block.numberOfTransactions}}</td>
+							<td class='left-padding-xs left-padding-s left-padding-m left-padding-l'><strong>Transactions</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-m right-padding-l text-right">{{vm.block.numberOfTransactions}}</td>
 						</tr>
 						<tr>
-							<td class='left-padding-xs left-padding-s left-padding-l'><strong>Confirmations</strong></td>
-							<td class="right-padding-xs right-padding-s right-padding-l text-right">{{vm.block.confirmations}}</td>
+							<td class='left-padding-xs left-padding-s left-padding-m left-padding-l'><strong>Confirmations</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-m right-padding-l text-right">{{vm.block.confirmations}}</td>
 						</tr>
 						<tr>
-							<td class='left-padding-xs left-padding-s left-padding-l'><strong>Height</strong></td>
-							<td class="right-padding-xs right-padding-s right-padding-l text-right">{{vm.block.height}}</td>
+							<td class='left-padding-xs left-padding-s left-padding-m left-padding-l'><strong>Height</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-m right-padding-l text-right">{{vm.block.height}}</td>
 						</tr>
 						<tr>
-							<td class='left-padding-xs left-padding-s left-padding-l'><strong>Reward</strong></td>
-							<td class="right-padding-xs right-padding-s right-padding-l text-right">{{vm.block.reward | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+							<td class='left-padding-xs left-padding-s left-padding-m left-padding-l'><strong>Reward</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-m right-padding-l text-right">{{vm.block.reward | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
 						</tr>
 						<tr>
-							<td class='left-padding-xs left-padding-s left-padding-l'><strong>Total Fee</strong></td>
-							<td class="right-padding-xs right-padding-s right-padding-l text-right">{{vm.block.totalFee | currency:$root.currency}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+							<td class='left-padding-xs left-padding-s left-padding-m left-padding-l'><strong>Total Fee</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-m right-padding-l text-right">{{vm.block.totalFee | currency:$root.currency}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
 						</tr>
 						<tr>
-							<td class='left-padding-xs left-padding-s left-padding-l'><strong>Total Forged</strong></td>
-							<td class="right-padding-xs right-padding-s right-padding-l text-right">{{vm.block.totalForged | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+							<td class='left-padding-xs left-padding-s left-padding-m left-padding-l'><strong>Total Forged</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-m right-padding-l text-right">{{vm.block.totalForged | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
 						</tr>
 						<tr>
-							<td class='left-padding-xs left-padding-s left-padding-l'><strong>Total Amount</strong></td>
-							<td class="right-padding-xs right-padding-s right-padding-l text-right">{{vm.block.totalAmount | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+							<td class='left-padding-xs left-padding-s left-padding-m left-padding-l'><strong>Total Amount</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-m right-padding-l text-right">{{vm.block.totalAmount | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
 						</tr>
 						<tr>
-							<td class='left-padding-xs left-padding-s left-padding-l'><strong>Timestamp</strong></td>
-							<td class="right-padding-xs right-padding-s right-padding-l text-right">{{vm.block.timestamp | timestamp}}</td>
+							<td class='left-padding-xs left-padding-s left-padding-m left-padding-l'><strong>Timestamp</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-m right-padding-l text-right">{{vm.block.timestamp | timestamp}}</td>
 						</tr>
 						<tr data-ng-if="block.nextBlock">
-							<td class='left-padding-xs left-padding-s left-padding-l'><strong>Next block</strong></td>
-							<td class="right-padding-xs right-padding-s right-padding-l text-right">
+							<td class='left-padding-xs left-padding-s left-padding-m left-padding-l'><strong>Next block</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-m right-padding-l text-right">
 								<a href="/block/{{ vm.block.nextBlock }}">{{ vm.block.nextBlock }}</a>
 							</td>
 						</tr>
 						<tr data-ng-if="vm.block.previousBlock">
-							<td class='left-padding-xs left-padding-s left-padding-l'><strong>Previous block</strong></td>
-							<td class="right-padding-xs right-padding-s right-padding-l text-right">
+							<td class='left-padding-xs left-padding-s left-padding-m left-padding-l'><strong>Previous block</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-m right-padding-l text-right">
 								<a href="/block/{{ vm.block.previousBlock }}">{{ vm.block.previousBlock }}</a>
 							</td>
 						</tr>
 						<tr>
-							<td class='left-padding-xs left-padding-s left-padding-l'><strong>Generated by</strong></td>
-							<td class="right-padding-xs right-padding-s right-padding-l text-right">
+							<td class='left-padding-xs left-padding-s left-padding-m left-padding-l'><strong>Generated by</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-m right-padding-l text-right">
 								<a data-account-href="vm.block.delegate">{{vm.block.delegate.username || vm.block.generatorId}}</a>
 							</td>
 						</tr>
