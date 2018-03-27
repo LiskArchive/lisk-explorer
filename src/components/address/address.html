@@ -46,7 +46,7 @@
 			<i class="glyphicon glyphicon-info-sign"></i>
 		</small>
 	</h1>
-	<div class="row horizontal-adding-s horizontal-adding-m horizontal-adding-l">
+	<div class="row horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 		<div class="col-md-10">
 			<div class="table-responsive">
 				<table class="table summary">
@@ -109,7 +109,7 @@
 
 	<div data-ng-if="vm.address.balance" data-ng-init="vm.txs.loadData()">
 		<h1>Transactions</h1>
-		<section class='horizontal-adding-s horizontal-adding-m horizontal-adding-l double'>
+		<section class='horizontal-padding-s horizontal-padding-m horizontal-padding-l double'>
 			<nit-advanced-searchbox
 				ng-model="vm.searchParams"
 				parameters="vm.availableSearchParams"
@@ -122,7 +122,7 @@
 				Please provide a valid address for sender id and/or recipient id. Username is not accepted.
 			</div>
 		</section>
-		<div class="transactions-filter-header horizontal-adding-s horizontal-adding-m horizontal-adding-l double" role="group"
+		<div class="transactions-filter-header horizontal-padding-s horizontal-padding-m horizontal-padding-l double" role="group"
 			aria-label="All/Sent/Received Transactions" data-ng-class="{disabled: vm.direction === 'search'}">
 				<button data-ng-disabled="!vm.direction" data-ng-click="vm.filterTxs();vm.txs.loadData();vm.onFiltersUsed();">All</button>
 				<button class="sent-tab" data-ng-disabled="vm.direction==='sent'" data-ng-click="vm.filterTxs('sent');vm.txs.loadData();vm.onFiltersUsed();">Sent</button>

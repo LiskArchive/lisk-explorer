@@ -74,7 +74,7 @@
 			<a href="" data-ng-show="!showVoters" data-ng-click="showVoters=!showVoters" class="show-voters-button"><small><i class="fa fa-plus-square-o"></i></small></a>
 			<a href="" data-ng-show="showVoters" data-ng-click="showVoters=!showVoters"><small><i class="fa fa-minus-square-o"></i></small></a>            Voters <small>{{vm.address.voters.length}}</small>
 		</h1>
-		<div class="row horizontal-adding-s horizontal-adding-m horizontal-adding-l" data-ng-init="showVoters=false" data-ng-show="showVoters">
+		<div class="row horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-init="showVoters=false" data-ng-show="showVoters">
 			<div class="col-md-12 voters">
 				<span data-ng-repeat='voter in vm.address.voters'>
 					<span data-ng-if="!$last">

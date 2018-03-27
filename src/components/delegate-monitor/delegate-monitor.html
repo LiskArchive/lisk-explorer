@@ -17,7 +17,7 @@
 -->
 <div>
 	<h1>Delegate Monitor</h1>
-	<div class="row horizontal-adding-s horizontal-adding-m horizontal-adding-l">
+	<div class="row horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-xs-12 col-sm-4">
@@ -86,7 +86,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row horizontal-adding-s horizontal-adding-m horizontal-adding-l">
+	<div class="row horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-xs-12 col-sm-3">
@@ -150,7 +150,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="row horizontal-adding-s horizontal-adding-m horizontal-adding-l">
+	<div class="row horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 		<div class="col-lg-12">
 			<div class="row">
 				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
@@ -238,10 +238,10 @@
 	<div class="row">
 		<div class="col-xs-12 big-info">
 			<uib-tabset vertical="true" type="pills">
-				<uib-tab heading="Active Delegates" class="active-delegates-tab horizontal-adding-s horizontal-adding-m horizontal-adding-l">
-					<p class="small-title horizontal-adding-s horizontal-adding-m horizontal-adding-l double">Active Delegates</p>
+				<uib-tab heading="Active Delegates" class="active-delegates-tab horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+					<p class="small-title horizontal-padding-s horizontal-padding-m horizontal-padding-l double">Active Delegates</p>
 
-					<div class="row forging-totals horizontal-adding-s horizontal-adding-m horizontal-adding-l">
+					<div class="row forging-totals horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 						<div class="col-xs-12 col-sm-3">
 							<div class="forging-total green">
 								<p class="big-details">{{vm.forgingTotals.forging || 0}}</p>
@@ -268,7 +268,7 @@
 						</div>
 					</div>
 
-					<div class="row forging-progress horizontal-adding-s horizontal-adding-m horizontal-adding-l" data-ng-if="vm.forgingProgress">
+					<div class="row forging-progress horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-if="vm.forgingProgress">
 						<div class="col-xs-12">
 							<uib-progressbar max="101" type="forging" value="vm.forgingTotals.processed" data-ng-class="{'progress-striped active': vm.forgingTotals.processed < 101,'inactive': vm.forgingTotals.processed == 101}">
 								<p data-ng-if="vm.forgingTotals.processed > 5">
@@ -318,8 +318,8 @@
 						</table>
 					</div>
 				</uib-tab>
-				<uib-tab heading="Standby Delegates" data-ng-click="vm.getStandby(1)" class="standby-delegates-tab horizontal-adding-s horizontal-adding-m horizontal-adding-l">
-					<div class='row horizontal-adding-s horizontal-adding-m horizontal-adding-l'>
+				<uib-tab heading="Standby Delegates" data-ng-click="vm.getStandby(1)" class="standby-delegates-tab horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+					<div class='row horizontal-padding-s horizontal-padding-m horizontal-padding-l'>
 						<div class="col-lg-12">
 							<p class="small-title">Standby Delegates</p>
 						</div>
