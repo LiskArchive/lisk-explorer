@@ -1392,32 +1392,32 @@ table tbody tr:nth-of-type(odd) {
   }
 }
 
-@media (min-width: 767px) and (max-width: 1023px) {
-  .horizontal-adding-s,
-  .left-padding-s {
+@media (min-width: 768px) and (max-width: 1199px) {
+  .horizontal-adding-m,
+  .left-padding-m {
     margin-left: 0;
-    padding-left: 12px !important;
-  }
-
-  .horizontal-adding-s.double,
-  .left-padding-s.double {
     padding-left: 16px !important;
   }
 
-  .horizontal-adding-s,
-  .right-padding-s {
-    margin-right: 0;
-    padding-right: 12px !important;
+  .horizontal-adding-m.double,
+  .left-padding-m.double {
+    padding-left: 32px !important;
   }
 
-  .horizontal-adding-s.double,
-  .right-padding-s.double {
+  .horizontal-adding-m,
+  .right-padding-m {
+    margin-right: 0;
     padding-right: 16px !important;
   }
 
+  .horizontal-adding-m.double,
+  .right-padding-m.double {
+    padding-right: 32px !important;
+  }
+
   h1 {
-    padding-right: 16px;
-    padding-left: 16px;
+    padding-right: 16px !important;
+    padding-left: 16px !important;
   }
 }
 
