@@ -87,6 +87,7 @@ module.exports = function (app, connectionHandler, socket) {
 				cb('Peers');
 			},
 			(res) => {
+				logger.debug(`Returned ${res.list.connected.length} connected peers.`);
 				running.getPeers = false;
 				cb(null, res);
 			});
