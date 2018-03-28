@@ -29,6 +29,7 @@ pipeline {
 				// marketwatcher needs to be enabled to builds candles
 				sh '''
 				cp test/config.test ./config.js
+				cp ./test/known.test.json ./known.json
 				grunt candles:build
 				'''
 			}
@@ -72,8 +73,6 @@ pipeline {
 			steps {
 				sh '''
 				sed -i -r -e "s/6040/$EXPLORER_PORT/" test/node.js
-				cp ./test/known.test.json ./known.json
-				docker-compose restart lisk-explorer
 				npm run test
 				'''
 			}
