@@ -18,7 +18,7 @@
     "eslint-fix": "eslint --fix ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js",
     "start": "npm run copy-files && webpack -w",
     "validate": "webpack-validator webpack.config.js",
-    "copy-files": "cp -r ./src/assets/img/favicon.ico ./src/assets/img/leaflet ./public",
+    "copy-files": "cp -r ./src/assets/img/favicon.ico ./src/assets/img/leaflet ./robots.txt ./public",
     "build": "npm run copy-files && webpack",
     "build:prod": "webpack --env.prod"
   },
