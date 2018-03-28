@@ -22,7 +22,7 @@ const params = {
 	publicKey: 'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f',
 };
 
-describe.skip('Accounts API', () => {
+describe('Accounts API', () => {
 	/* Define functions for use within tests */
 	function getAccount(id, done) {
 		node.get(`/api/getAccount?address=${id}`, done);
@@ -56,6 +56,20 @@ describe.skip('Accounts API', () => {
 			'outgoing_cnt');
 	}
 
+	const checkDelegate = (id) => {
+		node.expect(id).to.contain.all.keys(
+			'address',
+			'approval',
+			'missedblocks',
+			'producedblocks',
+			'productivity',
+			'publicKey',
+			'rate',
+			'username',
+			'vote',
+			'forged');
+	};
+
 	const checkTopAccount = (id) => {
 		node.expect(id).to.have.all.keys(
 			'address',
@@ -78,6 +92,15 @@ describe.skip('Accounts API', () => {
 			getAccount(params.address, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
 				checkAccount(res.body);
+				done();
+			});
+		});
+
+		it('using delgate address should return delegate data', (done) => {
+			getAccount(params.address_delegate, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				checkAccount(res.body);
+				checkDelegate(res.body.delegate);
 				done();
 			});
 		});
