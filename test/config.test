@@ -32,21 +32,33 @@ config.log.level = 'info';            // Log level - (trace, debug, info, warn, 
 config.exchangeRates.enabled = true;         // Exchange rates support (true - enabled, false - disabled)
 config.exchangeRates.updateInterval = 30000; // Interval in ms for checking exchange rates (default: 30 seconds)
 // Configuration for different currency pairs, set false to disable pair
-config.exchangeRates.exchanges.LSK.BTC = 'poloniex'; // LSK/BTC pair, supported: poloniex
-config.exchangeRates.exchanges.LSK.CNY = 'jubi';     // LSK/CNY pair, supported: jubi, bitbays
-config.exchangeRates.exchanges.BTC.USD = 'bitfinex'; // BTC/USD pair, supported: bitfinex, bitstamp, btce
-config.exchangeRates.exchanges.BTC.EUR = 'bitstamp'; // BTC/EUR pair, supported: bitstamp, bitmarket
-config.exchangeRates.exchanges.BTC.RUB = 'btce';     // BTC/RUB pair, supported: btce, exmo
-config.exchangeRates.exchanges.BTC.PLN = false;      // BTC/PLN pair, supported: bitmarket
+// LSK/BTC pair, supported: poloniex
+config.exchangeRates.exchanges.LSK.BTC = 'poloniex';
+// LSK/CNY pair, supported: jubi, bitbays
+config.exchangeRates.exchanges.LSK.CNY = 'jubi';
+// BTC/USD pair, supported: bitfinex, bitstamp, btce
+config.exchangeRates.exchanges.BTC.USD = 'bitfinex';
+// BTC/EUR pair, supported: bitstamp, bitmarket
+config.exchangeRates.exchanges.BTC.EUR = 'bitstamp';
+// BTC/RUB pair, supported: btce, exmo
+config.exchangeRates.exchanges.BTC.RUB = 'btce';
+// BTC/PLN pair, supported: bitmarket
+config.exchangeRates.exchanges.BTC.PLN = false;
 
-// Market watcher
-config.marketWatcher.enabled = true; // Market watcher support (true - enabled, false - disabled)
-config.marketWatcher.exchanges.poloniex = true; // Poloniex exchange support (true - enabled, false - disabled)
-config.marketWatcher.exchanges.bittrex  = true; // Bittrex exchange support (true - enabled, false - disabled)
-config.marketWatcher.candles.updateInterval = 30000; // Interval in ms for updating candlestick data (default: 30 seconds)
-config.marketWatcher.candles.poloniex.buildTimeframe = 60*60*24*30; // Build candles based on trades form last 30 days
-config.marketWatcher.orders.updateInterval  = 15000;  // Interval in ms for updating order book data (default: 15 seconds)
-
-// =======================================================================================
+/**
+ * Market watcher
+ */
+// Market watcher support (true - enabled, false - disabled)
+config.marketWatcher.enabled = true;
+// Poloniex exchange support (true - enabled, false - disabled)
+config.marketWatcher.exchanges.poloniex = true;
+// Bittrex exchange support (true - enabled, false - disabled);
+config.marketWatcher.exchanges.bittrex = true;
+// Interval in ms for updating candlestick data (default: 30 seconds)
+config.marketWatcher.candles.updateInterval = 30000;
+// Build candles based on trades form last 30 days
+config.marketWatcher.candles.poloniex.buildTimeframe = 60 * 60 * 24 * 30;
+// Interval in ms for updating order book data (default: 15 seconds)
+config.marketWatcher.orders.updateInterval = 15000;
 
 module.exports = config;
