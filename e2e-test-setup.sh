@@ -12,6 +12,7 @@ if [ ! -f blockchain_explorer.db.gz ]; then
 fi
 
 pwd=`pwd`
+cp ./test/known.test.json ./known.json
 cd $1
 cp test/data/config.json ./config.json
 pm2 stop app.js
