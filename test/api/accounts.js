@@ -56,6 +56,20 @@ describe('Accounts API', () => {
 			'outgoing_cnt');
 	}
 
+	const checkDelegate = (id) => {
+		node.expect(id).to.contain.all.keys(
+			'address',
+			'approval',
+			'missedblocks',
+			'producedblocks',
+			'productivity',
+			'publicKey',
+			'rate',
+			'username',
+			'vote',
+			'forged');
+	};
+
 	const checkTopAccount = (id) => {
 		node.expect(id).to.have.all.keys(
 			'address',
@@ -78,6 +92,15 @@ describe('Accounts API', () => {
 			getAccount(params.address, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
 				checkAccount(res.body);
+				done();
+			});
+		});
+
+		it('using delgate address should return delegate data', (done) => {
+			getAccount(params.address_delegate, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				checkAccount(res.body);
+				checkDelegate(res.body.delegate);
 				done();
 			});
 		});
