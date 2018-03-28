@@ -216,5 +216,32 @@ describe('Accounts API', () => {
 				done();
 			});
 		});
+
+		it('unknown addresses should NOT have owner property', (done) => {
+			getTopAccounts('0', '1', (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body.accounts[0]).to.have.property('knowledge').to.be.equal(null);
+				done();
+			});
+		});
+
+		it('delegate addresses should have owner property', (done) => {
+			getTopAccounts('1', '1', (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body.accounts[0]).to.have.property('knowledge');
+				node.expect(res.body.accounts[0].knowledge).to.have.property('owner');
+				done();
+			});
+		});
+
+		it('known addresses should have owner and description property', (done) => {
+			getTopAccounts('2', '1', (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body.accounts[0]).to.have.property('knowledge');
+				node.expect(res.body.accounts[0].knowledge).to.have.property('owner');
+				node.expect(res.body.accounts[0].knowledge).to.have.property('description');
+				done();
+			});
+		});
 	});
 });
