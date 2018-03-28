@@ -19,6 +19,5 @@
   	"15441526754256992144L" : { "owner" : "HitBTC.com", "description" : "Hot Wallet" },
 	"2797034409072178585L" 	: { "owner" : "BitBay.net", "description" : "Withdrawal Wallet" },
 	"15610359283786884938L" : { "owner" : "Binance", "description" : "Hot Wallet" },
-	"14367838290034827614L" : { "owner" : "Coincheck.com", "description" : "Main Wallet" },
-	"16313739661670634666L" : { "owner" : "Explorer Account", "description" : "Known addresses test"}
+	"14367838290034827614L" : { "owner" : "Coincheck.com", "description" : "Main Wallet" }
 }

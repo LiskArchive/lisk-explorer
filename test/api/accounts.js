@@ -217,12 +217,10 @@ describe('Accounts API', () => {
 			});
 		});
 
-		it('known addresses should have owner and description property', (done) => {
+		it('unknown addresses should NOT have owner property', (done) => {
 			getTopAccounts('0', '1', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.accounts[0]).to.have.property('knowledge');
-				node.expect(res.body.accounts[0].knowledge).to.have.property('owner');
-				node.expect(res.body.accounts[0].knowledge).to.have.property('description');
+				node.expect(res.body.accounts[0]).to.have.property('knowledge').to.be.equal(null);
 				done();
 			});
 		});
@@ -236,10 +234,12 @@ describe('Accounts API', () => {
 			});
 		});
 
-		it('unknown addresses should NOT have owner property', (done) => {
+		it('known addresses should have owner and description property', (done) => {
 			getTopAccounts('2', '1', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.accounts[0]).to.have.property('knowledge').to.be.equal(null);
+				node.expect(res.body.accounts[0]).to.have.property('knowledge');
+				node.expect(res.body.accounts[0].knowledge).to.have.property('owner');
+				node.expect(res.body.accounts[0].knowledge).to.have.property('description');
 				done();
 			});
 		});
