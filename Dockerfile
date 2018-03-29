@@ -21,7 +21,6 @@ FROM node:6-alpine
 
 RUN adduser -D lisk 
 COPY --chown=lisk:lisk --from=builder /home/lisk/lisk-explorer /home/lisk/lisk-explorer
-COPY --chown=lisk:lisk config.docker.js /home/lisk/lisk-explorer/config.js
 
 USER lisk
 WORKDIR /home/lisk/lisk-explorer
