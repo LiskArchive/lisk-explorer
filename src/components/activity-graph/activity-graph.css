@@ -38,21 +38,21 @@
 }
 
 span.label-account {
-  background-color: #0288d1;
+  background-color: #0077bd;
 }
 
 span.label-block {
-  background-color: #f57c00;
+  background-color: #ff6236;
 }
 
 span.label-tx {
-  background-color: #5f696e;
+  background-color: #3c5068;
 }
 
 span.label-credit {
-  background-color: #7CB342;
+  background-color: #008722;
 }
 
 span.label-debit {
-  background-color: #d32f2f;
+  background-color: #c80039;
 }

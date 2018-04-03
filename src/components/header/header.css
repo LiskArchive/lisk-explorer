@@ -25,12 +25,10 @@
 }
 
 .navbar-brand .logo {
-  height: 35px;
-  width: 76px;
-  background: url('../../assets/img/lisk-logo.svg');
-  background-size: auto 35px;
-  vertical-align: middle ;
-  display: inline-block ;
+  height: 44px;
+  width: 120px;
+  vertical-align: middle;
+  display: inline-block;
 }
 
 .navbar-default .nethash
@@ -49,8 +47,8 @@
 }
 
 .navbar-default .navbar-brand {
-  padding: 16px 5px 16px 13px;
-  height: 68px;
+  padding: 19px 5px 20px 8px;
+  height: 80px;
 }
 
 .navbar-default .navbar-header {
@@ -58,6 +56,7 @@
   line-height: 65px;
 }
 
+/* Search form */
 .navbar-default .navbar-form {
   margin-top: 15px;
   padding: 0 4px;
@@ -66,9 +65,10 @@
 
 .navbar-default .navbar-form form
 {
-  border-bottom: solid 1px #7b7c7e;
   position: relative;
   outline: none;
+  background: #012b58;
+  min-width: 50px;
 }
 
 .navbar-default .navbar-form form.loading:before
@@ -89,8 +89,8 @@
 .navbar-default .navbar-form .glyphicon
 {
   font-size: 20px;
-  color: #7b7c7e;
-  padding: 7px 5px;
+  color: #fff;
+  padding: 7px 15px;
   vertical-align: middle;
 }
 
@@ -99,13 +99,13 @@
   background-color: transparent;
   font-family: 'Roboto', 'Ubuntu', sans-serif;
   padding: 0;
-  height: 35px;
-  width: 290px;
+  height: 50px;
+  width: 0px;
   font-weight: lighter;
   box-shadow: none;
   font-size: 16px;
-  line-height: 45px;
-  color: #f2f2e0;
+  line-height: 22px;
+  color: #74869b;
   border: 0;
   border-radius: 0;
   vertical-align: middle;
@@ -113,36 +113,63 @@
   z-index: 2;
   outline: none;
   box-shadow: none;
+  text-indent: 15px;
+  transition: all ease 300ms;
+  -webkit-transition: all ease 300ms;
+  -moz-transition: all ease 300ms;
+}
+
+.navbar-default .navbar-form form.active input {
+  width: 245px;
 }
 
 #search::-webkit-input-placeholder {
-  color: #a3a4a6;
+  color: #74869b;
   font-size: 14px;
   font-family: 'Roboto', 'Ubuntu', sans-serif;
 }
 
 #search::-moz-placeholder {
-  color: #a3a4a6;
+  color: #74869b;
   font-size: 14px;
   font-family: 'Roboto', 'Ubuntu', sans-serif;
 }
 
-.navbar-default .navbar-nav > li > a {
-  padding-top: 24px;
-  padding-bottom: 24px;
+/* Menu */
+.navbar-default {
+  background: transparent;
 }
+
+.navbar-default .navbar-nav > li > a {
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+.navbar-default .navbar-nav > li > a,
+.navbar-default .navbar-nav > li.open > a,
+.navbar-default .navbar-nav > li a:hover,
+.navbar-default .navbar-nav > li a:focus {
+  background-color: #002449 !important;
+  font-family: Open Sans, sans-serif;
+}
+
 .navbar-fixed-top .network-status {
   width: 100%;
-  background: #464647;
+  background: #012b58;
   position: relative;
   z-index: 1;
 }
 
-.navbar-fixed-top .network-status .row  {
+.navbar-fixed-top .network-status .flex-container  {
   margin: 0;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 0 1 auto;
+  justify-content: space-between;
 }
 
 .navbar-fixed-top .main-header {
+  background: #002449;
   position: relative;
   z-index: 2;
 }
@@ -152,10 +179,11 @@
  }
 
 .navbar-fixed-top .network-status span {
-  color: #a3a4a6;
+  color: #74869b;
   line-height: 24px;
   letter-spacing: 1px;
-  padding: 0 12px;
+  width: auto;
+  float: none;
 }
 
 #search-form-mobile {
