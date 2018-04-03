@@ -96,6 +96,15 @@ describe('Accounts API', () => {
 			});
 		});
 
+		it('using delegate with 2 voters should return 2 voters', (done) => {
+			getAccount(params.address_delegate, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
+				checkAccount(res.body);
+				node.expect(res.body.voters.length).to.be.equal(2);
+				done();
+			});
+		});
+
 		it('using delgate address should return delegate data', (done) => {
 			getAccount(params.address_delegate, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
