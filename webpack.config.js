@@ -18,6 +18,7 @@ const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPl
 const Webpack = require('webpack');
 const NgAnnotatePlugin = require('ng-annotate-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const package = require('./package.json');
 
 /**
  * Utils
@@ -64,6 +65,7 @@ module.exports = () => ({
 			template: 'src/index.ejs',
 			serviceName: process.env.SERVICE_NAME,
 			clientId: process.env.CLIENT_ID,
+			version: package.version,
 		}),
 		new BundleAnalyzerPlugin({
 			openAnalyzer: false,
