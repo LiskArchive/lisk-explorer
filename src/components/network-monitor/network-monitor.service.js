@@ -17,6 +17,38 @@ import leaflet from 'leaflet';
 import 'leaflet.markercluster';
 import AppNetworkMonitor from './network-monitor.module';
 
+/**
+ * Sorts given peers based on version strings
+ *
+ * @param {Object} p1 - First peer to compare
+ * @param {Object} p2 - Second peer to compare against
+ *
+ * @returns {Number} 1, -1, 0 if respectively greater, smaller or equal versions
+ */
+const sort = (p1, p2) => {
+	const v1 = p1.version;
+	const v2 = p2.version;
+	if (v1 === v2) return 0;
+
+	const v1Components = v1.toString().split('.').map(n => parseInt(n, 10));
+	const v2Components = v2.toString().split('.').map(n => parseInt(n, 10));
+	const char1 = v1.match(/[a-zA-Z]$/);
+	const char2 = v2.match(/[a-zA-Z]$/);
+	if (char1) v1Components.push(char1[0]);
+	if (char2) v2Components.push(char2[0]);
+
+	for (let i = 0; i < v1Components.length && i < v2Components.length; i++) {
+		if (v1Components[i] > v2Components[i]) return 1;
+		else if (v1Components[i] < v2Components[i]) return -1;
+	}
+
+	const diff = v1Components.length - v2Components.length;
+
+	if (diff > 0) return 1;
+	else if (diff < 0) return -1;
+	return 0;
+};
+
 const NetworkMap = function () {
 	this.markers = {};
 	this.options = { center: leaflet.latLng(40, 0), zoom: 1, minZoom: 1, maxZoom: 10 };
@@ -139,40 +171,9 @@ const NetworkMonitor = function (vm) {
 	const uniq = arrArg => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
 
 	function Versions(peers) {
-		/**
-		 * Sorts given version strings
-		 *
-		 * @param {String} v1
-		 * @param {String} v2
-		 *
-		 * @returns {Number} 1, -1, 0 if respectively greater, smaller or equal
-		 */
-		const sort = (v1, v2) => {
-			if (v1 === v2) return 0;
-
-			const v1Components = v1.toString().split('.').map(n => parseInt(n, 10));
-			const v2Components = v2.toString().split('.').map(n => parseInt(n, 10));
-			const char1 = v1.match(/[a-zA-Z]$/);
-			const char2 = v2.match(/[a-zA-Z]$/);
-			if (char1) v1Components.push(char1[0]);
-			if (char2) v2Components.push(char2[0]);
-
-			for (let i = 0; i < v1Components.length && i < v2Components.length; i++) {
-				if (v1Components[i] > v2Components[i]) return 1;
-				else if (v1Components[i] < v2Components[i]) return -1;
-			}
-
-			const diff = v1Components.length - v2Components.length;
-
-			if (diff > 0) return 1;
-			else if (diff < 0) return -1;
-			return 0;
-		};
-
 		const inspect = () => {
 			if (peers instanceof Array) {
-				return uniq(peers.map(p => p.version)
-					.sort(sort)).reverse().slice(0, 3);
+				return uniq(peers.map(p => p.version)).slice(0, 3);
 			}
 			return [];
 		};
@@ -268,8 +269,7 @@ const NetworkMonitor = function (vm) {
 
 		return {
 			connected: peers.connected.length,
-			disconnected: peers.disconnected.length,
-			total: peers.connected.length + peers.disconnected.length,
+			total: peers.connected.length,
 			platforms: platforms.detected(),
 			versions: versions.detected(),
 			heights: heights.detected(),
@@ -278,9 +278,12 @@ const NetworkMonitor = function (vm) {
 	};
 
 	this.updatePeers = function (peers) {
-		vm.peers = peers.list;
-		vm.counter = this.counter(peers.list);
-		this.map.addConnected(peers.list);
+		vm.peers = {
+			connected: peers.list.connected.sort(sort).reverse(),
+		};
+
+		vm.counter = this.counter(vm.peers);
+		this.map.addConnected(vm.peers);
 	};
 
 	this.updateLastBlock = (lastBlock) => {
