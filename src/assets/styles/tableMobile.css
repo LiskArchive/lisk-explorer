@@ -40,20 +40,7 @@
 		top: -9999px;
 		left: -9999px;
 	}
- 
-	#table-mobile tr:first-child {
-		border-width: 1px 1px 3px 1px;
-	}
-	
-	#table-mobile tr { 
-		border: solid #ccc; 
-		border-width: 3px 1px;
-	}
-	
-	#table-mobile tr:last-child {
-		border-width:  3px 1px 1px 1px;
-	}
- 
+
 	#table-mobile td { 
 		/* Behave  like a "row" */
 		border: none;
@@ -68,7 +55,7 @@
 		/* Now like a table header */
 		position: absolute;
 		top: 8px;
-		left: 6px;
+		left: 12px;
 		width: 35%; 
 		padding-right: 10px; 
 		white-space: nowrap;
