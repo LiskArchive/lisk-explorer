@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /tx/*
+Noindex: /tx/*
+Disallow: /address/*
+Noindex: /address/*
+Disallow: /block/*
+Noindex: /block/*
