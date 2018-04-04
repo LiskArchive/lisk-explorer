@@ -11,6 +11,7 @@ COPY . /home/lisk/lisk-explorer/
 RUN useradd lisk && \
     chown lisk:lisk -R /home/lisk
 USER lisk
+RUN npm install -g npm@5.7.1 
 RUN cd /home/lisk/lisk-explorer && \
     npm install
 RUN cd /home/lisk/lisk-explorer && \
