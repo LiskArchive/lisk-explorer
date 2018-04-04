@@ -970,10 +970,6 @@ a.sort-order span.reverse:after {
     line-height: 1.2;
     margin-bottom: 20px;
 }
-.proposal-icon {
-    vertical-align: middle;
-    margin-top: -5px;
-}
 .breadcrumb > li + li:before {
     padding: 0 0 0 7px;
 }
