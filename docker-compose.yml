@@ -1,0 +1,48 @@
+version: "3"
+services:
+
+  lisk-explorer:
+    image: lisk/explorer:latest
+    depends_on:
+      - explorer-cache
+      - freegeoip
+    ports:
+      - "127.0.0.1:6040:6040"
+    networks:
+      - lisk-explorer
+      - localhost
+    restart: on-failure
+    env_file:
+      - ./docker-lisk-core.env
+    environment:
+      - REDIS_HOST=explorer-cache
+      - FREEGEOIP_HOST=freegeoip
+
+  explorer-cache:
+    image: redis:alpine
+    networks:
+      - lisk-explorer
+    restart: on-failure
+
+  explorer-cache-candles:
+    image: lisk/explorer:latest
+    depends_on:
+      - explorer-cache
+    networks:
+      - lisk-explorer
+    environment:
+      - REDIS_HOST=explorer-cache
+    command: ./node_modules/grunt-cli/bin/grunt candles:build
+
+  freegeoip:
+    image: fiorix/freegeoip
+    networks:
+      - lisk-explorer
+    restart: on-failure
+
+
+networks:
+  lisk-explorer:
+  localhost:
+    external: true
+

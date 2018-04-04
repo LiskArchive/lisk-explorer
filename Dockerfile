@@ -14,10 +14,7 @@ USER lisk
 RUN cd /home/lisk/lisk-explorer && \
     npm install
 RUN cd /home/lisk/lisk-explorer && \
-    npm run build && \
-    redis-server --daemonize yes && \
-    grunt candles:build && \
-    grunt candles:update
+    npm run build
 
 
 FROM node:6-alpine
