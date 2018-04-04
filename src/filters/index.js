@@ -22,7 +22,6 @@ import './fiat';
 import './forging-time';
 import './lisk';
 import './net-hash';
-import './proposal';
 import './round';
 import './split';
 import './start-from';
