@@ -43,11 +43,6 @@ AppHeader.directive('mainHeader', ($socket, $rootScope, Header) => {
 			if (res.ticker) { header.updatePriceTicker(res.ticker); }
 		});
 
-		ns.on('delegateProposals', (res) => {
-			if (res) { header.updateDelegateProposals(res); }
-		});
-
-
 		$rootScope.$on('$destroy', () => {
 			ns.removeAllListeners();
 		});
