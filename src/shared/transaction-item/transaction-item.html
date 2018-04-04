@@ -15,28 +15,28 @@
  *
  */
 -->
-<td data-title="Transaction ID" class="text-nowrap left-padding-m left-padding-l">
+<td data-title="Transaction ID" class="text-nowrap left-padding-m left-padding-l double">
 	<a class="txid" href="/tx/{{tx.id}}">{{tx.id}}</a>
 	<span class="btn-copy" clip-copy="tx.id"></span>
 </td>
-<td data-title="Date">{{tx.timestamp | timestamp }}</td>
+<td data-title="Date" class="hidden-md"><span>{{tx.timestamp | timestamp }}</span></td>
 <td data-title="Sender">
-	<a data-account-href="tx" data-type="sender">{{tx | txSender}}</a>
+	<a data-account-href="tx" data-type="sender"><span>{{tx | txSender}}</span></a>
 </td>
 <td data-title="Recipient" data-ng-if="tx.type == 0">
 	<a data-account-href="tx" data-type="recipient">{{tx | txRecipient}}</a>
 </td>
-<td data-title="Recipient" data-ng-if="tx.type >= 1">{{tx | txType}}</td>
-<td data-title="Amount">
-	<div class="txvalues" data-ng-class="{
+<td data-title="Recipient" data-ng-if="tx.type >= 1"><span>{{tx | txType}}</span></td>
+<td data-title="Amount" class="amount">
+	<span class="txvalues" data-ng-class="{
 	'tx-outgoing': tx.type == 0 && address == tx.senderId && tx.senderId != tx.recipientId,
 	'tx-incoming': tx.type == 0 && address && tx.senderId != address,
 	'tx-other': tx.type != 0 || address === undefined || tx.senderId === tx.recipientId
 	}">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}
-	</div>
+	</span>
 </td>
-<td data-title="Fee" class="text-nowrap">{{tx.fee | currency:$root.currency}} {{$root.currency.symbol}}</td>
-<td data-title="Confirmations">
+<td data-title="Fee" class="text-nowrap hidden-md"><span>{{tx.fee | currency:$root.currency}} {{$root.currency.symbol}}</span></td>
+<td data-title="Confirmations" class="right-padding-m right-padding-l">
 	<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">Unconfirmed Transaction!</span>
 	<span data-ng-if="(block.confirmations > 0  && block.confirmations < 101) || (tx.confirmations > 0 && tx.confirmations < 101)" class="text-warning">{{block.confirmations || tx.confirmations}}</span>
 	<span data-ng-if="block.confirmations >= 101 || tx.confirmations >= 101" class="text-success" data-uib-tooltip="{{block.confirmations || tx.confirmations}} Confirmations">Confirmed</span>

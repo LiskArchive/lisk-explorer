@@ -44,7 +44,7 @@
 		<span>Loading Transaction <i class="fa fa-spinner fa-spin"></i>
 	</div>
 	<div data-ng-if="vm.tx.id">
-	<div class="row horizontal-adding-s horizontal-adding-m horizontal-adding-l">
+	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 		<div class="col-md-12">
 			<div class="well well-sm ellipsis">
 				<strong>Transaction ID</strong>
@@ -58,8 +58,8 @@
 		<table class="table summary">
 			<tbody>
 				<tr>
-					<td class="left-padding-s left-padding-m left-padding-l"><strong>Sender</strong></td>
-					<td class="right-padding-s right-padding-m right-padding-l text-right">
+					<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Sender</strong></td>
+					<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
 						<a href="/address/{{vm.tx.senderId}}">{{vm.tx.senderId}}</a>
 						<div data-ng-if="tx.knownSender">
 							<span class="owner-name">{{vm.tx.knownSender.owner}}</span>
@@ -68,8 +68,8 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="left-padding-s left-padding-m left-padding-l"><strong>Recipient</strong></td>
-					<td class="right-padding-s right-padding-m right-padding-l text-right">
+					<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Recipient</strong></td>
+					<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
 						<div data-ng-if="vm.tx.type == 0">
 							<a href="/address/{{vm.tx.recipientId}}">{{vm.tx.recipientId}}</a>
 							<div data-ng-if="vm.tx.knownRecipient">
@@ -81,33 +81,33 @@
 					</td>
 				</tr>
 				<tr>
-					<td class="left-padding-s left-padding-m left-padding-l"><strong>Confirmations</strong></td>
-					<td class="right-padding-s right-padding-m right-padding-l text-right">{{vm.tx.confirmations || 0}}</td>
+					<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Confirmations</strong></td>
+					<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.confirmations || 0}}</td>
 				</tr>
 				<tr>
-					<td class="left-padding-s left-padding-m left-padding-l"><strong>Amount</strong></td>
-					<td class="right-padding-s right-padding-m right-padding-l text-right">{{vm.tx.amount | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+					<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Amount</strong></td>
+					<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.amount | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
 				</tr>
 				<tr>
-					<td class="left-padding-s left-padding-m left-padding-l"><strong>Fee</strong></td>
-					<td class="right-padding-s right-padding-m right-padding-l text-right">{{vm.tx.fee | currency:$root.currency}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+					<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Fee</strong></td>
+					<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.fee | currency:$root.currency}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
 				</tr>
 				<tr>
-					<td class="left-padding-s left-padding-m left-padding-l"><strong>Timestamp</strong></td>
-					<td class="right-padding-s right-padding-m right-padding-l text-right">{{vm.tx.timestamp | timestamp}}</td>
+					<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Timestamp</strong></td>
+					<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.timestamp | timestamp}}</td>
 				</tr>
 				<tr>
-					<td class="left-padding-s left-padding-m left-padding-l"><strong>Block </strong></td>
-					<td data-ng-if="vm.tx.blockId" class="text-right">
+					<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Block </strong></td>
+					<td data-ng-if="vm.tx.blockId" class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
 						<a href="/block/{{vm.tx.blockId}}">{{vm.tx.blockId}}</a>
 					</td>
-					<td data-ng-if="!vm.tx.blockId" class="right-padding-s right-padding-m right-padding-l text-right">Unconfirmed</td>
+					<td data-ng-if="!vm.tx.blockId" class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">Unconfirmed</td>
 				</tr>
 			</tbody>
 		</table>
 	</div>
 
-	<div class="delegate horizontal-adding-s horizontal-adding-m horizontal-adding-l double" data-ng-if="vm.tx.votes.added">
+	<div class="delegate horizontal-padding-xs horizontal-padding-s horizontal-padding-l double" data-ng-if="vm.tx.votes.added">
 		<h2>Added votes <small>{{vm.tx.votes.added.length}}</small></h2>
 		<div class="row">
 			<div class="col-md-12">
@@ -124,7 +124,7 @@
 		</div>
 	</div>
 
-	<div class="delegate horizontal-adding-s horizontal-adding-m horizontal-adding-l double" data-ng-if="vm.tx.votes.deleted">
+	<div class="delegate horizontal-padding-xs horizontal-padding-s horizontal-padding-l double" data-ng-if="vm.tx.votes.deleted">
 		<h2>Deleted votes <small>{{vm.tx.votes.deleted.length}}</small></h2>
 		<div class="row">
 			<div class="col-md-12">
@@ -145,13 +145,13 @@
 		<table class="table details">
 			<thead>
 				<tr>
-					<th class="left-padding-s left-padding-m left-padding-l">Transaction ID</th>
-					<th>Date</th>
+					<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double">Transaction ID</th>
+					<th class="hidden-md">Date</th>
 					<th>Sender</th>
 					<th>Recipient</th>
-					<th>Amount</th>
-					<th>Fee</th>
-					<th>Confirmations</th>
+					<th class="amount">Amount</th>
+					<th class="hidden-md">Fee</th>
+					<th class="right-padding-m right-padding-l">Confirmations</th>
 				</tr>
 			</thead>
 			<tbody>
