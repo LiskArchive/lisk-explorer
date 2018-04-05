@@ -101,7 +101,7 @@ describe('Accounts API', () => {
 				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
 				checkAccount(res.body);
 				node.expect(res.body.voters.length).to.be.equal(2);
-        done();
+				done();
 			});
 		});
 
