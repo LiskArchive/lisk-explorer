@@ -101,6 +101,15 @@ describe('Accounts API', () => {
 				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
 				checkAccount(res.body);
 				node.expect(res.body.voters.length).to.be.equal(2);
+        done();
+			});
+		});
+
+		it('using address with 101 votes should return all 101 votes', (done) => {
+			getAccount(params.address, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
+				checkAccount(res.body);
+				node.expect(res.body.votes.length).to.be.equal(101);
 				done();
 			});
 		});
