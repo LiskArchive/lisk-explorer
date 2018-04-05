@@ -56,6 +56,11 @@ LessMoreByTimestamp.prototype.getData = function (timestamp, limit, cb) {
 	const params = Object.assign({}, { timestamp, limit }, this.params);
 	this.disable();
 	this.loading = true;
+
+	if (timestamp === 0) {
+		params.timestampQuery = 'fromTimestamp';
+	}
+
 	this.$http.get(this.url, {
 		params,
 	}).then((resp) => {
@@ -120,6 +125,7 @@ LessMoreByTimestamp.prototype.loadMore = function () {
 	const lastItems = this.results.filter(item => item.timestamp === this.timestamp);
 	params.recipientOffset = lastItems.filter(item => item.recipientId === params.address).length;
 	params.senderOffset = lastItems.filter(item => item.senderId === params.address).length;
+	params.timestampQuery = 'toTimestamp';
 	this.getData(this.timestamp, (this.limit + 1),
 		(data) => {
 			this.acceptData(data);
@@ -127,7 +133,11 @@ LessMoreByTimestamp.prototype.loadMore = function () {
 };
 
 LessMoreByTimestamp.prototype.reloadMore = function () {
-	// TODO
+	this.params.timestampQuery = 'fromTimestamp';
+	this.getData(this.timestamp, (this.limit + 1),
+		(data) => {
+			this.acceptData(data);
+		});
 	return true;
 };
 
