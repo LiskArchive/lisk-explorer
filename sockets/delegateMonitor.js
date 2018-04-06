@@ -197,10 +197,15 @@ module.exports = function (app, connectionHandler, socket) {
 				// Set last block and his delegate (we will emit it later in emitData)
 				data.lastBlock.block = result.blocks[0];
 				const lastBlockDelegate = findActiveByBlock(data.lastBlock.block);
-				data.lastBlock.block.delegate = {
-					username: lastBlockDelegate.username,
-					address: lastBlockDelegate.address,
-				};
+
+				data.lastBlock.block.delegate = {};
+
+				if (lastBlockDelegate) {
+					data.lastBlock.block.delegate = {
+						username: lastBlockDelegate.username,
+						address: lastBlockDelegate.address,
+					};
+				}
 
 				async.eachSeries(result.blocks, (b, cb) => {
 					let existing = findActiveByBlock(b);
