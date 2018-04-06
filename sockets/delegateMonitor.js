@@ -75,7 +75,7 @@ module.exports = function (app, connectionHandler, socket) {
 
 	// eslint-disable-next-line arrow-body-style, arrow-parens
 	const findActiveByBlock = block => {
-		return data.active.delegates.find(d => d.account.publicKey === block.generatorPublicKey);
+		return data.active.delegates.find(d => d.publicKey === block.generatorPublicKey);
 	};
 
 	const updateDelegate = (delegate, updateForgingTime) => {
@@ -182,7 +182,7 @@ module.exports = function (app, connectionHandler, socket) {
 		return async.waterfall([
 			(callback) => {
 				request.get({
-					url: `${app.get('lisk address')}/api/blocks?sort=height:desc&limit=${limit}`,
+					url: `${app.get('lisk address')}/blocks?sort=height:desc&limit=${limit}`,
 					json: true,
 				}, (err, response, body) => {
 					if (err || response.statusCode !== 200) {
