@@ -4,6 +4,7 @@ RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get --assume-yes install --no-install-recommends \
         build-essential \
 	redis-server && \
+    npm install -g npm@5.7.1 \
     npm install -g grunt && \
     npm install -g bower
 
@@ -11,7 +12,6 @@ COPY . /home/lisk/lisk-explorer/
 RUN useradd lisk && \
     chown lisk:lisk -R /home/lisk
 USER lisk
-RUN npm install -g npm@5.7.1 
 RUN cd /home/lisk/lisk-explorer && \
     npm install
 RUN cd /home/lisk/lisk-explorer && \
