@@ -28,7 +28,6 @@ pipeline {
 			steps {
 				// marketwatcher needs to be enabled to builds candles
 				sh '''
-				cp test/config.test ./config.js
 				cp ./test/known.test.json ./known.json
 				grunt candles:build
 				'''
