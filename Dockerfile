@@ -3,8 +3,8 @@ FROM node:6 AS builder
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get --assume-yes install --no-install-recommends \
         build-essential \
-	redis-server && \
-    npm install -g npm@5.7.1 \
+	    redis-server && \
+    npm install -g npm@5.7.1 && \
     npm install -g grunt && \
     npm install -g bower
 
