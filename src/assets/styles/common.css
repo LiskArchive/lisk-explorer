@@ -809,7 +809,7 @@ qrcode + span {
 }
 
 @media (max-width: 768px) {
-  #wrap > .container { padding-top: 80px; }
+  #wrap > .container { padding-top: 120px; }
 }
 
 #footer > .container {

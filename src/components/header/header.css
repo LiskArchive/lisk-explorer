@@ -228,6 +228,24 @@
   float: none;
 }
 
+@media (max-width: 768px) {
+  .navbar-fixed-top  .network-status .container {
+    display: block;
+  }
+
+  .navbar-fixed-top  .network-status .container .flex-container {
+    padding: 8px 12px;
+  }
+
+  .navbar-fixed-top  .network-status .container span {
+    width: 50%;
+  }
+
+  .navbar-fixed-top  .network-status .container span:nth-child(even) {
+    text-align: right;
+  }
+}
+
 .search-suggestion-list,
 .search-suggestion-list span.arrow,
 .navbar-fixed-top .not-found,

@@ -32,6 +32,13 @@
 						<span class="nethash text-center" ng-if="showNethash(blockStatus.nethash | nethash)">{{blockStatus.nethash | nethash}}</span>
 					</a>
 				</div>
+				<button type="button" class="navbar-toggle" data-ng-click="$root.isCollapsed = !$root.isCollapsed">
+					<span class="sr-only">Toggle navigation</span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					<span class="icon-bar"></span>
+				</button>
+				<search />
 				<div class="navbar-collapse main-menu" data-ng-class="{collapse: $root.isCollapsed}">
 					<ul class="nav navbar-nav navbar-right">
 							<currency-selector />
@@ -57,17 +64,10 @@
 							</li>
 						</ul>
 				</div>
-				<button type="button" class="navbar-toggle" data-ng-click="$root.isCollapsed = !$root.isCollapsed">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<search />
 			</div>
 		</div>
 	</nav>
-	<nav class="network-status hidden-xs">
+	<nav class="network-status">
 		<div class="container fadein" data-ng-show="blockStatus">
 			<div class="flex-container">
 				<span class="height">Height: {{blockStatus.height | number:0}}</span>
