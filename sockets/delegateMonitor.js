@@ -75,13 +75,16 @@ module.exports = function (app, connectionHandler, socket) {
 
 	// eslint-disable-next-line arrow-body-style, arrow-parens
 	const findActiveByBlock = block => {
-		return data.active.delegates.find(d => d.account.publicKey === block.generatorPublicKey);
+		return data.active.delegates.find(d => d.publicKey === block.generatorPublicKey);
 	};
 
 	const updateDelegate = (delegate, updateForgingTime) => {
 		// Update delegate with forging time
 		if (updateForgingTime) {
-			delegate.forgingTime = tmpData.nextForgers.delegates.indexOf(delegate.publicKey) * 10;
+			const forgersArrayIndex = tmpData.nextForgers.delegates.indexOf(delegate.publicKey);
+			if (forgersArrayIndex >= 0) {
+				delegate.forgingTime = forgersArrayIndex * 10;
+			}
 		}
 
 		// Update delegate with info if should forge in current round
@@ -179,7 +182,7 @@ module.exports = function (app, connectionHandler, socket) {
 		return async.waterfall([
 			(callback) => {
 				request.get({
-					url: `${app.get('lisk address')}/api/blocks?sort=height:desc&limit=${limit}`,
+					url: `${app.get('lisk address')}/blocks?sort=height:desc&limit=${limit}`,
 					json: true,
 				}, (err, response, body) => {
 					if (err || response.statusCode !== 200) {
@@ -194,10 +197,15 @@ module.exports = function (app, connectionHandler, socket) {
 				// Set last block and his delegate (we will emit it later in emitData)
 				data.lastBlock.block = result.blocks[0];
 				const lastBlockDelegate = findActiveByBlock(data.lastBlock.block);
-				data.lastBlock.block.delegate = {
-					username: lastBlockDelegate.username,
-					address: lastBlockDelegate.address,
-				};
+
+				data.lastBlock.block.delegate = {};
+
+				if (lastBlockDelegate) {
+					data.lastBlock.block.delegate = {
+						username: lastBlockDelegate.username,
+						address: lastBlockDelegate.address,
+					};
+				}
 
 				async.eachSeries(result.blocks, (b, cb) => {
 					let existing = findActiveByBlock(b);
