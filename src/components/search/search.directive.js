@@ -73,6 +73,7 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 
 	return {
 		restrict: 'E',
+		replace: true,
 		link: SearchLink,
 		controller: SearchCtrl,
 		controllerAs: 'sch',
