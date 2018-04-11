@@ -23,6 +23,7 @@ const async = require('async');
 const packageJson = require('./package.json');
 const split = require('split');
 const logger = require('./utils/logger');
+const request = require('request');
 
 const app = express();
 const utils = require('./utils');
@@ -185,20 +186,42 @@ app.get('*', (req, res, next) => {
 	return next();
 });
 
+const getNodeVersion = () => new Promise((success, error) => {
+	request.get({
+		url: `${app.get('lisk address')}/node/constants`,
+		json: true,
+	}, (err, response, body) => {
+		if (err) {
+			return error({ success: false, error: err.message });
+		} else if (response.statusCode === 200) {
+			if (body && body.data) {
+				return success({ success: true, version: body.data.version });
+			}
+		}
+		return error({ success: false, error: body.error });
+	});
+});
+
 async.parallel([
 	(cb) => {
 		app.exchange.loadRates();
 		cb(null);
 	},
 ], () => {
-	const server = app.listen(app.get('port'), app.get('host'), (err) => {
-		if (err) {
-			logger.info(err);
-		} else {
-			logger.info(`Lisk Explorer started at ${app.get('host')}:${app.get('port')}`);
+	getNodeVersion().then((result) => {
+		logger.info(`Connected to the node ${app.get('lisk address')}, Lisk Core version ${result.version}`);
+		const server = app.listen(app.get('port'), app.get('host'), (err) => {
+			if (err) {
+				logger.info(err);
+			} else {
+				logger.info(`Lisk Explorer started at ${app.get('host')}:${app.get('port')}`);
 
-			const io = require('socket.io').listen(server);
-			require('./sockets')(app, io);
-		}
+				const io = require('socket.io').listen(server);
+				require('./sockets')(app, io);
+			}
+		});
+	}).catch(() => {
+		logger.error(`The following node ${app.get('lisk address')} has an incompatible API or is not available.`);
+		process.exit(1);
 	});
 });
