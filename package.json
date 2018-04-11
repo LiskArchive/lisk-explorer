@@ -12,6 +12,7 @@
   "main": "src/main.js",
   "scripts": {
     "test": "./node_modules/.bin/grunt test --verbose",
+    "test-xunit": "./node_modules/.bin/mocha --bail --reporter mocha-junit-reporter --reporter-options mochaFile=./xunit-report.xml",
     "test-live": "npm test -- --auto-watch --no-single-run",
     "e2e-test": "protractor protractor.conf.js",
     "eslint": "eslint ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js ./*.json",
@@ -119,6 +120,7 @@
     "karma-verbose-reporter": "0.0.6",
     "karma-webpack": "^2.0.4",
     "mocha": "^3.2.0",
+    "mocha-junit-reporter": "^1.17.0",
     "optipng-bin": "=2.0.4",
     "pngquant-bin": "=2.0.0",
     "protractor": "=5.1.2",
