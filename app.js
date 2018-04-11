@@ -202,12 +202,11 @@ const getNodeVersion = () => new Promise((success, error) => {
 	});
 });
 
-async.parallel([
-	(cb) => {
-		app.exchange.loadRates();
-		cb(null);
-	},
-], () => {
+const SERVER_FAILURE_TIMEOUT = 5000; // ms
+const status = { NOT_RUNNING: 0, OK: 1 };
+let serverStatus = status.NOT_RUNNING;
+
+const startServer = (cb) => {
 	getNodeVersion().then((result) => {
 		logger.info(`Connected to the node ${app.get('lisk address')}, Lisk Core version ${result.version}`);
 		const server = app.listen(app.get('port'), app.get('host'), (err) => {
@@ -218,10 +217,22 @@ async.parallel([
 
 				const io = require('socket.io').listen(server);
 				require('./sockets')(app, io);
+				serverStatus = status.OK;
 			}
 		});
 	}).catch(() => {
 		logger.error(`The following node ${app.get('lisk address')} has an incompatible API or is not available.`);
-		process.exit(1);
+		setTimeout(cb, SERVER_FAILURE_TIMEOUT);
 	});
+};
+
+const loadRates = (cb) => {
+	app.exchange.loadRates();
+	cb(null);
+};
+
+async.parallel([
+	loadRates,
+], () => {
+	async.until(() => (serverStatus === status.OK), startServer);
 });
