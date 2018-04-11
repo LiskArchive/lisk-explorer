@@ -213,7 +213,7 @@ describe('Accounts API', () => {
 		});
 
 		/*
-			Sample voters object: 
+			Sample voters object:
 			{
 				"address": "4401082358022424760L",
 				"balance": "997100000000",
