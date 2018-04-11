@@ -72,7 +72,7 @@ pipeline {
 			steps {
 				sh '''
 				sed -i -r -e "s/6040/$EXPLORER_PORT/" test/node.js
-				npm run test
+				npm run test-xunit
 				'''
 			}
 		}
