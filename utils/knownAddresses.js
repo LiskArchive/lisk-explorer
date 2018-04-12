@@ -55,32 +55,30 @@ module.exports = function () {
 		};
 
 		// Entry expires every day (86400 seconds) in case new delegate is registered
-		this.setAddress = (account) => {
+		this.setUsername = (account) => {
 			if (!account || !account.address) return false;
 
-			let value = {};
+			let username = '';
 			if (account.username) {
-				value = { owner: account.username };
+				username = account.username;
 			} else if (account.delegate && account.delegate.username) {
-				value = { owner: account.delegate.username };
+				username = account.delegate.username;
 			}
 
-			client.hmset(`address:${account.address}`, value);
-			client.expire(`address:${account.address}`, 86400);
-			return true;
+			return client.setex(`address:${account.address}`, 86400, username);
 		};
 
-		this.getAddress = (address, callback) => client.hgetall(`address:${address}`, callback);
+		this.getUsername = (address, callback) => client.get(`address:${address}`, callback);
 
-		this.isAddressCached = (address, callback) => client.exists(`address:${address}`, callback);
+		this.isUsernameCached = (address, callback) => client.exists(`address:${address}`, callback);
 
-		this.getOrSetKnowledge = (account, callback) => {
-			this.getAddress(account.address, (err, reply) => {
-				if (reply) {
-					callback(err, reply);
+		this.getOrSetUsername = (account, callback) => {
+			this.isUsernameCached(account.address, (err, cached) => {
+				if (cached) {
+					this.getUsername(account.address, callback);
 				} else {
-					this.setAddress(account);
-					this.getAddress(account.address, callback);
+					this.setUsername(account);
+					this.getUsername(account.address, callback);
 				}
 			});
 		};
@@ -91,7 +89,7 @@ module.exports = function () {
 				this.addresses = require('../known.json');
 
 				this.addresses.keys.array.forEach((address) => {
-					client.hmset(`address:${address}`, this.addresses[address]);
+					client.set(`address:${address}`, this.addresses[address].owner);
 				});
 			} catch (err) {
 				logger.error('KnownAddresses:', 'Error loading known.json:', err.message);
