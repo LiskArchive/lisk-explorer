@@ -58,21 +58,24 @@ module.exports = function () {
 		this.setUsername = (account) => {
 			if (!account || !account.address) return false;
 
-			let username = '';
+			let entry;
 			if (account.username) {
-				username = account.username;
+				entry = { owner: account.username };
 			} else if (account.delegate && account.delegate.username) {
-				username = account.delegate.username;
+				entry = { owner: account.delegate.username };
 			}
 
-			return client.setex(`address:${account.address}`, 86400, username);
+			if (entry) {
+				return client.hmset(`address:${account.address}`, entry);
+			}
+			return false;
 		};
 
-		this.getUsername = (address, callback) => client.get(`address:${address}`, callback);
+		this.getUsername = (address, callback) => client.hgetall(`address:${address}`, callback);
 
 		this.isUsernameCached = (address, callback) => client.exists(`address:${address}`, callback);
 
-		this.getOrSetUsername = (account, callback) => {
+		this.getOrSetKnowledge = (account, callback) => {
 			this.isUsernameCached(account.address, (err, cached) => {
 				if (cached) {
 					this.getUsername(account.address, callback);
@@ -88,8 +91,8 @@ module.exports = function () {
 				logger.info('KnownAddresses:', 'Loading known addresses...');
 				this.addresses = require('../known.json');
 
-				this.addresses.keys.array.forEach((address) => {
-					client.set(`address:${address}`, this.addresses[address].owner);
+				Object.keys(this.addresses).forEach((address) => {
+					client.hmset(`address:${address}`, this.addresses[address]);
 				});
 			} catch (err) {
 				logger.error('KnownAddresses:', 'Error loading known.json:', err.message);
