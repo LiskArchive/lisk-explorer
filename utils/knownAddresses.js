@@ -54,7 +54,6 @@ module.exports = function () {
 			return null;
 		};
 
-		// Entry expires every day (86400 seconds) in case new delegate is registered
 		this.setKnownAddress = (account) => {
 			if (!account || !account.address) return false;
 
@@ -68,6 +67,10 @@ module.exports = function () {
 			}
 
 			client.hmset(`address:${account.address}`, entry);
+
+			// Entry expires every day (86400 seconds) in case new delegate is registered
+			client.expire(`address:${account.address}`, 86400);
+
 			return true;
 		};
 
