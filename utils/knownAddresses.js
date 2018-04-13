@@ -55,7 +55,7 @@ module.exports = function () {
 		};
 
 		// Entry expires every day (86400 seconds) in case new delegate is registered
-		this.setUsername = (account) => {
+		this.setKnownAddress = (account) => {
 			if (!account || !account.address) return false;
 
 			let entry;
@@ -71,17 +71,17 @@ module.exports = function () {
 			return false;
 		};
 
-		this.getUsername = (address, callback) => client.hgetall(`address:${address}`, callback);
+		this.getKnownAddress = (address, callback) => client.hgetall(`address:${address}`, callback);
 
-		this.isUsernameCached = (address, callback) => client.exists(`address:${address}`, callback);
+		this.isAddressCached = (address, callback) => client.exists(`address:${address}`, callback);
 
 		this.getOrSetKnowledge = (account, callback) => {
-			this.isUsernameCached(account.address, (err, cached) => {
+			this.isAddressCached(account.address, (err, cached) => {
 				if (cached) {
-					this.getUsername(account.address, callback);
+					this.getKnownAddress(account.address, callback);
 				} else {
-					this.setUsername(account);
-					this.getUsername(account.address, callback);
+					this.setKnownAddress(account);
+					this.getKnownAddress(account.address, callback);
 				}
 			});
 		};
