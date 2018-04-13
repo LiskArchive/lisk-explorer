@@ -181,18 +181,6 @@ describe('Accounts API', () => {
 			});
 		});
 
-		/*
-			Sample votes object:
-			{
-				"address": "6726252519465624456L",
-				"balance": "116791881262",
-				"knowledge": {
-					"owner": "genesis_101"
-				},
-				"publicKey": "904c294899819cce0283d8d351cb10febfa0e9f0acd90a820ec8eb90a7084c37",
-				"username": "genesis_101"
-			}
-		*/
 		it('the response should have votes', (done) => {
 			getAccount(params.addressWithVotes, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
@@ -212,15 +200,6 @@ describe('Accounts API', () => {
 			});
 		});
 
-		/*
-			Sample voters object:
-			{
-				"address": "4401082358022424760L",
-				"balance": "997100000000",
-				"knowledge": null,
-				"publicKey": "d258627878a9b360fe4934218d2415d66b1ed2ef63ce097280bf02189a91468d"
-			},
-		*/
 		it('the response should have voters', (done) => {
 			getAccount(params.addressWithVoters, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
