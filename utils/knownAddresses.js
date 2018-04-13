@@ -63,15 +63,20 @@ module.exports = function () {
 				entry = { owner: account.username };
 			} else if (account.delegate && account.delegate.username) {
 				entry = { owner: account.delegate.username };
+			} else {
+				entry = { noOwner: true };
 			}
 
-			if (entry) {
-				return client.hmset(`address:${account.address}`, entry);
-			}
-			return false;
+			client.hmset(`address:${account.address}`, entry);
+			return true;
 		};
 
-		this.getKnownAddress = (address, callback) => client.hgetall(`address:${address}`, callback);
+		this.getKnownAddress = (address, callback) => client.hgetall(`address:${address}`, (err, data) => {
+			if (data && data.noOwner) {
+				data = null;
+			}
+			callback(err, data);
+		});
 
 		this.isAddressCached = (address, callback) => client.exists(`address:${address}`, callback);
 
