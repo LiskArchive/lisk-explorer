@@ -24,8 +24,8 @@
 					<table class="table table-hover table-striped top-accounts">
 						<thead>
 							<tr>
-								<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double" width="5%">Rank</th>
-								<th class="text-right">Address</th>
+								<th class="left-padding-s left-padding-m left-padding-l double hidden-xs" width="5%">Rank</th>
+								<th class="left-padding-xs address-cell">Address</th>
 								<th class="right-padding-xs text-right">~ Balance</th>
 								<th class="right-padding-s text-right hidden-xs">Supply</th>
 								<th class="right-padding-m right-padding-l double text-right hidden-xs hidden-sm">Owner</th>
@@ -33,8 +33,8 @@
 						</thead>
 						<tbody>
 							<tr data-ng-repeat="address in vm.topAccounts.results track by $index">
-								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double">{{$index + 1}}</td>
-								<td class="text-right">
+								<td class="left-padding-s left-padding-m left-padding-l double hidden-xs">{{$index + 1}}</td>
+								<td class="left-padding-xs address-cell">
 									<a href="/address/{{address.address}}">{{address.address}}</a>
 								</td>
 								<td class="right-padding-xs text-right">

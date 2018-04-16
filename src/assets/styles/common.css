@@ -215,6 +215,12 @@ h1>small {
   white-space: nowrap;
 }
 
+@media (max-width: 769px) {
+  h1 {
+    padding: 30px 12px 25px;
+  }
+}
+
 a, a:visited, a:focus {
   color: #2475b9;
   text-decoration: none;
@@ -376,9 +382,9 @@ qrcode + span {
 
 .navbar-default .navbar-toggle {
   border: none;
-  margin-top: 20px;
-  margin-right: 1px;
-  padding: 13px 10px;
+  margin: 7px 1px 0  9px;
+  padding: 18px 15px;
+  border-radius: 3px;
   background: #013165;
   transition: all ease 200ms;
   -webkit-transition: all ease 200ms;
@@ -470,6 +476,16 @@ qrcode + span {
   margin-top: 23px;
 }
 
+.top-accounts .address-cell {
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  .top-accounts .address-cell {
+    text-align: left;
+  }
+}
+
 @media (max-width: 1200px) {
   .status {
     display: none;
@@ -502,17 +518,6 @@ qrcode + span {
 
 .nav-tabs.nav-justified>li>a:hover {
   cursor: pointer;
-}
-
-.navbar-default .navbar-header {
-  height: 79px;
-  line-height: 79px;
-}
-
-.navbar-default .navbar-brand {
-  color: white;
-  padding: 13px;
-  height: 76px;
 }
 
 .navbar-form .form-control {
@@ -813,14 +818,25 @@ qrcode + span {
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
-#wrap > .container { padding: 100px 15px 0; }
+#wrap > .container {
+  padding: 100px 15px 0;
+}
 
 @media (max-width: 991px) {
-  #wrap > .container { padding-top: 125px; }
+  #wrap > .container {
+    padding-top: 100px;
+  }
 }
 
 @media (max-width: 768px) {
-  #wrap > .container { padding-top: 80px; }
+  .container {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  #wrap > .container {
+    padding: 120px 5px 0;
+  }
 }
 
 #footer > .container {
@@ -1113,6 +1129,13 @@ a.v_highlight_more {
   line-height: 32px;
 }
 
+@media (max-width: 768px) {
+  .big-info {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
+}
+
 /* Fades */
 
 .fadein {
@@ -1348,29 +1371,6 @@ table tbody tr:nth-of-type(odd) {
     display: block;
     background-color: transparent;
     border: 0;
-  }
-
-  /* search form in mobile */
-  .search-form-mobile {
-    padding: 8px;
-  }
-
-  .search-form-mobile > div,
-  .search-form-mobile input {
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
-  }
-
-  .search-form-mobile input:focus {
-    outline: none !important;
-    box-shadow: none;
-  }
-
-  .search-form-mobile > div {
-    border-color: #2475b9;
-    border-width: 0 0 2px 0;
-    border-style: solid;
   }
 }
 

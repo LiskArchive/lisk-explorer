@@ -24,14 +24,34 @@
   margin-right: 0;
 }
 
-.navbar-brand .logo {
-  height: 44px;
-  width: 120px;
-  vertical-align: middle;
-  display: inline-block;
+.main-menu {
+  float: right;
 }
 
-.navbar-default .nethash
+.logo-wrapper {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: white;
+  height: 80px;
+  line-height: 44px;
+  padding: 18px 5px 18px 8px;
+  text-align: left;
+}
+
+.logo-wrapper a {
+  display: inline-block;
+  height: 46px;
+}
+
+.logo-wrapper figure {
+  display: inline-block;
+  vertical-align: middle;
+  width: 110px;
+  height: 44px;
+}
+
+.logo-wrapper .nethash
 {
   display: inline-block;
   vertical-align: middle;
@@ -46,32 +66,31 @@
   font-size: 12px;
 }
 
-.navbar-default .navbar-brand {
-  padding: 19px 5px 20px 8px;
-  height: 80px;
-}
-
-.navbar-default .navbar-header {
-  height: 65px;
-  line-height: 65px;
+@media (max-width: 768px) {
+  .logo-wrapper {
+    padding: 10px 5px 10px 0px;
+    height: 65px;
+  }
 }
 
 /* Search form */
-.navbar-default .navbar-form {
+.search-box
+{
+  width: 50px;
   margin-top: 15px;
   padding: 0 4px;
   margin-left: 10px;
-}
-
-.navbar-default .navbar-form form
-{
   position: relative;
   outline: none;
-  background: #012b58;
+  background: #013165;
   min-width: 50px;
+  float: right;
+  transition: all ease 300ms;
+  -webkit-transition: all ease 300ms;
+  -moz-transition: all ease 300ms;
 }
 
-.navbar-default .navbar-form form.loading:before
+.search-box.loading:before
 {
   content: '';
   left: 0;
@@ -86,21 +105,24 @@
   -moz-animation: loading 2s infinite cubic-bezier(0.5, 0, 0.5, 1);
 }
 
-.navbar-default .navbar-form .glyphicon
+.search-box .glyphicon
 {
   font-size: 20px;
   color: #fff;
-  padding: 7px 15px;
+  padding: 7px 9px;
   vertical-align: middle;
+  margin-top: 8px;
+  margin-right: 0px;
+  float: right;
 }
 
-.navbar-default .navbar-form input,
-.navbar-default .navbar-form input:focus {
+.search-box input#search,
+.search-box input#search:focus {
   background-color: transparent;
   font-family: 'Roboto', 'Ubuntu', sans-serif;
   padding: 0;
   height: 50px;
-  width: 0px;
+  width: 0px !important;
   font-weight: lighter;
   box-shadow: none;
   font-size: 16px;
@@ -114,13 +136,14 @@
   outline: none;
   box-shadow: none;
   text-indent: 15px;
-  transition: all ease 300ms;
-  -webkit-transition: all ease 300ms;
-  -moz-transition: all ease 300ms;
 }
 
-.navbar-default .navbar-form form.active input {
-  width: 245px;
+.search-box.active {
+  width: 305px !important;
+}
+
+.search-box.active input#search {
+  width: calc(100% - 52px) !important;
 }
 
 #search::-webkit-input-placeholder {
@@ -133,6 +156,25 @@
   color: #74869b;
   font-size: 14px;
   font-family: 'Roboto', 'Ubuntu', sans-serif;
+}
+
+@media (max-width: 768px) {
+  .search-box {
+    margin-top: 7px;
+  }
+
+  .search-box.active {
+    width: calc(100% - 106px) !important;
+  }
+
+  .search-box div {
+    width: 42px;
+    float: right;
+  }
+
+  .search-box.active div {
+    width: 100%;
+  }
 }
 
 /* Menu */
@@ -186,14 +228,22 @@
   float: none;
 }
 
-#search-form-mobile {
-  margin-top: 20px;
-}
+@media (max-width: 768px) {
+  .navbar-fixed-top  .network-status .container {
+    display: block;
+  }
 
-#search-form-mobile #search { width: 100%; }
+  .navbar-fixed-top  .network-status .container .flex-container {
+    padding: 8px 12px;
+  }
 
-#search-form-mobile .not-found {
-  width: 50%;
+  .navbar-fixed-top  .network-status .container span {
+    width: 50%;
+  }
+
+  .navbar-fixed-top  .network-status .container span:nth-child(even) {
+    text-align: right;
+  }
 }
 
 .search-suggestion-list,
@@ -208,7 +258,9 @@
 .search-suggestion-list {
   position: absolute;
   width: 100%;
+  min-width: 290px;
   top: 45px;
+  right: 0;
   z-index: 9999;
   border-radius: 2px;
 }
@@ -230,7 +282,7 @@
 .search-suggestion-list span.arrow,
 .navbar-fixed-top .not-found span.arrow {
   display: block;
-  left: 20px;
+  right: 20px;
   top: -6px;
   width: 14px;
   height: 14px;
@@ -290,10 +342,6 @@
 @media (max-width: 991px) {
   #header {
     margin: 0 0 0 12px;
-  }
-
-  .navbar-default a.navbar-brand {
-    padding-left: 0;
   }
 }
 

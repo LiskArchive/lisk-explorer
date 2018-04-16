@@ -17,11 +17,17 @@
   padding-top: 0;
 }
 
-.exchanges .nav-tabs.nav-justified>.active>a,
-.exchanges .nav-tabs.nav-justified>.active>a:hover,
-.exchanges .nav-tabs.nav-justified>.active>a:focus {
-  color: #0077bd;
-  background-color: white;
+.exchanges .nav-tabs > li > a,
+.exchanges .nav-tabs > li > a:hover,
+.exchanges .nav-tabs > li > a:focus {
+  border: none;
+  background: transparent !important;
+}
+
+.exchanges .nav-tabs > li.active > a,
+.exchanges .nav-tabs > li.active > a:hover,
+.exchanges .nav-tabs > li.active > a:focus {
+  border: solid 2px #2475b9;
 }
 
 .btn-collapse {
@@ -91,4 +97,21 @@
 
 .exchanges img {
   height: 50px;
+}
+
+@media (max-width: 768px) {
+  .exchanges .nav-tabs.nav-justified > li {
+    width: 50%;
+      float: left;
+  }
+
+  .exchanges .nav-tabs.nav-justified > li a {
+    height: 68px;
+  }
+
+  .exchanges .nav-tabs img {
+    max-width: 100%;
+    max-height: 50px;
+    height: auto;
+  }
 }

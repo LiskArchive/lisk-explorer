@@ -19,7 +19,6 @@
 	<a class="txid" href="/tx/{{tx.id}}">{{tx.id}}</a>
 	<span class="btn-copy" clip-copy="tx.id"></span>
 </td>
-<td data-title="Date" class="hidden-md"><span>{{tx.timestamp | timestamp }}</span></td>
 <td data-title="Sender">
 	<a data-account-href="tx" data-type="sender"><span>{{tx | txSender}}</span></a>
 </td>
@@ -27,6 +26,7 @@
 	<a data-account-href="tx" data-type="recipient">{{tx | txRecipient}}</a>
 </td>
 <td data-title="Recipient" data-ng-if="tx.type >= 1"><span>{{tx | txType}}</span></td>
+<td data-title="Date" class="hidden-md"><span>{{tx.timestamp | timestamp }}</span></td>
 <td data-title="Amount" class="amount">
 	<span class="txvalues" data-ng-class="{
 	'tx-outgoing': tx.type == 0 && address == tx.senderId && tx.senderId != tx.recipientId,
