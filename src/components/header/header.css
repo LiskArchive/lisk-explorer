@@ -68,7 +68,7 @@
 
 @media (max-width: 768px) {
   .logo-wrapper {
-    padding: 10px 5px 10px 8px;
+    padding: 10px 5px 10px 0px;
     height: 65px;
   }
 }
@@ -164,7 +164,7 @@
   }
 
   .search-box.active {
-    width: calc(100% - 110px) !important;
+    width: calc(100% - 106px) !important;
   }
 
   .search-box div {

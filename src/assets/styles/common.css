@@ -818,14 +818,25 @@ qrcode + span {
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
 
-#wrap > .container { padding: 100px 15px 0; }
+#wrap > .container {
+  padding: 100px 15px 0;
+}
 
 @media (max-width: 991px) {
-  #wrap > .container { padding-top: 100px; }
+  #wrap > .container {
+    padding-top: 100px;
+  }
 }
 
 @media (max-width: 768px) {
-  #wrap > .container { padding: 120px 5px 0; }
+  .container {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+
+  #wrap > .container {
+    padding: 120px 5px 0;
+  }
 }
 
 #footer > .container {
