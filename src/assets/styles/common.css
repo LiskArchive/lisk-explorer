@@ -215,6 +215,12 @@ h1>small {
   white-space: nowrap;
 }
 
+@media (max-width: 769px) {
+  h1 {
+    padding: 30px 12px 25px;
+  }
+}
+
 a, a:visited, a:focus {
   color: #2475b9;
   text-decoration: none;
@@ -468,6 +474,16 @@ qrcode + span {
 
 .navbar-form {
   margin-top: 23px;
+}
+
+.top-accounts .address-cell {
+  text-align: right;
+}
+
+@media (max-width: 767px) {
+  .top-accounts .address-cell {
+    text-align: left;
+  }
 }
 
 @media (max-width: 1200px) {
@@ -805,7 +821,7 @@ qrcode + span {
 #wrap > .container { padding: 100px 15px 0; }
 
 @media (max-width: 991px) {
-  #wrap > .container { padding-top: 125px; }
+  #wrap > .container { padding-top: 100px; }
 }
 
 @media (max-width: 768px) {
@@ -1100,6 +1116,13 @@ a.v_highlight_more {
   font-weight: 200;
   font-size: 24px;
   line-height: 32px;
+}
+
+@media (max-width: 768px) {
+  .big-info {
+    padding-bottom: 10px;
+    padding-top: 10px;
+  }
 }
 
 /* Fades */
