@@ -825,7 +825,7 @@ qrcode + span {
 }
 
 @media (max-width: 768px) {
-  #wrap > .container { padding-top: 120px; }
+  #wrap > .container { padding: 120px 5px 0; }
 }
 
 #footer > .container {
