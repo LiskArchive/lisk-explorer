@@ -25,9 +25,9 @@ import AppNetworkMonitor from './network-monitor.module';
  *
  * @returns {Number} 1, -1, 0 if respectively greater, smaller or equal versions
  */
-const sort = (p1, p2) => {
-	const v1 = p1.version;
-	const v2 = p2.version;
+const sortByVersion = (p1, p2) => {
+	const v1 = typeof p1 === 'string' ? p1 : p1.version;
+	const v2 = typeof p2 === 'string' ? p2 : p2.version;
 	if (v1 === v2) return 0;
 
 	const v1Components = v1.toString().split('.').map(n => parseInt(n, 10));
@@ -173,7 +173,7 @@ const NetworkMonitor = function (vm) {
 	function Versions(peers) {
 		const inspect = () => {
 			if (peers instanceof Array) {
-				return uniq(peers.map(p => p.version)).slice(0, 3);
+				return uniq(peers.map(p => p.version)).sort(sortByVersion).reverse().slice(0, 3);
 			}
 			return [];
 		};
@@ -278,8 +278,9 @@ const NetworkMonitor = function (vm) {
 	};
 
 	this.updatePeers = function (peers) {
+		// default sort in sort by version
 		vm.peers = {
-			connected: peers.list.connected.sort(sort).reverse(),
+			connected: peers.list.connected.sort(sortByVersion).reverse(),
 		};
 
 		vm.counter = this.counter(vm.peers);
