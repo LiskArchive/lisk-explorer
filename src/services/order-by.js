@@ -47,11 +47,16 @@ const sortByVersion = (p1, p2) => {
 	return 0;
 };
 
-const numericSort = (p1, p2, key) => p1[key] - p2[key];
+const osSort = (p1, p2) => {
+	if (p1 === p2) return 0;
+	return (p1 > p2) ? 1 : -1;
+};
 
-const stringSort = (p1, p2, key) => {
-	if (p1[key] === p2[key]) return 0;
-	return (p1[key] > p2[key]) ? 1 : -1;
+const numericSort = (p1, p2) => p1 - p2;
+
+const stringSort = (p1, p2) => {
+	if (p1 === p2) return 0;
+	return (p1 > p2) ? 1 : -1;
 };
 
 const OrderBy = function (predicate) {
@@ -65,12 +70,15 @@ const OrderBy = function (predicate) {
 
 	this.order = (el1, el2) => {
 		if (this.predicate === 'version') {
-			return sortByVersion(el1, el2);
+			return sortByVersion(el1.value, el2.value);
 		}
 		if (this.predicate === 'port' || this.predicate === 'height') {
-			return numericSort(el1, el2, this.predicate);
+			return numericSort(el1.value, el2.value);
 		}
-		return stringSort(el1, el2, this.predicate);
+		if (this.predicate === 'os') {
+			return osSort(el1.value, el2.value);
+		}
+		return stringSort(el1.value, el2.value);
 	};
 };
 
