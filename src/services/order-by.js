@@ -15,13 +15,62 @@
  */
 import AppServices from './services.module';
 
+/**
+ * Sorts given peers based on version strings
+ *
+ * @param {Object} p1 - First peer to compare
+ * @param {Object} p2 - Second peer to compare against
+ *
+ * @returns {Number} 1, -1, 0 if respectively greater, smaller or equal versions
+ */
+const sortByVersion = (p1, p2) => {
+	const v1 = typeof p1 === 'string' ? p1 : p1.version;
+	const v2 = typeof p2 === 'string' ? p2 : p2.version;
+	if (v1 === v2) return 0;
+
+	const v1Components = v1.toString().split('.').map(n => parseInt(n, 10));
+	const v2Components = v2.toString().split('.').map(n => parseInt(n, 10));
+	const char1 = v1.match(/[a-zA-Z]$/);
+	const char2 = v2.match(/[a-zA-Z]$/);
+	if (char1) v1Components.push(char1[0]);
+	if (char2) v2Components.push(char2[0]);
+
+	for (let i = 0; i < v1Components.length && i < v2Components.length; i++) {
+		if (v1Components[i] > v2Components[i]) return 1;
+		else if (v1Components[i] < v2Components[i]) return -1;
+	}
+
+	const diff = v1Components.length - v2Components.length;
+
+	if (diff > 0) return 1;
+	else if (diff < 0) return -1;
+	return 0;
+};
+
+const numericSort = (p1, p2, key) => p1[key] - p2[key];
+
+const stringSort = (p1, p2, key) => {
+	if (p1[key] === p2[key]) return 0;
+	return (p1[key] > p2[key]) ? 1 : -1;
+};
+
 const OrderBy = function (predicate) {
 	this.reverse = false;
 	this.predicate = predicate;
 
-	this.order = function (currentPredicate) {
+	this.setPredicate = (currentPredicate) => {
 		this.reverse = (this.predicate === currentPredicate) ? !this.reverse : false;
 		this.predicate = currentPredicate;
+	};
+
+	this.order = (el1, el2) => {
+		if (this.predicate === 'version') {
+			return sortByVersion(el1, el2);
+		}
+		if (this.predicate === 'port' || this.predicate === 'height') {
+			return numericSort(el1, el2, this.predicate);
+		}
+		return stringSort(el1, el2, this.predicate);
 	};
 };
 
