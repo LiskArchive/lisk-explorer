@@ -50,7 +50,7 @@ const client = require('./redis')(config);
 
 app.candles = new utils.candles(config, client);
 app.exchange = new utils.exchange(config);
-app.knownAddresses = new utils.knownAddresses();
+app.knownAddresses = new utils.knownAddresses(app, config, client);
 app.orders = new utils.orders(config, client);
 
 app.set('version', '0.3');
@@ -217,6 +217,7 @@ const startServer = (cb) => {
 
 				const io = require('socket.io').listen(server);
 				require('./sockets')(app, io);
+				app.knownAddresses.load();
 				serverStatus = status.OK;
 			}
 		});

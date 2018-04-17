@@ -13,45 +13,40 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-const config = require('../config');
-const client = require('../redis')(config);
+const api = require('../lib/api');
 const logger = require('./logger');
 
-module.exports = function () {
-	function KnownAddresses() {
-		this.addresses = {};
+module.exports = function (app, config, client) {
+	const delegates = new api.delegates(app);
 
+	function KnownAddresses() {
 		this.inTx = (tx) => {
 			if (tx.senderUsername) {
 				tx.knownSender = { owner: tx.senderUsername };
 			} else {
-				tx.knownSender = this.inAddress(tx.senderId);
+				this.getKnownAddress(tx.senderId, (err, data) => {
+					tx.knownSender = data;
+				});
 			}
-			if (tx.senderId === tx.recipientId) {
-				tx.recipientUsername = tx.senderUsername;
-			}
+
 			if (tx.recipientUsername) {
 				tx.knownRecipient = { owner: tx.recipientUsername };
 			} else {
-				tx.knownRecipient = this.inAddress(tx.recipientId);
+				this.getKnownAddress(tx.recipientId, (err, data) => {
+					tx.knownRecipient = data;
+				});
 			}
+
 			return tx;
 		};
 
-		this.inAccount = (account) => {
-			if (account.username) {
-				return { owner: account.username };
-			}
-			return this.inAddress(account.address);
-		};
+		this.setKnowledge = (account, cb) => {
+			if (!account || !account.address) return cb('Missing attribute: address');
 
-		this.inAddress = address => this.addresses[address] || null;
-
-		this.inDelegate = (delegate) => {
-			if (delegate) {
-				return { owner: delegate.username };
-			}
-			return null;
+			return this.getKnownAddress(account.address, (err, data) => {
+				account.knowledge = data;
+				cb(err, account);
+			});
 		};
 
 		this.setKnownAddress = (account) => {
@@ -63,57 +58,46 @@ module.exports = function () {
 			} else if (account.delegate && account.delegate.username) {
 				entry = { owner: account.delegate.username };
 			} else {
-				entry = { noOwner: true };
+				return false;
 			}
 
-			client.hmset(`address:${account.address}`, entry);
-
-			// Entry expires every day (86400 seconds) in case new delegate is registered
-			client.expire(`address:${account.address}`, 86400);
-
-			return true;
+			return client.hmset(`address:${account.address}`, entry);
 		};
 
-		this.getKnownAddress = (address, callback) => client.hgetall(`address:${address}`, (err, data) => {
-			if (data && data.noOwner) {
-				data = null;
+		this.getKnownAddress = (address, callback) => client.hgetall(`address:${address}`, callback);
+
+		this.loadFromJson = () => {
+			try {
+				logger.info('KnownAddresses:', 'Loading known addresses...');
+				const knownJson = require('../known.json');
+
+				Object.keys(knownJson).forEach((address) => {
+					client.hmset(`address:${address}`, knownJson[address]);
+				});
+
+				const length = Object.keys(knownJson).length;
+				logger.info('KnownAddresses:', `${length} known addresses loaded`);
+			} catch (err) {
+				logger.error('KnownAddresses: Error loading known.json:', err.message);
 			}
-			callback(err, data);
-		});
+		};
 
-		this.isAddressCached = (address, callback) => client.exists(`address:${address}`, callback);
-
-		this.getOrSetKnowledge = (account, callback) => {
-			this.isAddressCached(account.address, (err, cached) => {
-				if (cached) {
-					this.getKnownAddress(account.address, callback);
+		this.loadFromDelegates = () => {
+			logger.info('KnownAddresses:', 'Loading delegates...');
+			delegates.getAllDelegates((err, data) => {
+				if (err) {
+					logger.error('KnownAddresses:', `Error getting delegates list ${err}`);
 				} else {
-					this.setKnownAddress(account);
-					this.getKnownAddress(account.address, callback);
+					logger.info(`KnownAddresses: got ${data.length} existing delegates`);
+					data.map(this.setKnownAddress);
 				}
 			});
 		};
 
 		this.load = () => {
-			try {
-				logger.info('KnownAddresses:', 'Loading known addresses...');
-				this.addresses = require('../known.json');
-
-				Object.keys(this.addresses).forEach((address) => {
-					client.hmset(`address:${address}`, this.addresses[address]);
-				});
-			} catch (err) {
-				logger.error('KnownAddresses:', 'Error loading known.json:', err.message);
-				this.addresses = {};
-			}
-
-			const length = Object.keys(this.addresses).length.toString();
-			logger.info('KnownAddresses:', length, 'known addresses loaded');
-			return this.addresses;
+			this.loadFromJson();
+			this.loadFromDelegates();
 		};
-
-		// Load on initialization
-		this.load();
 	}
 
 	return new KnownAddresses();
