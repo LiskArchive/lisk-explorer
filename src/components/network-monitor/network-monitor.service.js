@@ -280,7 +280,7 @@ const NetworkMonitor = function (vm) {
 	this.updatePeers = function (peers) {
 		// default sort in sort by version
 		vm.peers = {
-			connected: peers.list.connected.sort(sortByVersion).reverse(),
+			connected: peers.list.connected,
 		};
 
 		vm.counter = this.counter(vm.peers);
@@ -301,9 +301,13 @@ AppNetworkMonitor.factory('networkMonitor',
 	($socket, $rootScope) => (vm) => {
 		const networkMonitor = new NetworkMonitor(vm);
 		const ns = $socket('/networkMonitor');
+		const rate = 3;
+		let period = 0;
 
 		ns.on('data', (res) => {
-			if (res.peers) { networkMonitor.updatePeers(res.peers); }
+			if (res.peers) {
+				networkMonitor.updatePeers(res.peers);
+			}
 			if (res.lastBlock) { networkMonitor.updateLastBlock(res.lastBlock); }
 			if (res.blocks) { networkMonitor.updateBlocks(res.blocks); }
 		});
@@ -322,7 +326,10 @@ AppNetworkMonitor.factory('networkMonitor',
 
 		ns.on('data3', (res) => {
 			if (res.peers) {
-				networkMonitor.updatePeers(res.peers);
+				period = (period >= rate) ? 0 : (period + 1);
+				if (period === rate - 1) {
+					networkMonitor.updatePeers(res.peers);
+				}
 			}
 		});
 
