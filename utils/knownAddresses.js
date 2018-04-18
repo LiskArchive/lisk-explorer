@@ -20,6 +20,8 @@ module.exports = function (app, config, client) {
 	const delegates = new api.delegates(app);
 
 	function KnownAddresses() {
+		let latestDelegateRegisteredAt = -1;
+
 		this.inTx = (tx) => {
 			if (tx.senderUsername) {
 				tx.knownSender = { owner: tx.senderUsername };
@@ -82,21 +84,31 @@ module.exports = function (app, config, client) {
 			}
 		};
 
-		this.loadFromDelegates = () => {
-			logger.info('KnownAddresses:', 'Loading delegates...');
-			delegates.getAllDelegates((err, data) => {
+		this.checkNewDelegates = () => {
+			logger.info('KnownAddresses:', 'Checking new delegates...');
+
+			delegates.getDelegatesFromTimestamp(latestDelegateRegisteredAt + 1, (err, data) => {
 				if (err) {
-					logger.error('KnownAddresses:', `Error getting delegates list ${err}`);
+					logger.error('KnownAddresses:', `Error getting new delegates ${err}`);
 				} else {
-					logger.info(`KnownAddresses: got ${data.length} existing delegates`);
-					data.map(this.setKnownAddress);
+					logger.info(`KnownAddresses: got ${data.length} new delegates from ${latestDelegateRegisteredAt} timestamp`);
+					if (Array.isArray(data) && data.length > 0) {
+						if (data[0].registeredAt) {
+							latestDelegateRegisteredAt = data[0].registeredAt;
+						}
+						data.map(this.setKnownAddress);
+					}
 				}
 			});
 		};
 
 		this.load = () => {
 			this.loadFromJson();
-			this.loadFromDelegates();
+
+			if (config.cacheDelegateAddress.enabled) {
+				this.checkNewDelegates();
+				setInterval(this.checkNewDelegates, config.cacheDelegateAddress.updateInterval);
+			}
 		};
 	}
 
