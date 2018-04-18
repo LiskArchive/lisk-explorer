@@ -38,8 +38,8 @@
 									<a href="/address/{{address.address}}">{{address.address}}</a>
 								</td>
 								<td class="right-padding-xs text-right">
-									<span class="hidden-sm hidden-md hidden-lg">{{address.balance | currency:$root.currency:$root.decimalPlaces:0}} <span class="text-muted">{{$root.currency.symbol}}</span></span>
-									<span class="hidden-xs">{{address.balance | currency:$root.currency:$root.decimalPlaces:2}} <span class="text-muted">{{$root.currency.symbol}}</span></span>
+									<span class="visible-xs">{{address.balance | currency:$root.currency:0}} <span class="text-muted">{{$root.currency.symbol}}</span></span>
+									<span class="hidden-xs">{{address.balance | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></span>
 								</td>
 								<td class="right-padding-s text-right hidden-xs">{{address.balance | supplyPercent:$root.blockStatus.supply}}%</td>
 								<td class="right-padding-m right-padding-l double text-right hidden-xs hidden-sm">
