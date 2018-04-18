@@ -27,7 +27,7 @@ AppFilters.filter('currency', (numberFilter, liskFilter) => (amount, currency, d
 	}
 
 	const decimals = (currency.symbol === 'LSK' || currency.symbol === 'BTC') ? decimalPlaces : 2;
-	if (decimals && lisk > 0) {
+	if (typeof decimals === 'number' && lisk > 0) {
 		return numberFilter((lisk * factor), decimals);
 	}
 	return numberFilter((lisk * factor), 8).replace(/\.?0+$/, '');
