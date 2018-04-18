@@ -19,14 +19,14 @@
 	<table class="table table-hover table-striped">
 		<thead>
 			<tr>
-				<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><a href="" data-ng-click="table.order('ip')" class="sort-order">IP Address <span data-ng-show="table.predicate === 'ip'" data-ng-class="{reverse:table.reverse}"></span></a></th>
-				<th><a href="" data-ng-click="table.order('port')" class="sort-order">Port <span data-ng-show="table.predicate === 'port'" data-ng-class="{reverse:table.reverse}"></span></a></th>
-				<th class="hidden-xs host-row"><a href="" data-ng-click="table.order('location.hostname')" class="sort-order">Hostname <span data-ng-show="table.predicate === 'location.hostname'" data-ng-class="{reverse:table.reverse}"></span></a></th>
-				<th class="hidden-xs"><a href="" data-ng-click="table.order('location.country_name')" class="sort-order">Country <span data-ng-show="table.predicate === 'location.country_name'" data-ng-class="{reverse:table.reverse}"></span></a></th>
+				<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><a href="" data-ng-click="table.setPredicate('ip')" class="sort-order">IP Address <span data-ng-show="table.predicate === 'ip'" data-ng-class="{reverse:table.reverse}"></span></a></th>
+				<th><a href="" data-ng-click="table.setPredicate('port')" class="sort-order">Port <span data-ng-show="table.predicate === 'port'" data-ng-class="{reverse:table.reverse}"></span></a></th>
+				<th class="hidden-xs host-row"><a href="" data-ng-click="table.setPredicate('location.hostname')" class="sort-order">Hostname <span data-ng-show="table.predicate === 'location.hostname'" data-ng-class="{reverse:table.reverse}"></span></a></th>
+				<th class="hidden-xs"><a href="" data-ng-click="table.setPredicate('location.country_name')" class="sort-order">Country <span data-ng-show="table.predicate === 'location.country_name'" data-ng-class="{reverse:table.reverse}"></span></a></th>
 				<th>Status</th>
-				<th><a href="" data-ng-click="table.order('version')" class="sort-order">Version <span data-ng-show="table.predicate === 'version'" data-ng-class="{reverse:table.reverse}"></span></a></th>
-				<th><a href="" data-ng-click="table.order('os')" class="sort-order">Platform <span data-ng-show="table.predicate === 'os'" data-ng-class="{reverse:table.reverse}"></span></a></th>
-				<th class="hidden-xs hidden-sm right-padding-m right-padding-l double"><a href="" data-ng-click="table.order('height')" class="sort-order">Height <span data-ng-show="table.predicate === 'height'" data-ng-class="{reverse:table.reverse}"></span></a></th>
+				<th><a href="" data-ng-click="table.setPredicate('version')" class="sort-order">Version <span data-ng-show="table.predicate === 'version'" data-ng-class="{reverse:table.reverse}"></span></a></th>
+				<th><a href="" data-ng-click="table.setPredicate('os')" class="sort-order">Platform <span data-ng-show="table.predicate === 'os'" data-ng-class="{reverse:table.reverse}"></span></a></th>
+				<th class="hidden-xs hidden-sm right-padding-m right-padding-l double"><a href="" data-ng-click="table.setPredicate('height')" class="sort-order">Height <span data-ng-show="table.predicate === 'height'" data-ng-class="{reverse:table.reverse}"></span></a></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,7 +35,7 @@
 			</tr>
 		</tbody>
 		<tbody>
-			<tr data-ng-repeat='p in peers | orderBy:table.predicate:table.reverse track by $index + p.ip'>
+			<tr data-ng-repeat='p in peers | orderBy:table.predicate:table.reverse:table.order track by $index + p.ip'>
 				<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><span class="text-muted">{{p.ip}}</span></td>
 				<td><span class="text-muted">{{p.port}}</span></td>
 				<td class="hidden-xs"><span class="text-muted ellipsis hostname" title="{{p.location.hostname}}">{{p.location.hostname || 'N/A'}}</span></td>
