@@ -19,7 +19,6 @@ const HttpStatus = require('http-status-codes');
 
 const validateHttpResponse = (response) => {
 	if (response.statusCode === HttpStatus.OK) return true;
-	if (response.statusCode === HttpStatus.NOT_MODIFIED) return true;
 	return false;
 };
 
