@@ -19,6 +19,14 @@ const util = require('util');
 const async = require('async');
 const logger = require('../logger');
 
+const safeRef = (obj, path) => {
+	try {
+		return obj[path];
+	} catch (e) {
+		return null;
+	}
+};
+
 module.exports = function (config) {
 	// No need to init if exchange rates are disabled
 	if (!config.exchangeRates.enabled) {
@@ -34,32 +42,32 @@ module.exports = function (config) {
 					if (res.message) {
 						return cb(res.message);
 					}
-					return cb(null, res.last_price);
+					return cb(null, safeRef(res, 'last_price'));
 				},
 			],
 			bitstamp: [
 				'Bitstamp',
 				'https://www.bitstamp.net/api/v2/ticker/btcusd/',
-				(res, cb) => cb(null, res.last),
+				(res, cb) => cb(null, safeRef(res, 'last')),
 			],
 		},
 		BTCEUR: {
 			bitstamp: [
 				'Bitstamp',
 				'https://www.bitstamp.net/api/v2/ticker/btceur/',
-				(res, cb) => cb(null, res.last),
+				(res, cb) => cb(null, safeRef(res, 'last')),
 			],
 			bitmarket: [
 				'Bitmarket',
 				'https://www.bitmarket.pl/json/BTCEUR/ticker.json',
-				(res, cb) => cb(null, res.last),
+				(res, cb) => cb(null, safeRef(res, 'last')),
 			],
 		},
 		BTCPLN: {
 			bitmarket: [
 				'Bitmarket',
 				'https://www.bitmarket.pl/json/BTCPLN/ticker.json',
-				(res, cb) => cb(null, res.last),
+				(res, cb) => cb(null, safeRef(res, 'last')),
 			],
 		},
 		BTCRUB: {
@@ -70,7 +78,7 @@ module.exports = function (config) {
 					if (res.error) {
 						return cb(res.error);
 					}
-					return cb(null, res.BTC_RUB.last_trade);
+					return cb(null, safeRef(res, 'BTC_RUB.last_trade'));
 				},
 			],
 		},
@@ -82,7 +90,7 @@ module.exports = function (config) {
 					if (res.error) {
 						return cb(res.error);
 					}
-					return cb(null, res.BTC_LSK.last);
+					return cb(null, safeRef(res, 'BTC_LSK.last'));
 				},
 			],
 		},
