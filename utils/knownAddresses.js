@@ -20,7 +20,8 @@ module.exports = function (app, config, client) {
 	const delegates = new api.delegates(app);
 
 	function KnownAddresses() {
-		let latestDelegateRegisteredAt = -1;
+		this.latestDelegateRegisteredAt = -1;
+		this.totalDelegates = 0;
 
 		this.inTx = (tx) => {
 			if (tx.senderUsername) {
@@ -87,14 +88,15 @@ module.exports = function (app, config, client) {
 		this.checkNewDelegates = () => {
 			logger.info('KnownAddresses:', 'Checking new delegates...');
 
-			delegates.getDelegatesFromTimestamp(latestDelegateRegisteredAt + 1, (err, data) => {
+			delegates.getDelegatesFromTimestamp(this.latestDelegateRegisteredAt + 1, (err, data) => {
 				if (err) {
 					logger.error('KnownAddresses:', `Error getting new delegates ${err}`);
 				} else {
-					logger.info(`KnownAddresses: got ${data.length} new delegates from ${latestDelegateRegisteredAt} timestamp`);
+					logger.info(`KnownAddresses: got ${data.length} new delegates from ${this.latestDelegateRegisteredAt} timestamp`);
 					if (Array.isArray(data) && data.length > 0) {
+						this.totalDelegates += data.length;
 						if (data[0].registeredAt) {
-							latestDelegateRegisteredAt = data[0].registeredAt;
+							this.latestDelegateRegisteredAt = data[0].registeredAt;
 						}
 						data.map(this.setKnownAddress);
 					}
