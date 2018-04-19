@@ -1484,6 +1484,16 @@ table tbody tr:nth-of-type(odd) {
     padding-right: 32px !important;
   }
 
+  .vertical-padding-l,
+  .top-padding-l {
+    padding-top: 64px !important;
+  }
+
+  .vertical-padding-l,
+  .bottom-padding-l {
+    padding-bottom: 64px !important;
+  }
+
   h1 {
     padding-right: 32px;
     padding-left: 32px;
