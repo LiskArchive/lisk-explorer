@@ -13,25 +13,7 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import './filters.module';
-import './alter-word-separation';
-import './approval';
-import './currency';
-import './epoch-stamp';
-import './fiat';
-import './forging-time';
-import './lisk';
-import './net-hash';
-import './proposal';
-import './round';
-import './split';
-import './start-from';
-import './supply-percent';
-import './time-ago';
-import './time-span';
-import './time-stamp';
-import './tx-recipient';
-import './tx-sender';
-import './tx-type';
-import './votes';
-import './middle-ellipsis';
+import AppFilters from './filters.module';
+
+AppFilters.filter('middleEllipsis', () => (str, visibleDigits) =>
+	`${str.substr(0, visibleDigits)}...${str.substr(str.length - visibleDigits)}`);

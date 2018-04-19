@@ -13,25 +13,25 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import './filters.module';
-import './alter-word-separation';
-import './approval';
-import './currency';
-import './epoch-stamp';
-import './fiat';
-import './forging-time';
-import './lisk';
-import './net-hash';
-import './proposal';
-import './round';
-import './split';
-import './start-from';
-import './supply-percent';
-import './time-ago';
-import './time-span';
-import './time-stamp';
-import './tx-recipient';
-import './tx-sender';
-import './tx-type';
-import './votes';
-import './middle-ellipsis';
+
+const request = require('request');
+const HttpStatus = require('http-status-codes');
+
+const validateHttpResponse = (response) => {
+	if (response.statusCode === HttpStatus.OK) return true;
+	return false;
+};
+
+const get = url => new Promise((resolve, reject) => {
+	request.get({
+		url,
+		json: true,
+	}, (err, response, body) => {
+		if (err || !validateHttpResponse(response)) {
+			return reject(err || 'Response was unsuccessful');
+		}
+		return resolve(body);
+	});
+});
+
+module.exports = { get };
