@@ -15,9 +15,9 @@
  *
  */
 -->
-<section data-ng-init="vm.topAccounts.loadData()">
+<section>
 	<h1>Top Accounts</h1>
-	<div data-ng-if="vm.topAccounts.results.length">
+	<div data-ng-if="vm.topAccounts.results && vm.topAccounts.results.length">
 		<div class="row" data-ng-hide="!vm.topAccounts.results.length">
 			<div class="col-md-12">
 				<div class="table-responsive">
@@ -52,6 +52,12 @@
 					</table>
 				</div>
 			</div>
+		</div>
+	</div>
+	<div data-ng-if="vm.topAccounts.results && !vm.topAccounts.results.length">
+		<div class="empty-state">
+			<h2>Top accounts list is not available!</h2>
+			<p class="ng-binding">Currently the top accounts list is not available. Please try again later.</p>
 		</div>
 	</div>
 	<div class="progress progress-striped horizontal-padding-xs horizontal-padding-s horizontal-padding-l double active" data-ng-if="vm.topAccounts.loading">
