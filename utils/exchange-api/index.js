@@ -21,7 +21,8 @@ const logger = require('../logger');
 
 const safeRef = (obj, path) => {
 	try {
-		return obj[path];
+		// eslint-disable-next-line
+		return path.split('.').reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, obj);
 	} catch (e) {
 		return null;
 	}
