@@ -12,7 +12,7 @@
   "main": "src/main.js",
   "scripts": {
     "test": "./node_modules/.bin/grunt test --verbose",
-    "test-xunit": "./node_modules/.bin/mocha --bail --reporter mocha-junit-reporter --reporter-options mochaFile=./xunit-report.xml",
+    "test-xunit": "./node_modules/.bin/mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./xunit-report.xml",
     "test-live": "npm test -- --auto-watch --no-single-run",
     "e2e-test": "protractor protractor.conf.js",
     "eslint": "eslint ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js ./*.json",
