@@ -36,8 +36,17 @@ module.exports = (api, endpoint, param, req, res, next) => {
 		api,
 		param,
 		(data) => {
-			if (data && data.status === 'SERVICE_UNAVAILABLE') res.status(HttpStatus.SERVICE_UNAVAILABLE);
-			else res.status(HttpStatus.INTERNAL_SERVER_ERROR);
+			if (data) {
+				switch (data.status) {
+				case 'SERVICE_UNAVAILABLE':
+					res.status(HttpStatus.SERVICE_UNAVAILABLE);
+					break;
+				case 'INTERNAL_SERVER_ERROR':
+					res.status(HttpStatus.INTERNAL_SERVER_ERROR);
+					break;
+				default:
+				}
+			}
 			res.json(data);
 		},
 		(data) => {
