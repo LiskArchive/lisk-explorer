@@ -29,6 +29,7 @@ pipeline {
 				// marketwatcher needs to be enabled to builds candles
 				sh '''
 				cp ./test/known.test.json ./known.json
+				redis-cli -n $REDIS_DB flushdb
 				grunt candles:build
 				'''
 			}

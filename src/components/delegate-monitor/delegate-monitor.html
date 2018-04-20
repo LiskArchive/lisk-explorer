@@ -290,14 +290,14 @@
 						<table class="table table-hover table-striped active-delegates">
 							<thead>
 								<tr>
-									<th><a href="" data-ng-click="vm.tables.active.order('rate')" class="sort-order">Rank <span data-ng-show="vm.tables.active.predicate === 'rate'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
-									<th><a href="" data-ng-click="vm.tables.active.order('username')" class="sort-order">Name <span data-ng-show="vm.tables.active.predicate === 'username'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
-									<th class="hidden-xs"><a href="" data-ng-click="vm.tables.active.order('address')" class="sort-order">Address <span data-ng-show="vm.tables.active.predicate === 'address'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
-									<th class="hidden-xs hidden-sm"><a href="" data-ng-click="vm.tables.active.order('forged')" class="sort-order">Forged <span data-ng-show="vm.tables.active.predicate === 'forged'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
-									<th class="hidden-xs hidden-sm"><a href="" data-ng-click="vm.tables.active.order('forgingTime')" class="sort-order">Forging time <span data-ng-show="vm.tables.active.predicate === 'forgingTime'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
-									<th><a href="" data-ng-click="vm.tables.active.order('status')" class="sort-order">Status <span data-ng-show="vm.tables.active.predicate === 'forgingStatus.rating'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
-									<th><a href="" data-ng-click="vm.tables.active.order('productivity')" class="sort-order">Productivity <span data-ng-show="vm.tables.active.predicate === 'productivity'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
-									<th class="hidden-xs"><a href="" data-ng-click="vm.tables.active.order('vote')" class="sort-order">Approval <span data-ng-show="vm.tables.active.predicate === 'vote'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
+									<th><a href="" data-ng-click="vm.tables.active.setPredicate('rate')" class="sort-order">Rank <span data-ng-show="vm.tables.active.predicate === 'rate'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
+									<th><a href="" data-ng-click="vm.tables.active.setPredicate('username')" class="sort-order">Name <span data-ng-show="vm.tables.active.predicate === 'username'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
+									<th class="hidden-xs"><a href="" data-ng-click="vm.tables.active.setPredicate('address')" class="sort-order">Address <span data-ng-show="vm.tables.active.predicate === 'address'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
+									<th class="hidden-xs hidden-sm"><a href="" data-ng-click="vm.tables.active.setPredicate('forged')" class="sort-order">Forged <span data-ng-show="vm.tables.active.predicate === 'forged'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
+									<th class="hidden-xs hidden-sm"><a href="" data-ng-click="vm.tables.active.setPredicate('forgingTime')" class="sort-order">Forging time <span data-ng-show="vm.tables.active.predicate === 'forgingTime'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
+									<th><a href="" data-ng-click="vm.tables.active.setPredicate('status')" class="sort-order">Status <span data-ng-show="vm.tables.active.predicate === 'forgingStatus.rating'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
+									<th><a href="" data-ng-click="vm.tables.active.setPredicate('productivity')" class="sort-order">Productivity <span data-ng-show="vm.tables.active.predicate === 'productivity'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
+									<th class="hidden-xs"><a href="" data-ng-click="vm.tables.active.setPredicate('vote')" class="sort-order">Approval <span data-ng-show="vm.tables.active.predicate === 'vote'" data-ng-class="{reverse: vm.tables.active.reverse}"></span></a></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -329,11 +329,11 @@
 						<table class="table table-hover table-striped standby-delegates">
 							<thead>
 								<tr>
-									<th><a href="" data-ng-click="vm.tables.standby.order('rate')" class="sort-order">Rank <span data-ng-show="vm.tables.standby.predicate === 'rate'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
-									<th><a href="" data-ng-click="vm.tables.standby.order('username')" class="sort-order">Name <span data-ng-show="vm.tables.standby.predicate === 'username'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
-									<th class="hidden-xs"><a href="" data-ng-click="vm.tables.standby.order('address')" class="sort-order">Address <span data-ng-show="vm.tables.standby.predicate === 'address'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
-									<th class="hidden-xs"><a href="" data-ng-click="vm.tables.standby.order('productivity')" class="sort-order">Productivity <span data-ng-show="vm.tables.standby.predicate === 'productivity'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
-									<th class="hidden-xs"><a href="" data-ng-click="vm.tables.standby.order('vote')" class="sort-order">Approval <span data-ng-show="vm.tables.standby.predicate === 'vote'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
+									<th><a href="" data-ng-click="vm.tables.standby.setPredicate('rate')" class="sort-order">Rank <span data-ng-show="vm.tables.standby.predicate === 'rate'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
+									<th><a href="" data-ng-click="vm.tables.standby.setPredicate('username')" class="sort-order">Name <span data-ng-show="vm.tables.standby.predicate === 'username'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
+									<th class="hidden-xs"><a href="" data-ng-click="vm.tables.standby.setPredicate('address')" class="sort-order">Address <span data-ng-show="vm.tables.standby.predicate === 'address'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
+									<th class="hidden-xs"><a href="" data-ng-click="vm.tables.standby.setPredicate('productivity')" class="sort-order">Productivity <span data-ng-show="vm.tables.standby.predicate === 'productivity'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
+									<th class="hidden-xs"><a href="" data-ng-click="vm.tables.standby.setPredicate('vote')" class="sort-order">Approval <span data-ng-show="vm.tables.standby.predicate === 'vote'" data-ng-class="{reverse: vm.tables.standby.reverse}"></span></a></th>
 								</tr>
 							</thead>
 							<tbody>

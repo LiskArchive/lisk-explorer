@@ -38,7 +38,7 @@ Feature: Top menu
     And I should see table "latest transactions" with 20 rows starting with:
       | Id                 | Timestamp                 | Sender      | Recipient             | Amount (BTC)           | Fee (BTC)     |
       |--------------------|---------------------------|-------------|-----------------------|------------------------|---------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | 18234943547133247982L | /\d+(,\d{3})?(\.\d+)?/ | /\d+(\.\d+)?/ |
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /\d+(,\d{3})?(\.\d+)?/ | /\d+(\.\d+)?/ |
 
   @ignore
   Scenario: should allow to switch currency to CNY
@@ -48,7 +48,7 @@ Feature: Top menu
     And I should see table "latest transactions" with 20 rows starting with:
       | Id                 | Timestamp                 | Sender      | Recipient             | Amount (CNY)           | Fee (CNY)     |
       |--------------------|---------------------------|-------------|-----------------------|------------------------|---------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | 18234943547133247982L | /\d+(,\d{3})?(\.\d+)?/ | /\d+(\.\d+)?/ |
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /\d+(,\d{3})?(\.\d+)?/ | /\d+(\.\d+)?/ |
 
   Scenario: should allow to switch currency to USD
     Given I'm on page "/"
@@ -57,7 +57,7 @@ Feature: Top menu
     And I should see table "latest transactions" with 20 rows starting with:
       | Id                 | Timestamp                 | Sender      | Recipient             | Amount (USD)           | Fee (USD)     |
       |--------------------|---------------------------|-------------|-----------------------|------------------------|---------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | 18234943547133247982L | /\d+(,\d{3})?(\.\d+)?/ | /\d+(\.\d+)?/ |
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /\d+(,\d{3})?(\.\d+)?/ | /\d+(\.\d+)?/ |
 
   Scenario: should allow to switch currency to EUR
     Given I'm on page "/"
@@ -66,7 +66,7 @@ Feature: Top menu
     And I should see table "latest transactions" with 20 rows starting with:
       | Id                 | Timestamp                 | Sender      | Recipient             | Amount (EUR)           | Fee (EUR)     |
       |--------------------|---------------------------|-------------|-----------------------|------------------------|---------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | 18234943547133247982L | /\d+(,\d{3})?(\.\d+)?/ | /\d+(\.\d+)?/ |
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /\d+(,\d{3})?(\.\d+)?/ | /\d+(\.\d+)?/ |
 
   @ignore
   Scenario: should allow to switch currency to RUB
@@ -76,7 +76,7 @@ Feature: Top menu
     And I should see table "latest transactions" with 20 rows starting with:
       | Id                 | Timestamp                 | Sender      | Recipient             | Amount (RUB)           | Fee (RUB)     |
       |--------------------|---------------------------|-------------|-----------------------|------------------------|---------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | 18234943547133247982L | /\d+(,\d{3})?(\.\d+)?/ | /\d+(\.\d+)?/ |
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /\d+(,\d{3})?(\.\d+)?/ | /\d+(\.\d+)?/ |
   Scenario: should allow to switch currency to LSK
     Given I'm on page "/"
     When I click "LSK menu"
@@ -84,4 +84,4 @@ Feature: Top menu
     And I should see table "latest transactions" with 20 rows starting with:
       | Id                 | Timestamp                 | Sender      | Recipient             | Amount (LSK)           | Fee (LSK)     |
       |--------------------|---------------------------|-------------|-----------------------|------------------------|---------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | 18234943547133247982L | /\d+(,\d{3})?(\.\d+)?/ | /\d+(\.\d+)?/ |
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /\d+(,\d{3})?(\.\d+)?/ | /\d+(\.\d+)?/ |
