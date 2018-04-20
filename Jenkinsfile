@@ -80,7 +80,7 @@ pipeline {
 	}
 	post {
 		always {
-			junit allowEmptyResults: true, testResults: 'xunit_report.xml' 
+			junit testResults: 'xunit_report.xml' 
 			dir("$WORKSPACE/$BRANCH_NAME/") {
 				ansiColor('xterm') {
 					sh 'docker-compose logs || true'
