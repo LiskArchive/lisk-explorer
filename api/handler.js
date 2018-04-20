@@ -42,7 +42,7 @@ module.exports = (api, endpoint, param, req, res, next) => {
 					res.status(HttpStatus.SERVICE_UNAVAILABLE);
 					break;
 				case 'INTERNAL_SERVER_ERROR':
-					res.status(HttpStatus.SERVICE_UNAVAILABLE);
+					res.status(HttpStatus.INTERNAL_SERVER_ERROR);
 					break;
 				default:
 				}
