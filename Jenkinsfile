@@ -80,8 +80,8 @@ pipeline {
 	}
 	post {
 		always {
+			junit 'xunit_report.xml' allowEmptyResults true
 			dir("$WORKSPACE/$BRANCH_NAME/") {
-				junit 'xunit_report.xml'
 				ansiColor('xterm') {
 					sh 'docker-compose logs || true'
 					sh 'make mrproper'
