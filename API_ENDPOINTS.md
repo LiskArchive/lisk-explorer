@@ -71,6 +71,174 @@ Retrieves top balance accounts.
 }
 ```
 
+## Blocks
+
+### /api/getLastBlocks
+
+Retrieves latest blocks list.
+
+#### Params
+
+ - `n` - ranking number of the first item (offset)
+
+#### Sample request
+
+`/api/getLastBlocks?n=0`
+
+
+#### Sample response
+
+```
+{
+  "success": true,
+  "blocks": [],
+  "pagination": {
+    "currentPage": 1,
+    "more": true,
+    "nextPage": 2
+  }
+}
+```
+
+### /api/getBlock
+
+Retrieves block details by id.
+
+#### Params
+
+ - `blockId` - block id
+
+#### Sample request
+
+`/api/getBlock?blockId=6524861224470851795`
+
+
+#### Sample response
+
+```
+{
+  "success": true,
+  "block": {
+    "blockSignature": "c81204bf67474827fd98584e7787084957f42ce8041e713843dd2bb352b73e81143f68bd74b06da8372c43f5e26406c4e7250bbd790396d85dea50d448d62606",
+    "confirmations": 17313,
+    "generatorId": "1085993630748340485L",
+    "generatorPublicKey": "c96dec3595ff6041c3bd28b76b8cf75dce8225173d1bd00241624ee89b50f2a8",
+    "height": 1,
+    "id": "6524861224470851795",
+    "numberOfTransactions": 103,
+    "payloadHash": "31393866326236316138656239356662656564353862383231363738306236386636393766323662383439616366303063386339336262396232346637383364",
+    "payloadLength": 19619,
+    "previousBlock": "",
+    "reward": "0",
+    "timestamp": 0,
+    "totalAmount": "10000000000000000",
+    "totalFee": "0",
+    "totalForged": "0",
+    "version": 0,
+    "delegate": {
+      "address": "1330932780504881464L",
+      "approval": 98.15,
+      "missedblocks": 9,
+      "producedblocks": 188,
+      "productivity": 95.43,
+      "publicKey": "68680ca0bcd4676489976837edeac305c34f652e970386013ef26e67589a2516",
+      "rate": 41,
+      "username": "genesis_82",
+      "vote": "9822932090000000"
+    }
+  }
+}
+```
+
+### /api/getHeight
+
+Retrieves block details by height.
+
+#### Params
+
+ - `height` - block height
+
+#### Sample request
+
+`/api/getHeight?height=1`
+
+
+#### Sample response
+
+```
+{
+  "success": true,
+  "block": {
+    "blockSignature": "c81204bf67474827fd98584e7787084957f42ce8041e713843dd2bb352b73e81143f68bd74b06da8372c43f5e26406c4e7250bbd790396d85dea50d448d62606",
+    "confirmations": 17313,
+    "generatorId": "1085993630748340485L",
+    "generatorPublicKey": "c96dec3595ff6041c3bd28b76b8cf75dce8225173d1bd00241624ee89b50f2a8",
+    "height": 1,
+    "id": "6524861224470851795",
+    "numberOfTransactions": 103,
+    "payloadHash": "31393866326236316138656239356662656564353862383231363738306236386636393766323662383439616366303063386339336262396232346637383364",
+    "payloadLength": 19619,
+    "previousBlock": "",
+    "reward": "0",
+    "timestamp": 0,
+    "totalAmount": "10000000000000000",
+    "totalFee": "0",
+    "totalForged": "0",
+    "version": 0,
+    "delegate": {
+      "address": "1330932780504881464L",
+      "approval": 98.15,
+      "missedblocks": 9,
+      "producedblocks": 188,
+      "productivity": 95.43,
+      "publicKey": "68680ca0bcd4676489976837edeac305c34f652e970386013ef26e67589a2516",
+      "rate": 41,
+      "username": "genesis_82",
+      "vote": "9822932090000000"
+    }
+  }
+}
+```
+
+### /api/getBlockStatus
+
+Retrieves node details.
+
+#### Sample request
+
+`/api/getBlockStatus`
+
+#### Sample response
+
+```
+{
+  "success": true,
+  "broadhash": "2768b267ae621a9ed3b3034e2e8a1bed40895c621bbb1bbd613d92b9d24e54b5",
+  "height": 17313,
+  "build": "v13:14:28 17/04/2018\n",
+  "commit": "9a7e1ef9d5ba40e6b150586bf452064bfb0f831e",
+  "epoch": "2016-05-24T17:00:00.000Z",
+  "fees": {
+    "send": "10000000",
+    "vote": "100000000",
+    "secondSignature": "500000000",
+    "delegate": "2500000000",
+    "multisignature": "500000000",
+    "dappRegistration": "2500000000",
+    "dappWithdrawal": "10000000",
+    "dappDeposit": "10000000",
+    "data": "10000000"
+  },
+  "nethash": "198f2b61a8eb95fbeed58b8216780b68f697f26b849acf00c8c93bb9b24f783d",
+  "nonce": "O2wTkjqplHII5wPv",
+  "milestone": 0,
+  "reward": 500000000,
+  "supply": 10007577000000000,
+  "version": "1.0.0",
+  "fee": 10000000
+}
+```
+
 ## Exchanges
 
 ### /api/exchanges/getOrders
