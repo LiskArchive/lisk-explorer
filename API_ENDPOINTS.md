@@ -274,11 +274,34 @@ This request has no params
 
 
 ### /api/search
+
+Performs search among the delegates, accounts, public keys, transactions, blocks and height.
+
 #### Params
+
+ - `id` - search query
 
 #### Sample request
 
+`/api/search?id=genesis`
+
 #### Sample response
+
+```
+{
+  "success": true,
+  "result": {
+    "type": "delegate",
+    "delegates": [
+      {
+        "address": "12577917432507761736L",
+        "username": "genesis_7",
+        "similarity": 0.8571428571428571
+      }
+    ]
+  }
+}
+```
 
 ## Transactions
 
