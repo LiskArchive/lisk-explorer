@@ -239,6 +239,47 @@ Retrieves node details.
 }
 ```
 
+## Common
+
+### /api/getPriceTicker
+
+Retrieves current currency prices.
+
+#### Params
+
+This request has no params
+
+#### Sample request
+`/api/getPriceTicker`
+
+#### Sample response
+```
+{
+  "success": true,
+  "tickers": {
+    "BTC": {
+      "EUR": "7697.62",
+      "RUB": "538494.7906872",
+      "USD": "9390.8"
+    },
+    "LSK": {
+      "BTC": "0.00137299",
+      "EUR": 10.5687552838,
+      "RUB": 739.3479626656188,
+      "USD": 12.893474491999998
+    }
+  }
+}
+```
+
+
+### /api/search
+#### Params
+
+#### Sample request
+
+#### Sample response
+
 ## Transactions
 
 ### /api/getTransaction
@@ -486,3 +527,26 @@ Retrieves statistics for a given exchange.
   }
 }
 ```
+
+## Statistics
+
+### /api/statistics/getLastBlock
+#### Params
+
+#### Sample request
+
+#### Sample response
+
+### /api/statistics/getBlocks
+#### Params
+
+#### Sample request
+
+#### Sample response
+
+### /api/statistics/getPeers
+#### Params
+
+#### Sample request
+
+#### Sample response
