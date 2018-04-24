@@ -12,7 +12,7 @@
   "main": "src/main.js",
   "scripts": {
     "test": "./node_modules/.bin/grunt test --verbose",
-    "test-xunit": "./node_modules/.bin/mocha --reporter mocha-junit-reporter --reporter-options mochaFile=./xunit-report.xml",
+    "test-xunit": "XUNIT_FILE='./xunit-report.xml' ./node_modules/.bin/mocha -R xunit-file",
     "test-live": "npm test -- --auto-watch --no-single-run",
     "e2e-test": "protractor protractor.conf.js",
     "eslint": "eslint ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js ./*.json",
@@ -131,6 +131,7 @@
     "sinon-stub-promise": "^4.0.0",
     "style-loader": "^0.16.1",
     "supertest": "^2.0.1",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.0",
+    "xunit-file": "^1.0.0"
   }
 }
