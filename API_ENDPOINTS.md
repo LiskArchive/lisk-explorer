@@ -4,6 +4,73 @@
 
 ### /api/getAccount
 
+Retrieves account details.
+
+#### Params
+
+ - `address` - lisk address
+ - `publicKey` - account public key
+
+#### Sample request
+
+`/api/getAccount?address=16313739661670634666L`
+
+`/api/getAccount?publicKey=c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f`
+
+
+#### Sample response
+
+```
+{
+  "address": "16313739661670634666L",
+  "balance": "9815104270000000",
+  "delegate": null,
+  "incoming_cnt": 2,
+  "knowledge": null,
+  "multisignatures": [],
+  "outgoing_cnt": 18474,
+  "publicKey": "c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f",
+  "secondPublicKey": "",
+  "secondSignature": "",
+  "success": true,
+  "u_multisignatures": [],
+  "unconfirmedBalance": "9815104270000000",
+  "unconfirmedSignature": "",
+  "voters": [],
+  "votes": []
+}
+```
+
+### /api/getTopAccounts
+
+Retrieves top balance accounts.
+
+#### Params
+
+ - `offset` - ranking number of the first item
+ - `limit` - number of objects to be returned [ 1 - 100 ]
+
+#### Sample request
+
+`/api/getTopAccounts?offset=0&limit=100`
+
+
+#### Sample response
+
+```
+{
+  "success": true,
+  "accounts": [{
+    "address": "16313739661670634666L",
+    "balance": "9815104270000000",
+    "publicKey": "c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f",
+    "knowledge": {
+      "owner": "genesis_6"
+    }
+  }]
+}
+```
+
 ## Exchanges
 
 ### /api/exchanges/getOrders
