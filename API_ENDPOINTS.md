@@ -554,22 +554,162 @@ Retrieves statistics for a given exchange.
 ## Statistics
 
 ### /api/statistics/getLastBlock
+
+It gets last block from the blockchain.
+
 #### Params
+No params.
+
 
 #### Sample request
+`/api/statistics/getLastBlock`
 
 #### Sample response
+
+```
+{
+  "block": {
+    "blockSignature": "8c789de781f3fba3410b530d85d068ce7e24b65bf320eb325d1f76b7a063f12e6b0970305e5518bf76fcf5eeaaddc8edfd9d992e2f40cff18f5ba75a848d4a0d",
+    "confirmations": 1,
+    "generatorId": "5370200325671668788L",
+    "generatorPublicKey": "03090653ff7e36da53e844581bc7c6d67daa722290a0d64d3a8f1da2f40d2de3",
+    "height": 56808,
+    "id": "16050871825213953977",
+    "numberOfTransactions": 0,
+    "payloadHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "payloadLength": 0,
+    "previousBlock": "5574987223409863033",
+    "reward": "500000000",
+    "timestamp": 60469430,
+    "totalAmount": "0",
+    "totalFee": "0",
+    "totalForged": "500000000",
+    "version": 0
+  },
+  "success": true
+}
+```
 
 ### /api/statistics/getBlocks
+
+Gets best block and volume
+
 #### Params
+No params.
 
 #### Sample request
+`/api/statistics/getBlocks`
 
 #### Sample response
+```
+{
+  "best": {
+    "blockSignature": "fc8f15f1ff2103cc982003e2104916f89d6a1b95ba0f966f7c002fbfd00d03591df5595b53cbbc7323816bb9db2469ec8e6291b77fc5ede9c37267226fc7220f",
+    "confirmations": 1,
+    "generatorId": "2193676322954236363L",
+    "generatorPublicKey": "1f3cbc0dc4da90dc6888221979fceea2c07913e6320c5c28bfb49851660766ac",
+    "height": 56817,
+    "id": "9974235976771307448",
+    "numberOfTransactions": 0,
+    "payloadHash": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "payloadLength": 0,
+    "previousBlock": "8993335212866437578",
+    "reward": 500000000,
+    "timestamp": 60469520,
+    "totalAmount": 0,
+    "totalFee": 0,
+    "totalForged": 500000000,
+    "version": 0
+  },
+  "success": true,
+  "volume": {
+    "amount": 0,
+    "beginning": 60468530,
+    "blocks": 8640,
+    "end": 60382830,
+    "txs": 0,
+    "withTxs": 0
+  }
+}
+```
+
 
 ### /api/statistics/getPeers
+
+Gets active and disconnected peers with their location data.
+
 #### Params
+No params.
 
 #### Sample request
+`/api/statistics/getPeers`
 
 #### Sample response
+```
+{
+  "success": true,
+  "list": {
+    "connected": [
+      {
+        "ip": "195.201.139.252",
+        "port": 5001,
+        "state": 2,
+        "os": "linux4.15.0-15-generic",
+        "version": "1.0.0-beta.6",
+        "broadhash": "9a0f70b08300d0d20f0cb8e3e2ab60072233ec613303065fac0a78e304a23956",
+        "height": 56829,
+        "osBrand": {
+          "name": "linux",
+          "group": 2
+        },
+        "humanState": "Connected",
+        "location": {
+          "ip": "195.201.139.252",
+          "country_code": "DE",
+          "country_name": "Germany",
+          "region_code": "",
+          "region_name": "",
+          "city": "",
+          "zip_code": "",
+          "time_zone": "",
+          "latitude": 51.2993,
+          "longitude": 9.491,
+          "metro_code": 0,
+          "hostname": "node01.betanet.lisk.prolina.org"
+        }
+      }
+    ],
+    "disconnected": [
+      {
+        "ip": "220.178.235.84",
+        "port": 5001,
+        "state": 1,
+        "os": "linux3.2.0-4-amd64",
+        "version": "1.0.0-beta.2",
+        "broadhash": "56b850d6913d2151d97faa5cc255d741e9b7d83430a20c348a3e892c173aa07e",
+        "height": 29902,
+        "osBrand": {
+          "name": "linux",
+          "group": 2
+        },
+        "humanState": "Disconnected",
+        "location": {
+          "ip": "220.178.235.84",
+          "country_code": "CN",
+          "country_name": "China",
+          "region_code": "AH",
+          "region_name": "Anhui",
+          "city": "Hefei",
+          "zip_code": "",
+          "time_zone": "Asia/Shanghai",
+          "latitude": 31.8639,
+          "longitude": 117.2808,
+          "metro_code": 0,
+          "hostname": "220.178.235.84.unknown"
+        }
+      }
+    ]
+  }
+}
+```
+
