@@ -239,6 +239,146 @@ Retrieves node details.
 }
 ```
 
+## Transactions
+
+### /api/getTransaction
+
+Retrieves transaction details by id.
+
+#### Params
+
+ - `transactionId` - transaction id
+
+#### Sample request
+
+`/api/getTransaction?transactionId=3634383815892709956`
+
+
+#### Sample response
+
+```
+{
+  "success": true,
+  "transaction": {
+    "amount": "0",
+    "asset": {
+      "delegate": {
+        "username": "genesis_51",
+        "publicKey": "01389197bbaf1afb0acd47bbfeabb34aca80fb372a8f694a1c0716b3398db746",
+        "address": "2581762640681118072L"
+      }
+    },
+    "blockId": "6524861224470851795",
+    "confirmations": 17313,
+    "fee": "0",
+    "height": 1,
+    "id": "3634383815892709956",
+    "knownRecipient": null,
+    "knownSender": {
+      "owner": "genesis_51"
+    },
+    "multisignatures": [],
+    "recipientId": "",
+    "recipientPublicKey": "",
+    "senderId": "2581762640681118072L",
+    "senderPublicKey": "01389197bbaf1afb0acd47bbfeabb34aca80fb372a8f694a1c0716b3398db746",
+    "signature": "86e6eed7c8adcdfd0b58d4a718847a8bf4a8c61035003871e8b89d1071123ecacb00a34fd228d9a81074c95265281d578ccb5d72a0f679f7a8066bcae92d090e",
+    "signatures": [
+      "86e6eed7c8adcdfd0b58d4a718847a8bf4a8c61035003871e8b89d1071123ecacb00a34fd228d9a81074c95265281d578ccb5d72a0f679f7a8066bcae92d090e"
+    ],
+    "timestamp": 0,
+    "type": 2
+  }
+}
+```
+
+### /api/getUnconfirmedTransactions
+
+Retrieves list of unconfirmed transactions.
+
+#### Sample request
+
+`/api/getUnconfirmedTransactions`
+
+
+#### Sample response
+
+```
+{
+  "success": true,
+  "transactions": []
+}
+```
+
+### /api/getLastTransactions
+
+Retrieves list of last 20 transactions.
+
+#### Sample request
+
+`/api/getLastTransactions`
+
+
+#### Sample response
+
+```
+{
+  "success": true,
+  "transactions": []
+}
+```
+
+### /api/getTransactionsByAddress
+
+Retrieves transactions list involving a given address.
+
+#### Params
+
+ - `address` - sender or recipient lisk address
+ - `senderId` - sender lisk address
+ - `recipientId` - recipient lisk address
+ - `type` - transaction type (comma separate)
+ - `offset` - ranking number of the first item
+ - `limit` - number of objects to be returned [ 1 - 100 ]
+
+#### Sample request
+
+`/api/getTransactionsByAddress?address=16313739661670634666L&limit=50&offset=0`
+
+
+#### Sample response
+
+```
+{
+  "success": true,
+  "transactions": []
+}
+```
+
+### /api/getTransactionsByBlock
+
+Retrieves transactions list involving a given block.
+
+#### Params
+
+ - `blockId` - block id
+ - `offset` - ranking number of the first item
+ - `limit` - number of objects to be returned [ 1 - 100 ]
+
+#### Sample request
+
+`/api/getTransactionsByBlock?blockId=6524861224470851795&offset=0&limit=50`
+
+
+#### Sample response
+
+```
+{
+  "success": true,
+  "transactions": []
+}
+```
+
 ## Exchanges
 
 ### /api/exchanges/getOrders
