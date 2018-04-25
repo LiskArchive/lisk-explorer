@@ -13,20 +13,7 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import AppTopAccounts from './top-accounts.module';
-import template from './top-accounts.html';
+import AppFilters from './filters.module';
 
-const TopAccountsConstructor = function (lessMore) {
-	this.topAccounts = lessMore({
-		url: '/api/getTopAccounts',
-		key: 'accounts',
-	});
-
-	this.topAccounts.loadData();
-};
-
-AppTopAccounts.component('topAccounts', {
-	template,
-	controller: TopAccountsConstructor,
-	controllerAs: 'vm',
-});
+AppFilters.filter('middleEllipsis', () => (str, visibleDigits) =>
+	`${str.substr(0, visibleDigits)}...${str.substr(str.length - visibleDigits)}`);

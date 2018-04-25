@@ -13,20 +13,25 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import AppTopAccounts from './top-accounts.module';
-import template from './top-accounts.html';
 
-const TopAccountsConstructor = function (lessMore) {
-	this.topAccounts = lessMore({
-		url: '/api/getTopAccounts',
-		key: 'accounts',
-	});
+const request = require('request');
+const HttpStatus = require('http-status-codes');
 
-	this.topAccounts.loadData();
+const validateHttpResponse = (response) => {
+	if (response.statusCode === HttpStatus.OK) return true;
+	return false;
 };
 
-AppTopAccounts.component('topAccounts', {
-	template,
-	controller: TopAccountsConstructor,
-	controllerAs: 'vm',
+const get = url => new Promise((resolve, reject) => {
+	request.get({
+		url,
+		json: true,
+	}, (err, response, body) => {
+		if (err || !validateHttpResponse(response)) {
+			return reject(err || 'Response was unsuccessful');
+		}
+		return resolve(body);
+	});
 });
+
+module.exports = { get };

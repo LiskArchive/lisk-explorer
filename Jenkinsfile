@@ -63,7 +63,7 @@ pipeline {
 				cd $WORKSPACE/$BRANCH_NAME
 				LISK_PORT=$( docker-compose port lisk 4000 |cut -d ":" -f 2 )
 				cd -
-				LISK_PORT=$LISK_PORT node app.js -c config.docker.js -p $EXPLORER_PORT &>/dev/null &
+				LISK_PORT=$LISK_PORT node app.js -p $EXPLORER_PORT &>/dev/null &
 				sleep 20
 				'''
 			}
