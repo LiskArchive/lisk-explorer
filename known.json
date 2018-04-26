@@ -13,11 +13,12 @@
 	"14175575863689886451L"	: { "owner": "Adviser Assets", "description": "LiskHQ" },
 	"5726759782318848681L"	: { "owner": "Lisk Foundation", "description": "LiskHQ" },
 	"15841793714384967784L"	: { "owner": "Lisk Community Assets", "description": "LiskHQ" },
-	"3040783849904107057L"	: { "owner": "Coincheck.com", "description": "Old Wallet" },
+	"3040783849904107057L"	: { "owner": "Coincheck.com", "description": "Old old Wallet" },
 	"6300322192409448238L"	: { "owner": "Iconomi ICO", "description": "Main Wallet"},
 	"11737606468871099380L" : { "owner" : "Changelly", "description" : "Main Wallet" },
   	"15441526754256992144L" : { "owner" : "HitBTC.com", "description" : "Hot Wallet" },
 	"2797034409072178585L" 	: { "owner" : "BitBay.net", "description" : "Withdrawal Wallet" },
 	"15610359283786884938L" : { "owner" : "Binance", "description" : "Hot Wallet" },
-	"14367838290034827614L" : { "owner" : "Coincheck.com", "description" : "Main Wallet" }
+	"14367838290034827614L" : { "owner" : "Coincheck.com", "description" : "Old Wallet" },
+	"16293716040102736949L" : { "owner" : "Coincheck.com", "description" : "Main Wallet"}
 }
