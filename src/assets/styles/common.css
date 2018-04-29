@@ -972,6 +972,7 @@ qrcode + span {
   margin-left: 16px;
   margin-top: -22px;
   opacity: 0;
+  pointer-events: none;
 }
 
 .tooltip .tooltip-inner {
