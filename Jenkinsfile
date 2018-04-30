@@ -80,15 +80,15 @@ pipeline {
 	}
 	post {
 		always {
-			junit testResults: 'xunit_report.xml' 
 			dir("$WORKSPACE/$BRANCH_NAME/") {
 				ansiColor('xterm') {
 					sh 'docker-compose logs || true'
 					sh 'make mrproper'
 				}
 			}
+			junit 'reports/junit_report.xml'
 			
-			archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
+			archiveArtifacts artifacts: 'logs/*.log,reports/*.xml', allowEmptyArchive: true
 			dir('logs') {
 				deleteDir()
 			}
