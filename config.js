@@ -24,21 +24,21 @@ config.port = 6040; // Port to listen on
 /**
  * LISK node
  */
-config.lisk.host = '127.0.0.1';
-config.lisk.port = 4000;
+config.lisk.host = process.env.LISK_HOST || '127.0.0.1';
+config.lisk.port = process.env.LISK_PORT || 4000;
 
 /**
  * FreeGeoIP server
  */
-config.freegeoip.host = '127.0.0.1';
-config.freegeoip.port = 8080;
+config.freegeoip.host = process.env.FREEGEOIP_HOST || '127.0.0.1';
+config.freegeoip.port = process.env.FREEGEOIP_PORT || 8080;
 
 /**
  * Redis server
  */
-config.redis.host = '127.0.0.1';
-config.redis.port = 6379;
-config.redis.db = 0;
+config.redis.host = process.env.REDIS_HOST || '127.0.0.1';
+config.redis.port = process.env.REDIS_PORT || 6379;
+config.redis.db = process.env.REDIS_DB || 0;
 config.redis.password = '';
 
 // Time in seconds to store cache in Redis
@@ -63,7 +63,7 @@ config.exchangeRates.updateInterval = 30000;
 // LSK/BTC pair, supported: poloniex
 config.exchangeRates.exchanges.LSK.BTC = 'poloniex';
 // LSK/CNY pair, supported: jubi, bitbays
-config.exchangeRates.exchanges.LSK.CNY = 'jubi';
+config.exchangeRates.exchanges.LSK.CNY = false;
 // BTC/USD pair, supported: bitfinex, bitstamp, btce
 config.exchangeRates.exchanges.BTC.USD = 'bitfinex';
 // BTC/EUR pair, supported: bitstamp, bitmarket

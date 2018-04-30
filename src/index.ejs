@@ -1,5 +1,21 @@
 <!doctype html>
 <html lang="en" data-ng-csp>
+<!--
+ *
+ * Copyright © 2017 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ * Lisk Explorer Version: <%= htmlWebpackPlugin.options.version %>
+ *-->
 <head>
 	<base href="/">
 	<title data-ng-bind="'Lisk - Blockchain Explorer - ' + $root.title + $root.titleDetail">Lisk - Blockchain Explorer</title>
@@ -11,25 +27,12 @@
 	<meta name="keywords" content="lisk, lisk, blocks, altcoin">
 	<meta name="description" content="Lisk Blockchain Explorer">
 	<meta name="application-name" content="Lisk Blockchain Explorer"/>
-	<meta name="msapplication-TileColor" content="#F3F3E1" />
-	<meta name="msapplication-TileImage" content="/img/mstile-144x144.png" />
-	<meta name="msapplication-square70x70logo" content="/img/mstile-70x70.png" />
-	<meta name="msapplication-square150x150logo" content="/img/mstile-150x150.png" />
-	<meta name="msapplication-wide310x150logo" content="/img/mstile-310x150.png" />
-	<meta name="msapplication-square310x310logo" content="/img/mstile-310x310.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/apple-touch-icon-57x57.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-touch-icon-114x114.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-touch-icon-72x72.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144x144.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="60x60" href="/img/apple-touch-icon-60x60.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="120x120" href="/img/apple-touch-icon-120x120.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="76x76" href="/img/apple-touch-icon-76x76.png" />
-	<link rel="apple-touch-icon-precomposed" sizes="152x152" href="/img/apple-touch-icon-152x152.png" />
-	<link rel="icon" type="image/png" href="/img/favicon-196x196.png" sizes="196x196" />
-	<link rel="icon" type="image/png" href="/img/favicon-96x96.png" sizes="96x96" />
-	<link rel="icon" type="image/png" href="/img/favicon-32x32.png" sizes="32x32" />
-	<link rel="icon" type="image/png" href="/img/favicon-16x16.png" sizes="16x16" />
-	<link rel="icon" type="image/png" href="/img/favicon-128.png" sizes="128x128" />
+	<meta name="msapplication-square150x150logo" content="mstile-150x150.png" />
+	<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#ffffff">
+	
 	<% if (htmlWebpackPlugin.options.serviceName && htmlWebpackPlugin.options.clientId) { %>
 		<meta name="<%= htmlWebpackPlugin.options.serviceName %>" content="<%= htmlWebpackPlugin.options.clientId %>">
 	<% } %>
@@ -43,9 +46,25 @@
 		<main-header></main-header>
 		<section class="container">
 			<bread-crumb></bread-crumb>
-			<div data-ui-view></div>
+			<div data-ui-view class='main-view'></div>
 		</section>
 	</div>
 	<main-footer></main-footer>
+	<div class='splash-screen'>
+		<div class='background-stripes'>
+				<span class='stripe'></span>
+				<span class='stripe'></span>
+				<span class='stripe'></span>
+				<span class='stripe'></span>
+				<span class='stripe'></span>
+				<span class='stripe'></span>
+				<span class='stripe'></span>
+				<span class='stripe'></span>
+				<span class='stripe'></span>
+				<span class='stripe'></span>
+				<span class='stripe'></span>
+				<span class='stripe'></span>
+		</div>
+	</div>
 </body>
 </html>
