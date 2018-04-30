@@ -99,6 +99,10 @@
 					</td>
 					<td data-ng-if="!vm.tx.blockId" class="text-right">Unconfirmed</td>
 				</tr>
+				<tr data-ng-if="vm.tx.type == 0 && vm.tx.asset && vm.tx.asset.data">
+					<td><strong>Additional Data</strong></td>
+					<td class="text-right">{{vm.tx.asset.data}}</td>
+				</tr>
 			</tbody>
 		</table>
 	</div>
