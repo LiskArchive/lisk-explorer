@@ -21,23 +21,6 @@ def slack_send(color, message) {
   slackSend color: "${color}", message: "${message}", channel: "${channel}"
 }
 
-def recovery() {
-  if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
-    previous_build = currentBuild.getPreviousBuild()
-    if (previous_build != null && previous_build.result == 'FAILURE') {
-      build_info = get_build_info()
-      slack_send('good', "Recovery: build ${build_info} was successful.")
-    }
-  }
-}
-
-def fail() {
-  build_info = get_build_info()
-  slack_send('danger', "Build ${build_info} failed (<${env.BUILD_URL}/console|console>, <${env.BUILD_URL}/changes|changes>)\n")
-  currentBuild.result = 'FAILURE'
-  error()
-}
-
 pipeline {
 	agent { node { label 'lisk-explorer' } } 
 	environment { 
@@ -119,10 +102,22 @@ pipeline {
 	}
 	post {
 		success {
-			recovery()
+			script {
+				if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
+					previous_build = currentBuild.getPreviousBuild()
+					if (previous_build != null && previous_build.result == 'FAILURE') {
+						build_info = get_build_info()
+						slack_send('good', "Recovery: build ${build_info} was successful.")
+					}
+				}
+			}
 		}
 		failure {
-			fail()
+			script {
+				build_info = get_build_info()
+				slack_send('danger', "Build ${build_info} failed (<${env.BUILD_URL}/console|console>, <${env.BUILD_URL}/changes|changes>)\n")
+				currentBuild.result = 'FAILURE'
+			}
 		}
 		always {
 			dir("$WORKSPACE/$BRANCH_NAME/") {
