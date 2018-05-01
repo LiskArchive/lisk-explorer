@@ -116,7 +116,6 @@ pipeline {
 			script {
 				build_info = get_build_info()
 				slack_send('danger', "Build ${build_info} failed (<${env.BUILD_URL}/console|console>, <${env.BUILD_URL}/changes|changes>)\n")
-				currentBuild.result = 'FAILURE'
 			}
 		}
 		always {
