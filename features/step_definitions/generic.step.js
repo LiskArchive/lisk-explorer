@@ -41,7 +41,7 @@ defineSupportCode(({ Given, When, Then, setDefaultTimeout }) => {
 
 	Given('I\'m on page "{pageAddress}"', (pageAddress, callback) => {
 		browser.ignoreSynchronization = true;
-		browser.driver.manage().window().setSize(1000, 1000);
+		browser.driver.manage().window().setSize(1200, 1000);
 		browser.driver.get('about:blank');
 		browser.get(baseURL + pageAddress).then(callback);
 	});
