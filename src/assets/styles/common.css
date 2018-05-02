@@ -1253,6 +1253,10 @@ a.sort-order span.reverse:after {
   display: none;
 }
 
+a.disabled {
+  color: #000000;
+}
+
 /* Table striped */
 table tbody {
   border: 0 !important;
