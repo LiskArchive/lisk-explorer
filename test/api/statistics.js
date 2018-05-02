@@ -66,6 +66,10 @@ describe('Statistics API', () => {
 			'totalFee');
 	}
 
+	function hasDuplicates(array) {
+		return (new Set(array.map(o => o.ip))).size !== array.length;
+	}
+
 	/* Define api endpoints to test */
 	describe('GET /api/statistics/getLastBlock', () => {
 		it('should be ok', (done) => {
@@ -96,7 +100,6 @@ describe('Statistics API', () => {
 		}).timeout(60000);
 	});
 
-
 	describe('GET /api/statistics/getPeers', () => {
 		it('should be ok', (done) => {
 			getPeers((err, res) => {
@@ -104,6 +107,13 @@ describe('Statistics API', () => {
 				node.expect(res.body).to.have.property('list');
 				checkPeersList(res.body.list.connected);
 				checkPeersList(res.body.list.disconnected);
+				done();
+			});
+		});
+
+		it('should not contain duplicated IPs', (done) => {
+			getPeers((err, res) => {
+				node.expect(hasDuplicates(res.body.list.connected)).to.be.equal(false);
 				done();
 			});
 		});
