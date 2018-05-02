@@ -53,7 +53,7 @@ app.exchange = new utils.exchange(config);
 app.knownAddresses = new utils.knownAddresses(app, config, client);
 app.orders = new utils.orders(config, client);
 
-app.set('version', '0.3');
+app.set('version', packageJson.version);
 app.set('strict routing', true);
 app.set('lisk address', `http://${config.lisk.host}:${config.lisk.port}${config.lisk.apiPath}`);
 app.set('freegeoip address', `http://${config.freegeoip.host}:${config.freegeoip.port}`);
@@ -186,7 +186,7 @@ app.get('*', (req, res, next) => {
 	return next();
 });
 
-const getNodeVersion = () => new Promise((success, error) => {
+const getNodeConstants = () => new Promise((success, error) => {
 	request.get({
 		url: `${app.get('lisk address')}/node/constants`,
 		json: true,
@@ -195,6 +195,7 @@ const getNodeVersion = () => new Promise((success, error) => {
 			return error({ success: false, error: err.message });
 		} else if (response.statusCode === 200) {
 			if (body && body.data) {
+				app.set('nodeConstants', body.data);
 				return success({ success: true, version: body.data.version });
 			}
 		}
@@ -207,7 +208,7 @@ const status = { NOT_RUNNING: 0, OK: 1 };
 let serverStatus = status.NOT_RUNNING;
 
 const startServer = (cb) => {
-	getNodeVersion().then((result) => {
+	getNodeConstants().then((result) => {
 		logger.info(`Connected to the node ${app.get('lisk address')}, Lisk Core version ${result.version}`);
 		const server = app.listen(app.get('port'), app.get('host'), (err) => {
 			if (err) {
