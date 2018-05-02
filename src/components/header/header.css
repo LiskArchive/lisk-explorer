@@ -196,12 +196,14 @@
 
 .navbar-fixed-top .network-status {
   width: 100%;
-  background: #012b58;
   position: relative;
   z-index: 1;
 }
 
-.navbar-fixed-top .network-status .flex-container  {
+.navbar-fixed-top .network-status .flex-container {
+  background: rgba(1, 56, 115, 0.81);
+  padding: 8px 12px;
+  border-radius: 0 0 3px 3px;
   margin: 0;
   display: flex;
   flex-direction: row;
@@ -221,7 +223,7 @@
  }
 
 .navbar-fixed-top .network-status span {
-  color: #74869b;
+  color: #ccc;
   line-height: 24px;
   letter-spacing: 1px;
   width: auto;
