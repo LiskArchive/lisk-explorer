@@ -41,4 +41,10 @@ App.run((
 		$location.hash($stateParams.scrollTo);
 		$anchorScroll();
 	});
+
+	$http.get('/api/nodeConstants').then((result) => {
+		if (result && result.data) {
+			$rootScope.nodeConstants = result.data;
+		}
+	});
 });
