@@ -319,7 +319,21 @@ Retrieves active delegates list.
 ```
 {
   "success": true,
-  "delegates": [],
+  "delegates": [
+    {
+      "address": "9010579446607279905L",
+      "approval": 25.98,
+      "forged": "3068932773278",
+      "missedblocks": 22,
+      "producedblocks": 7551,
+      "productivity": 99.71,
+      "publicKey": "6a5758d1db39219d2dca82f516a9e6b88e8321cdf607ac8b7316472e0640cdfa",
+      "rank": 101,
+      "rate": 101,
+      "username": "alepop",
+      "vote": "3136882699244530"
+    }
+  ],
   "totalCount": 403
 }
 ```
