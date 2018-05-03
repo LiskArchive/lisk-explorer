@@ -65,9 +65,21 @@ defineSupportCode(({ Given, When, Then, setDefaultTimeout }) => {
 		waitForElemAndSendKeys(`input${selector}, textarea${selector}`, value, callback);
 	});
 
+	When('I fill in "{value}" to "{fieldName}" field in "{parentName}" div', (value, fieldName, parentName, callback) => {
+		const selector = nameToSelector(fieldName);
+		const parent = nameToSelector(parentName);
+		waitForElemAndSendKeys(`${parent} input${selector}, ${parent} textarea${selector}`, value, callback);
+	});
+
 	When('I hit "enter" in "{fieldName}" field', (fieldName, callback) => {
 		const selector = nameToSelector(fieldName);
 		waitForElemAndSendKeys(`input${selector}, textarea${selector}`, protractor.Key.ENTER, callback);
+	});
+
+	When('I hit "enter" in "{fieldName}" field in "{parentName}" div', (fieldName, parentName, callback) => {
+		const selector = nameToSelector(fieldName);
+		const parent = nameToSelector(parentName);
+		waitForElemAndSendKeys(`${parent} input${selector}, ${parent} textarea${selector}`, protractor.Key.ENTER, callback);
 	});
 
 	When('I scroll to "{elementName}"', (elementName, callback) => {
@@ -83,6 +95,19 @@ defineSupportCode(({ Given, When, Then, setDefaultTimeout }) => {
 	When('I click "{elementName}" no. {index}', (elementName, index, callback) => {
 		const selector = nameToSelector(elementName);
 		const elem = element.all(by.css(selector)).get(index - 1);
+		elem.click().then(callback);
+	});
+
+	When('I click "{elementName}" in "{parentName}" div', (elementName, parentName, callback) => {
+		const selector = nameToSelector(elementName);
+		const parent = nameToSelector(parentName);
+		waitForElemAndClickIt(`${parent} ${selector}`, callback);
+	});
+
+	When('I click "{elementName}" #{index} in "{parentName}" div', (elementName, index, parentName, callback) => {
+		const selector = nameToSelector(elementName);
+		const parent = nameToSelector(parentName);
+		const elem = element.all(by.css(`${parent} ${selector}`)).get(index - 1);
 		elem.click().then(callback);
 	});
 
