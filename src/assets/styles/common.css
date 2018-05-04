@@ -819,12 +819,12 @@ qrcode + span {
 /* Not required for template or sticky footer method. */
 
 #wrap > .container {
-  padding: 100px 15px 0;
+  padding: 120px 15px 0;
 }
 
 @media (max-width: 991px) {
   #wrap > .container {
-    padding-top: 100px;
+    padding-top: 120px;
   }
 }
 
@@ -835,7 +835,7 @@ qrcode + span {
   }
 
   #wrap > .container {
-    padding: 120px 5px 0;
+    padding: 130px 5px 0;
   }
 }
 
@@ -972,6 +972,7 @@ qrcode + span {
   margin-left: 16px;
   margin-top: -22px;
   opacity: 0;
+  pointer-events: none;
 }
 
 .tooltip .tooltip-inner {
