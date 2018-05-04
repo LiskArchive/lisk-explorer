@@ -2,8 +2,6 @@ Feature: Footer
   Scenario: should contain links to Lisk website, forum, BBT thread, reddit twitter, Explorer Github
     Given I'm on page "/"
     Then I should see "website link" element that links to "https://lisk.io/"
-    Then I should see "forum link" element that links to "https://forum.lisk.io/"
-    Then I should see "btt thread link" element that links to "https://bitcointalk.org/index.php?topic=1346646"
     Then I should see "reddit link" element that links to "https://www.reddit.com/r/Lisk/"
     Then I should see "twitter link" element that links to "https://twitter.com/LiskHQ"
     Then I should see "github link" element that links to "https://github.com/LiskHQ/lisk-explorer"
