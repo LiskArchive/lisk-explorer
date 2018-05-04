@@ -1,21 +1,13 @@
 FROM node:6 AS builder
 
-RUN apt-get update && \
-	DEBIAN_FRONTEND=noninteractive apt-get --assume-yes install --no-install-recommends \
-		build-essential \
-		redis-server && \
-	npm install -g npm@5.7.1 && \
-	npm install -g grunt && \
-	npm install -g bower
+RUN useradd --create-home lisk && \
+    npm install -g npm@5.7.1 bower
+COPY --chown=lisk:lisk . /home/lisk/lisk-explorer/
 
-COPY . /home/lisk/lisk-explorer/
-RUN useradd lisk && \
-	chown lisk:lisk -R /home/lisk
 USER lisk
-RUN cd /home/lisk/lisk-explorer && \
-	npm install
-RUN cd /home/lisk/lisk-explorer && \
-	npm run build
+WORKDIR /home/lisk/lisk-explorer
+RUN npm install && \
+    npm run build
 
 
 FROM node:6-alpine
