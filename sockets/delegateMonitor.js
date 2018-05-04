@@ -51,10 +51,9 @@ module.exports = function (app, connectionHandler, socket) {
 	const findActiveByPublicKey = publicKey =>
 		data.active.delegates.find(d => d.publicKey === publicKey);
 
-	// TODO: Review that function again when the LiskHQ/lisk#1998 is done
 	const cutNextForgers = (maxLimit, height) => {
 		const roundLength = 101;
-		const limit = roundLength - ((height - 1) % roundLength);
+		const limit = roundLength - (height % roundLength);
 		const appliedLimit = limit >= maxLimit ? maxLimit : limit;
 		const next10Forgers = tmpData.nextForgers.delegates.slice(0, appliedLimit);
 		return next10Forgers.map(publicKey => findActiveByPublicKey(publicKey));
