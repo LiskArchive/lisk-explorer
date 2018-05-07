@@ -65,18 +65,15 @@
 										<span>Waiting for next forgers <i class="fa fa-spinner fa-spin"></i></span>
 									</div>
 									<span data-ng-repeat='v in vm.nextForgers track by $index'>
-									<div data-ng-if="$first">
-										<p class="big-details">
+										<div data-ng-if="$first">
+											<p class="big-details">
+												<a data-account-href="v" data-type="delegate">{{v.username}}</a>
+											</p>
+										</div>
+										<span data-ng-if="!$first">
 											<a data-account-href="v" data-type="delegate">{{v.username}}</a>
-										</p>
-									</div>
-									<span data-ng-if="!$first && !$last">
-										<a data-account-href="v" data-type="delegate">{{v.username}}</a>
-										<span class="text-muted">&bull;</span>
-									</span>
-									<span data-ng-if="$last">
-										<a data-account-href="v" data-type="delegate">{{v.username}}</a>
-									</span>
+											<span data-ng-if="!$last" class="text-muted">&bull;</span>
+										</span>
 									</span>
 								</div>
 							</div>
