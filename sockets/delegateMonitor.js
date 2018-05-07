@@ -54,8 +54,7 @@ module.exports = function (app, connectionHandler, socket) {
 	const cutNextForgers = (maxLimit, height) => {
 		const roundLength = 101;
 		const limit = roundLength - (height % roundLength);
-		const appliedLimit = limit >= maxLimit ? maxLimit : limit;
-		const next10Forgers = tmpData.nextForgers.delegates.slice(0, appliedLimit);
+		const next10Forgers = tmpData.nextForgers.delegates.slice(0, Math.min(limit, maxLimit));
 		return next10Forgers.map(publicKey => findActiveByPublicKey(publicKey));
 	};
 
@@ -243,11 +242,9 @@ module.exports = function (app, connectionHandler, socket) {
 								existing.blocksAt = moment();
 								existing = updateDelegate(existing, false);
 
-								running.getLastBlocks = false;
 								emitDelegate(existing);
 							}
 
-							running.getLastBlocks = false;
 							if (intervals[1]) {
 								cb(null);
 							} else {
@@ -255,7 +252,6 @@ module.exports = function (app, connectionHandler, socket) {
 							}
 						});
 				}, (err) => {
-					running.getLastBlocks = false;
 					if (err) {
 						callback(err, result);
 					}
@@ -308,6 +304,7 @@ module.exports = function (app, connectionHandler, socket) {
 			getRegistrations,
 			getVotes,
 			getNextForgers,
+			getLastBlock,
 		],
 		(err, res) => {
 			if (err) {
@@ -318,7 +315,7 @@ module.exports = function (app, connectionHandler, socket) {
 				data.active = updateActive(res[0]);
 				data.registrations = res[1];
 				data.votes = res[2];
-				data.nextForgers = cutNextForgers(maxLimitOfNextForgers, data.lastBlock.block.height);
+				data.nextForgers = cutNextForgers(maxLimitOfNextForgers, res[4].block.height);
 
 				log('info', 'Emitting data');
 				socket.emit('data', data);
@@ -330,7 +327,6 @@ module.exports = function (app, connectionHandler, socket) {
 		this.onConnect();
 
 		async.parallel([
-			// We only call getLastBlock on init, later data.lastBlock will be updated from getLastBlocks
 			getLastBlock,
 			getActive,
 			getRegistrations,
@@ -347,7 +343,7 @@ module.exports = function (app, connectionHandler, socket) {
 				data.active = updateActive(res[1]);
 				data.registrations = res[2];
 				data.votes = res[3];
-				data.nextForgers = cutNextForgers(maxLimitOfNextForgers, data.lastBlock.block.height);
+				data.nextForgers = cutNextForgers(maxLimitOfNextForgers, res[0].block.height);
 
 				log('info', 'Emitting new data');
 				socket.emit('data', data);
