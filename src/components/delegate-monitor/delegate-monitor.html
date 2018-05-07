@@ -61,7 +61,7 @@
 							<div class="latest-votes next-forgers">
 								<p class="small-title">Next Forgers</p>
 								<div>
-									<div data-ng-if="!vm.nextForgers">
+									<div data-ng-if="!vm.nextForgers || vm.nextForgers.length === 0">
 										<span>Waiting for next forgers <i class="fa fa-spinner fa-spin"></i></span>
 									</div>
 									<span data-ng-repeat='v in vm.nextForgers track by $index'>
