@@ -1,36 +1,64 @@
-'use strict';
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
+const config = require('./config.global');
 
-var config = require('./config.global');
-
-// CONFIGURATION
-// =======================================================================================
-
+/**
+ * CONFIGURATION
+ */
 config.host = '0.0.0.0'; // Interface to listen on, 0.0.0.0 to listen on all available
-config.port = process.env.LISTEN_PORT || 6040;      // Port to listen on
+config.port = 6040; // Port to listen on
 
-// LISK node
-config.lisk.host = '127.0.0.1';
-config.lisk.port = process.env.PORT || 4000;
+/**
+ * LISK node
+ */
+config.lisk.host = process.env.LISK_HOST;
+config.lisk.port = process.env.LISK_PORT;
 
-// FreeGeoIP server
-config.freegeoip.host = '127.0.0.1';
+/**
+ * FreeGeoIP server
+ */
+config.freegeoip.host = process.env.FREEGEOIP_HOST;
 config.freegeoip.port = 8080;
 
-// Redis server
-config.redis.host     = '127.0.0.1';
-config.redis.port     = process.env.REDIS_PORT || 6379;
-config.redis.db       = process.env.REDIS_DB || 0;
+/**
+ * Redis server
+ */
+config.redis.host = process.env.REDIS_HOST;
+config.redis.port = 6379;
+config.redis.db = 0;
 config.redis.password = '';
 
-config.cacheTTL = 20; // Time in seconds to store cache in Redis
+// Time in seconds to store cache in Redis
+config.cacheTTL = 20;
 
-config.log.enabled = true;            // Collect logs (true - enabled, false - disabled)
-config.log.file = '/dev/stdout';      // Output for logs - can be device file or ordinary path
-config.log.level = 'info';            // Log level - (trace, debug, info, warn, error)
+// Collect logs (true - enabled, false - disabled)
+config.log.enabled = true;
+// Output for logs - can be device file or ordinary path
+config.log.file = './logs/explorer.log';
+// Log level - (trace, debug, info, warn, error)
+config.log.level = 'info';
 
-// Header price tickers, Currency switcher
-config.exchangeRates.enabled = true;         // Exchange rates support (true - enabled, false - disabled)
-config.exchangeRates.updateInterval = 30000; // Interval in ms for checking exchange rates (default: 30 seconds)
+/**
+ * Header price tickers, Currency switcher
+ */
+// Exchange rates support (true - enabled, false - disabled)
+config.exchangeRates.enabled = true;
+// Interval in ms for checking exchange rates (default: 30 seconds)
+config.exchangeRates.updateInterval = 30000;
+
 // Configuration for different currency pairs, set false to disable pair
 // LSK/BTC pair, supported: poloniex
 config.exchangeRates.exchanges.LSK.BTC = 'poloniex';
