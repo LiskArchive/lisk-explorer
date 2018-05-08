@@ -343,7 +343,7 @@
 								<tr data-ng-repeat='d in vm.standbyDelegates | orderBy:$root.natural(vm.tables.standby.predicate):vm.tables.standby.reverse track by d.rate'>
 									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double">{{d.rate}}</td>
 									<td class="right-padding-xs">
-										<a data-account-href="d" class="glyphicon glyphicon-user" data-type="delegate">{{d.username}}</a>
+										<a data-account-href="d" data-type="delegate">{{d.username}}</a>
 									</td>
 									<td class="hidden-xs"><span class="text-muted">{{d.address}}</span></td>
 									<td class="hidden-xs">{{d.productivity || 0}}%</td>
