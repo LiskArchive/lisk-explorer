@@ -1198,9 +1198,6 @@ a.sort-order span.reverse:after {
     line-height: 1.2;
     margin-bottom: 20px;
 }
-.breadcrumb > li + li:before {
-    padding: 0 0 0 7px;
-}
 
 .decimal-places-selector {
   display: inline-block;
