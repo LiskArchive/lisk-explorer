@@ -77,12 +77,26 @@ LessMore.prototype.spliceData = function (data) {
 	}
 };
 
+LessMore.prototype.concatNoDuplicates = function (data) {
+	if (this.key === 'transactions') {
+		data.forEach((transaction) => {
+			const pos = this.results.map(e => e.id).indexOf(transaction.id);
+			if (pos < 0) {
+				this.results.push(transaction);
+			}
+		});
+	} else {
+		this.results = this.results.concat(data);
+	}
+};
+
 LessMore.prototype.acceptData = function (data) {
 	if (!angular.isArray(data)) { data = []; }
+
 	this.spliceData(data);
 
 	if (this.results.length > 0) {
-		this.results = this.results.concat(data);
+		this.concatNoDuplicates(data);
 	} else {
 		this.results = data;
 	}

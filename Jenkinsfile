@@ -23,9 +23,8 @@ def slack_send(color, message) {
 
 pipeline {
 	agent { node { label 'lisk-explorer' } } 
-	environment { 
-		LISK_VERSION = '1.0.0-alpha.3'
-		//
+	environment {
+		LISK_VERSION = '1.0.0-beta.7'
 		EXPLORER_PORT = "604$EXECUTOR_NUMBER"
 		LISK_HOST = 'localhost'
 		REDIS_DB = "$EXECUTOR_NUMBER"
