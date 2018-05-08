@@ -134,7 +134,7 @@ Feature: Delegate Monitor
   Scenario: allows to go to next page of standby delegates
     Given I'm on page "/delegateMonitor"
     When I click "standby delegates tab"
-    And I click "next page button"
+    And I click "more button"
     Then I should see table "standby delegates" with 20 rows starting with:
       | Rank | Name              | Address      | Productivity | Approval |
       |------|-------------------|--------------|--------------|----------|
@@ -147,8 +147,8 @@ Feature: Delegate Monitor
   Scenario: allows to go to previous page of standby delegates
     Given I'm on page "/delegateMonitor"
     When I click "standby delegates tab"
-    And I click "next page button"
-    And I click "previous page button"
+    And I click "more button"
+    And I click "less button"
     Then I should see table "standby delegates" with 20 rows starting with:
       | Rank | Name              | Address      | Productivity | Approval |
       |------|-------------------|--------------|--------------|----------|
