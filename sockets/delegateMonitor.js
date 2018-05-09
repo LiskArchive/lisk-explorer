@@ -55,6 +55,9 @@ module.exports = function (app, connectionHandler, socket) {
 		const roundLength = 101;
 		const limit = roundLength - (height % roundLength);
 		const next10Forgers = tmpData.nextForgers.delegates.slice(0, Math.min(limit, maxLimit));
+		// Workaround for LiskHQ/lisk#1998, when height % roundLength == 0
+		// list of next10Forgers is unknown
+		if ((height % roundLength) === 0) return [];
 		return next10Forgers.map(publicKey => findActiveByPublicKey(publicKey));
 	};
 
