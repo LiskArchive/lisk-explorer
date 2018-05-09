@@ -155,11 +155,7 @@ logger.info('Routes loaded');
 app.use((req, res, next) => {
 	logger.info(req.originalUrl.split('/')[1]);
 
-	if (req.originalUrl.split('/')[1] !== 'api') {
-		return next();
-	}
-
-	if (req.originalUrl === undefined) {
+	if (req.originalUrl === undefined || req.originalUrl.split('/')[1] !== 'api' || !req.json) {
 		return next();
 	}
 
