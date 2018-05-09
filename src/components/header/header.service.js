@@ -43,17 +43,6 @@ const HeaderConstructor = function ($rootScope) {
 		}
 	};
 
-	// @todo shouldn't this be in run instead of header?
-	$rootScope.delegateProposals = {};
-	this.updateDelegateProposals = (res) => {
-		$rootScope.delegateProposals = {};
-		if (res.success) {
-			res.proposals.forEach((proposal) => {
-				$rootScope.delegateProposals[proposal.name.toLowerCase()] = proposal;
-			});
-		}
-	};
-
 	return this;
 };
 

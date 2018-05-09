@@ -85,10 +85,9 @@
 								<span title="Outgoing"><i class="fa fa-arrow-up text-danger"></i> {{vm.address.outgoing_cnt}}</span>
 							</td>
 						</tr>
-						<tr ng-if="vm.address.delegate || proposal">
+						<tr ng-if="vm.address.delegate">
 							<td class="left-padding-xs left-padding-s left-padding-l"><strong>Delegate</strong></td>
 							<td class="right-padding-xs right-padding-s right-padding-l text-right">
-								<a class="glyphicon glyphicon-user" data-ng-if="vm.address.delegate.username | proposal:$root.delegateProposals" data-ng-href="https://forum.lisk.io/viewtopic.php?f=48&t={{vm.address.delegate.username | proposal:$root.delegateProposals: 'topic'}}" title="{{vm.address.delegate.username | proposal:$root.delegateProposals: 'description'}}" target="_blank"></a>
 								<a data-account-href="vm.address.delegate" data-type="delegate">{{vm.address.delegate.username}}</a>
 							</td>
 						</tr>

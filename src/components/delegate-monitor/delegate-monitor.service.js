@@ -60,7 +60,6 @@ const DelegateMonitor = function ($scope, $rootScope, forgingMonitor) {
 	this.updateActive = (active) => {
 		active.delegates.forEach((d) => {
 			d.forgingStatus = forgingMonitor.getStatus(d);
-			d.proposal = $rootScope.delegateProposals[d.username.toLowerCase()];
 		});
 		$scope.activeDelegates = active.delegates;
 
