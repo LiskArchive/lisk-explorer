@@ -1,27 +1,25 @@
 FROM node:6 AS builder
 
-RUN apt-get update && \
-	DEBIAN_FRONTEND=noninteractive apt-get --assume-yes install --no-install-recommends \
-		build-essential \
-		redis-server && \
-	npm install -g npm@5.7.1 && \
-	npm install -g grunt && \
-	npm install -g bower
-
+RUN useradd --create-home lisk && \
+    npm install --global bower
+# As of Mai 2018 cloud.docker.com runs docker 17.06.1-ce
+# however v17.12 is required to use the chown flag
+#COPY --chown=lisk:lisk . /home/lisk/lisk-explorer/
 COPY . /home/lisk/lisk-explorer/
-RUN useradd lisk && \
-	chown lisk:lisk -R /home/lisk
+RUN chown lisk:lisk --recursive /home/lisk/lisk-explorer
+
 USER lisk
-RUN cd /home/lisk/lisk-explorer && \
-	npm install
-RUN cd /home/lisk/lisk-explorer && \
-	npm run build
+WORKDIR /home/lisk/lisk-explorer
+RUN npm install && \
+    npm run build
 
 
 FROM node:6-alpine
 
 RUN adduser -D lisk 
-COPY --chown=lisk:lisk --from=builder /home/lisk/lisk-explorer /home/lisk/lisk-explorer
+#COPY --chown=lisk:lisk --from=builder /home/lisk/lisk-explorer /home/lisk/lisk-explorer/
+COPY --from=builder /home/lisk/lisk-explorer /home/lisk/lisk-explorer/
+RUN chown lisk:lisk --recursive /home/lisk/lisk-explorer
 
 USER lisk
 WORKDIR /home/lisk/lisk-explorer
