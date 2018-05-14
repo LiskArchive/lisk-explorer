@@ -47,7 +47,7 @@ const DelegateMonitorConstructor = function (delegateMonitor, orderBy, $rootScop
 		standby: orderBy('rate'),
 	};
 
-	vm.decimalPlaceCrypto = 4;
+	vm.decimalPlaceCrypto = 0;
 	vm.decimalPlaceFiat = 0;
 };
 
