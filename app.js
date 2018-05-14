@@ -116,19 +116,16 @@ const allowCrossDomain = function (req, res, next) {
 app.use(allowCrossDomain);
 
 app.use((req, res, next) => {
-	if (req.originalUrl.split('/')[1] !== 'api') {
-		return next();
-	}
-
 	logger.info(req.originalUrl);
 
-	if (req.originalUrl === undefined) {
+	if (req.originalUrl === undefined || req.originalUrl.split('/')[1] !== 'api') {
 		return next();
 	}
 
 	if (cache.cacheIgnoreList.indexOf(req.originalUrl) >= 0) {
 		return next();
 	}
+
 	return req.redis.get(req.originalUrl, (err, json) => {
 		if (err) {
 			logger.info(err);
@@ -153,13 +150,9 @@ routes(app);
 logger.info('Routes loaded');
 
 app.use((req, res, next) => {
-	logger.info(req.originalUrl.split('/')[1]);
+	logger.info(req.originalUrl);
 
-	if (req.originalUrl.split('/')[1] !== 'api') {
-		return next();
-	}
-
-	if (req.originalUrl === undefined) {
+	if (req.originalUrl === undefined || req.originalUrl.split('/')[1] !== 'api' || !req.json) {
 		return next();
 	}
 

@@ -19,6 +19,7 @@
 	<a class="txid" href="/tx/{{tx.id}}">{{tx.id}}</a>
 	<span class="btn-copy" clip-copy="tx.id"></span>
 </td>
+<td data-title="Date" class="hidden-md"><span>{{tx.timestamp | timestamp }}</span></td>
 <td data-title="Sender">
 	<a ng-if="tx.senderId !== address" data-account-href="tx" data-type="sender">{{tx | txSender}}</a>
 	<span ng-if="tx.senderId === address">{{tx | txSender}}</span>
@@ -28,7 +29,6 @@
 	<span ng-if="tx.recipientId === address">{{tx | txRecipient}}</span>
 </td>
 <td data-title="Recipient" data-ng-if="tx.type >= 1"><span>{{tx | txType}}</span></td>
-<td data-title="Date" class="hidden-md"><span>{{tx.timestamp | timestamp }}</span></td>
 <td data-title="Amount" class="amount">
 	<span class="txvalues" data-ng-class="{
 	'tx-outgoing': tx.type == 0 && address == tx.senderId && tx.senderId != tx.recipientId,
