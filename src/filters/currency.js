@@ -20,7 +20,6 @@ AppFilters.filter('currency', (numberFilter, liskFilter) => (amount, currency, d
 	let factor = 1;
 
 	if (!decimalPlacesFiat && decimalPlacesFiat !== 0) decimalPlacesFiat = 2;
-	if (!decimalPlacesCrypto && decimalPlacesCrypto !== 0) decimalPlacesCrypto = 8;
 
 	if (currency.tickers && currency.tickers.LSK && currency.tickers.LSK[currency.symbol]) {
 		factor = currency.tickers.LSK[currency.symbol];
