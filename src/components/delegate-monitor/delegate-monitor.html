@@ -61,22 +61,19 @@
 							<div class="latest-votes next-forgers">
 								<p class="small-title">Next Forgers</p>
 								<div>
-									<div data-ng-if="!vm.nextForgers">
+									<div data-ng-if="!vm.nextForgers || vm.nextForgers.length === 0">
 										<span>Waiting for next forgers <i class="fa fa-spinner fa-spin"></i></span>
 									</div>
 									<span data-ng-repeat='v in vm.nextForgers track by $index'>
-									<div data-ng-if="$first">
-										<p class="big-details">
+										<div data-ng-if="$first">
+											<p class="big-details">
+												<a data-account-href="v" data-type="delegate">{{v.username}}</a>
+											</p>
+										</div>
+										<span data-ng-if="!$first">
 											<a data-account-href="v" data-type="delegate">{{v.username}}</a>
-										</p>
-									</div>
-									<span data-ng-if="!$first && !$last">
-										<a data-account-href="v" data-type="delegate">{{v.username}}</a>
-										<span class="text-muted">&bull;</span>
-									</span>
-									<span data-ng-if="$last">
-										<a data-account-href="v" data-type="delegate">{{v.username}}</a>
-									</span>
+											<span data-ng-if="!$last" class="text-muted">&bull;</span>
+										</span>
 									</span>
 								</div>
 							</div>
@@ -95,7 +92,7 @@
 							<div class="pull-left total-forged">
 								<p class="small-title">Total Forged <span class="text-muted">({{$root.currency.symbol}})</span></p>
 								<p class="big-details">
-									<span class="lisk">{{vm.totalForged || 0 | currency:$root.currency:$root.decimalPlaces}}</span>
+									<span class="lisk">{{vm.totalForged || 0 | currency:$root.currency:vm.decimalPlaceCrypto:vm.decimalPlaceFiat}}</span>
 								</p>
 								<p class="text-muted total-active">between {{vm.totalActive || 0 }} active delegates</p>
 							</div>
