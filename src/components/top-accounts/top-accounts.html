@@ -36,7 +36,7 @@
 								<td class="left-padding-s left-padding-m left-padding-l double hidden-xs">{{$index + 1}}</td>
 								<td class="left-padding-xs address-cell">
 									<a href="/address/{{address.address}}" class="hidden-xs">{{address.address}}</a>
-									<a href="/address/{{address.address}}" class="visible-xs">{{address.address | middleEllipsis:5}}</a>
+									<a href="/address/{{address.address}}" class="visible-xs">{{address.address | middleEllipsis:10}}</a>
 								</td>
 								<td class="right-padding-xs text-right">
 									<span class="hidden-xs">{{address.balance | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></span>
