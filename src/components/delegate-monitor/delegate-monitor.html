@@ -95,7 +95,7 @@
 							<div class="pull-left total-forged">
 								<p class="small-title">Total Forged <span class="text-muted">({{$root.currency.symbol}})</span></p>
 								<p class="big-details">
-									<span class="lisk">{{vm.totalForged || 0 | currency:$root.currency:0}}</span>
+									<span class="lisk">{{vm.totalForged || 0 | currency:$root.currency:vm.decimalPlaceCrypto:vm.decimalPlaceFiat}}</span>
 								</p>
 								<p class="text-muted total-active">between {{vm.totalActive || 0 }} active delegates</p>
 							</div>
