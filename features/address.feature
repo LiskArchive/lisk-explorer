@@ -24,9 +24,9 @@ Feature: Address page
     Then I should be on page "/tx/16295820046284152875"
 
   Scenario: should link sender address to address page
-    Given I'm on page "/address/16313739661670634666L"
+    Given I'm on page "/address/18234943547133247982L"
     And I click link on row no. 1 cell no. 2 of "transactions" table
-    Then I should be on page "/address/16313739661670634666L"
+    Then I should be on page "/address/14895491440237132212L"
 
   Scenario: should link recipient delegate name to address page
     Given I'm on page "/address/16313739661670634666L"

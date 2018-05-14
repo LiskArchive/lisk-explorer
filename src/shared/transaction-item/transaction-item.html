@@ -20,10 +20,12 @@
 	<span class="btn-copy" clip-copy="tx.id"></span>
 </td>
 <td data-title="Sender">
-	<a data-account-href="tx" data-type="sender"><span>{{tx | txSender}}</span></a>
+	<a ng-if="tx.senderId !== address" data-account-href="tx" data-type="sender">{{tx | txSender}}</a>
+	<span ng-if="tx.senderId === address">{{tx | txSender}}</span>
 </td>
 <td data-title="Recipient" data-ng-if="tx.type == 0">
-	<a data-account-href="tx" data-type="recipient">{{tx | txRecipient}}</a>
+	<a ng-if="tx.recipientId !== address" data-account-href="tx" data-type="recipient">{{tx | txRecipient}}</a>
+	<span ng-if="tx.recipientId === address">{{tx | txRecipient}}</span>
 </td>
 <td data-title="Recipient" data-ng-if="tx.type >= 1"><span>{{tx | txType}}</span></td>
 <td data-title="Date" class="hidden-md"><span>{{tx.timestamp | timestamp }}</span></td>
