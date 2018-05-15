@@ -52,9 +52,10 @@ const osSort = (p1, p2) => {
 	return (p1 > p2) ? 1 : -1;
 };
 
-const numericSort = (p1, p2) => p1 - p2;
+const numericSort = (p1, p2) => Number(p1) - Number(p2);
 
 const stringSort = (p1, p2) => {
+	p1 = String(p1); p2 = String(p2);
 	if (p1 === p2) return 0;
 	return (p1 > p2) ? 1 : -1;
 };
@@ -69,16 +70,18 @@ const OrderBy = function (predicate) {
 	};
 
 	this.order = (el1, el2) => {
-		if (this.predicate === 'version') {
-			return sortByVersion(el1.value, el2.value);
-		}
-		if (this.predicate === 'port' || this.predicate === 'height') {
+		switch (this.predicate) {
+		case 'port':
+		case 'height':
+		case 'id':
 			return numericSort(el1.value, el2.value);
-		}
-		if (this.predicate === 'os') {
+		case 'version':
+			return sortByVersion(el1.value, el2.value);
+		case 'os':
 			return osSort(el1.value, el2.value);
+		default:
+			return stringSort(el1.value, el2.value);
 		}
-		return stringSort(el1.value, el2.value);
 	};
 };
 
