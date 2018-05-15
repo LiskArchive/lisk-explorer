@@ -46,6 +46,9 @@ const DelegateMonitorConstructor = function (delegateMonitor, orderBy, $rootScop
 		active: orderBy('rate'),
 		standby: orderBy('rate'),
 	};
+
+	vm.decimalPlaceCrypto = 0;
+	vm.decimalPlaceFiat = 0;
 };
 
 AppDelegateMonitor.component('delegateMonitor', {
