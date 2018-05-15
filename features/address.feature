@@ -4,19 +4,19 @@ Feature: Address page
     Then I should see "Address Summary " in "h1" html element
     And I should see "Home Address" in "breadcrumb" element
     And I should see table "summary" containing:
-      | Address       | 16313739661670634666L                                            |
-      | Public Key    | c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f |
-      | Total balance | 99,675,450.108366 LSK                                            |
-      | Transactions  | 2 1329                                                           |
+      | Address       | 16313739661670634666L                                              |
+      | Public Key    | c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f   |
+      | Total balance | 99,675,450.10836600 LSK                                            |
+      | Transactions  | 2 1329                                                             |
 
     And I should see table "transactions" with 50 rows starting with:
-      | Transaction ID | Date                      | Sender                | Recipient                | Amount    | Fee     | Confirmations |
-      |----------------|---------------------------|-----------------------|--------------------------|-----------|---------|---------------|
-      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
-      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
-      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
-      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
-      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
+      | Transaction ID | Date                      | Sender                | Recipient                | Amount             | Fee     | Confirmations |
+      |----------------|---------------------------|-----------------------|--------------------------|--------------------|---------|---------------|
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000.00000000 LSK | 0.1 LSK | Confirmed     |
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000.00000000 LSK | 0.1 LSK | Confirmed     |
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000.00000000 LSK | 0.1 LSK | Confirmed     |
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000.00000000 LSK | 0.1 LSK | Confirmed     |
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000.00000000 LSK | 0.1 LSK | Confirmed     |
 
   Scenario: should link transaction id to transaction page
     Given I'm on page "/address/16313739661670634666L"
@@ -52,21 +52,21 @@ Feature: Address page
     Given I'm on page "/address/16313739661670634666L"
     When I click "sent tab"
     And I should see table "transactions" with 50 rows starting with:
-      | Transaction ID | Date                      | Sender                | Recipient                | Amount    | Fee     | Confirmations |
-      |----------------|---------------------------|-----------------------|--------------------------|-----------|---------|---------------|
-      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
-      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
-      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
-      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
+      | Transaction ID | Date                      | Sender                | Recipient                | Amount             | Fee     | Confirmations |
+      |----------------|---------------------------|-----------------------|--------------------------|--------------------|---------|---------------|
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000.00000000 LSK | 0.1 LSK | Confirmed     |
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000.00000000 LSK | 0.1 LSK | Confirmed     |
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000.00000000 LSK | 0.1 LSK | Confirmed     |
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000.00000000 LSK | 0.1 LSK | Confirmed     |
 
 
   Scenario: should allow to show only received transactions
     Given I'm on page "/address/16313739661670634666L"
     And I click "received tab"
     Then I should see table "transactions" containing:
-      | Transaction ID      | Date                      | Sender               | Recipient             | Amount          | Fee   | Confirmations |
-      |---------------------|---------------------------|----------------------|-----------------------|-----------------|-------|---------------|
-      | 1465651642158264047 | /2016\/05\/24 \d\d:00:00/ | 1085993630748340485L | 16313739661670634666L | 100,000,000 LSK | 0 LSK | Confirmed     |
+      | Transaction ID      | Date                      | Sender               | Recipient             | Amount                   | Fee   | Confirmations |
+      |---------------------|---------------------------|----------------------|-----------------------|--------------------------|-------|---------------|
+      | 1465651642158264047 | /2016\/05\/24 \d\d:00:00/ | 1085993630748340485L | 16313739661670634666L | 100,000,000.00000000 LSK | 0 LSK | Confirmed     |
 
   Scenario: should allow to show votes
     Given I'm on page "/address/16313739661670634666L"
