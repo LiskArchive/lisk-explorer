@@ -57,7 +57,7 @@
                                 <a class="visible-xs" href="/address/{{b.generator}}">{{b.delegate.username || b.generator | middleEllipsis:10}}</a>
                             </td>
                             <td class="text-right hidden-xs">{{b.totalAmount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td>
-                            <td class="right-padding-m right-padding-l double text-right">{{b.totalForged | currency:$root.currency:1}} {{$root.currency.symbol}}</td>
+                            <td class="right-padding-m right-padding-l double text-right">{{b.totalForged | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td>
                         </tr>
                     </tbody>
                 </table>

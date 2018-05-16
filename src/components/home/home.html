@@ -66,10 +66,10 @@
 							</td>
 							<td class="right-padding-xs right-padding-s right-padding-m text-right">
 								<span class="ellipsis hidden-xs">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
-								<span class="ellipsis visible-xs"><a class="ellipsis" href="/tx/{{tx.id}}">{{tx.amount | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</a></span>
+								<span class="ellipsis visible-xs"><a class="ellipsis" href="/tx/{{tx.id}}">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</a></span>
 							</td>
 							<td class="right-padding-l double text-right hidden-xs hidden-sm hidden-md">
-								<span class="ellipsis">{{tx.fee | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
+								<span class="ellipsis">{{tx.fee | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
 							</td>
 						</tr>
 					</tbody>
@@ -114,7 +114,7 @@
 								<a class="visible-xs" href="/address/{{b.generator}}">{{b.delegate.username || b.generator | middleEllipsis:10}}</a>
 							</td>
 							<td class="text-right hidden-xs">{{b.totalAmount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td>
-							<td class="right-padding-m right-padding-l double text-right">{{b.totalForged | currency:$root.currency:1}} {{$root.currency.symbol}}</td>
+							<td class="right-padding-m right-padding-l double text-right">{{b.totalForged | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td>
 						</tr>
 					</tbody>
 				</table>
