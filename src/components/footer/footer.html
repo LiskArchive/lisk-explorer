@@ -27,7 +27,7 @@
 				data-uib-dropdown-toggle data-aria-haspopup="true"
 				data-ng-class="{disabled: ($root.currency.symbol !== 'BTC' && $root.currency.symbol !== 'LSK')}"
 				role="button" data-aria-expanded="false">Decimal places <span class="caret"></span></a>
-				<ul class="dropdown-menu" role="menu" data-aria-labelledby="decimal-points-dropdown" data-ng-init="$root.decimalPlaces = 8">
+				<ul class="dropdown-menu" role="menu" data-aria-labelledby="decimal-points-dropdown">
 					<li data-ng-class='{active: $root.decimalPlaces === undefined}'>
 						<a data-ng-click='$root.decimalPlaces = undefined;' class='trim-floating-points'>Trim floating points</a>
 					</li>
