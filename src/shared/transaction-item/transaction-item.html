@@ -29,7 +29,7 @@
 	<span ng-if="tx.recipientId === address">{{tx | txRecipient}}</span>
 </td>
 <td data-title="Recipient" data-ng-if="tx.type >= 1"><span>{{tx | txType}}</span></td>
-<td data-title="Amount" class="amount">
+<td data-title="Amount" class="amount text-right">
 	<span class="txvalues" data-ng-class="{
 	'tx-outgoing': tx.type == 0 && address == tx.senderId && tx.senderId != tx.recipientId,
 	'tx-incoming': tx.type == 0 && address && tx.senderId != address,
@@ -37,8 +37,8 @@
 	}">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}
 	</span>
 </td>
-<td data-title="Fee" class="text-nowrap hidden-md"><span>{{tx.fee | currency:$root.currency}} {{$root.currency.symbol}}</span></td>
-<td data-title="Confirmations" class="right-padding-m right-padding-l">
+<td data-title="Fee" class="text-nowrap text-right hidden-md"><span>{{tx.fee | currency:$root.currency}} {{$root.currency.symbol}}</span></td>
+<td data-title="Confirmations" class="text-right right-padding-m right-padding-l double">
 	<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">Unconfirmed Transaction!</span>
 	<span data-ng-if="(block.confirmations > 0  && block.confirmations < 101) || (tx.confirmations > 0 && tx.confirmations < 101)" class="text-warning">{{block.confirmations || tx.confirmations}}</span>
 	<span data-ng-if="block.confirmations >= 101 || tx.confirmations >= 101" class="text-success" data-uib-tooltip="{{block.confirmations || tx.confirmations}} Confirmations">Confirmed</span>
