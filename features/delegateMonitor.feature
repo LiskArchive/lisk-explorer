@@ -30,7 +30,7 @@ Feature: Delegate Monitor
       LAST BLOCK BY
       genesis_\d{1,3}
       \d{18,20}
-      \d+.\d{8}\ LSK forged from \d+ transactions
+      \d+ LSK forged from \d+ transactions
       """
     And I should see "next forgers" element with content that matches:
       """
