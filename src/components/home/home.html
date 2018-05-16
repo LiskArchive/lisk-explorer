@@ -38,7 +38,7 @@
 								<span class="pull-left visible-xs">Recipient</span>
 							</th>
 							<th class="right-padding-xs right-padding-s right-padding-m text-right">Amount</th>
-							<th class="right-padding-l double text-right hidden-xs hidden-sm hidden-md">Fee ({{$root.currency.symbol}})</th>
+							<th class="right-padding-l double text-right hidden-xs hidden-sm hidden-md">Fee</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -61,14 +61,16 @@
 								</a>
 								<span class="ellipsis" data-ng-show="tx.type >= 1">
 									<span class="pull-right hidden-xs">{{tx | txRecipient}}</span>
-									<span class="pull-left visible-xs">{{tx | txRecipient}}</span>
+									<span class="pull-left visible-xs">{{tx | txRecipient | middleEllipsis:12}}</span>
 								</span>
 							</td>
 							<td class="right-padding-xs right-padding-s right-padding-m text-right">
 								<span class="ellipsis hidden-xs">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
-								<span class="ellipsis visible-xs"><a class="ellipsis" href="/tx/{{tx.id}}">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</a></span>
+								<span class="ellipsis visible-xs"><a class="ellipsis" href="/tx/{{tx.id}}">{{tx.amount | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</a></span>
 							</td>
-							<td class="right-padding-l double text-right hidden-xs hidden-sm hidden-md"><span class="ellipsis">{{tx.fee | currency:$root.currency}}</span></td>
+							<td class="right-padding-l double text-right hidden-xs hidden-sm hidden-md">
+								<span class="ellipsis">{{tx.fee | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
+							</td>
 						</tr>
 					</tbody>
 				</table>
