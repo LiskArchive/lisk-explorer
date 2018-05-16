@@ -17,6 +17,7 @@ import './filters.module';
 import './alter-word-separation';
 import './approval';
 import './currency';
+import './currencyFee';
 import './epoch-stamp';
 import './fiat';
 import './forging-time';
