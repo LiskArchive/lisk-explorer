@@ -13,25 +13,12 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import './filters.module';
-import './alter-word-separation';
-import './approval';
-import './currency';
-import './currencyFee';
-import './epoch-stamp';
-import './fiat';
-import './forging-time';
-import './lisk';
-import './net-hash';
-import './round';
-import './split';
-import './start-from';
-import './supply-percent';
-import './time-ago';
-import './time-span';
-import './time-stamp';
-import './tx-recipient';
-import './tx-sender';
-import './tx-type';
-import './votes';
-import './middle-ellipsis';
+import AppFilters from './filters.module';
+
+AppFilters.filter('currencyFee', currencyFilter => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
+	if (currency.symbol === 'LSK') {
+		decimalPlacesCrypto = 1;
+	}
+
+	return currencyFilter(amount, currency, decimalPlacesCrypto, decimalPlacesFiat);
+});
