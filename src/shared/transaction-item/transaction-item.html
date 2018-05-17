@@ -15,11 +15,12 @@
  *
  */
 -->
-<td data-title="Transaction ID" class="text-nowrap left-padding-m left-padding-l double">
+<td data-title="Transaction ID" class="text-nowrap left-padding-m left-padding-l double hidden-md">
 	<a class="txid" href="/tx/{{tx.id}}">{{tx.id}}</a>
 	<span class="btn-copy" clip-copy="tx.id"></span>
 </td>
 <td data-title="Date" class="hidden-md"><span>{{tx.timestamp | timestamp }}</span></td>
+<td data-title="Date" class="left-padding-m left-padding-l double visible-md"><a href="/tx/{{tx.id}}">{{tx.timestamp | timestamp }}</a></td>
 <td data-title="Sender">
 	<a ng-if="tx.senderId !== address" data-account-href="tx" data-type="sender">{{tx | txSender}}</a>
 	<span ng-if="tx.senderId === address">{{tx | txSender}}</span>
@@ -37,9 +38,35 @@
 	}">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}
 	</span>
 </td>
-<td data-title="Fee" class="text-nowrap text-right hidden-md"><span>{{tx.fee | currency:$root.currency}} {{$root.currency.symbol}}</span></td>
+<td data-title="Fee" class="text-nowrap text-right"><span>{{tx.fee | currencyFee:$root.currency}} {{$root.currency.symbol}}</span></td>
 <td data-title="Confirmations" class="text-right right-padding-m right-padding-l double">
-	<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">Unconfirmed Transaction!</span>
-	<span data-ng-if="(block.confirmations > 0  && block.confirmations < 101) || (tx.confirmations > 0 && tx.confirmations < 101)" class="text-warning">{{block.confirmations || tx.confirmations}}</span>
-	<span data-ng-if="block.confirmations >= 101 || tx.confirmations >= 101" class="text-success" data-uib-tooltip="{{block.confirmations || tx.confirmations}} Confirmations">Confirmed</span>
+	<span class="hidden-md">
+		<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">
+			Transaction unconfirmed!&nbsp;<i class="glyphicon glyphicon-alert"></i>
+		</span>
+		<span data-ng-if="(block.confirmations > 0  && block.confirmations < 101) || (tx.confirmations > 0 && tx.confirmations < 101)" 
+			class="text-warning">
+			{{block.confirmations || tx.confirmations}}&nbsp;/&nbsp;101&nbsp;<i class="glyphicon glyphicon-time"></i>
+		</span>
+		<span data-ng-if="block.confirmations >= 101 || tx.confirmations >= 101"
+			class="text-success"
+			data-uib-tooltip="{{block.confirmations || tx.confirmations}} confirmations">
+			Confirmed&nbsp;<i class="glyphicon glyphicon-ok"></span>
+		</span>
+	</span>
+	<span class="visible-md">
+		<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">
+			<i class="glyphicon glyphicon-alert">
+		</span>
+		<span data-ng-if="(block.confirmations > 0  && block.confirmations < 101) || (tx.confirmations > 0 && tx.confirmations < 101)" 
+			class="text-warning" 
+			data-uib-tooltip="{{block.confirmations || tx.confirmations}}&nbsp;confirmations (101&nbsp;required)">
+			<i class="glyphicon glyphicon-time">
+		</span>
+		<span data-ng-if="block.confirmations >= 101 || tx.confirmations >= 101"
+			class="text-success"
+			data-uib-tooltip="{{block.confirmations || tx.confirmations}}&nbsp;confirmations">
+			<i class="glyphicon glyphicon-ok"></span>
+		</span>
+	</span>
 </td>
