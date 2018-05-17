@@ -1261,7 +1261,7 @@ table tr td {
 }
 
 table.transactions thead th .glyphicon {
-  top: 10px;
+      left: 1ch;
 }
 
 table tbody tr:nth-of-type(odd) {
