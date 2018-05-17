@@ -10,7 +10,7 @@ Feature: Address page
       | Transactions  | 2 1329                                                           |
 
     And I should see table "transactions" with 50 rows starting with:
-      | Transaction ID | Date                      | Sender                | Recipient                | Amount    | Fee     | Confirmations |
+      | Transaction ID | Date                      | Sender                | Recipient                | Amount    | Fee     | Confirm.      |
       |----------------|---------------------------|-----------------------|--------------------------|-----------|---------|---------------|
       | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
       | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
@@ -21,7 +21,7 @@ Feature: Address page
   Scenario: should link transaction id to transaction page
     Given I'm on page "/address/16313739661670634666L"
     And I click link on row no. 1 cell no. 1 of "transactions" table
-    Then I should be on page "/tx/16295820046284152875"
+    Then I should be on page "/tx/3848396513989474236"
 
   Scenario: should link sender address to address page
     Given I'm on page "/address/18234943547133247982L"
@@ -31,7 +31,7 @@ Feature: Address page
   Scenario: should link recipient delegate name to address page
     Given I'm on page "/address/16313739661670634666L"
     And I click link on row no. 1 cell no. 4 of "transactions" table
-    Then I should be on page "/address/14706379298538803272L"
+    Then I should be on page "/address/14989416087250274755L"
 
   Scenario: should allow to load more transactions
     Given I'm on page "/address/16313739661670634666L"
@@ -52,7 +52,7 @@ Feature: Address page
     Given I'm on page "/address/16313739661670634666L"
     When I click "sent tab"
     And I should see table "transactions" with 50 rows starting with:
-      | Transaction ID | Date                      | Sender                | Recipient                | Amount    | Fee     | Confirmations |
+      | Transaction ID | Date                      | Sender                | Recipient                | Amount    | Fee     | Confirm.      |
       |----------------|---------------------------|-----------------------|--------------------------|-----------|---------|---------------|
       | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
       | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
@@ -64,7 +64,7 @@ Feature: Address page
     Given I'm on page "/address/16313739661670634666L"
     And I click "received tab"
     Then I should see table "transactions" containing:
-      | Transaction ID      | Date                      | Sender               | Recipient             | Amount          | Fee   | Confirmations |
+      | Transaction ID      | Date                      | Sender               | Recipient             | Amount          | Fee   | Confirm.      |
       |---------------------|---------------------------|----------------------|-----------------------|-----------------|-------|---------------|
       | 1465651642158264047 | /2016\/05\/24 \d\d:00:00/ | 1085993630748340485L | 16313739661670634666L | 100,000,000 LSK | 0 LSK | Confirmed     |
 
