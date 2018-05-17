@@ -15,7 +15,9 @@
  */
 .breadcrumb {
   padding: 8px 12px;
-  background: rgba(1, 56, 115, 0.81);
+  background-color: inherit;
+  border-radius: 0;
+  margin-bottom: 0;
 }
 
 .breadcrumb > li a,
