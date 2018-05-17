@@ -34,8 +34,8 @@
 					</span>
 					<span class="visible-md">ID</span>
 				</th>
-				<th role="button" data-ng-class="filter.predicate === 'date' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('date')">
-					<span>Date</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'date'"></i>
+				<th role="button" data-ng-class="filter.predicate === 'timestamp' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('timestamp')">
+					<span>Date</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'timestamp'"></i>
 				</th>
 				<th role="button" data-ng-class="filter.predicate === 'senderId' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('senderId')">
 					<span>Sender</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'senderId'"></i>
@@ -56,7 +56,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-transaction-item data-address="address" data-tx="tx" data-ng-repeat="tx in txs.results | orderBy:$root.natural(filter.predicate):filter.reverse track by tx.id"></tr>
+			<tr data-transaction-item data-address="address" data-tx="tx" data-ng-repeat="tx in txs.results | orderBy:filter.predicate:filter.reverse:filter.order track by tx.id"></tr>
 		</tbody>
 	</table>
 </div>

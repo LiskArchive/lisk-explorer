@@ -60,9 +60,9 @@ const stringSort = (p1, p2) => {
 	return (p1 > p2) ? 1 : -1;
 };
 
-const OrderBy = function (predicate) {
-	this.reverse = false;
+const OrderBy = function (predicate, reverse) {
 	this.predicate = predicate;
+	this.reverse = reverse || false;
 
 	this.setPredicate = (currentPredicate) => {
 		this.reverse = (this.predicate === currentPredicate) ? !this.reverse : false;
@@ -70,11 +70,11 @@ const OrderBy = function (predicate) {
 	};
 
 	this.order = (el1, el2) => {
-		switch (this.predicate) {
-		case 'port':
-		case 'height':
-		case 'id':
+		if (Number(el1.value) && Number(el2.value)) {
 			return numericSort(el1.value, el2.value);
+		}
+
+		switch (this.predicate) {
 		case 'version':
 			return sortByVersion(el1.value, el2.value);
 		case 'os':
@@ -86,4 +86,4 @@ const OrderBy = function (predicate) {
 };
 
 AppServices.factory('orderBy',
-	() => predicate => new OrderBy(predicate));
+	() => (predicate, reverse) => new OrderBy(predicate, reverse));
