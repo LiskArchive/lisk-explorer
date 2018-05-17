@@ -198,6 +198,7 @@
   width: 100%;
   position: relative;
   z-index: 1;
+  background-color: rgb(1, 56, 115);
 }
 
 .navbar-fixed-top .network-status .flex-container {
