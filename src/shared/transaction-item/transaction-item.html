@@ -15,12 +15,12 @@
  *
  */
 -->
-<td data-title="Transaction ID" class="text-nowrap left-padding-m left-padding-l double hidden-md">
-	<a class="txid" href="/tx/{{tx.id}}">{{tx.id}}</a>
-	<span class="btn-copy" clip-copy="tx.id"></span>
+<td data-title="Transaction ID" class="text-nowrap left-padding-m left-padding-l double">
+	<a class="txid hidden-md" href="/tx/{{tx.id}}">{{tx.id}}</a>
+	<span class="btn-copy" clip-copy="tx.id" data-uib-tooltip="{{tx.id}}"></span>
 </td>
 <td data-title="Date" class="hidden-md"><span>{{tx.timestamp | timestamp }}</span></td>
-<td data-title="Date" class="left-padding-m left-padding-l double visible-md"><a href="/tx/{{tx.id}}">{{tx.timestamp | timestamp }}</a></td>
+<td data-title="Date" class="visible-md"><a href="/tx/{{tx.id}}">{{tx.timestamp | timestamp }}</a></td>
 <td data-title="Sender">
 	<a ng-if="tx.senderId !== address" data-account-href="tx" data-type="sender">{{tx | txSender}}</a>
 	<span ng-if="tx.senderId === address">{{tx | txSender}}</span>

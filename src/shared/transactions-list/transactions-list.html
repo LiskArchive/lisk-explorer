@@ -27,13 +27,14 @@
 	<table class="table transactions">
 		<thead>
 			<tr>
-				<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double hidden-md" role="button" data-ng-class="filter.predicate === 'id' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('id')">
-					<span>Transaction ID</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'id'"></i>
+				<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double" role="button" data-ng-class="filter.predicate === 'id' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('id')">
+					<span class="hidden-md">
+						Transaction ID
+						<i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'id'"></i>
+					</span>
+					<span class="visible-md">ID</span>
 				</th>
-				<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double visible-md" role="button" data-ng-class="filter.predicate === 'date' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('date')">
-					<span>Date</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'date'"></i>
-				</th>
-				<th class="hidden-md" role="button" data-ng-class="filter.predicate === 'date' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('date')">
+				<th role="button" data-ng-class="filter.predicate === 'date' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('date')">
 					<span>Date</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'date'"></i>
 				</th>
 				<th role="button" data-ng-class="filter.predicate === 'senderId' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('senderId')">
