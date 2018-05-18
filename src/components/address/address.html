@@ -20,11 +20,14 @@
 		data-ng-if="vm.address.balance" data-ng-init="hideSNavbar=0">
 		<div class="container" data-ng-if="!hideSNavbar">
 			<div class="col-md-8 text-left">
-				<h3>Address</h3> {{vm.address.address}}
-				<span class="btn-copy" clip-copy="vm.address.address"></span>
+				<span>
+					<strong>Address: </strong>{{vm.address.address}}
+				</span>
 			</div>
 			<div class="col-md-4">
-				<span class="txvalues"><strong>Final Balance</strong> {{vm.address.balance | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
+				<span class="txvalues">
+					<strong>Final Balance: </strong>{{vm.address.balance | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}
+				</span>
 			</div>
 		</div>
 		<div class="hide_snavbar">
