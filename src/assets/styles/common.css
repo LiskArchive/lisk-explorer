@@ -986,12 +986,6 @@ qrcode + span {
 
 .btn-copy.active .tooltip { opacity: 1; }
 
-@media (max-width: 991px) {
-  .btn-copy {
-    display: none;
-  }
-}
-
 .txid {
   line-height: 26px;
 }
