@@ -16,29 +16,6 @@
  */
 -->
 <section>
-	<div class="secondary_navbar hidden-xs hidden-sm" scroll data-ng-class="{'hidden': !vm.secondaryNavbar}" data-ng-if="vm.tx.id"
-		data-ng-init="vm.hideSNavbar=0">
-		<div class="container" data-ng-if="!vm.hideSNavbar">
-			<div class="col-md-6 col-lg-7 text-left">
-				<h3>Transaction</h3>
-				<div class="ellipsis">
-					<small>{{tx.id}}</small>
-					<span class="btn-copy" clip-copy="tx.id"></span>
-				</div>
-			</div>
-			<div class="col-md-6 col-lg-5 text-right">
-				<span data-ng-if="vm.tx.confirmations" class="txvalues txvalues-success">{{vm.tx.confirmations}} Confirmations</span>
-				<span data-ng-if="!vm.tx.confirmations" class="txvalues txvalues-danger">Unconfirmed Transaction!</span>
-				<span class="txvalues txvalues-primary">{{vm.tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
-			</div>
-		</div>
-		<div class="hide_snavbar">
-			<a href="#" data-ng-click="vm.hideSNavbar=!vm.hideSNavbar">
-				<span data-ng-if="vm.hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-down"></span></span>
-				<span data-ng-if="!vm.hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-up"></span></span>
-			</a>
-		</div>
-	</div>
 	<h1>Transaction <small>{{vm.tx.id}}</small></h1>
 	<div class="text-muted" data-ng-if="!vm.tx.id">
 		<span>Loading Transaction <i class="fa fa-spinner fa-spin"></i>
@@ -140,24 +117,5 @@
 			</div>
 		</div>
 	</div>
-	<h1>Details</h1>
-	<div id="table-mobile" class="table-responsive">
-		<table class="table details">
-			<thead>
-				<tr>
-					<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double">Transaction ID</th>
-					<th class="hidden-md">Date</th>
-					<th>Sender</th>
-					<th>Recipient</th>
-					<th class="amount">Amount</th>
-					<th class="hidden-md">Fee</th>
-					<th class="right-padding-m right-padding-l">Confirmations</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr data-transaction-item data-address="vm.tx.senderId" data-ng-if="vm.tx.id" data-tx="vm.tx"></tr>
-			</tbody>
-		</table>
-	</div>
-	</div>
+</div>
 </section>
