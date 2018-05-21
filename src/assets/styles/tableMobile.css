@@ -31,7 +31,8 @@
 	#table-mobile th, 
 	#table-mobile td, 
 	#table-mobile tr { 
-		display: block; 
+		display: block;
+		padding: 10px 0;
 	}
  
 	/* Hide table headers (but not display: none;, for accessibility) */
@@ -44,9 +45,12 @@
 	#table-mobile td { 
 		/* Behave  like a "row" */
 		border: none;
-		border-bottom: 1px solid #eee; 
+		border-bottom: 1px solid #eee;
 		position: relative;
-		padding-left: 40%; 
+		padding-left: 40%;
+		padding-right: 8px;
+		padding-top: 0;
+		padding-bottom: 0;
 		white-space: normal;
 		text-align:left;
 	}
@@ -54,17 +58,12 @@
 	#table-mobile td:before { 
 		/* Now like a table header */
 		position: absolute;
-		top: 8px;
 		left: 12px;
-		width: 35%; 
-		padding-right: 10px; 
+		width: 35%;
+		padding-right: 10px;
 		white-space: nowrap;
 		text-align:left;
 		font-weight: bold;
-	}
-	
-	#table-mobile td:first-child:before { 
-		top: 11px;
 	}
 	
 	#table-mobile .txvalues {
