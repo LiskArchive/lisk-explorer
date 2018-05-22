@@ -77,6 +77,10 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 		link: SearchLink,
 		controller: SearchCtrl,
 		controllerAs: 'sch',
+		scope: {
+			mobileView: '@',
+		},
+		bindToController: true,
 		template,
 	};
 });

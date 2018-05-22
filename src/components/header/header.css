@@ -139,7 +139,7 @@
 }
 
 .search-box.active {
-  width: 305px !important;
+  width: 360px !important;
 }
 
 .search-box.active input#search {
@@ -158,7 +158,7 @@
   font-family: 'Roboto', 'Ubuntu', sans-serif;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .search-box {
     margin-top: 7px;
   }
