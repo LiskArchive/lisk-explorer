@@ -948,6 +948,7 @@ qrcode + span {
   display: inline-block;
   outline: none;
   border-radius: 5px;
+  margin-left: 3px;
   text-align: center;
   cursor: pointer;
 }
@@ -970,8 +971,8 @@ qrcode + span {
 
 .btn-copy .tooltip {
   display: block;
-  margin-left: 16px;
-  margin-top: -22px;
+  margin-left: -24px;
+  margin-top: -64px;
   opacity: 0;
   pointer-events: none;
 }
@@ -983,6 +984,11 @@ qrcode + span {
 
 .tooltip.right .tooltip-arrow {
   border-right-color: #0288d1;
+}
+
+.btn-copy .tooltip.top .tooltip-arrow {
+  border-top-color: #0288d1;
+  left: 30px;
 }
 
 .btn-copy.active .tooltip { opacity: 1; }

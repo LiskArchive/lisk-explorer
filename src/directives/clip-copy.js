@@ -19,24 +19,29 @@ import AppTools from '../app/app-tools.module';
 AppTools.directive('clipCopy', () => ({
 	restric: 'A',
 	scope: { clipCopy: '=clipCopy' },
-	template: '<div class="tooltip fade right in"><div class="tooltip-arrow"></div><div class="tooltip-inner">{{tooltipText}}</div></div>',
-	link(scope, elm) {
-		scope.tooltipText = 'Copied!';
+	template: '<div data-ng-if="tooltipText" class="tooltip fade top in"><div class="tooltip-arrow"></div><div class="tooltip-inner">{{tooltipText}}</div></div>',
+	link(scope, elm, attrs) {
 		const clip = new Clipboard(elm[0], {
-			// eslint-disable-next-line no-unused-vars
-			text: target => scope.clipCopy,
+			text: () => scope.clipCopy,
 		});
+
 		clip.on('success', () => {
+			scope.tooltipText = attrs.tooltipLabel || 'Copied!';
+			scope.$apply();
 			elm.addClass('active');
 		});
+
 		elm.on('mouseleave', () => {
 			elm.removeClass('active');
+			scope.tooltipText = null;
 		});
+
 		clip.on('error', () => {
 			scope.tooltipText = 'Press Ctrl+C to copy!';
 			scope.$apply();
 			elm.addClass('active');
 		});
+
 		scope.$on('$destroy', () => clip.destroy());
 	},
 }));
