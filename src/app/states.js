@@ -29,7 +29,7 @@ App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 		})
 		.state('block', {
 			url: '/block/:blockId',
-			parentDir: 'blocks',
+			parentDir: 'home',
 			component: 'block',
 		})
 		.state('transaction', {
@@ -69,7 +69,7 @@ App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 		})
 		.state('delegate', {
 			url: '/delegate/:delegateId',
-			parentDir: 'address',
+			parentDir: 'home',
 			component: 'delegate',
 		})
 		.state('error', {

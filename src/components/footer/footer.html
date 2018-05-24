@@ -29,13 +29,16 @@
 				role="button" data-aria-expanded="false">Decimal places <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu" data-aria-labelledby="decimal-points-dropdown">
 					<li data-ng-class='{active: $root.decimalPlaces === undefined}'>
-						<a data-ng-click='$root.decimalPlaces = undefined;' class='trim-floating-points'>Trim floating points</a>
+						<a data-ng-click='$root.decimalPlaces = undefined;' class='trim-floating-points'>Trim trailing zeros</a>
+					</li>
+					<li data-ng-class='{active: $root.decimalPlaces === 0}'>
+						<a data-ng-click='$root.decimalPlaces = 0;' class='round-to-0'>Round to whole number</a>
 					</li>
 					<li data-ng-class='{active: $root.decimalPlaces === 4}'>
-						<a data-ng-click='$root.decimalPlaces = 4;' class='round-to-4'>Round to 4</a>
+						<a data-ng-click='$root.decimalPlaces = 4;' class='round-to-4'>Round to 4th decimal place</a>
 					</li>
 					<li data-ng-class='{active: $root.decimalPlaces === 8}'>
-						<a data-ng-click='$root.decimalPlaces = 8;' class='show-all-8'>Show all 8</a>
+						<a data-ng-click='$root.decimalPlaces = 8;' class='show-all-8'>Show all decimals</a>
 					</li>
 				</ul>
 			</div>
