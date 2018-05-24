@@ -42,6 +42,14 @@ AppTools.directive('clipCopy', () => ({
 			elm.addClass('active');
 		});
 
+		if (attrs.onHover) {
+			elm.on('mouseenter', () => {
+				scope.tooltipText = attrs.onHover;
+				scope.$apply();
+				elm.addClass('active');
+			});
+		}
+
 		scope.$on('$destroy', () => clip.destroy());
 	},
 }));
