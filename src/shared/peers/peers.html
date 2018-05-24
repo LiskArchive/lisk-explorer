@@ -31,7 +31,7 @@
 		</thead>
 		<tbody>
 			<tr data-ng-if="!peers">
-				<td colspan="6">Waiting for peers <i class="fa fa-spinner fa-spin"></i></td>
+				<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double" colspan="12">Waiting for peers <i class="fa fa-spinner fa-spin"></i></td>
 			</tr>
 		</tbody>
 		<tbody>
@@ -43,7 +43,7 @@
 				<td><span class="peer-state state-{{p.state}}" title="{{p.humanState}}"></span></td>
 				<td><span class="text-muted">{{p.version}}</span></td>
 				<td><span os-icon os="p.os" brand="p.osBrand"></span></td>
-				<td class="hidden-xs hidden-sm">{{p.height}}</td>
+				<td class="hidden-xs hidden-sm right-padding-m right-padding-l double">{{p.height}}</td>
 			</tr>
 		</tbody>
 	</table>

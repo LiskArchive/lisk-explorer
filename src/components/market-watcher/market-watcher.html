@@ -19,17 +19,18 @@
 	<div class="row">
 		<div class="col-xs-12">
 			<h1>Market Watcher</h1>
-			<hr />
 		</div>
 	</div>
 
 	<div class="alert alert-warning" data-ng-if="vm.exchanges && vm.noExchange">No exchanges available.</div>
 
-	<div class="row" data-ng-show="!vm.noExchange">
+	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-show="!vm.noExchange">
 		<div class="col-xs-12">
-			<div class="progress progress-striped active" data-ng-hide="vm.statistics">
-				<div class="progress-bar progress-bar-loading" style="width: 100%">
-					<span>Loading Candles / Statistics...</span>
+			<div class="progress progress-striped horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double active" data-ng-hide="vm.statistics">
+				<div class="wrapper">
+					<div class="progress-bar progress-bar-loading" style="width: 100%">
+						<span>Loading Candles / Statistics...</span>
+					</div>
 				</div>
 			</div>
 			<div class="row">
@@ -44,7 +45,7 @@
 				</div>
 				<div class="col-xs-12 col-sm-1">
 					<div class="hidden-sm hidden-xs">
-						<button type="button" class="btn btn-lg btn-default btn-collapse toggle-statistics-button" data-ng-click="vm.isCollapsed = !vm.isCollapsed" title="Toggle Statistics">
+						<button type="button" class="btn btn-lg btn-default btn-collapse toggle-statistics-button bordered-button" data-ng-click="vm.isCollapsed = !vm.isCollapsed" title="Toggle Statistics">
 							<i class="fa" data-ng-class="{'fa-chevron-down': vm.isCollapsed, 'fa-chevron-up': !vm.isCollapsed}"></i>
 						</button>
 					</div>

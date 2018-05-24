@@ -15,42 +15,63 @@
  *
  */
 -->
-<div class="alert alert-warning" data-ng-if="!txs.loading && !txs.results.length">There are no transactions involving this {{txs.parent}}.</div>
+<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-l" data-ng-if="!txs.loading && !txs.results.length">
+	<div class="col-md-12">
+		<div class='empty-state'>
+			<h2>No transactions</h2>
+			<p>There are no transactions involving this {{txs.parent}}.</p>
+		</div>
+	</div>
+</div>
 <div id="table-mobile" class="table-responsive" data-ng-if="txs.results.length">
 	<table class="table transactions">
 		<thead>
 			<tr>
-				<th role="button" data-ng-class="filter.predicate === 'id' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('id')">
-					<span>Transaction ID</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'id'" /></th>
-				<th role="button" data-ng-class="filter.predicate === 'date' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('date')">
-					<span>Date</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'date'" /></th>
-				<th role="button" data-ng-class="filter.predicate === 'senderId' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('senderId')">
-					<span>Sender</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'senderId'" /></th>
-				<th role="button" data-ng-class="filter.predicate === 'recipientId' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('recipientId')">
-					<span>Recipient</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'recipientId'" /></th>
-				<th role="button" data-ng-class="filter.predicate === 'amount' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('amount')">
-					<span>Amount</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'amount'" /></th>
-				<th role="button" data-ng-class="filter.predicate === 'fee' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('fee')">
-					<span>Fee</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'fee'" /></th>
-				<th role="button" data-ng-class="filter.predicate === 'confirmations' ? 'text-primary' : 'text-muted'" data-ng-click="filter.order('confirmations')">
-					<span>Confirmations</span><i class="glyphicon pull-right" data-ng-class="filter.reverse ? 'glyphicon-triangle-top' : 'glyphicon-triangle-bottom'" ng-if="filter.predicate === 'confirmations'" /></th>
+				<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double" role="button" data-ng-class="filter.predicate === 'id' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('id')">
+					<span class="hidden-md">
+						Transaction ID
+						<i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'id'"></i>
+					</span>
+					<span class="visible-md">ID</span>
+				</th>
+				<th role="button" data-ng-class="filter.predicate === 'timestamp' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('timestamp')">
+					<span>Date</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'timestamp'"></i>
+				</th>
+				<th role="button" data-ng-class="filter.predicate === 'senderId' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('senderId')">
+					<span>Sender</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'senderId'"></i>
+				</th>
+				<th role="button" data-ng-class="filter.predicate === 'recipientId' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('recipientId')">
+					<span>Recipient</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'recipientId'"></i>
+				</th>
+				<th role="button" data-ng-class="filter.predicate === 'amount' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('amount')" class="amount text-right">
+					<span>Amount</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'amount'"></i>
+				</th>
+				<th role="button" data-ng-class="filter.predicate === 'fee' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('fee')" class="text-nowrap text-right">
+					<span>Fee</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'fee'"></i>
+				</th>
+				<th role="button" data-ng-class="filter.predicate === 'confirmations' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('confirmations')" class="text-right right-padding-m right-padding-l double">
+					<span class="hidden-md">Confirm.<i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'confirmations'"></i></span>
+					<span class="visible-md"><i class="glyphicon glyphicon-check" style="left:0"></i></span>
+				</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr data-transaction-item data-address="address" data-tx="tx" data-ng-repeat="tx in txs.results | orderBy:$root.natural(filter.predicate):filter.reverse track by tx.id"></tr>
+			<tr data-transaction-item data-address="address" data-tx="tx" data-ng-repeat="tx in txs.results | orderBy:filter.predicate:filter.reverse:filter.order track by tx.id"></tr>
 		</tbody>
 	</table>
 </div>
-<div class="progress progress-striped active" data-ng-if="txs.loading">
-	<div class="progress-bar progress-bar-loading" style="width: 100%">
-		<span>Loading Transactions...</span>
+<div class="progress progress-striped horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double  active" data-ng-if="txs.loading">
+	<div class="wrapper">
+		<div class="progress-bar progress-bar-loading" style="width: 100%">
+			<span>Loading Transactions...</span>
+		</div>
 	</div>
 </div>
-<div class="btn-group btn-group-justified" role="group" aria-label="Less/More Transactions" data-ng-hide="txs.disabled()">
+<div class="btn-group btn-group-justified paginator" role="group" aria-label="Less/More Transactions" data-ng-hide="txs.disabled()">
 	<div class="btn-group" role="group">
-		<button class="btn btn-default less-button" data-ng-disabled="!txs.lessData" data-ng-click="txs.loadLess()">Less</a>
+		<button class="btn btn-default less-button bordered-button" data-ng-disabled="!txs.lessData" data-ng-click="txs.loadLess()">Less</button>
 	</div>
 	<div class="btn-group" role="group">
-		<button class="btn btn-default more-button" data-ng-disabled="!txs.moreData" data-ng-click="txs.loadMore()">More</a>
+		<button class="btn btn-default more-button bordered-button" data-ng-disabled="!txs.moreData" data-ng-click="txs.loadMore()">More</button>
 	</div>
 </div>

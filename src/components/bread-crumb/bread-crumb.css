@@ -15,4 +15,20 @@
  */
 .breadcrumb {
   padding: 8px 12px;
+  background-color: inherit;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.breadcrumb > li a,
+.breadcrumb > li span {
+  color: #ccc;
+}
+
+.breadcrumb > li a:hover {
+  color: #ccc;
+}
+
+.breadcrumb > li + li:before {
+    padding: 0 0 0 7px;
 }

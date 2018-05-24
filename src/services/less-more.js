@@ -58,8 +58,10 @@ LessMore.prototype.getData = function (offset, limit, cb) {
 		if (resp.data.success && angular.isArray(resp.data[this.key])) {
 			cb(resp.data[this.key]);
 		} else {
-			throw new Error('LessMore failed to get valid response data');
+			cb(null);
 		}
+	}).catch(() => {
+		cb(null);
 	});
 };
 
