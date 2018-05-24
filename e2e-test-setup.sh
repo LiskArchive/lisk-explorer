@@ -13,9 +13,9 @@ fi
 
 pwd=`pwd`
 cp ./test/known.test.json ./known.json
+cp test/data/config.json $1/config.json
 cd $1
-cp test/data/config.json ./config.json
-pm2 stop app.js
+pm2 stop lisk-core
 dropdb lisk_test
 createdb lisk_test
 gunzip -fcq "$pwd/blockchain_explorer.db.gz" | psql -d lisk_test
