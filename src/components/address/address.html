@@ -64,13 +64,15 @@
 						<tr>
 							<td class="left-padding-xs left-padding-s left-padding-l"><strong>Address</strong></td>
 							<td class="right-padding-xs right-padding-s right-padding-l text-right">
-								<span>{{vm.address.address}}&nbsp;<span class="btn-copy" clip-copy="vm.address.address"></span></span>
+								<span>{{vm.address.address}}</span>
+								<span class="btn-copy" clip-copy="vm.address.address"></span>
 							</td>
 						</tr>
 						<tr class="hidden-xs">
 							<td class="left-padding-s left-padding-l"><strong>Public Key</strong></td>
 							<td class="right-padding-s right-padding-l text-right" data-ng-if="vm.address.publicKey">
-								<span>{{vm.address.publicKey}}&nbsp;<span class="btn-copy" clip-copy="vm.address.publicKey"></span></span>
+								<span>{{vm.address.publicKey}}</span>
+								<span class="btn-copy" clip-copy="vm.address.publicKey"></span>
 							</td>
 							<td class="right-padding-s right-padding-l text-right" data-ng-if="!vm.address.publicKey">
 								<span>Not initialized</span>
