@@ -142,6 +142,12 @@
   width: 360px !important;
 }
 
+@media (max-width: 1024px) {
+  .search-box.active {
+    width: 340px !important;
+  }
+}
+
 .search-box.active input#search {
   width: calc(100% - 52px) !important;
 }
