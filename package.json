@@ -1,6 +1,6 @@
 {
   "name": "lisk-explorer",
-  "version": "2.1.0-pre-alpha",
+  "version": "2.1.0-beta.0",
   "description": "Lisk blockchain explorer",
   "repository": {
     "type": "git",
