@@ -15,9 +15,11 @@
  */
 import AppFilters from './filters.module';
 
-AppFilters.filter('currency', (numberFilter, liskFilter) => (amount, currency, decimalPlaces) => {
+AppFilters.filter('currency', (numberFilter, liskFilter) => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
 	const lisk = liskFilter(amount);
 	let factor = 1;
+
+	if (!decimalPlacesFiat && decimalPlacesFiat !== 0) decimalPlacesFiat = 2;
 
 	if (currency.tickers && currency.tickers.LSK && currency.tickers.LSK[currency.symbol]) {
 		factor = currency.tickers.LSK[currency.symbol];
@@ -26,8 +28,8 @@ AppFilters.filter('currency', (numberFilter, liskFilter) => (amount, currency, d
 		return 'N/A';
 	}
 
-	const decimals = (currency.symbol === 'LSK' || currency.symbol === 'BTC') ? decimalPlaces : 2;
-	if (decimals && lisk > 0) {
+	const decimals = (currency.symbol === 'LSK' || currency.symbol === 'BTC') ? decimalPlacesCrypto : decimalPlacesFiat;
+	if (typeof decimals === 'number' && lisk > 0) {
 		return numberFilter((lisk * factor), decimals);
 	}
 	return numberFilter((lisk * factor), 8).replace(/\.?0+$/, '');

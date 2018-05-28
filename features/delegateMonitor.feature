@@ -41,7 +41,7 @@ Feature: Delegate Monitor
     And I should see "total forged" element with content that matches:
       """
       TOTAL FORGED \(LSK\)
-      \d{1,3},\d{3}\.\d{8}
+      \d{1,3},\d{3}\
       between 101 active delegates
       """
     And I should see "best forger" element with content that matches:
@@ -134,7 +134,7 @@ Feature: Delegate Monitor
   Scenario: allows to go to next page of standby delegates
     Given I'm on page "/delegateMonitor"
     When I click "standby delegates tab"
-    And I click "next page button"
+    And I click "more button"
     Then I should see table "standby delegates" with 20 rows starting with:
       | Rank | Name              | Address      | Productivity | Approval |
       |------|-------------------|--------------|--------------|----------|
@@ -147,8 +147,8 @@ Feature: Delegate Monitor
   Scenario: allows to go to previous page of standby delegates
     Given I'm on page "/delegateMonitor"
     When I click "standby delegates tab"
-    And I click "next page button"
-    And I click "previous page button"
+    And I click "more button"
+    And I click "less button"
     Then I should see table "standby delegates" with 20 rows starting with:
       | Rank | Name              | Address      | Productivity | Approval |
       |------|-------------------|--------------|--------------|----------|

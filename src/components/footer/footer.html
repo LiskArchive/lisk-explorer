@@ -29,18 +29,21 @@
 				role="button" data-aria-expanded="false">Decimal places <span class="caret"></span></a>
 				<ul class="dropdown-menu" role="menu" data-aria-labelledby="decimal-points-dropdown">
 					<li data-ng-class='{active: $root.decimalPlaces === undefined}'>
-						<a data-ng-click='$root.decimalPlaces = undefined;' class='trim-floating-points'>Trim floating points</a>
+						<a data-ng-click='$root.decimalPlaces = undefined;' class='trim-floating-points'>Trim trailing zeros</a>
+					</li>
+					<li data-ng-class='{active: $root.decimalPlaces === 0}'>
+						<a data-ng-click='$root.decimalPlaces = 0;' class='round-to-0'>Round to whole number</a>
 					</li>
 					<li data-ng-class='{active: $root.decimalPlaces === 4}'>
-						<a data-ng-click='$root.decimalPlaces = 4;' class='round-to-4'>Round to 4</a>
+						<a data-ng-click='$root.decimalPlaces = 4;' class='round-to-4'>Round to 4th decimal place</a>
 					</li>
 					<li data-ng-class='{active: $root.decimalPlaces === 8}'>
-						<a data-ng-click='$root.decimalPlaces = 8;' class='show-all-8'>Show all 8</a>
+						<a data-ng-click='$root.decimalPlaces = 8;' class='show-all-8'>Show all decimals</a>
 					</li>
 				</ul>
 			</div>
 		</div>
-		<div class="col-right col-sm-4 hidden-xs">
+		<div class="col-right col-sm-4 hidden-xs social-networks">
 			<a href="https://www.reddit.com/r/Lisk/" target="_blank" title="Reddit" class="link reddit-link"><i class="fa fa-reddit-square fa-2x"></i></a>
 			<a href="https://twitter.com/LiskHQ" target="_blank" title="Twitter" class="link twitter-link"><i class="fa fa-twitter fa-2x"></i></a>
 			<a href="https://github.com/LiskHQ/lisk-explorer" target="_blank" title="Github" class="link github-link"><i class="fa fa-github fa-2x"></i></a>
