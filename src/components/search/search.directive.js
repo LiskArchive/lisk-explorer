@@ -39,6 +39,13 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 			}, 200);
 		};
 
+		this.expandInput = () => {
+			this.activeForm = !this.activeForm;
+			$timeout(() => {
+				document.getElementById('search').focus();
+			}, 500);
+		};
+
 		this.hideSuggestion = () => {
 			_resetSearch();
 		};
