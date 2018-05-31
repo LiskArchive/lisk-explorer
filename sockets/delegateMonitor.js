@@ -21,7 +21,9 @@ const logger = require('../utils/logger');
 
 module.exports = function (app, connectionHandler, socket) {
 	const delegates = new api.delegates(app);
+	// eslint-disable-next-line no-unused-vars
 	const connection = new connectionHandler('Delegate Monitor:', socket, this);
+	const maxLimitOfNextForgers = 10;
 	let intervals = [];
 	const data = {};
 	// Only used in various calculations, will not be emitted directly
@@ -49,8 +51,13 @@ module.exports = function (app, connectionHandler, socket) {
 	const findActiveByPublicKey = publicKey =>
 		data.active.delegates.find(d => d.publicKey === publicKey);
 
-	const cutNextForgers = () => {
-		const next10Forgers = tmpData.nextForgers.delegates.slice(0, 10);
+	const cutNextForgers = (maxLimit, height) => {
+		const roundLength = 101;
+		const limit = roundLength - (height % roundLength);
+		const next10Forgers = tmpData.nextForgers.delegates.slice(0, Math.min(limit, maxLimit));
+		// Workaround for LiskHQ/lisk#1998, when height % roundLength == 0
+		// list of next10Forgers is unknown
+		if ((height % roundLength) === 0) return [];
 		return next10Forgers.map(publicKey => findActiveByPublicKey(publicKey));
 	};
 
@@ -237,6 +244,7 @@ module.exports = function (app, connectionHandler, socket) {
 								existing.blocks = res.blocks;
 								existing.blocksAt = moment();
 								existing = updateDelegate(existing, false);
+
 								emitDelegate(existing);
 							}
 
@@ -254,10 +262,10 @@ module.exports = function (app, connectionHandler, socket) {
 				});
 			},
 		], (err) => {
+			running.getLastBlocks = false;
 			if (err) {
 				log('error', `Error retrieving LastBlocks: ${err}`);
 			}
-			running.getLastBlocks = false;
 		});
 	};
 
@@ -299,6 +307,7 @@ module.exports = function (app, connectionHandler, socket) {
 			getRegistrations,
 			getVotes,
 			getNextForgers,
+			getLastBlock,
 		],
 		(err, res) => {
 			if (err) {
@@ -309,7 +318,7 @@ module.exports = function (app, connectionHandler, socket) {
 				data.active = updateActive(res[0]);
 				data.registrations = res[1];
 				data.votes = res[2];
-				data.nextForgers = cutNextForgers(10);
+				data.nextForgers = cutNextForgers(maxLimitOfNextForgers, res[4].block.height);
 
 				log('info', 'Emitting data');
 				socket.emit('data', data);
@@ -321,7 +330,6 @@ module.exports = function (app, connectionHandler, socket) {
 		this.onConnect();
 
 		async.parallel([
-			// We only call getLastBlock on init, later data.lastBlock will be updated from getLastBlocks
 			getLastBlock,
 			getActive,
 			getRegistrations,
@@ -338,7 +346,7 @@ module.exports = function (app, connectionHandler, socket) {
 				data.active = updateActive(res[1]);
 				data.registrations = res[2];
 				data.votes = res[3];
-				data.nextForgers = cutNextForgers(10);
+				data.nextForgers = cutNextForgers(maxLimitOfNextForgers, res[0].block.height);
 
 				log('info', 'Emitting new data');
 				socket.emit('data', data);

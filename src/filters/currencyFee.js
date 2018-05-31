@@ -15,11 +15,10 @@
  */
 import AppFilters from './filters.module';
 
-/**
- * @todo Directive
- */
-// eslint-disable-next-line no-unused-vars
-AppFilters.filter('proposal', $sce => (name, proposals, property) => {
-	const temp = (proposals && name) ? proposals[name.toLowerCase()] : null;
-	return temp && property ? temp[property] : temp;
+AppFilters.filter('currencyFee', currencyFilter => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
+	if (currency.symbol === 'LSK') {
+		decimalPlacesCrypto = 1;
+	}
+
+	return currencyFilter(amount, currency, decimalPlacesCrypto, decimalPlacesFiat);
 });

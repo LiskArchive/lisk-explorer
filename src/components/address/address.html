@@ -20,11 +20,14 @@
 		data-ng-if="vm.address.balance" data-ng-init="hideSNavbar=0">
 		<div class="container" data-ng-if="!hideSNavbar">
 			<div class="col-md-8 text-left">
-				<h3>Address</h3> {{vm.address.address}}
-				<span class="btn-copy" clip-copy="vm.address.address"></span>
+				<span>
+					<strong>Address: </strong>{{vm.address.address}}
+				</span>
 			</div>
 			<div class="col-md-4">
-				<span class="txvalues txvalues-primary"><strong>Final Balance</strong> {{vm.address.balance | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
+				<span class="txvalues">
+					<strong>Final Balance: </strong>{{vm.address.balance | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}
+				</span>
 			</div>
 		</div>
 		<div class="hide_snavbar">
@@ -61,13 +64,14 @@
 						<tr>
 							<td class="left-padding-xs left-padding-s left-padding-l"><strong>Address</strong></td>
 							<td class="right-padding-xs right-padding-s right-padding-l text-right">
-								<span>{{vm.address.address}}&nbsp;<span class="btn-copy" clip-copy="vm.address.address"></span></span>
+								<span>{{vm.address.address}}</span>
+								<span class="btn-copy" clip-copy="vm.address.address"></span>
 							</td>
 						</tr>
 						<tr class="hidden-xs">
 							<td class="left-padding-s left-padding-l"><strong>Public Key</strong></td>
-							<td class="text-right" data-ng-if="vm.address.publicKey">
-								{{vm.address.publicKey}}&nbsp;
+							<td class="right-padding-s right-padding-l text-right" data-ng-if="vm.address.publicKey">
+								<span>{{vm.address.publicKey}}</span>
 								<span class="btn-copy" clip-copy="vm.address.publicKey"></span>
 							</td>
 							<td class="right-padding-s right-padding-l text-right" data-ng-if="!vm.address.publicKey">
@@ -85,10 +89,9 @@
 								<span title="Outgoing"><i class="fa fa-arrow-up text-danger"></i> {{vm.address.outgoing_cnt}}</span>
 							</td>
 						</tr>
-						<tr ng-if="vm.address.delegate || proposal">
+						<tr ng-if="vm.address.delegate">
 							<td class="left-padding-xs left-padding-s left-padding-l"><strong>Delegate</strong></td>
 							<td class="right-padding-xs right-padding-s right-padding-l text-right">
-								<a class="glyphicon glyphicon-user" data-ng-if="vm.address.delegate.username | proposal:$root.delegateProposals" data-ng-href="https://forum.lisk.io/viewtopic.php?f=48&t={{vm.address.delegate.username | proposal:$root.delegateProposals: 'topic'}}" title="{{vm.address.delegate.username | proposal:$root.delegateProposals: 'description'}}" target="_blank"></a>
 								<a data-account-href="vm.address.delegate" data-type="delegate">{{vm.address.delegate.username}}</a>
 							</td>
 						</tr>

@@ -707,7 +707,8 @@ qrcode + span {
 }
 
 .btn-default {
-  background-color: #E7E7E7;
+  background-color: transparent;
+  transition: color 233ms cubic-bezier(0.25, 0, 0.25, 1),background-color 233ms cubic-bezier(0.25, 0, 0.25, 1);
 }
 
 .txvalues-primary {
@@ -819,12 +820,12 @@ qrcode + span {
 /* Not required for template or sticky footer method. */
 
 #wrap > .container {
-  padding: 100px 15px 0;
+  padding: 120px 15px 0;
 }
 
 @media (max-width: 991px) {
   #wrap > .container {
-    padding-top: 100px;
+    padding-top: 120px;
   }
 }
 
@@ -835,7 +836,7 @@ qrcode + span {
   }
 
   #wrap > .container {
-    padding: 120px 5px 0;
+    padding: 130px 5px 0;
   }
 }
 
@@ -943,10 +944,11 @@ qrcode + span {
 .badge-inverse:hover { background-color: #1a1a1a; }
 
 .btn-copy {
-  color: #999;
+  color: rgba(153, 153, 153, .75);
   display: inline-block;
   outline: none;
   border-radius: 5px;
+  margin-left: 3px;
   text-align: center;
   cursor: pointer;
 }
@@ -969,9 +971,10 @@ qrcode + span {
 
 .btn-copy .tooltip {
   display: block;
-  margin-left: 16px;
-  margin-top: -22px;
+  margin-left: -24px;
+  margin-top: -64px;
   opacity: 0;
+  pointer-events: none;
 }
 
 .tooltip .tooltip-inner {
@@ -983,13 +986,12 @@ qrcode + span {
   border-right-color: #0288d1;
 }
 
-.btn-copy.active .tooltip { opacity: 1; }
-
-@media (max-width: 991px) {
-  .btn-copy {
-    display: none;
-  }
+.btn-copy .tooltip.top .tooltip-arrow {
+  border-top-color: #0288d1;
+  left: 30px;
 }
+
+.btn-copy.active .tooltip { opacity: 1; }
 
 .txid {
   line-height: 26px;
@@ -1069,7 +1071,7 @@ a.v_highlight_more {
   width: 100%;
   background: rgba(0, 36, 73, 0.8);
   position: fixed;
-  top: 103px;
+  top: 120px;
   left: 0;
   text-align: center;
   z-index: 1000;
@@ -1197,10 +1199,6 @@ a.sort-order span.reverse:after {
     line-height: 1.2;
     margin-bottom: 20px;
 }
-.proposal-icon {
-    vertical-align: middle;
-    margin-top: -5px;
-}
 
 .decimal-places-selector {
   display: inline-block;
@@ -1264,7 +1262,7 @@ table tr td {
 }
 
 table.transactions thead th .glyphicon {
-  top: 10px;
+      left: 1ch;
 }
 
 table tbody tr:nth-of-type(odd) {
@@ -1292,7 +1290,8 @@ table tbody tr:nth-of-type(odd) {
   background: transparent;
   border: solid 2px #2475b9;
   color: #2475b9;
-  border-radius: 3px;
+  border-radius: 3px !important;
+  font-size: 1.8rem;
   line-height: 36px;
   height: 42px;
   width: 100%;
@@ -1307,9 +1306,17 @@ table tbody tr:nth-of-type(odd) {
   border: solid 2px #ccd9e4;
 }
 
+.bordered-button.disabled:hover,
+.bordered-button.disabled {
+  opacity: 1;
+  color: #ccd9e4;
+  border: solid 2px #ccd9e4;
+  pointer-events: unset !important;
+}
+
 .bordered-button:hover {
-  color: #012b58;
-  border: solid 2px #012b58;
+  color: #fff;
+  background-color: #2475b9;
 }
 
 

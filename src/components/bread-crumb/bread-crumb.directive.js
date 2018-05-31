@@ -23,9 +23,10 @@ AppBreadCrumb.directive('breadCrumb', ($state, $transitions) => {
 		/**
 		 * Initiates the hierarchy array of sections
 		 */
-		this.setSections = (next, states, breadCrumbValues) => {
-			const sections = [];
+		this.setSections = (next, params, states, breadCrumbValues) => {
 			let section = next;
+			const sections = [];
+			const stateParam = section.url.split('/:')[1];
 
 			while (section.parentDir !== section.name) {
 				states.forEach((item) => {
@@ -38,10 +39,18 @@ AppBreadCrumb.directive('breadCrumb', ($state, $transitions) => {
 					}
 				});
 			}
+
 			sections.push({
 				name: next.name,
 				url: '#',
 			});
+
+			if (params[stateParam]) {
+				sections.push({
+					name: params[stateParam],
+					url: '#',
+				});
+			}
 
 			return sections;
 		};
@@ -74,15 +83,18 @@ AppBreadCrumb.directive('breadCrumb', ($state, $transitions) => {
 	const BreadCrumbLink = (scope, element, attrs, ctrl) => {
 		const init = (values) => {
 			const states = $state.get();
+
 			if (!scope.breadCrumb) {
 				scope.breadCrumb = {};
 			}
+
 			if (values.constructor.name !== 'Transition') {
 				angular.merge(scope.breadCrumb, values);
 			}
+
 			scope.breadCrumb.set = init;
 
-			scope.sections = ctrl.setSections($state.current, states, scope.breadCrumb);
+			scope.sections = ctrl.setSections($state.current, $state.params, states, scope.breadCrumb);
 		};
 
 		$transitions.onSuccess({ to: '*' }, init);

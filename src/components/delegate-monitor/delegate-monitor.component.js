@@ -32,10 +32,6 @@ const DelegateMonitorConstructor = function (delegateMonitor, orderBy, $rootScop
 
 		$http.get(`/api/delegates/getStandby?n=${offset}`).then((resp) => {
 			if (resp.data.success) {
-				resp.data.delegates.forEach((delegate) => {
-					delegate.proposal = $rootScope.delegateProposals[delegate.username.toLowerCase()];
-				});
-
 				vm.standbyDelegates = resp.data.delegates;
 			}
 			if (resp.data.pagination) {
@@ -50,6 +46,9 @@ const DelegateMonitorConstructor = function (delegateMonitor, orderBy, $rootScop
 		active: orderBy('rate'),
 		standby: orderBy('rate'),
 	};
+
+	vm.decimalPlaceCrypto = 0;
+	vm.decimalPlaceFiat = 0;
 };
 
 AppDelegateMonitor.component('delegateMonitor', {

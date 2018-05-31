@@ -1,6 +1,6 @@
 {
   "name": "lisk-explorer",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "description": "Lisk blockchain explorer",
   "repository": {
     "type": "git",
@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "amstock3": "github:amcharts/amstock3",
-    "angular": "^1.4.0",
+    "angular": "<=1.6.10",
     "angular-advanced-searchbox": "github:reyraa/angular-advanced-searchbox",
     "angular-animate": "^1.6.4",
     "angular-gettext": "^2.3.9",
@@ -76,7 +76,7 @@
     "babel-plugin-istanbul": "^4.1.4",
     "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
-    "babel-preset-es2015": "^6.4.3",
+    "babel-preset-env": "~1.7.0",
     "babel-preset-stage-3": "^6.24.1",
     "chai": "=3.5.0",
     "chai-as-promised": "=7.0.0",
