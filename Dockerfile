@@ -1,4 +1,4 @@
-FROM node:6 AS builder
+FROM node:8 AS builder
 
 RUN useradd --create-home lisk && \
     npm install --global bower
@@ -14,7 +14,7 @@ RUN npm install && \
     npm run build
 
 
-FROM node:6-alpine
+FROM node:8-alpine
 
 RUN adduser -D lisk 
 #COPY --chown=lisk:lisk --from=builder /home/lisk/lisk-explorer /home/lisk/lisk-explorer/
