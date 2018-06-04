@@ -20,7 +20,10 @@
     "validate": "webpack-validator webpack.config.js",
     "copy-files": "cp -r ./src/assets/img/favicons/* ./src/assets/img/leaflet ./robots.txt ./public",
     "build": "npm run copy-files && webpack",
-    "build:prod": "webpack --env.prod"
+    "build:prod": "webpack --env.prod",
+    "clean-frontend": "git clean ./public -dfx && git clean ./src -dfx",
+    "clean-backend": "rm -rf node_modules",
+    "clean-all": "npm run clean-backend && npm run clean-frontend && git clean ./ -dfnx"
   },
   "dependencies": {
     "amstock3": "github:amcharts/amstock3",
