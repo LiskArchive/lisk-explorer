@@ -66,23 +66,22 @@
     "split": "^1.0.0",
     "string-similarity": "^1.2.0",
     "underscore": "^1.8.3",
-    "webpack": "^2.4.1",
-    "webpack-bundle-analyzer": "^2.3.1",
-    "webpack-dev-server": "^2.4.2"
+    "webpack": "^2.7.0",
+    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-dev-server": "^2.11.2"
   },
   "devDependencies": {
     "babel-core": "^6.24.0",
     "babel-loader": "^6.4.1",
     "babel-plugin-istanbul": "^4.1.4",
     "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
-    "babel-plugin-transform-es2015-modules-commonjs": "^6.24.0",
     "babel-preset-env": "~1.7.0",
     "babel-preset-stage-3": "^6.24.1",
     "chai": "=3.5.0",
     "chai-as-promised": "=7.0.0",
     "chai-enzyme": "^0.8.0",
     "clean-webpack-plugin": "^0.1.16",
-    "css-loader": "^0.28.0",
+    "css-loader": "^0.28.11",
     "cucumber": "=2.3.1",
     "enzyme": "^2.9.1",
     "eslint": "^4.10.0",
@@ -98,7 +97,7 @@
     "eslint-plugin-protractor": "^1.40.0",
     "eslint-plugin-react": "^7.3.0",
     "exports-loader": "^0.6.4",
-    "file-loader": "^0.11.1",
+    "file-loader": "^0.11.2",
     "grunt": "^1.0.1",
     "grunt-cli": "^1.2.0",
     "grunt-contrib-copy": "^1.0.0",
@@ -106,7 +105,7 @@
     "grunt-mocha-test": "=0.13.2",
     "html-loader": "^0.4.5",
     "html-webpack-plugin": "^2.30.1",
-    "image-webpack-loader": "^4.2.0",
+    "image-webpack-loader": "^4.3.0",
     "imports-loader": "^0.7.1",
     "mocha": "^5.2.0",
     "optipng-bin": "^4.0.0",
@@ -119,6 +118,6 @@
     "sinon-stub-promise": "^4.0.0",
     "style-loader": "^0.16.1",
     "supertest": "^3.1.0",
-    "webpack-merge": "^4.1.0"
+    "webpack-merge": "^4.1.2"
   }
 }
