@@ -321,10 +321,9 @@ qrcode + span {
 
 /* Wrapper for page content to push down footer */
 #wrap {
-  min-height: 100%;
-  height: auto;
   /* Negative indent footer by its height */
-  margin: 20px auto -48px;
+  min-height: calc(100% - 48px);
+  height: auto;
   /* Pad bottom by footer height */
   padding: 0 0 75px;
 }
