@@ -641,6 +641,19 @@ qrcode + span {
   border-radius: 2px;
 }
 
+.btn-group-justified > .btn-group .btn {
+  align-items: center;
+  display: inline-flex;
+  font-size: 1.8rem;
+  font-weight: 500;
+  height: 6rem;
+  justify-content: center;
+  line-height: 1;
+  padding: 0 2.4rem;
+  text-align: center;
+  width: 100%;
+}
+
 .btn-primary, a.btn-primary {
   color: #fff;
   background-color: #0288d1;
@@ -1272,17 +1285,17 @@ table tbody tr:nth-of-type(odd) {
 .paginator {
   text-align: center;
   width: 100%;
-  padding: 0 16px;
+  padding: 0;
   font-size: 0;
-  margin: 0 auto;
-  max-width: 500px;
+  margin: 40px auto 10px;
+  max-width: 808px;
 }
 
 .paginator .btn-group {
   display: inline-block;
   width: 50%;
   vertical-align: middle;
-  padding: 0 16px;
+  padding: 0 12px;
 }
 
 .bordered-button:hover,
