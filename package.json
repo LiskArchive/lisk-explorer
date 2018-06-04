@@ -72,7 +72,7 @@
   },
   "devDependencies": {
     "babel-core": "^6.24.0",
-    "babel-loader": "^6.4.1",
+    "babel-loader": "^7.1.4",
     "babel-plugin-istanbul": "^4.1.4",
     "babel-plugin-syntax-trailing-function-commas": "^6.22.0",
     "babel-preset-env": "~1.7.0",
