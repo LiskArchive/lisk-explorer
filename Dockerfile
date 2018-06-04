@@ -1,7 +1,7 @@
 FROM node:8 AS builder
 
 RUN useradd --create-home lisk && \
-    apt-get install nasm \
+    apt-get install nasm && \
     npm install --global bower
 # As of Mai 2018 cloud.docker.com runs docker 17.06.1-ce
 # however v17.12 is required to use the chown flag
