@@ -139,7 +139,7 @@
 }
 
 .search-box.active {
-  width: 360px !important;
+  width: 380px !important;
 }
 
 @media (max-width: 1024px) {
@@ -209,7 +209,7 @@
 
 .navbar-fixed-top .network-status .flex-container {
   background: rgb(1, 56, 115);
-  padding: 8px 12px;
+  padding: 8px 32px;
   border-radius: 0 0 3px 3px;
   margin: 0;
   display: flex;

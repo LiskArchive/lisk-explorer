@@ -408,7 +408,7 @@ qrcode + span {
   font-family: 'Roboto', 'Ubuntu', sans-serif;
   margin-left: 1px;
   padding-left: 25px;
-  padding-right: 25px;
+  padding-right: 18px;
   padding-top: 30px;
   padding-bottom: 30px;
 }
@@ -840,8 +840,11 @@ qrcode + span {
 }
 
 #footer > .container {
-  padding-left: 30px;
-  padding-right: 30px;
+  padding: 0 15px;
+}
+
+#footer > .container > .row {
+  padding: 0 32px;
 }
 
 @media (max-width: 767px) {
