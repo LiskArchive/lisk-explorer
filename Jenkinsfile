@@ -95,7 +95,7 @@ pipeline {
 			steps {
 				sh '''
 				sed -i -r -e "s/6040/$EXPLORER_PORT/" test/node.js
-				npm run test-xunit
+				npm run test
 				'''
 			}
 		}
@@ -126,7 +126,8 @@ pipeline {
 				}
 			}
 
-			junit testResults: 'xunit_report.xml' 
+			sh "chmod 666 ./junit-report.xml"
+			junit 'junit-report.xml' 
 			
 			archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
 			dir('logs') {

@@ -13,3 +13,4 @@ blockchain_explorer.db.gz
 .vscode
 logs/*.log
 logs/*.err
+junit-report.xml
