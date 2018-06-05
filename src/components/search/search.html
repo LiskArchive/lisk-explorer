@@ -15,12 +15,11 @@
  *
  */
 -->
-<form role="search" data-ng-submit="sch.search()" data-ng-class="{'loading': sch.loading}">
-	<div class="form-group" data-ng-class="{'has-error': sch.badQuery}">
-		<span class="glyphicon glyphicon-search hidden-xs" aria-hidden="true"></span>
-		<input id="search" type="text" class="form-control search" data-ng-model="sch.q" placeholder="Find a transaction, address, delegate or block"
+<form role="search" data-ng-submit="sch.search()" data-ng-class="{'loading': sch.loading, 'active': !sch.mobileView || sch.activeForm}" class='search-box'>
+	<div class="wrapper" data-ng-class="{'has-error': sch.badQuery}">
+		<input id="search" type="text" class="input search" data-ng-model="sch.q" placeholder="Find a transaction, address, delegate or block"
 			data-ng-submit="sch.search()" data-ng-blur="sch.hideSuggestion()" autocomplete="off" />
-		
+		<span class="glyphicon" aria-hidden="true" data-ng-click="sch.expandInput()" data-ng-class="{'glyphicon-remove': sch.mobileView && sch.activeForm, 'glyphicon-search': !sch.mobileView || !sch.activeForm}"></span>
 		<div class="search-suggestion-list list-group"
 			ng-if="sch.showingResults && sch.results">
 			<a href="/address/{{result.address}}" class="search-suggestion-item list-group-item list-group-item-action flex-column align-items-start"

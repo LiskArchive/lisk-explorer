@@ -23,26 +23,6 @@ module.exports = function (app, config, client) {
 		this.latestDelegateRegisteredAt = -1;
 		this.totalDelegates = 0;
 
-		this.inTx = (tx) => {
-			if (tx.senderUsername) {
-				tx.knownSender = { owner: tx.senderUsername };
-			} else {
-				this.getKnownAddress(tx.senderId, (err, data) => {
-					tx.knownSender = data;
-				});
-			}
-
-			if (tx.recipientUsername) {
-				tx.knownRecipient = { owner: tx.recipientUsername };
-			} else {
-				this.getKnownAddress(tx.recipientId, (err, data) => {
-					tx.knownRecipient = data;
-				});
-			}
-
-			return tx;
-		};
-
 		this.setKnowledge = (account, cb) => {
 			if (!account || !account.address) return cb('Missing attribute: address');
 

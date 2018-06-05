@@ -21,6 +21,8 @@ const TopAccountsConstructor = function (lessMore) {
 		url: '/api/getTopAccounts',
 		key: 'accounts',
 	});
+
+	this.topAccounts.loadData();
 };
 
 AppTopAccounts.component('topAccounts', {

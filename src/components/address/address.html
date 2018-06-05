@@ -20,11 +20,14 @@
 		data-ng-if="vm.address.balance" data-ng-init="hideSNavbar=0">
 		<div class="container" data-ng-if="!hideSNavbar">
 			<div class="col-md-8 text-left">
-				<h3>Address</h3> {{vm.address.address}}
-				<span class="btn-copy" clip-copy="vm.address.address"></span>
+				<span>
+					<strong>Address: </strong>{{vm.address.address}}
+				</span>
 			</div>
 			<div class="col-md-4">
-				<span class="txvalues txvalues-primary"><strong>Final Balance</strong> {{vm.address.balance | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
+				<span class="txvalues">
+					<strong>Final Balance: </strong>{{vm.address.balance | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}
+				</span>
 			</div>
 		</div>
 		<div class="hide_snavbar">
@@ -37,7 +40,7 @@
 	<div class="text-muted" data-ng-if="!vm.address.balance">
 		<span>Loading Address <i class="fa fa-spinner fa-spin"></i></span>
 	</div>
-	<h2>
+	<h1>
 		Address Summary&nbsp;
 		<small data-ng-if="vm.address.secondSignature" data-uib-tooltip="Second signature">
 			<i class="glyphicon glyphicon-lock"></i>
@@ -45,49 +48,50 @@
 		<small data-ng-if="vm.address.multisignatures && vm.address.multisignatures.length" data-uib-tooltip="Multi Signature">
 			<i class="glyphicon glyphicon-info-sign"></i>
 		</small>
-	</h2>
-	<div class="row">
-		<div class="col-md-10">
+	</h1>
+	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+		<div class="col-md-9 col-lg-10">
 			<div class="table-responsive">
 				<table class="table summary">
 					<tbody>
 						<tr data-ng-if="vm.address.knowledge">
-							<td><strong>Owner</strong></td>
-							<td class="text-right">
+							<td class='left-padding-xs left-padding-s left-padding-l'><strong>Owner</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-l text-right">
 								<span class="owner-name">{{vm.address.knowledge.owner}}</span>
 								<span class="owner-desc text-muted">{{vm.address.knowledge.description}}</span>
 							</td>
 						</tr>
 						<tr>
-							<td><strong>Address</strong></td>
-							<td class="text-right">
-								<span>{{vm.address.address}}&nbsp;<span class="btn-copy" clip-copy="vm.address.address"></span></span>
+							<td class="left-padding-xs left-padding-s left-padding-l"><strong>Address</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-l text-right">
+								<span>{{vm.address.address}}</span>
+								<span class="btn-copy" clip-copy="vm.address.address"></span>
 							</td>
 						</tr>
 						<tr class="hidden-xs">
-							<td><strong>Public Key</strong></td>
-							<td class="text-right" data-ng-if="vm.address.publicKey">
-								{{vm.address.publicKey}}&nbsp;
+							<td class="left-padding-s left-padding-l"><strong>Public Key</strong></td>
+							<td class="right-padding-s right-padding-l text-right" data-ng-if="vm.address.publicKey">
+								<span>{{vm.address.publicKey}}</span>
 								<span class="btn-copy" clip-copy="vm.address.publicKey"></span>
 							</td>
-							<td class="text-right" data-ng-if="!vm.address.publicKey">
+							<td class="right-padding-s right-padding-l text-right" data-ng-if="!vm.address.publicKey">
 								<span>Not initialized</span>
 							</td>
 						</tr>
 						<tr>
-							<td><strong>Total balance</strong></td>
-							<td class="text-right">{{vm.address.balance | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+							<td class="left-padding-xs left-padding-s left-padding-l"><strong>Total balance</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-l text-right">{{vm.address.balance | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
 						</tr>
 						<tr>
-							<td><strong>Transactions</strong></td>
-							<td class="ellipsis text-right">
+							<td class="left-padding-xs left-padding-s left-padding-l"><strong>Transactions</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-l ellipsis text-right">
 								<span title="Incoming"><i class="fa fa-arrow-down text-success"></i> {{vm.address.incoming_cnt}}</span>
 								<span title="Outgoing"><i class="fa fa-arrow-up text-danger"></i> {{vm.address.outgoing_cnt}}</span>
 							</td>
 						</tr>
 						<tr ng-if="vm.address.delegate">
-							<td><strong>Delegate</strong></td>
-							<td class="text-right">
+							<td class="left-padding-xs left-padding-s left-padding-l"><strong>Delegate</strong></td>
+							<td class="right-padding-xs right-padding-s right-padding-l text-right">
 								<a data-account-href="vm.address.delegate" data-type="delegate">{{vm.address.delegate.username}}</a>
 							</td>
 						</tr>
@@ -98,17 +102,17 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-2 text-center">
+		<div class="col-md-3 col-lg-2 text-center left-padding-m">
 			<qrcode size="160" data="{{vm.address.address}}"></qrcode>
-			<br> (Scan for Address)
+			<span>(Scan for Address)</span>
 		</div>
 	</div>
 
 	<votes data-votes="vm.address.votes"></votes>
 
 	<div data-ng-if="vm.address.balance" data-ng-init="vm.txs.loadData()">
-		<h2>Transactions</h2>
-		<section>
+		<h1>Transactions</h1>
+		<section class='horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double'>
 			<nit-advanced-searchbox
 				ng-model="vm.searchParams"
 				parameters="vm.availableSearchParams"
@@ -121,20 +125,12 @@
 				Please provide a valid address for sender id and/or recipient id. Username is not accepted.
 			</div>
 		</section>
-		<div class="btn-group btn-group-justified transactions-filter-header" role="group"
+		<div class="transactions-filter-header horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double" role="group"
 			aria-label="All/Sent/Received Transactions" data-ng-class="{disabled: vm.direction === 'search'}">
-			<div class="btn-group" role="group">
-				<button class="btn btn-default" data-ng-disabled="!vm.direction" data-ng-click="vm.filterTxs();vm.txs.loadData();vm.onFiltersUsed();">All</button>
-			</div>
-			<div class="btn-group" role="group">
-				<button class="btn btn-default sent-tab" data-ng-disabled="vm.direction==='sent'" data-ng-click="vm.filterTxs('sent');vm.txs.loadData();vm.onFiltersUsed();">Sent</button>
-			</div>
-			<div class="btn-group" role="group">
-				<button class="btn btn-default received-tab" data-ng-disabled="vm.direction==='received'" data-ng-click="vm.filterTxs('received');vm.txs.loadData();vm.onFiltersUsed();">Received</button>
-			</div>
-			<div class="btn-group" role="group">
-				<button class="btn btn-default received-tab" data-ng-disabled="vm.direction==='others'" data-ng-click="vm.filterTxs('others');vm.txs.loadData();vm.onFiltersUsed();">Others</button>
-			</div>
+				<button data-ng-disabled="!vm.direction" data-ng-click="vm.filterTxs();vm.txs.loadData();vm.onFiltersUsed();">All</button>
+				<button class="sent-tab" data-ng-disabled="vm.direction==='sent'" data-ng-click="vm.filterTxs('sent');vm.txs.loadData();vm.onFiltersUsed();">Sent</button>
+				<button class="received-tab" data-ng-disabled="vm.direction==='received'" data-ng-click="vm.filterTxs('received');vm.txs.loadData();vm.onFiltersUsed();">Received</button>
+				<button class="received-tab" data-ng-disabled="vm.direction==='others'" data-ng-click="vm.filterTxs('others');vm.txs.loadData();vm.onFiltersUsed();">Others</button>
 		</div>
 		<transactions-list data-txs="vm.txs" data-address="vm.address.address"></transactions-list>
 	</div>

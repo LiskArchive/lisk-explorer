@@ -15,24 +15,16 @@
  */
 import AppServices from './services.module';
 import LessMore from './less-more';
-import LessMoreByTimestamp from './less-more-by-timestamp';
 
 AppServices.factory('addressTxs',
 	($http, $q) => (data) => {
-		let LessMoreModule;
 		const params = Object.assign({}, data, {
 			url: '/api/getTransactionsByAddress',
 			parent: 'address',
 			key: 'transactions',
 		});
 
-		if (params.direction) {
-			LessMoreModule = LessMore;
-		} else {
-			LessMoreModule = LessMoreByTimestamp;
-		}
-
-		const lessMore = new LessMoreModule($http, $q, params);
+		const lessMore = new LessMore($http, $q, params);
 
 		lessMore.loadMore = function () {
 			this.getData(0, 1, (response) => {
@@ -44,7 +36,7 @@ AppServices.factory('addressTxs',
 				if (changed) {
 					this.reloadMore();
 				} else {
-					LessMoreModule.prototype.loadMore.call(this);
+					LessMore.prototype.loadMore.call(this);
 				}
 			});
 		};

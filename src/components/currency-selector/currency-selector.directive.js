@@ -26,6 +26,8 @@ AppCurrency.directive('currencySelector', ($rootScope, $timeout) => {
 	const CurrencySelectorCtrl = function () {
 		this.setCurrency = (currency) => {
 			$rootScope.currency.symbol = currency;
+			$rootScope.isCollapsed = true;
+
 			if (localStorage) {
 				localStorage.setItem('lisk_explorer-currency', currency);
 			}

@@ -24,7 +24,7 @@ const transactionsList = AppTools.directive('transactionsList', orderBy => ({
 		address: '=',
 	},
 	link: ($scope) => {
-		$scope.filter = orderBy('date');
+		$scope.filter = orderBy('timestamp', true);
 	},
 }));
 

@@ -52,7 +52,6 @@ describe('Transactions API', () => {
 					'recipientId',
 					'senderId',
 					'senderPublicKey',
-					'senderDelegate',
 					'knownSender',
 					'timestamp',
 					'type',
@@ -65,7 +64,6 @@ describe('Transactions API', () => {
 					'signatures',
 					'confirmations',
 					'asset',
-					'recipientDelegate',
 					'knownRecipient',
 					'recipientPublicKey');
 			}
