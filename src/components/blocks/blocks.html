@@ -62,11 +62,9 @@
                     </tbody>
                 </table>
             </div>
-            <div class="btn-group btn-group-justified paginator" role="group" aria-label="Next Previous Blocks" data-ng-if="vm.pagination && (vm.pagination.more || vm.pagination.before)">
+            <div class="paginator" aria-label="Next Previous Blocks" data-ng-if="vm.pagination && (vm.pagination.more || vm.pagination.before)">
                 <div class="btn-group" role="group">
                     <a class="btn btn-default less-button bordered-button" data-ng-class="{'disabled': !vm.pagination.before}" data-ng-disabled="!vm.pagination.before" href="/blocks/{{vm.pagination.previousPage}}">Previous</a>
-                </div>
-                <div class="btn-group" role="group">
                     <a class="btn btn-default more-button bordered-button" data-ng-class="{'disabled': !(vm.pagination.more && vm.pagination.nextPage != 0)}" data-ng-disabled="!(vm.pagination.more && vm.pagination.nextPage != 0)" href="/blocks/{{vm.pagination.nextPage}}">Next</a>
                 </div>
             </div>

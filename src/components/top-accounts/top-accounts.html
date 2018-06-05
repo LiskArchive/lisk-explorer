@@ -72,11 +72,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="btn-group btn-group-justified paginator" role="group" aria-label="Less/More Accounts" data-ng-hide="vm.topAccounts.disabled()">
+	<div class="paginator" aria-label="Less/More Accounts" data-ng-hide="vm.topAccounts.disabled()">
 		<div class="btn-group" role="group">
 			<button class="btn btn-default less-button bordered-button" data-ng-disabled="!vm.topAccounts.lessData" data-ng-click="vm.topAccounts.loadLess()">Less</button>
-		</div>
-		<div class="btn-group" role="group">
 			<button class="btn btn-default more-button bordered-button" data-ng-disabled="!vm.topAccounts.moreData" data-ng-click="vm.topAccounts.loadMore()">More</button>
 		</div>
 	</div>
