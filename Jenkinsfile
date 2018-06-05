@@ -95,7 +95,7 @@ pipeline {
 			steps {
 				sh '''
 				sed -i -r -e "s/6040/$EXPLORER_PORT/" test/node.js
-				npm run test
+				npm run test-xunit
 				'''
 			}
 		}
@@ -119,13 +119,14 @@ pipeline {
 			}
 		}
 		always {
-			// junit testResults: 'xunit_report.xml' 
 			dir("$WORKSPACE/$BRANCH_NAME/") {
 				ansiColor('xterm') {
 					sh 'docker-compose logs || true'
 					sh 'make mrproper'
 				}
 			}
+
+			junit testResults: 'xunit_report.xml' 
 			
 			archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
 			dir('logs') {
