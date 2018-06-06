@@ -126,8 +126,8 @@ pipeline {
 				}
 			}
 
-			sh "chmod 666 ./junit-report.xml"
-			junit 'junit-report.xml' 
+			sh "chmod 666 ./xunit-report.xml"
+			junit 'xunit-report.xml' 
 			
 			archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
 			dir('logs') {
