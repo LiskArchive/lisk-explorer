@@ -125,6 +125,9 @@ pipeline {
 					sh 'make mrproper'
 				}
 			}
+			
+			junit 'xunit-report.xml' 
+			
 			archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
 			dir('logs') {
 				deleteDir()
