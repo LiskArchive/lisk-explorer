@@ -12,3 +12,5 @@ sftp-config.json
 blockchain_explorer.db.gz
 .vscode
 logs/*.log
+logs/*.err
+xunit-report.xml

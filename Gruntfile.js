@@ -29,10 +29,7 @@ module.exports = function (grunt) {
 				options: {
 					reporter: 'mocha-multi-reporters',
 					reporterOptions: {
-						reporterEnabled: 'spec,mocha-junit-reporter,xunit',
-						mochaJunitReporterReporterOptions: {
-							mochaFile: './junit-report.xml',
-						},
+						reporterEnabled: 'spec,xunit',
 						xunitReporterOptions: {
 							output: './xunit-report.xml',
 						},

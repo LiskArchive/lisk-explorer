@@ -125,6 +125,10 @@ pipeline {
 					sh 'make mrproper'
 				}
 			}
+
+			sh "chmod 666 ./xunit-report.xml"
+			junit 'xunit-report.xml' 
+			
 			archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
 		}
 	}
