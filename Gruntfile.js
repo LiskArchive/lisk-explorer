@@ -27,9 +27,15 @@ module.exports = function (grunt) {
 		mochaTest: {
 			test: {
 				options: {
-					reporterEnabled: 'spec, mocha-junit-reporter',
+					reporter: 'mocha-multi-reporters',
 					reporterOptions: {
-						mochaFile: './junit-report.xml',
+						reporterEnabled: 'spec,mocha-junit-reporter,xunit',
+						mochaJunitReporterReporterOptions: {
+							mochaFile: './junit-report.xml',
+						},
+						xunitReporterOptions: {
+							output: './xunit-report.xml',
+						},
 					},
 					quiet: false,
 					clearRequireCache: false,
