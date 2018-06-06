@@ -637,7 +637,26 @@ qrcode + span {
 }
 
 .btn {
-  border-radius: 2px;
+  align-items: center;
+  display: inline-flex;
+  font-weight: 500;
+  justify-content: center;
+  line-height: 1;
+  padding: 0 24px;
+  text-align: center;
+  width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  .btn {
+    height: 5.2rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .btn-group .btn {
+    font-size: 17px;
+  }
 }
 
 .btn-primary, a.btn-primary {
@@ -1269,19 +1288,26 @@ table tbody tr:nth-of-type(odd) {
 }
 
 .paginator {
-  text-align: center;
-  width: 100%;
-  padding: 0 16px;
-  font-size: 0;
-  margin: 0 auto;
-  max-width: 500px;
+  display: block;
+  margin-left: 18%;
+  flex-basis: 50%;
+  max-width: 64%;
+  padding: 0 12px 0;
 }
 
 .paginator .btn-group {
-  display: inline-block;
+  margin: 10rem 0 0;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.paginator .btn-group .less-button {
+  margin-right: 2.4rem;
+}
+
+.paginator .btn-group .see-all-blocks {
   width: 50%;
-  vertical-align: middle;
-  padding: 0 16px;
 }
 
 .bordered-button:hover,
@@ -1290,9 +1316,7 @@ table tbody tr:nth-of-type(odd) {
   border: solid 2px #2475b9;
   color: #2475b9;
   border-radius: 3px !important;
-  font-size: 1.8rem;
   line-height: 36px;
-  height: 42px;
   width: 100%;
   box-sizing: border-box;
   padding: 0 10px;
