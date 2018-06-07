@@ -19,6 +19,8 @@ AppFilters.filter('currency', (numberFilter, liskFilter, fiatFilter, isFiat) => 
 	if (amount === 0) return amount;
 
 	let factor = 1;
+	let equivalent = false;
+
 	if (currency.tickers && currency.tickers.LSK && currency.tickers.LSK[currency.symbol]) {
 		factor = currency.tickers.LSK[currency.symbol];
 	} else if (currency.symbol !== 'LSK') {
@@ -33,11 +35,16 @@ AppFilters.filter('currency', (numberFilter, liskFilter, fiatFilter, isFiat) => 
 	}
 
 	amount = liskFilter(amount);
+
 	if (typeof decimalPlacesCrypto === 'undefined') {
 		amount = numberFilter((amount * factor), 8).replace(/\.?0+$/, '');
 		return factor === 1 ? amount : `~${amount}`;
 	}
 
+	if (currency.symbol === 'LSK') {
+		equivalent = Number(amount) === Number(numberFilter((amount * factor), decimalPlacesCrypto));
+	}
+
 	amount = numberFilter((amount * factor), decimalPlacesCrypto);
-	return (factor !== 1 || decimalPlacesCrypto !== 8) ? `~${amount}` : amount;
+	return (factor !== 1 || decimalPlacesCrypto !== 8) && !equivalent ? `~${amount}` : amount;
 });

@@ -45,7 +45,7 @@
 	}">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}
 	</span>
 </td>
-<td data-title="Fee" class="text-nowrap text-right"><span>{{tx.fee | currencyFee:$root.currency}} {{$root.currency.symbol}}</span></td>
+<td data-title="Fee" class="text-nowrap text-right"><span>{{tx.fee | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span></td>
 <td data-title="Confirmations" class="text-right right-padding-m right-padding-l double">
 	<span class="hidden-md">
 		<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">
