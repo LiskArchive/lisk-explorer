@@ -15,12 +15,10 @@
  */
 import AppFilters from './filters.module';
 
-AppFilters.filter('currency', (numberFilter, liskFilter) => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
-	const lisk = liskFilter(amount);
+AppFilters.filter('currency', (numberFilter, liskFilter, fiatFilter, isFiat) => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
+	if (amount === 0) return amount;
+
 	let factor = 1;
-
-	if (!decimalPlacesFiat && decimalPlacesFiat !== 0) decimalPlacesFiat = 2;
-
 	if (currency.tickers && currency.tickers.LSK && currency.tickers.LSK[currency.symbol]) {
 		factor = currency.tickers.LSK[currency.symbol];
 	} else if (currency.symbol !== 'LSK') {
@@ -28,9 +26,18 @@ AppFilters.filter('currency', (numberFilter, liskFilter) => (amount, currency, d
 		return 'N/A';
 	}
 
-	const decimals = (currency.symbol === 'LSK' || currency.symbol === 'BTC') ? decimalPlacesCrypto : decimalPlacesFiat;
-	if (typeof decimals === 'number' && lisk > 0) {
-		return numberFilter((lisk * factor), decimals);
+	if (isFiat(currency)) {
+		amount = fiatFilter(amount);
+		if (typeof decimalPlacesFiat !== 'number') decimalPlacesFiat = 2;
+		return `~${numberFilter(amount * factor, decimalPlacesFiat)}`;
 	}
-	return numberFilter((lisk * factor), 8).replace(/\.?0+$/, '');
+
+	amount = liskFilter(amount);
+	if (typeof decimalPlacesCrypto === 'undefined') {
+		amount = numberFilter((amount * factor), 8).replace(/\.?0+$/, '');
+		return factor === 1 ? amount : `~${amount}`;
+	}
+
+	amount = numberFilter((amount * factor), decimalPlacesCrypto);
+	return (factor !== 1 || decimalPlacesCrypto !== 8) ? `~${amount}` : amount;
 });

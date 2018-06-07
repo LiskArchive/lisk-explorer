@@ -13,14 +13,8 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import './services.module';
-import './address-txs';
-import './block-txs';
-import './forging-monitor';
-import './forging-status';
-import './global';
-import './is-fiat';
-import './less-more';
-import './order-by';
-import './socket';
-import './tx-types';
+import AppServices from './services.module';
+
+
+AppServices.factory('isFiat',
+	() => currency => (currency.symbol !== 'LSK' && currency.symbol !== 'BTC'));
