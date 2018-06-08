@@ -34,7 +34,8 @@ describe('Statistics API', () => {
 			if (id[i + 1]) {
 				node.expect(id[i]).to.contain.all.keys(
 					'ip',
-					'port',
+					'httpPort',
+					'wsPort',
 					'state',
 					'os',
 					'version',
