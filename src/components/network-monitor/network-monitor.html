@@ -34,6 +34,7 @@
 									<span class="text-muted">&nbsp;/&nbsp;</span>
 									<span class="total-peers">{{vm.counter.total || 0}}</span>
 								</p>
+								<p class="text-muted disconnected-peers">{{vm.counter.disconnected || 0}} disconnected peers</p>
 							</div>
 						</div>
 					</div>
@@ -232,8 +233,16 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12 big-info peers">
-			<h2 class="horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">Connected peers <br /></h2>
-			<peers peers="vm.peers.connected"></peers>
+			<uib-tabset justified="true" class="peers">
+				<uib-tab>
+					<uib-tab-heading><span class="glyphicon glyphicon-ok-sign"></span> Connected Peers</uib-tab-heading>
+					<peers peers="vm.peers.connected"></peers>
+				</uib-tab>
+				<uib-tab>
+					<uib-tab-heading><span class="glyphicon glyphicon-remove-sign"></span> Disconnected Peers</uib-tab-heading>
+					<peers peers="vm.peers.disconnected"></peers>
+				</uib-tab>
+			</uib-tabset>
 		</div>
 	</div>
 </div>

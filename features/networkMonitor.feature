@@ -5,6 +5,7 @@ Feature: Network Monitor
       """
       CONNECTED PEERS
       \d+  /  \d+
+      \d+ disconnected peers
       """
     And I should see "Home Network Monitor" in "breadcrumb" element
     And I should see "last block loaded" element with content that matches:
