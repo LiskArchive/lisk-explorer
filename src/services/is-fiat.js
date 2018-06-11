@@ -13,12 +13,8 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import AppFilters from './filters.module';
+import AppServices from './services.module';
 
-AppFilters.filter('currencyFee', currencyFilter => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
-	if (currency.symbol === 'LSK' && typeof decimalPlacesCrypto === 'undefined') {
-		decimalPlacesCrypto = 1;
-	}
 
-	return currencyFilter(amount, currency, decimalPlacesCrypto, decimalPlacesFiat);
-});
+AppServices.factory('isFiat',
+	() => currency => (currency.symbol !== 'LSK' && currency.symbol !== 'BTC'));
