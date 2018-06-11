@@ -20,7 +20,8 @@
 		<thead>
 			<tr>
 				<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><a href="" data-ng-click="table.setPredicate('ip')" class="sort-order">IP Address <span data-ng-show="table.predicate === 'ip'" data-ng-class="{reverse:table.reverse}"></span></a></th>
-				<th><a href="" data-ng-click="table.setPredicate('port')" class="sort-order">Port <span data-ng-show="table.predicate === 'port'" data-ng-class="{reverse:table.reverse}"></span></a></th>
+				<th><a href="" data-ng-click="table.setPredicate('httpPort')" class="sort-order">HTTP Port <span data-ng-show="table.predicate === 'httpPort'" data-ng-class="{reverse:table.reverse}"></span></a></th>
+				<th><a href="" data-ng-click="table.setPredicate('wsPort')" class="sort-order">WS Port <span data-ng-show="table.predicate === 'wsPort'" data-ng-class="{reverse:table.reverse}"></span></a></th>
 				<th class="hidden-xs host-row"><a href="" data-ng-click="table.setPredicate('location.hostname')" class="sort-order">Hostname <span data-ng-show="table.predicate === 'location.hostname'" data-ng-class="{reverse:table.reverse}"></span></a></th>
 				<th class="hidden-xs"><a href="" data-ng-click="table.setPredicate('location.country_name')" class="sort-order">Country <span data-ng-show="table.predicate === 'location.country_name'" data-ng-class="{reverse:table.reverse}"></span></a></th>
 				<th>Status</th>
@@ -37,7 +38,8 @@
 		<tbody>
 			<tr data-ng-repeat='p in peers | orderBy:table.predicate:table.reverse:table.order track by $index + p.ip'>
 				<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><span class="text-muted">{{p.ip}}</span></td>
-				<td><span class="text-muted">{{p.port}}</span></td>
+				<td><span class="text-muted">{{p.httpPort}}</span></td>
+				<td><span class="text-muted">{{p.wsPort}}</span></td>
 				<td class="hidden-xs"><span class="text-muted ellipsis hostname" title="{{p.location.hostname}}">{{p.location.hostname || 'N/A'}}</span></td>
 				<td class="hidden-xs"><span class="flag flag-{{p.location.country_code | lowercase}}" title="{{p.location.country_name}}" /></td>
 				<td><span class="peer-state state-{{p.state}}" title="{{p.humanState}}"></span></td>
