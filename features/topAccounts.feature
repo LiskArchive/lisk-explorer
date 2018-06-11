@@ -8,8 +8,9 @@ Feature: Top Accounts page
       |------|-----------------------|-----------------------|--------------|---------------------------------------|
       | 1    | 16313739661670634666L | 99,675,450.108366 LSK | /99\.\d{2}%/ | N/A                                   |
       | 2    | 4401082358022424760L  | 9,971 LSK             | /0\.\d{2}%/  | gottavoteemall                        |
-      | 3    | 18234943547133247982L | 6,229.88999424 LSK    | /0\.\d{2}%/  | Explorer Account Known addresses test |
+      | 3    | Explorer Account      | 6,229.88999424 LSK    | /0\.\d{2}%/  | Explorer Account Known addresses test |
       | 4    | 14895491440237132212L | 3,735.41000576 LSK    | /0\.\d{2}%/  | standby_301                           |
+      | 5    | 537318935439898807L   | /3,288.\d{8} LSK/     | /0\.\d{2}%/  | genesis_17                            |
 
   Scenario: should link address to address page
     Given I'm on page "/topAccounts"
