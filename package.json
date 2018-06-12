@@ -2,14 +2,26 @@
   "name": "lisk-explorer",
   "version": "1.6.2-alpha",
   "description": "Lisk blockchain explorer",
+  "keywords": [
+    "lisk",
+    "blockchain"
+  ],
+  "homepage": "https://github.com/LiskHQ/lisk-explorer",
   "repository": {
     "type": "git",
     "url": "git@github.com:LiskHQ/lisk-explorer.git"
   },
+  "bugs": {
+    "url": "https://github.com/LiskHQ/lisk-explorer/issues"
+  },
   "private": true,
-  "author": "Boris Povod <boris@crypti.me>, Oliver Beddows <oliver@lisk.io>, Ali Haghighatkhah <ali@lightcurve.io>",
+  "author": "Lisk Foundation <admin@lisk.io>, lightcurve GmbH <admin@lightcurve.io>",
   "license": "GPL-3.0",
-  "main": "src/main.js",
+  "main": "app.js",
+  "engines": {
+    "node": "8.11.2",
+    "npm": "6.1.0"
+  },
   "scripts": {
     "test": "./node_modules/.bin/grunt test --verbose",
     "test-live": "npm test -- --auto-watch --no-single-run",
