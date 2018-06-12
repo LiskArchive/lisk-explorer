@@ -1,16 +1,59 @@
-.idea
-dump.rdb
-node_modules
-bower_components
-npm-debug.log
+# General
 .DS_Store
+*.swp
+*.orig
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+
+# Coverage directory used by tools like istanbul
+coverage
+xunit-report.xml
+
+# nyc test coverage
+.nyc_output
+
+# node-waf configuration
+.lock-wscript
+
+# Compiled binary addons (http://nodejs.org/api/addons.html)
+build/Release
+
+# Dependency directories
+node_modules
+jspm_packages
+bower_components
+
+# Optional npm cache directory
+.npm
+
+# Optional REPL history
+.node_repl_history
+
+# IDE directories
+.idea
+.vscode
+tmp
+
+# Distribution directory
 public/*
 public/.gitkeep
 po/*.pot
+
+# File databases and snapshots
+dump.rdb
 Thumbs.db
-sftp-config.json
 blockchain_explorer.db.gz
-.vscode
-logs/*.log
-logs/*.err
+
+# Configs
+sftp-config.json
+
+# xUnit/Junit report
 xunit-report.xml
