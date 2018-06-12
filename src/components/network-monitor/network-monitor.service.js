@@ -51,7 +51,15 @@ const sortByVersion = (p1, p2) => {
 
 const NetworkMap = function () {
 	this.markers = {};
-	this.options = { center: leaflet.latLng(40, 0), zoom: 1, minZoom: 1, maxZoom: 10 };
+	this.options = {
+		center: leaflet.latLng(40, 0),
+		zoom: 1,
+		minZoom: 1,
+		maxZoom: 10,
+		dragging: !leaflet.Browser.mobile,
+		scrollWheelZoom: false,
+		tap: false,
+	};
 	this.map = leaflet.map('map', this.options);
 	this.cluster = leaflet.markerClusterGroup({ maxClusterRadius: 50 });
 
