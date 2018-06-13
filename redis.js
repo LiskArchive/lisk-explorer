@@ -30,5 +30,17 @@ module.exports = function (config) {
 		});
 	}
 
+	client.on('connect', () => {
+		logger.info(`Redis: Connected to ${config.redis.host}:${config.redis.port}`);
+	});
+
+	client.on('error', (err) => {
+		logger.error(`Redis: ${err.message}`);
+	});
+
+	client.on('reconnecting', () => {
+		logger.warn('Redis: reconnecting...');
+	});
+
 	return client;
 };
