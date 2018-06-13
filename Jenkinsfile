@@ -91,11 +91,19 @@ pipeline {
 				'''
 			}
 		}
-		stage ('Run tests') {
+		stage ('Run API tests') {
 			steps {
 				sh '''
 				sed -i -r -e "s/6040/$EXPLORER_PORT/" test/node.js
 				npm run test
+				'''
+			}
+		}
+		stage ('Run E2E tests') {
+			steps {
+				sh '''
+				npm run e2e-test-env-update
+				npm run e2e-test
 				'''
 			}
 		}
