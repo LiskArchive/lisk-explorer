@@ -3,12 +3,14 @@ Feature: Top menu
     Given I'm on page "/"
     And I fill in "6524861224470851795" to "search" field in "desktop search" div
     And I hit "enter" in "search" field in "desktop search" div
+    And I wait 1 seconds
     Then I should be on page "/block/6524861224470851795"
 
   Scenario: should allow to find a transaction by id
     Given I'm on page "/"
     And I fill in "1465651642158264047" to "search" field in "desktop search" div
     And I hit "enter" in "search" field in "desktop search" div
+    And I wait 1 seconds
     Then I should be on page "/tx/1465651642158264047"
 
   Scenario: should allow to find an account by address
@@ -29,6 +31,7 @@ Feature: Top menu
     Given I'm on page "/"
     And I fill in "invalid" to "search" field in "desktop search" div
     And I hit "enter" in "search" field in "desktop search" div
+    And I wait 1 seconds
     Then I should see "No matching records found!" in ".desktop-search .empty-result-title" html element
 
   Scenario: should allow to switch currency to BTC

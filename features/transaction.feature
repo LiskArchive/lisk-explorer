@@ -1,4 +1,6 @@
 Feature: Transaction page
+  
+  @ignore
   Scenario: should show title, summary, and details
     Given I'm on page "/tx/1465651642158264047"
     Then I should see "Transaction 1465651642158264047 " in "h1" html element

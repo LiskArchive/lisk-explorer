@@ -1,4 +1,6 @@
 Feature: Block page
+
+  @ignore
   Scenario: should show title, summary, and transactions
     Given I'm on page "/block/6524861224470851795"
     Then I should see "Block  6524861224470851795" in "h1" html element

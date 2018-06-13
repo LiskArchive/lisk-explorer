@@ -59,7 +59,7 @@ Feature: Address page
       | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
       | /\d{18,20}/    | /2017\/06\/16 \d\d:09:08/ | 16313739661670634666L | /standby_\d{3}\|\d{20}L/ | 1,000 LSK | 0.1 LSK | Confirmed     |
 
-
+  @ignore
   Scenario: should allow to show only received transactions
     Given I'm on page "/address/16313739661670634666L"
     And I click "received tab"
@@ -67,6 +67,18 @@ Feature: Address page
       | Transaction ID      | Date                      | Sender               | Recipient             | Amount          | Fee   | Confirm.      |
       |---------------------|---------------------------|----------------------|-----------------------|-----------------|-------|---------------|
       | 1465651642158264047 | /2016\/05\/24 \d\d:00:00/ | 1085993630748340485L | 16313739661670634666L | 100,000,000 LSK | 0 LSK | Confirmed     |
+
+  @ignore
+  Scenario: should allow to show only others transactions
+    Given I'm on page "/address/14895491440237132212L"
+    When I click "others tab"
+    Then I should see table "transactions" containing:
+      | Transaction ID | Date                      | Sender      | Recipient             | Amount    | Fee      | Confirm.      |
+      |----------------|---------------------------|-------------|-----------------------|-----------|----------|---------------|
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:58:04/ | standby_301 | Delegate vote         | 0 LSK     |  1.0 LSK | Confirmed     |
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:58:04/ | standby_301 | Delegate registration | 0 LSK     | 25.0 LSK | Confirmed     |
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:57:43/ | standby_301 | Delegate vote         | 0 LSK     |  1.0 LSK | Confirmed     |
+
 
   Scenario: should allow to show votes
     Given I'm on page "/address/16313739661670634666L"
