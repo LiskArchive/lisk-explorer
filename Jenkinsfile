@@ -91,7 +91,7 @@ pipeline {
 				'''
 			}
 		}
-		stage ('Run tests') {
+		stage ('Run API tests') {
 			steps {
 				sh '''
 				sed -i -r -e "s/6040/$EXPLORER_PORT/" test/node.js
@@ -99,19 +99,13 @@ pipeline {
 				'''
 			}
 		}
-		stage ('Run e2e tests') {
+		stage ('Run E2E tests') {
 			steps {
-				sh '''
-				N=${EXECUTOR_NUMBER:-0}
-
-				# End to End test configuration
-				export DISPLAY=:9$N
-				Xvfb :9$N -ac -screen 0 1280x1024x24 &
-				./node_modules/protractor/bin/webdriver-manager start --seleniumPort 443$N &
-
-				# Run E2E Tests
-				npm run e2e -- --params.baseURL http://localhost:604$N
-				'''
+				wrap([$class: 'Xvfb']) {
+					sh '''
+					npm run e2e -- --params.baseURL http://localhost:$EXPLORER_PORT
+					'''
+				}
 			}
 		}
 	}
