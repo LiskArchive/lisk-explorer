@@ -91,12 +91,21 @@ pipeline {
 				'''
 			}
 		}
-		stage ('Run tests') {
+		stage ('Run API tests') {
 			steps {
 				sh '''
 				sed -i -r -e "s/6040/$EXPLORER_PORT/" test/node.js
 				npm run test
 				'''
+			}
+		}
+		stage ('Run E2E tests') {
+			steps {
+				wrap([$class: 'Xvfb']) {
+					sh '''
+					npm run e2e -- --params.baseURL http://localhost:$EXPLORER_PORT
+					'''
+				}
 			}
 		}
 	}
