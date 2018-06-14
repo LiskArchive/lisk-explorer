@@ -20,6 +20,9 @@ const params = {
 	address_delegate: '8273455169423958419L',
 	excessive_offset: '1000000',
 	publicKey: 'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f',
+	address_lowercase: '16313739661670634666l',
+	address_whitespace1: ' 16313739661670634666L  ',
+	address_whitespace2: ' 163 137 396 616 706 346 66L  ',
 };
 
 describe('Accounts API', () => {
@@ -94,6 +97,30 @@ describe('Accounts API', () => {
 			getAccount('999999999L', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
+				done();
+			});
+		});
+
+		it('using known lowercase address should be ok', (done) => {
+			getAccount(params.address_lowercase, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
+				checkAccount(res.body);
+				done();
+			});
+		});
+
+		it('using known address with whitespaces should be ok', (done) => {
+			getAccount(params.address_whitespace1, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
+				checkAccount(res.body);
+				done();
+			});
+		});
+
+		it('using known address with whitespaces inside should be ok', (done) => {
+			getAccount(params.address_whitespace2, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
+				checkAccount(res.body);
 				done();
 			});
 		});
