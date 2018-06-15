@@ -38,7 +38,11 @@ const get = url => new Promise((resolve, reject) => {
 	});
 });
 
-module.exports = {
-	get,
+const parseAddress = function (address) {
+	return address.replace('l', 'L');
 };
 
+module.exports = {
+	get,
+	parseAddress,
+};
