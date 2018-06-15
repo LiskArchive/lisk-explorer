@@ -1,8 +1,8 @@
-# Contributing to lisk-template
+# Contributing to Lisk Explorer
 
 First off, thanks for taking the time to contribute! :raised_hands:
 
-The following is a set of guidelines for contributing to lisk-template, which
+The following is a set of guidelines for contributing to Lisk Explorer, which
 are hosted in the [LiskHQ Organization](https://github.com/LiskHQ) on GitHub.
 These are mostly guidelines, not rules. Use your best judgment, and feel free to
 propose changes to this document in a pull request.
@@ -26,7 +26,7 @@ propose changes to this document in a pull request.
 ## Code of Conduct
 
 This project and everyone participating in it is governed by the
-[lisk-template Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are
+[Lisk Explorer Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are
 expected to uphold this code. Please report unacceptable behavior to
 [info@lisk.io](mailto:info@lisk.io).
 
@@ -102,7 +102,7 @@ _Before_ submitting a pull request, please make sure the following is done:
 
 ### Reporting Bugs
 
-This section guides you through submitting a bug report for lisk-template.
+This section guides you through submitting a bug report for lisk-explorer.
 Following these guidelines helps maintainers and the community understand your
 report :pencil:, reproduce the behavior :computer: :computer:, and find related
 reports :mag_right:.
@@ -115,7 +115,6 @@ out [the required template](ISSUE_TEMPLATE.md), the information it asks for
 helps us resolve issues faster.
 
 > **Note:** If you find a **Closed** issue that seems like it is the same thing
-
     that you’re experiencing, open a new issue and include a link to the original
 	issue in the body of your new one.
 
@@ -166,19 +165,19 @@ the problem:
 Provide more context by answering these questions:
 
 * **Did the problem start happening recently** (e.g. after updating to a new
-	version of lisk-template, Lisk or any other repository) or was this always a
+	version of lisk-explorer, Lisk or any other repository) or was this always a
 	problem?
 * If the problem started happening recently, **can you reproduce the problem in
-	an older version of lisk-template?** What’s the most recent version in which
-	the problem doesn’t happen? You can download older versions of lisk-template
-	from [the releases page](https://github.com/LiskHQ/lisk-template/releases).
+	an older version of lisk-explorer?** What’s the most recent version in which
+	the problem doesn’t happen? You can download older versions of lisk-explorer
+	from [the releases page](https://github.com/LiskHQ/lisk-explorer/releases).
 * **Can you reliably reproduce the issue?** If not, provide details about how
 	often the problem happens and under which conditions it normally happens.
 
 ### Suggesting Enhancements
 
 This section guides you through submitting an enhancement suggestion for
-lisk-template, including completely new features and minor improvements to
+lisk-explorer, including completely new features and minor improvements to
 existing functionality. Following these guidelines helps maintainers and the
 community understand your suggestion :pencil: and find related suggestions
 :mag_right:.
@@ -205,13 +204,13 @@ following information:
 * **Describe the current behavior** and **explain which behavior you expected to
 	see instead** and why.
 * **Include screenshots and animated GIFs** which help you demonstrate the steps
-	or point out the part of lisk-template which the suggestion is related to. You
+	or point out the part of lisk-explorer which the suggestion is related to. You
 	can use [this tool](http://www.cockos.com/licecap/) to record GIFs on macOS
 	and Windows, and [this tool](https://github.com/colinkeenan/silentcast) or
 	[this tool](https://github.com/GNOME/byzanz) on Linux.
 * **Explain why this enhancement would be useful** to most Lisk and
-	lisk-template users.
-* **Specify which version of Lisk and lisk-template you’re using.**
+	lisk-explorer users.
+* **Specify which version of Lisk and lisk-explorer you’re using.**
 * **Specify the name and version of the OS you’re using.**
 
 ## Styleguides
@@ -222,26 +221,10 @@ following information:
 * Use the imperative mood ("Move cursor to..." not "Moves cursor to...")
 * Limit the first line to 72 characters or less
 * Reference issues and pull requests liberally after the first line
-* Consider starting the commit message with an applicable emoji:
-	* :seedling: `:seedling:` when adding a new feature
-	* :bug: `:bug:` when fixing a bug
-	* :books: `:books:` when adding or updating documentation
-	* :nail_care: `:nail_care:` when making changes to code style (e.g. lint settings)
-	* :recycle: `:recycle:` when refactoring code
-	* :fire: `:fire:` when removing code or files (including dependencies)
-	* :racehorse: `:racehorse:` when improving performance
-	* :white_check_mark: `:white_check_mark:` when adding or updating tests
-	* :construction_worker: `:construction_worker:` when updating the build process
-	* :bowtie: `:bowtie:` when updating CI
-	* :house: `:house:` when performing chores
-	* :new: `:new:` when adding a new dependency
-	* :arrow_up: `:arrow_up:` when upgrading a dependency
-	* :arrow_down: `:arrow_down:` when downgrading a dependency
-	* :back: `:back:` when reverting changes
 
 ### JavaScript Styleguide
 
-On lisk-template we are using [Prettier](https://prettier.io/) and
+On lisk-explorer we are using [Prettier](https://prettier.io/) and
 [ESLint](https://eslint.org/). Our ESLint style expands
 [Airbnb’s](https://github.com/airbnb/javascript) style settings and expresses
 some opinions not covered by Prettier’s formatting concerns. You can get more
