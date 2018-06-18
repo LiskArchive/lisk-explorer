@@ -21,7 +21,7 @@ Feature: Address page
   Scenario: should link transaction id to transaction page
     Given I'm on page "/address/16313739661670634666L"
     And I click link on row no. 1 cell no. 1 of "transactions" table
-    Then I should be on page "/tx/3848396513989474236"
+    Then I should be on page "/tx/16295820046284152875"
 
   Scenario: should link sender address to address page
     Given I'm on page "/address/18234943547133247982L"
@@ -31,7 +31,7 @@ Feature: Address page
   Scenario: should link recipient delegate name to address page
     Given I'm on page "/address/16313739661670634666L"
     And I click link on row no. 1 cell no. 4 of "transactions" table
-    Then I should be on page "/address/14989416087250274755L"
+    Then I should be on page "/address/14706379298538803272L"
 
   Scenario: should allow to load more transactions
     Given I'm on page "/address/16313739661670634666L"
