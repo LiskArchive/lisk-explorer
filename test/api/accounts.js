@@ -18,6 +18,7 @@ const node = require('./../node.js');
 const params = {
 	address: '16313739661670634666L',
 	address_delegate: '8273455169423958419L',
+	address_lowercase: '16313739661670634666l',
 	excessive_offset: '1000000',
 	publicKey: 'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f',
 	addressWithVotes: '16313739661670634666L',
@@ -137,6 +138,14 @@ describe('Accounts API', () => {
 			getAccount('999999999L', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(false);
 				node.expect(res.body).to.have.property('error');
+				done();
+			});
+		});
+
+		it('using known lowercase address should be ok', (done) => {
+			getAccount(params.address_lowercase, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.not.be.equal(undefined);
+				checkAccount(res.body);
 				done();
 			});
 		});
