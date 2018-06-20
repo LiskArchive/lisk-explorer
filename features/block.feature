@@ -24,16 +24,12 @@ Feature: Block page
       | /\d{18,20}/          | /2016\/05\/24 \d\d:00:00/ | /genesis_\d{1,3}/ | Delegate registration | 0 LSK  | 0 LSK | Confirmed     |
       | /\d{18,20}/          | /2016\/05\/24 \d\d:00:00/ | /genesis_\d{1,3}/ | Delegate registration | 0 LSK  | 0 LSK | Confirmed     |
 
-  # ignored because it the feature is broken
-  @ignore
   Scenario: should allow to load more transactions
     Given I'm on page "/block/6524861224470851795"
     When I scroll to "more button"
     And I click "more button"
     Then I should see table "transactions" with 100 rows
 
-  # ignored because it the feature is broken
-  @ignore
   Scenario: should allow to load less transactions
     Given I'm on page "/block/6524861224470851795"
     When I scroll to "more button"
