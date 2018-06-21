@@ -16,7 +16,7 @@
 import AppFilters from './filters.module';
 
 AppFilters.filter('currency', (numberFilter, liskFilter, fiatFilter, isFiat) => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
-	if (amount === 0) return amount;
+	if (Number(amount) === 0) return 0;
 
 	let factor = 1;
 	let equivalent = false;
