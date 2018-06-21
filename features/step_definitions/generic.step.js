@@ -37,7 +37,7 @@ const EC = protractor.ExpectedConditions;
 const baseURL = browser.params.baseURL;
 
 defineSupportCode(({ Given, When, Then, setDefaultTimeout }) => {
-	setDefaultTimeout(20 * 1000);
+	setDefaultTimeout(60 * 1000);
 
 	Given('I\'m on page "{pageAddress}"', (pageAddress, callback) => {
 		browser.ignoreSynchronization = true;
