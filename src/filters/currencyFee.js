@@ -16,6 +16,7 @@
 import AppFilters from './filters.module';
 
 AppFilters.filter('currencyFee', currencyFilter => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
+	if (Number(amount) === 0) return 0;
 	if (currency.symbol === 'LSK' && typeof decimalPlacesCrypto === 'undefined') {
 		decimalPlacesCrypto = 1;
 	}
