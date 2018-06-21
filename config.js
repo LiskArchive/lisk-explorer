@@ -73,6 +73,8 @@ config.exchangeRates.exchanges.BTC.EUR = 'bitstamp';
 config.exchangeRates.exchanges.BTC.RUB = 'btce';
 // BTC/PLN pair, supported: bitmarket
 config.exchangeRates.exchanges.BTC.PLN = false;
+// BTC/JPY pair, supported: coincheck
+config.exchangeRates.exchanges.BTC.JPY = 'coincheck';
 
 /**
  * Market watcher
