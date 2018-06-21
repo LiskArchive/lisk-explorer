@@ -134,6 +134,18 @@ module.exports = function (config) {
 				},
 			],
 		},
+		BTCGBP: {
+			coinbase: [
+				'Coinbase',
+				'https://api.coinbase.com/v2/prices/BTC-GBP/spot.json',
+				(res, cb) => {
+					if (res.error) {
+						return cb(res.error);
+					}
+					return cb(null, safeRef(res, 'data.amount'));
+				},
+			],
+		},
 	};
 
 	const requestTicker = (options, cb) => {
