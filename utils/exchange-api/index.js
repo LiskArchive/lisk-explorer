@@ -117,6 +117,18 @@ module.exports = function (config) {
 				},
 			],
 		},
+		BTCJPY: {
+			coincheck: [
+				'Coincheck',
+				'https://coincheck.com/api/ticker?pair=btc_jpy',
+				(res, cb) => {
+					if (res.error) {
+						return cb(res.error);
+					}
+					return cb(null, safeRef(res, 'last'));
+				},
+			],
+		},
 	};
 
 	const requestTicker = (options, cb) => {
