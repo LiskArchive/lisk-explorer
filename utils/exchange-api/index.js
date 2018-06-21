@@ -70,6 +70,11 @@ module.exports = function (config) {
 				'https://www.bitmarket.pl/json/BTCPLN/ticker.json',
 				(res, cb) => cb(null, safeRef(res, 'last')),
 			],
+			bitbay: [
+				'Bitmarket',
+				'https://bitbay.net/API/Public/BTCPLN/ticker.json',
+				(res, cb) => cb(null, safeRef(res, 'last')),
+			],
 		},
 		BTCRUB: {
 			exmo: [

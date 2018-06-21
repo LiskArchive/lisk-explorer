@@ -70,8 +70,8 @@ config.exchangeRates.exchanges.BTC.USD = 'bitfinex';
 config.exchangeRates.exchanges.BTC.EUR = 'bitstamp';
 // BTC/RUB pair, supported: btce, exmo
 config.exchangeRates.exchanges.BTC.RUB = 'btce';
-// BTC/PLN pair, supported: bitmarket
-config.exchangeRates.exchanges.BTC.PLN = false;
+// BTC/PLN pair, supported: bitmarket, bitbay
+config.exchangeRates.exchanges.BTC.PLN = 'bitmarket';
 // BTC/JPY pair, supported: coincheck
 config.exchangeRates.exchanges.BTC.JPY = 'coincheck';
 
