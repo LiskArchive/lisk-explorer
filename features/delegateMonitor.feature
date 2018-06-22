@@ -148,6 +148,7 @@ Feature: Delegate Monitor
     Given I'm on page "/delegateMonitor"
     When I click "standby delegates tab"
     And I click "more button"
+    And I wait 0.5 seconds
     And I click "less button"
     Then I should see table "standby delegates" with 20 rows starting with:
       | Rank | Name              | Address      | Productivity | Approval |
