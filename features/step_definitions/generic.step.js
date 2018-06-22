@@ -37,11 +37,11 @@ const EC = protractor.ExpectedConditions;
 const baseURL = browser.params.baseURL;
 
 defineSupportCode(({ Given, When, Then, setDefaultTimeout }) => {
-	setDefaultTimeout(20 * 1000);
+	setDefaultTimeout(60 * 1000);
 
 	Given('I\'m on page "{pageAddress}"', (pageAddress, callback) => {
 		browser.ignoreSynchronization = true;
-		browser.driver.manage().window().setSize(1200, 1000);
+		browser.driver.manage().window().setSize(1280, 1024);
 		browser.driver.get('about:blank');
 		browser.get(baseURL + pageAddress).then(callback);
 	});

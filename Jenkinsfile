@@ -22,7 +22,7 @@ def slack_send(color, message) {
 }
 
 pipeline {
-	agent { node { label 'lisk-explorer' } } 
+	agent { node { label 'lisk-explorer' } }
 	environment {
 		LISK_VERSION = '1.0.0-beta.9.2'
 		EXPLORER_PORT = "604$EXECUTOR_NUMBER"
@@ -91,7 +91,7 @@ pipeline {
 				'''
 			}
 		}
-		stage ('Run tests') {
+		stage ('Run API tests') {
 			steps {
 				sh '''
 				sed -i -r -e "s/6040/$EXPLORER_PORT/" test/node.js
@@ -99,6 +99,15 @@ pipeline {
 				'''
 			}
 		}
+		// stage ('Run E2E tests') {
+		// 	steps {
+		// 		wrap([$class: 'Xvfb']) {
+		// 			sh '''
+		// 			npm run e2e -- --params.baseURL http://localhost:$EXPLORER_PORT
+		// 			'''
+		// 		}
+		// 	}
+		// }
 	}
 	post {
 		success {
@@ -125,9 +134,9 @@ pipeline {
 					sh 'make mrproper'
 				}
 			}
-			
-			junit 'xunit-report.xml' 
-			
+
+			junit 'xunit-report.xml'
+
 			archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
 			dir('logs') {
 				deleteDir()

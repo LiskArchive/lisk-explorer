@@ -57,7 +57,7 @@
 					</tr>
 					<tr>
 						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Fee</strong></td>
-						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.fee | currency:$root.currency}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.fee | currencyFee:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
 					</tr>
 					<tr>
 						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Timestamp</strong></td>

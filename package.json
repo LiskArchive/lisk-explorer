@@ -2,26 +2,41 @@
   "name": "lisk-explorer",
   "version": "2.1.0-beta.2",
   "description": "Lisk blockchain explorer",
+  "keywords": [
+    "lisk",
+    "blockchain"
+  ],
+  "homepage": "https://github.com/LiskHQ/lisk-explorer",
   "repository": {
     "type": "git",
     "url": "git@github.com:LiskHQ/lisk-explorer.git"
   },
+  "bugs": {
+    "url": "https://github.com/LiskHQ/lisk-explorer/issues"
+  },
   "private": true,
-  "author": "Boris Povod <boris@crypti.me>, Oliver Beddows <oliver@lisk.io>, Ali Haghighatkhah <ali@lightcurve.io>",
+  "author": "Lisk Foundation <admin@lisk.io>, lightcurve GmbH <admin@lightcurve.io>",
   "license": "GPL-3.0",
-  "main": "src/main.js",
+  "main": "app.js",
+  "engines": {
+    "node": "8.11.2",
+    "npm": "6.1.0"
+  },
   "scripts": {
     "test": "./node_modules/.bin/grunt test --verbose",
     "test-live": "npm test -- --auto-watch --no-single-run",
-    "e2e-test": "protractor protractor.conf.js",
-    "e2e-test-env-update": "./node_modules/protractor/bin/webdriver-manager update",
+    "pree2e": "./node_modules/protractor/bin/webdriver-manager update --standalone false --gecko false",
+    "e2e": "protractor protractor.conf.js",
     "eslint": "eslint ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js ./*.json",
     "eslint-fix": "eslint --fix ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js",
     "start": "npm run copy-files && webpack -w",
     "validate": "webpack-validator webpack.config.js",
     "copy-files": "cp -r ./src/assets/img/favicons/* ./src/assets/img/leaflet ./robots.txt ./public",
     "build": "npm run copy-files && webpack",
-    "build:prod": "webpack --env.prod"
+    "build:prod": "webpack --env.prod",
+    "clean-frontend": "git clean ./public -dfx && git clean ./src -dfx",
+    "clean-backend": "rm -rf node_modules",
+    "clean-all": "npm run clean-backend && npm run clean-frontend && git clean ./ -dfnx"
   },
   "dependencies": {
     "amstock3": "github:amcharts/amstock3",
@@ -60,7 +75,7 @@
     "qrcode": "^0.8.1",
     "qrcode-generator": "^1.2.0",
     "redis": "^2.6.2",
-    "request": "^2.75.0",
+    "request": "^2.87.0",
     "sigma": "https://github.com/goVanilla/sigma.js.git",
     "socket.io": "^2.1.1",
     "socket.io-client": "^2.0.3",

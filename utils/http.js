@@ -13,12 +13,25 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import AppFilters from './filters.module';
 
-AppFilters.filter('currencyFee', currencyFilter => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
-	if (currency.symbol === 'LSK' && typeof decimalPlacesCrypto === 'undefined') {
-		decimalPlacesCrypto = 1;
-	}
+const request = require('request');
+const HttpStatus = require('http-status-codes');
 
-	return currencyFilter(amount, currency, decimalPlacesCrypto, decimalPlacesFiat);
+const validateHttpResponse = (response) => {
+	if (response.statusCode === HttpStatus.OK) return true;
+	return false;
+};
+
+const get = url => new Promise((resolve, reject) => {
+	request.get({
+		url,
+		json: true,
+	}, (err, response, body) => {
+		if (err || !validateHttpResponse(response)) {
+			return reject(err || 'Response was unsuccessful');
+		}
+		return resolve(body);
+	});
 });
+
+module.exports = { get };

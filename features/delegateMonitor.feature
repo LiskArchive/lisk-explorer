@@ -41,7 +41,7 @@ Feature: Delegate Monitor
     And I should see "total forged" element with content that matches:
       """
       TOTAL FORGED \(LSK\)
-      \d{1,3},\d{3}\
+      ~\d{1,3},\d{3}\
       between 101 active delegates
       """
     And I should see "best forger" element with content that matches:
