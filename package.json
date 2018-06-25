@@ -81,6 +81,7 @@
     "socket.io-client": "^2.0.3",
     "split": "^1.0.0",
     "string-similarity": "^1.2.0",
+    "twitter": "^1.7.1",
     "underscore": "^1.8.3"
   },
   "devDependencies": {

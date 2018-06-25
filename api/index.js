@@ -18,13 +18,14 @@ const blocks = require('./blocks.js');
 const common = require('./common.js');
 const delegates = require('./delegates.js');
 const exchanges = require('./exchanges.js');
+const newsfeed = require('./newsfeed.js');
 const statistics = require('./statistics.js');
 const transactions = require('./transactions.js');
 const handler = require('./handler');
 const config = require('../config');
 
 const routes = [].concat(transactions, accounts, blocks, common,
-	delegates, exchanges, statistics);
+	delegates, exchanges, newsfeed, statistics);
 
 const modules = {};
 const services = {};
