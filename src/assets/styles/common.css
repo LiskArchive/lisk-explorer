@@ -440,6 +440,12 @@ qrcode + span {
   border-bottom: 4px solid white;
 }
 
+.currency-code {
+	color: grey;
+	font-family: Menlo, Lucida Sans Typewriter, Courier New, monospace;
+	font-size: 14px;
+}
+
 @media (max-width: 767px) {
   .navbar-nav .caret {
     display: none;
