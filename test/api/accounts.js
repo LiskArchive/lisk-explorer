@@ -39,8 +39,27 @@ describe('Accounts API', () => {
 		node.get(`/api/getTopAccounts?offset=${id}&limit=${id2}`, done);
 	}
 
-	function checkAccount(id) {
-		node.expect(id).to.have.all.keys(
+	function checkAccountTypes(o) {
+		node.expect(o.success).to.be.a('boolean');
+		node.expect(o.multisignatures).to.be.an('array');
+		node.expect(o.secondPublicKey).to.be.a('string');
+		node.expect(o.secondSignature).to.be.a('number');
+		node.expect(o.unconfirmedSignature).to.be.a('number');
+		node.expect(o.publicKey).to.be.a('string');
+		node.expect(o.balance).to.be.a('string');
+		node.expect(o.unconfirmedBalance).to.be.a('string');
+		node.expect(o.address).to.be.a('string');
+		node.expect(o.u_multisignatures).to.be.an('array');
+		node.expect(o.knowledge).to.satisfy(knowledge => !knowledge || typeof knowledge === 'object');
+		node.expect(o.delegate).to.satisfy(delegate => delegate === null || typeof delegate === 'object');
+		node.expect(o.votes).to.satisfy(votes => votes === null || typeof votes === 'object');
+		node.expect(o.voters).to.satisfy(voters => voters === null || typeof voters === 'object');
+		node.expect(o.incoming_cnt).to.be.a('string');
+		node.expect(o.outgoing_cnt).to.be.a('string');
+	}
+
+	function checkAccount(o) {
+		node.expect(o).to.have.all.keys(
 			'success',
 			'multisignatures',
 			'secondPublicKey',
@@ -57,10 +76,25 @@ describe('Accounts API', () => {
 			'voters',
 			'incoming_cnt',
 			'outgoing_cnt');
+
+		checkAccountTypes(o);
 	}
 
-	const checkDelegate = (id) => {
-		node.expect(id).to.contain.all.keys(
+	function checkDelegateTypes(o) {
+		node.expect(o.address).to.be.a('string');
+		node.expect(o.approval).to.be.a('number');
+		node.expect(o.missedblocks).to.be.a('number');
+		node.expect(o.producedblocks).to.be.a('number');
+		node.expect(o.productivity).to.be.a('number');
+		node.expect(o.publicKey).to.be.a('string');
+		node.expect(o.rate).to.be.a('number');
+		node.expect(o.username).to.be.a('string');
+		node.expect(o.vote).to.be.a('string');
+		node.expect(o.forged).to.be.a('string');
+	}
+
+	const checkDelegate = (o) => {
+		node.expect(o).to.contain.all.keys(
 			'address',
 			'approval',
 			'missedblocks',
@@ -71,14 +105,25 @@ describe('Accounts API', () => {
 			'username',
 			'vote',
 			'forged');
+
+		checkDelegateTypes(o);
 	};
 
-	const checkTopAccount = (id) => {
-		node.expect(id).to.have.all.keys(
+	function checkTopAccountTypes(o) {
+		node.expect(o.address).to.be.a('string');
+		node.expect(o.balance).to.be.a('string');
+		node.expect(o.publicKey).to.be.a('string');
+		node.expect(o.knowledge).to.satisfy(knowledge => !knowledge || typeof knowledge === 'object');
+	}
+
+	const checkTopAccount = (o) => {
+		node.expect(o).to.have.all.keys(
 			'address',
 			'balance',
 			'publicKey',
 			'knowledge');
+
+		checkTopAccountTypes(o);
 	};
 
 	const checkTopAccounts = (id) => {
