@@ -23,7 +23,7 @@
 		<li ng-class="key">
 			<a data-ng-click="cs.setCurrency('LSK')"
 			data-ng-class="{active: currency-code.symbol == 'LSK'}" class="LSK">
-				<span>{{'LSK' | currencyCodeToName}}</span>
+				<span class="currency-name">{{'LSK' | currencyCodeToName}}</span>
 				<span class="currency-code">LSK</span>
 			</a>
 		</li>
@@ -35,7 +35,7 @@
 		<li data-ng-repeat="ticker in groupCodes" ng-class="key">
 			<a data-ng-click="cs.setCurrency(ticker.code)"
 			data-ng-class="{active: currency-code.symbol == {{ticker.code}}}" class="{{ticker.code}}">
-				<span>{{ticker.code | currencyCodeToName}}</span>
+				<span class="currency-name">{{ticker.code | currencyCodeToName}}</span>
 				<span class="currency-code">{{ticker.code}}</span>
 			</a>
 		</li>
