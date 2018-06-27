@@ -16,19 +16,11 @@
 import AppNavDropdown from './navigation-dropdown.module';
 import template from './navigation-dropdown.html';
 
-AppNavDropdown.directive('navigationDropdown', ($rootScope, $timeout) => {
-	const CurrencySelectorLink = () => {
-	};
-
-	const CurrencySelectorCtrl = function ($scope) {
-	};
-
+// eslint-disable-next-line arrow-body-style
+AppNavDropdown.directive('navigationDropdown', () => {
 	return {
 		restrict: 'E',
 		replace: true,
-		controller: CurrencySelectorCtrl,
-		controllerAs: 'cs',
-		link: CurrencySelectorLink,
 		template,
 	};
 });
