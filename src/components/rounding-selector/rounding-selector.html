@@ -1,0 +1,34 @@
+<!--
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
+-->
+<li class="dropdown">
+	<a href id="main-menu-decimal" class="dropdown-toggle tools-menu" data-uib-dropdown-toggle data-aria-haspopup="true" role="button" data-aria-expanded="false">Decimal places <span class="caret"></span></a>
+	<ul class="dropdown-menu" role="decimal-menu" data-aria-labelledby="decimal-menu-dropdown">
+		<li data-ng-class='{active: $root.decimalPlaces === undefined}'>
+			<a data-ng-click='cs.setDecimalPlaces(undefined)' class='trim-floating-points'>Trim trailing zeros</a>
+		</li>
+		<li data-ng-class='{active: $root.decimalPlaces === 0}'>
+			<a data-ng-click='cs.setDecimalPlaces(0)' class='round-to-0'>Round to whole number</a>
+		</li>
+		<li data-ng-class='{active: $root.decimalPlaces === 4}'>
+			<a data-ng-click='cs.setDecimalPlaces(4)' class='round-to-4'>Round to 4th decimal place</a>
+		</li>
+		<li data-ng-class='{active: $root.decimalPlaces === 8}'>
+			<a data-ng-click='cs.setDecimalPlaces(8)' class='show-all-8'>Show all decimals</a>
+		</li>
+	</ul>
+</li>
