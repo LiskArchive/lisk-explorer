@@ -16,11 +16,11 @@
 import AppRounding from './rounding-selector.module';
 import template from './rounding-selector.html';
 
-AppRounding.directive('roundingSelector', ($rootScope, $timeout) => {
+AppRounding.directive('roundingSelector', ($rootScope) => {
 	const RoundingSelectorLink = () => {
 	};
 
-	const RoundingSelectorCtrl = function ($scope) {
+	const RoundingSelectorCtrl = function () {
 		this.setDecimalPlaces = (setting) => {
 			$rootScope.decimalPlaces = setting;
 			$rootScope.isCollapsed = true;
