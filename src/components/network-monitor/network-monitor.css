@@ -205,6 +205,16 @@ div.heights span.counter.percetage:before {
   max-width: 300px;
 }
 
+.peers td .hostname {
+	max-width: 300px;
+}
+
+@media (max-width: 991px) {
+	.peers td .hostname {
+		max-width: 100px;
+	}
+}
+
 .peers td .os-icon {
   width: 24px;
   height: 24px;
