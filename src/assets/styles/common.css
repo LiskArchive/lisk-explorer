@@ -376,7 +376,15 @@ qrcode + span {
 .navbar { min-height: 80px; }
 
 .navbar-collapse {
-  overflow: hidden;
+	overflow: hidden;
+}
+
+@media (max-width: 767px) {
+	#header .navbar-collapse.mobile-menu {
+		max-height: 500px;
+		overflow-x: hidden;
+		overflow-y: scroll;
+	}
 }
 
 .navbar-default .navbar-toggle {
@@ -438,6 +446,19 @@ qrcode + span {
 .navbar-nav li.open>a>.caret {
   border-top-width: 0;
   border-bottom: 4px solid white;
+}
+
+.currency-code {
+	color: grey;
+	font-family: "Menlo", "Lucida Sans Typewriter", "Courier New", monospace;
+  font-size: 14px;
+  padding-left: 18px;
+}
+
+.currency-selector li a {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 @media (max-width: 767px) {
@@ -1400,7 +1421,7 @@ table tbody tr:nth-of-type(odd) {
     margin-top: 0;
     display: block;
     background-color: transparent;
-    border: 0;
+		border: 0;
   }
 }
 

@@ -44,6 +44,8 @@ import '../components/search';
 import '../components/header';
 import '../components/footer';
 import '../components/currency-selector';
+import '../components/navigation-dropdown';
+import '../components/rounding-selector';
 import '../components/activity-graph';
 import '../components/home';
 import '../components/bread-crumb';
@@ -76,6 +78,8 @@ const App = angular.module('lisk_explorer', [
 	'lisk_explorer.search',
 	'lisk_explorer.tools',
 	'lisk_explorer.currency',
+	'lisk_explorer.navDropdown',
+	'lisk_explorer.roundingMenu',
 	'lisk_explorer.activityGraph',
 	'lisk_explorer.delegateMonitor',
 	'lisk_explorer.home',
