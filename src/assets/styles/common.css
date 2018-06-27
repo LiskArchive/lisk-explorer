@@ -442,7 +442,7 @@ qrcode + span {
 
 .currency-code {
 	color: grey;
-	font-family: Menlo, Lucida Sans Typewriter, Courier New, monospace;
+	font-family: "Menlo", "Lucida Sans Typewriter", "Courier New", monospace;
   font-size: 14px;
   padding-left: 18px;
 }
