@@ -376,7 +376,15 @@ qrcode + span {
 .navbar { min-height: 80px; }
 
 .navbar-collapse {
-  overflow: hidden;
+	overflow: hidden;
+}
+
+@media (max-width: 767px) {
+	#header .navbar-collapse.mobile-menu {
+		max-height: 500px;
+		overflow-x: hidden;
+		overflow-y: scroll;
+	}
 }
 
 .navbar-default .navbar-toggle {
@@ -1413,7 +1421,7 @@ table tbody tr:nth-of-type(odd) {
     margin-top: 0;
     display: block;
     background-color: transparent;
-    border: 0;
+		border: 0;
   }
 }
 

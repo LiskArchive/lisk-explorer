@@ -17,7 +17,8 @@
 -->
 <li class="dropdown" data-uib-dropdown>
 	<a class="dropdown-toggle LSK-menu" id="main-currency-selector" data-uib-dropdown-toggle data-aria-haspopup="true" role="button" data-aria-expanded="false">
-		{{currency.symbol}} <span class="caret"></span>
+		<span class="visible-xs">Currency&nbsp;<span class="caret"></span></span>
+		<span class="hidden-xs">{{currency.symbol}}&nbsp;<span class="caret"></span></span>
 	</a>
 	<ul class="dropdown-menu currency-selector" role="menu" data-aria-labelledby="main-currency-selector">
 		<li ng-class="key">
@@ -29,7 +30,7 @@
 		</li>
 
 		<span data-ng-repeat-start="(tickerGroup, groupCodes) in tickers"></span>
-		<li data-ng-if="groupCodes.length > 0" role="separator" class="divider" style="clear:both;"></li>
+		<li data-ng-if="groupCodes.length > 0" role="separator" class="divider hidden-xs" style="clear:both;"></li>
 		<li data-ng-if="groupCodes.length > 0" class="dropdown-header" style="clear:both;">{{tickerGroup}}</li>
 
 		<li data-ng-repeat="ticker in groupCodes" ng-class="key">
