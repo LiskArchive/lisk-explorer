@@ -128,9 +128,7 @@ describe('Accounts API', () => {
 
 	const checkTopAccounts = (id) => {
 		for (let i = 0; i < id.length; i++) {
-			if (id[i + 1]) {
-				checkTopAccount(id[i]);
-			}
+			checkTopAccount(id[i]);
 		}
 	};
 
