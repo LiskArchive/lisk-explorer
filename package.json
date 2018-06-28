@@ -1,6 +1,6 @@
 {
   "name": "lisk-explorer",
-  "version": "1.7.0-rc.0",
+  "version": "1.7.0",
   "description": "Lisk blockchain explorer",
   "keywords": [
     "lisk",
