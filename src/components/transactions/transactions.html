@@ -70,6 +70,10 @@
 						</td>
 						<td data-ng-if="!vm.tx.blockId" class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">Unconfirmed</td>
 					</tr>
+					<tr data-ng-if="vm.tx.type == 0 && vm.tx.asset && vm.tx.asset.data">
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Memo</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.data}}</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
