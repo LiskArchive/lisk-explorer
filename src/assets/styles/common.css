@@ -321,10 +321,9 @@ qrcode + span {
 
 /* Wrapper for page content to push down footer */
 #wrap {
-  min-height: 100%;
-  height: auto;
   /* Negative indent footer by its height */
-  margin: 20px auto -48px;
+  min-height: calc(100% - 48px);
+  height: auto;
   /* Pad bottom by footer height */
   padding: 0 0 75px;
 }
@@ -377,7 +376,15 @@ qrcode + span {
 .navbar { min-height: 80px; }
 
 .navbar-collapse {
-  overflow: hidden;
+	overflow: hidden;
+}
+
+@media (max-width: 767px) {
+	#header .navbar-collapse.mobile-menu {
+		max-height: 500px;
+		overflow-x: hidden;
+		overflow-y: scroll;
+	}
 }
 
 .navbar-default .navbar-toggle {
@@ -439,6 +446,19 @@ qrcode + span {
 .navbar-nav li.open>a>.caret {
   border-top-width: 0;
   border-bottom: 4px solid white;
+}
+
+.currency-code {
+	color: grey;
+	font-family: "Menlo", "Lucida Sans Typewriter", "Courier New", monospace;
+  font-size: 14px;
+  padding-left: 18px;
+}
+
+.currency-selector li a {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 @media (max-width: 767px) {
@@ -638,7 +658,26 @@ qrcode + span {
 }
 
 .btn {
-  border-radius: 2px;
+  align-items: center;
+  display: inline-flex;
+  font-weight: 500;
+  justify-content: center;
+  line-height: 1;
+  padding: 0 24px;
+  text-align: center;
+  width: 100%;
+}
+
+@media screen and (min-width: 600px) {
+  .btn {
+    height: 5.2rem;
+  }
+}
+
+@media screen and (min-width: 1400px) {
+  .btn-group .btn {
+    font-size: 17px;
+  }
 }
 
 .btn-primary, a.btn-primary {
@@ -1270,19 +1309,26 @@ table tbody tr:nth-of-type(odd) {
 }
 
 .paginator {
-  text-align: center;
-  width: 100%;
-  padding: 0 16px;
-  font-size: 0;
-  margin: 0 auto;
-  max-width: 500px;
+  display: block;
+  margin-left: 18%;
+  flex-basis: 50%;
+  max-width: 64%;
+  padding: 0 12px 0;
 }
 
 .paginator .btn-group {
-  display: inline-block;
+  margin: 10rem 0 0;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.paginator .btn-group .less-button {
+  margin-right: 2.4rem;
+}
+
+.paginator .btn-group .see-all-blocks {
   width: 50%;
-  vertical-align: middle;
-  padding: 0 16px;
 }
 
 .bordered-button:hover,
@@ -1291,9 +1337,7 @@ table tbody tr:nth-of-type(odd) {
   border: solid 2px #2475b9;
   color: #2475b9;
   border-radius: 3px !important;
-  font-size: 1.8rem;
   line-height: 36px;
-  height: 42px;
   width: 100%;
   box-sizing: border-box;
   padding: 0 10px;
@@ -1377,7 +1421,7 @@ table tbody tr:nth-of-type(odd) {
     margin-top: 0;
     display: block;
     background-color: transparent;
-    border: 0;
+		border: 0;
   }
 }
 

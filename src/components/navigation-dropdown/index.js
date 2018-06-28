@@ -13,12 +13,5 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import AppFilters from './filters.module';
-
-AppFilters.filter('currencyFee', currencyFilter => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
-	if (currency.symbol === 'LSK' && typeof decimalPlacesCrypto === 'undefined') {
-		decimalPlacesCrypto = 1;
-	}
-
-	return currencyFilter(amount, currency, decimalPlacesCrypto, decimalPlacesFiat);
-});
+import './navigation-dropdown.module';
+import './navigation-dropdown.directive';

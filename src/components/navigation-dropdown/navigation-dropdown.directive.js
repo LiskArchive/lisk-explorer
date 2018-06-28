@@ -13,12 +13,14 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import AppFilters from './filters.module';
+import AppNavDropdown from './navigation-dropdown.module';
+import template from './navigation-dropdown.html';
 
-AppFilters.filter('currencyFee', currencyFilter => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
-	if (currency.symbol === 'LSK' && typeof decimalPlacesCrypto === 'undefined') {
-		decimalPlacesCrypto = 1;
-	}
-
-	return currencyFilter(amount, currency, decimalPlacesCrypto, decimalPlacesFiat);
+// eslint-disable-next-line arrow-body-style
+AppNavDropdown.directive('navigationDropdown', () => {
+	return {
+		restrict: 'E',
+		replace: true,
+		template,
+	};
 });

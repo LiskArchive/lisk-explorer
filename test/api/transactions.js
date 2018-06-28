@@ -19,6 +19,7 @@ const params = {
 	blockId: '6524861224470851795',
 	transactionId: '1465651642158264047',
 	address: '16313739661670634666L',
+	address_lowercase: '16313739661670634666l',
 	offset: 20,
 	limit: 100,
 };
@@ -133,6 +134,15 @@ describe('Transactions API', () => {
 	describe('GET /api/getTransactionsByAddress', () => {
 		it('using known address should be ok', (done) => {
 			getTransactionsByAddress(params.address, '0', params.limit, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').that.is.an('array');
+				checkTransactionsBody(res.body.transactions);
+				done();
+			});
+		});
+
+		it('using known address with lowercase l should be ok', (done) => {
+			getTransactionsByAddress(params.address_lowercase, '0', params.limit, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				checkTransactionsBody(res.body.transactions);

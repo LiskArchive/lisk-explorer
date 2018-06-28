@@ -13,12 +13,8 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import AppFilters from './filters.module';
+import angular from 'angular';
 
-AppFilters.filter('currencyFee', currencyFilter => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
-	if (currency.symbol === 'LSK' && typeof decimalPlacesCrypto === 'undefined') {
-		decimalPlacesCrypto = 1;
-	}
+const AppRounding = angular.module('lisk_explorer.roundingMenu', []);
 
-	return currencyFilter(amount, currency, decimalPlacesCrypto, decimalPlacesFiat);
-});
+export default AppRounding;

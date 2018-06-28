@@ -26,7 +26,7 @@
 							<tr>
 								<th class="left-padding-s left-padding-m left-padding-l double hidden-xs" width="5%">Rank</th>
 								<th class="left-padding-xs address-cell">Address</th>
-								<th class="right-padding-xs text-right">~ Balance</th>
+								<th class="right-padding-xs text-right">Balance</th>
 								<th class="right-padding-s text-right">Supply</th>
 								<th class="right-padding-m right-padding-l double text-right hidden-xs hidden-sm">Owner</th>
 							</tr>
@@ -72,11 +72,9 @@
 			</div>
 		</div>
 	</div>
-	<div class="btn-group btn-group-justified paginator" role="group" aria-label="Less/More Accounts" data-ng-hide="vm.topAccounts.disabled()">
+	<div class="paginator" aria-label="Less/More Accounts" data-ng-hide="vm.topAccounts.disabled()">
 		<div class="btn-group" role="group">
 			<button class="btn btn-default less-button bordered-button" data-ng-disabled="!vm.topAccounts.lessData" data-ng-click="vm.topAccounts.loadLess()">Less</button>
-		</div>
-		<div class="btn-group" role="group">
 			<button class="btn btn-default more-button bordered-button" data-ng-disabled="!vm.topAccounts.moreData" data-ng-click="vm.topAccounts.loadMore()">More</button>
 		</div>
 	</div>

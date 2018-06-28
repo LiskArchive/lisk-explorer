@@ -23,7 +23,9 @@ AppCurrency.directive('currencySelector', ($rootScope, $timeout) => {
 		});
 	};
 
-	const CurrencySelectorCtrl = function () {
+	const CurrencySelectorCtrl = function ($scope) {
+		$scope.tickers = {};
+
 		this.setCurrency = (currency) => {
 			$rootScope.currency.symbol = currency;
 			$rootScope.isCollapsed = true;
@@ -32,6 +34,22 @@ AppCurrency.directive('currencySelector', ($rootScope, $timeout) => {
 				localStorage.setItem('lisk_explorer-currency', currency);
 			}
 		};
+
+		$scope.$watch('currency.tickers.LSK',
+			(tickers) => {
+				const getTickers = list => list.filter(code => tickers[code])
+					.map((code) => { // eslint-disable-line arrow-body-style
+						return { code, value: tickers[code] };
+					});
+
+				if (tickers && typeof tickers === 'object') {
+					$scope.tickers = {
+						Popular: getTickers(['BTC', 'USD', 'EUR']),
+						Europe: getTickers(['GBP', 'RUB', 'PLN']),
+						Asia: getTickers(['CNY', 'JPY']),
+					};
+				}
+			});
 	};
 
 	return {

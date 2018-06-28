@@ -32,38 +32,37 @@
 						<span class="nethash text-center" ng-if="showNethash(blockStatus.nethash | nethash)">{{blockStatus.nethash | nethash}}</span>
 					</a>
 				</div>
-				<button type="button" class="navbar-toggle" data-ng-click="$root.isCollapsed = !$root.isCollapsed">
-					<span class="sr-only">Toggle navigation</span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-					<span class="icon-bar"></span>
-				</button>
-				<search class="visible-xs mobile-search" mobile-view="true" />
-				<div class="navbar-collapse main-menu" data-ng-class="{collapse: $root.isCollapsed}">
-					<ul class="nav navbar-nav navbar-right">
+				<span class="hidden-xs">
+					<button type="button" class="navbar-toggle" data-ng-click="$root.isCollapsed = !$root.isCollapsed">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<search class="visible-xs mobile-search" mobile-view="true" />
+					<div class="navbar-collapse main-menu" data-ng-class="{collapse: $root.isCollapsed}">
+						<ul class="nav navbar-nav navbar-right">
 							<currency-selector />
-							<li class="dropdown" data-uib-dropdown>
-								<a href id="main-menu-dropdown" class="dropdown-toggle tools-menu" data-uib-dropdown-toggle data-aria-haspopup="true" role="button" data-aria-expanded="false">Tools <span class="caret"></span></a>
-								<ul class="dropdown-menu" role="menu" data-aria-labelledby="main-menu-dropdown">
-									<li>
-										<a href="/topAccounts" class="top-accounts">Top Accounts</a>
-									</li>
-									<li>
-										<a href="/activityGraph" class="activity-graph">Activity Graph</a>
-									</li>
-									<li>
-										<a href="/delegateMonitor" class="delegate-monitor">Delegate Monitor</a>
-									</li>
-									<li data-ng-if="$root.marketWatcher">
-										<a href="/marketWatcher" class="market-watcher">Market Watcher</a>
-									</li>
-									<li>
-										<a href="/networkMonitor" class="network-monitor">Network Monitor</a>
-									</li>
-								</ul>
-							</li>
+							<navigation-dropdown />
 						</ul>
-				</div>
+					</div>
+				</span>
+				<span class="visible-xs">
+					<button type="button" class="navbar-toggle" data-ng-click="$root.isCollapsed = !$root.isCollapsed">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<search class="visible-xs mobile-search" mobile-view="true" />
+					<div class="navbar-collapse main-menu mobile-menu" data-ng-class="{collapse: $root.isCollapsed}">
+						<ul class="nav navbar-nav navbar-right">
+							<navigation-dropdown />
+							<currency-selector />
+							<!-- <rounding-selector /> -->
+						</ul>
+					</div>
+				</span>
 				<search class="hidden-xs desktop-search" />
 			</div>
 		</div>

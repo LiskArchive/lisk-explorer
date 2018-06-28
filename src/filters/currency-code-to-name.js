@@ -15,10 +15,24 @@
  */
 import AppFilters from './filters.module';
 
-AppFilters.filter('currencyFee', currencyFilter => (amount, currency, decimalPlacesCrypto, decimalPlacesFiat) => {
-	if (currency.symbol === 'LSK' && typeof decimalPlacesCrypto === 'undefined') {
-		decimalPlacesCrypto = 1;
-	}
+AppFilters.filter('currencyCodeToName', () => (currencyName) => {
+	const currency = {
+		LSK: 'Lisk',
 
-	return currencyFilter(amount, currency, decimalPlacesCrypto, decimalPlacesFiat);
+		// Common
+		USD: 'US Dollar',
+		EUR: 'Euro',
+		BTC: 'Bitcoin',
+
+		// Europe
+		GBP: 'British pound',
+		PLN: 'Polish zloty',
+		RUB: 'Russian ruble',
+
+		// Asia
+		JPY: 'Japanese yen',
+		CNY: 'Chinese yuan',
+	};
+
+	return currency[currencyName] || currencyName;
 });

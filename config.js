@@ -62,16 +62,20 @@ config.exchangeRates.updateInterval = 30000;
 // Configuration for different currency pairs, set false to disable pair
 // LSK/BTC pair, supported: poloniex
 config.exchangeRates.exchanges.LSK.BTC = 'poloniex';
-// LSK/CNY pair, supported: jubi, bitbays
-config.exchangeRates.exchanges.LSK.CNY = false;
 // BTC/USD pair, supported: bitfinex, bitstamp, btce
 config.exchangeRates.exchanges.BTC.USD = 'bitfinex';
 // BTC/EUR pair, supported: bitstamp, bitmarket
 config.exchangeRates.exchanges.BTC.EUR = 'bitstamp';
 // BTC/RUB pair, supported: btce, exmo
 config.exchangeRates.exchanges.BTC.RUB = 'btce';
-// BTC/PLN pair, supported: bitmarket
-config.exchangeRates.exchanges.BTC.PLN = false;
+// BTC/PLN pair, supported: bitmarket, bitbay
+config.exchangeRates.exchanges.BTC.PLN = 'bitmarket';
+// BTC/JPY pair, supported: coincheck
+config.exchangeRates.exchanges.BTC.JPY = 'coincheck';
+// BTC/GBP pair, supported: coinbase
+config.exchangeRates.exchanges.BTC.GBP = 'coinbase';
+// BTC/CNY pair, supported: 1btcxe, coinmarketcap
+config.exchangeRates.exchanges.BTC.CNY = '1btcxe';
 
 /**
  * Market watcher

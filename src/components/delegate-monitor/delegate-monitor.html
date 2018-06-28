@@ -349,11 +349,9 @@
 							</tbody>
 						</table>
 					</div>
-					<div class="btn-group btn-group-justified paginator" role="group" aria-label="Less/More Transactions" data-ng-if="vm.pagination.more || vm.pagination.before">
+					<div class="paginator" aria-label="Less/More Transactions" data-ng-if="vm.pagination.more || vm.pagination.before">
 						<div class="btn-group" role="group">
 							<button class="btn btn-default less-button bordered-button" data-ng-click="vm.getStandby(vm.pagination.previousPage)" data-ng-disabled="!vm.pagination.before">Previous page</button>
-						</div>
-						<div class="btn-group" role="group">
 							<button class="btn btn-default more-button bordered-button" data-ng-click="vm.getStandby(vm.pagination.nextPage)"data-ng-disabled="!vm.pagination.more">Next page</button>
 						</div>
 					</div>

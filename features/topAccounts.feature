@@ -4,7 +4,7 @@ Feature: Top Accounts page
     Then I should see "Top Accounts" in "h1" html element
     And I should see "Home Top Accounts" in "breadcrumb" element
     And I should see table "top accounts" with 50 rows starting with:
-      | Rank | Address               | ~ Balance             | Supply       | Owner          |
+      | Rank | Address               | Balance               | Supply       | Owner          |
       |------|-----------------------|-----------------------|--------------|----------------|
       | 1    | 16313739661670634666L | 99,675,450.108366 LSK | /99\.\d{2}%/ | N/A            |
       | 2    | 4401082358022424760L  | 9,971 LSK             | /0\.\d{2}%/  | gottavoteemall |
