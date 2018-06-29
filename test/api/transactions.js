@@ -46,28 +46,52 @@ describe('Transactions API', () => {
 		node.get(`/api/getTransactionsByBlock?blockId=${id}&offset=${id2}&limit=${id3}`, done);
 	}
 
-	function checkTransactionsBody(id) {
-		for (let i = 0; i < id.length; i++) {
-			if (id[i + 1]) {
-				node.expect(id[i]).to.contain.all.keys(
-					'recipientId',
-					'senderId',
-					'senderPublicKey',
-					'knownSender',
-					'timestamp',
-					'type',
-					'blockId',
-					'height',
-					'id',
-					'amount',
-					'fee',
-					'signature',
-					'signatures',
-					'confirmations',
-					'asset',
-					'knownRecipient',
-					'recipientPublicKey');
-			}
+	function checkTransactionTypes(o) {
+		node.expect(o.recipientId).to.be.a('string');
+		node.expect(o.senderId).to.be.a('string');
+		node.expect(o.senderPublicKey).to.be.a('string');
+		node.expect(o.timestamp).to.be.a('number');
+		node.expect(o.type).to.be.a('number');
+		node.expect(o.blockId).to.be.a('string');
+		node.expect(o.height).to.be.a('number');
+		node.expect(o.id).to.be.a('string');
+		node.expect(o.amount).to.be.a('number');
+		node.expect(o.fee).to.be.a('number');
+		node.expect(o.signature).to.be.a('string');
+		node.expect(o.signatures).to.be.a('array');
+		node.expect(o.confirmations).to.be.a('number');
+		node.expect(o.asset).to.be.a('object');
+		node.expect(o.recipientPublicKey).to.be.a('string');
+		node.expect(o.knownSender).to.satisfy(knownSender => !knownSender || typeof knownSender === 'object');
+		node.expect(o.knownRecipient).to.satisfy(knownRecipient => !knownRecipient || typeof knownRecipient === 'object');
+	}
+
+	function checkTransaction(o) {
+		node.expect(o).to.contain.all.keys(
+			'recipientId',
+			'senderId',
+			'senderPublicKey',
+			'knownSender',
+			'timestamp',
+			'type',
+			'blockId',
+			'height',
+			'id',
+			'amount',
+			'fee',
+			'signature',
+			'signatures',
+			'confirmations',
+			'asset',
+			'knownRecipient',
+			'recipientPublicKey');
+
+		checkTransactionTypes(o);
+	}
+
+	function checkTransactions(txs) {
+		for (let i = 0; i < txs.length; i++) {
+			checkTransaction(txs[i]);
 		}
 	}
 
@@ -77,24 +101,7 @@ describe('Transactions API', () => {
 			getTransaction(params.transactionId, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transaction');
-				node.expect(res.body.transaction).to.contain.all.keys(
-					'recipientId',
-					'senderId',
-					'senderPublicKey',
-					'knownSender',
-					'timestamp',
-					'type',
-					'blockId',
-					'height',
-					'id',
-					'amount',
-					'fee',
-					'signature',
-					'signatures',
-					'confirmations',
-					'asset',
-					'knownRecipient',
-					'recipientPublicKey');
+				checkTransaction(res.body.transaction);
 				done();
 			});
 		});
@@ -123,7 +130,7 @@ describe('Transactions API', () => {
 			getLastTransactions((err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
-				checkTransactionsBody(res.body.transactions);
+				checkTransactions(res.body.transactions);
 				done();
 			});
 		}).timeout(10000);
@@ -134,7 +141,7 @@ describe('Transactions API', () => {
 			getTransactionsByAddress(params.address, '0', params.limit, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
-				checkTransactionsBody(res.body.transactions);
+				checkTransactions(res.body.transactions);
 				done();
 			});
 		});
@@ -143,7 +150,7 @@ describe('Transactions API', () => {
 			getTransactionsByAddress(params.address_lowercase, '0', params.limit, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
-				checkTransactionsBody(res.body.transactions);
+				checkTransactions(res.body.transactions);
 				done();
 			});
 		});
@@ -152,7 +159,7 @@ describe('Transactions API', () => {
 			getTransactionsByAddress(params.address, params.offset, params.limit, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
-				checkTransactionsBody(res.body.transactions);
+				checkTransactions(res.body.transactions);
 				done();
 			});
 		});
@@ -171,7 +178,7 @@ describe('Transactions API', () => {
 			getTransactionsByBlock(params.blockId, '0', params.limit, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
-				checkTransactionsBody(res.body.transactions);
+				checkTransactions(res.body.transactions);
 				done();
 			});
 		}).timeout(5000);
@@ -180,7 +187,7 @@ describe('Transactions API', () => {
 			getTransactionsByBlock(params.blockId, params.offset, params.limit, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions');
-				checkTransactionsBody(res.body.transactions);
+				checkTransactions(res.body.transactions);
 				done();
 			});
 		}).timeout(5000);
