@@ -32,7 +32,7 @@ describe('Newsfeed API', () => {
 	};
 
 	/* Define api endpoints to test */
-	describe('GET /api/newsFeed', () => {
+	describe.skip('GET /api/newsFeed', () => {
 		it('using no source should be ok', (done) => {
 			node.get('/api/newsFeed', (err, res) => {
 				node.expect(res.body).to.be.an('array');
