@@ -35,3 +35,4 @@ import './tx-sender';
 import './tx-type';
 import './votes';
 import './middle-ellipsis';
+import './currency-code-to-name';

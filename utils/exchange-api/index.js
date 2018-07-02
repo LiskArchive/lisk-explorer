@@ -70,6 +70,11 @@ module.exports = function (config) {
 				'https://www.bitmarket.pl/json/BTCPLN/ticker.json',
 				(res, cb) => cb(null, safeRef(res, 'last')),
 			],
+			bitbay: [
+				'Bitmarket',
+				'https://bitbay.net/API/Public/BTCPLN/ticker.json',
+				(res, cb) => cb(null, safeRef(res, 'last')),
+			],
 		},
 		BTCRUB: {
 			exmo: [
@@ -95,25 +100,49 @@ module.exports = function (config) {
 				},
 			],
 		},
-		LSKCNY: {
-			jubi: [
-				'Jubi',
-				'https://www.jubi.com/api/v1/ticker/?coin=lsk',
+		BTCJPY: {
+			coincheck: [
+				'Coincheck',
+				'https://coincheck.com/api/ticker?pair=btc_jpy',
 				(res, cb) => {
-					if (res.last) {
-						return cb(null, res.last);
+					if (res.error) {
+						return cb(res.error);
 					}
-					return cb('Unable to get last price');
+					return cb(null, safeRef(res, 'last'));
 				},
 			],
-			bitbays: [
-				'Bitbays',
-				'https://bitbays.com/api/v1/ticker/?market=lsk_cny',
+		},
+		BTCGBP: {
+			coinbase: [
+				'Coinbase',
+				'https://api.coinbase.com/v2/prices/BTC-GBP/spot.json',
 				(res, cb) => {
-					if (res.status === 200 && res.message === 'ok' && res.result.last) {
-						return cb(null, res.result.last);
+					if (res.error) {
+						return cb(res.error);
 					}
-					return cb('Unable to get last price');
+					return cb(null, safeRef(res, 'data.amount'));
+				},
+			],
+		},
+		BTCCNY: {
+			'1btcxe': [
+				'1btcxe',
+				'https://1btcxe.com/api/stats?currency=CNY',
+				(res, cb) => {
+					if (res.error) {
+						return cb(res.error);
+					}
+					return cb(null, safeRef(res, 'stats.last_price'));
+				},
+			],
+			coinmarketcap: [
+				'Coinmarketcap',
+				'https://api.coinmarketcap.com/v1/ticker/bitcoin/?convert=CNY',
+				(res, cb) => {
+					if (res.error) {
+						return cb(res.error);
+					}
+					return cb(null, safeRef(res[0], 'price_cny'));
 				},
 			],
 		},

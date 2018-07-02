@@ -43,7 +43,6 @@ Feature: Top menu
       |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
       | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? BTC/ | /~\d+(\.\d+)? BTC/ |
 
-  @ignore
   Scenario: should allow to switch currency to CNY
     Given I'm on page "/"
     When I click "LSK menu"
@@ -81,6 +80,33 @@ Feature: Top menu
       |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
       | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? RUB/ | /~\d+(\.\d+)? RUB/ |
 
+  Scenario: should allow to switch currency to JPY
+    Given I'm on page "/"
+    When I click "LSK menu"
+    And I click "JPY"
+    And I should see table "latest transactions" with 20 rows starting with:
+      | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
+      |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? JPY/ | /~\d+(\.\d+)? JPY/ |
+
+  Scenario: should allow to switch currency to PLN
+    Given I'm on page "/"
+    When I click "LSK menu"
+    And I click "PLN"
+    And I should see table "latest transactions" with 20 rows starting with:
+      | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
+      |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? PLN/ | /~\d+(\.\d+)? PLN/ |
+
+  Scenario: should allow to switch currency to GBP
+    Given I'm on page "/"
+    When I click "LSK menu"
+    And I click "GBP"
+    And I should see table "latest transactions" with 20 rows starting with:
+      | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
+      |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? GBP/ | /~\d+(\.\d+)? GBP/ |
+
   Scenario: should allow to switch currency to LSK
     Given I'm on page "/"
     When I click "LSK menu"
@@ -88,4 +114,4 @@ Feature: Top menu
     And I should see table "latest transactions" with 20 rows starting with:
       | Id                 | Timestamp                 | Sender      | Recipient             | Amount                     | Fee               |
       |--------------------|---------------------------|-------------|-----------------------|----------------------------|-------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account | /\d+(,\d{3})?(\.\d+)? LSK/ | /\d+(\.\d+)? LSK/ |
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /\d+(,\d{3})?(\.\d+)? LSK/ | /\d+(\.\d+)? LSK/ |
