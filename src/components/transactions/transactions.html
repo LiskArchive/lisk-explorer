@@ -70,9 +70,93 @@
 						</td>
 						<td data-ng-if="!vm.tx.blockId" class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">Unconfirmed</td>
 					</tr>
-					<tr data-ng-if="vm.tx.type == 0 && vm.tx.asset && vm.tx.asset.data">
-						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Memo</strong></td>
-						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.data}}</td>
+				</tbody>
+			</table>
+
+			<h1>{{vm.tx | txType}} details</h1>
+			<table class="table details">
+				<tbody data-ng-if="vm.tx.type == 0">
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Data</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.data || '-'}}</td>
+					</tr>
+				</tbody>
+
+				<tbody data-ng-if="vm.tx.type == 1">
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Public Key</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.signature.publicKey}}</td>
+					</tr>
+				</tbody>
+
+				<tbody data-ng-if="vm.tx.type == 2">
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Username</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.delegate.username}}</td>
+					</tr>
+				</tbody>
+
+				<tbody data-ng-if="vm.tx.type == 4">
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Minimum</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.multisignature.min}}</td>
+					</tr>
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Lifetime</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.multisignature.lifetime}} hours</td>
+					</tr>
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Keys Group</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+							<span data-ng-repeat='key in vm.tx.asset.multisignature.keysgroup'>
+								<span>{{key}}</span>
+							</span>
+						</td>
+					</tr>
+				</tbody>
+
+				<tbody data-ng-if="vm.tx.type == 5">
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Name</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.name}}</td>
+					</tr>
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Description</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.description || '-'}}</td>
+					</tr>
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Tags</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.tags || '-'}}</td>
+					</tr>
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Type</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.type}}</td>
+					</tr>
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Link</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.link}}</td>
+					</tr>
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Category</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.category}}</td>
+					</tr>
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Icon</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.icon || '-'}}</td>
+					</tr>
+				</tbody>
+
+				<tbody data-ng-if="vm.tx.type == 6">
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>DApp ID</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.inTransfer.dappId}}</td>
+					</tr>
+				</tbody>
+
+				<tbody data-ng-if="vm.tx.type == 7">
+					<tr>
+						<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>DApp ID</strong></td>
+						<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.outTransfer.dappId}}</td>
 					</tr>
 				</tbody>
 			</table>
