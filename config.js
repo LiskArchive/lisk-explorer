@@ -16,6 +16,11 @@
 const config = require('./config.global');
 
 /**
+ * Frontend UI Message
+ */
+config.uiMessage = '';
+
+/**
  * CONFIGURATION
  */
 config.host = '0.0.0.0'; // Interface to listen on, 0.0.0.0 to listen on all available

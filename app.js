@@ -57,6 +57,7 @@ app.set('strict routing', true);
 app.set('lisk address', `http://${config.lisk.host}:${config.lisk.port}`);
 app.set('freegeoip address', `http://${config.freegeoip.host}:${config.freegeoip.port}`);
 app.set('exchange enabled', config.exchangeRates.enabled);
+app.set('uiMessage', config.uiMessage);
 
 app.use((req, res, next) => {
 	res.setHeader('X-Frame-Options', 'DENY');
