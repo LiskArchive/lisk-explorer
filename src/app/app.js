@@ -51,6 +51,7 @@ import '../components/home';
 import '../components/bread-crumb';
 import '../components/market-watcher';
 import '../components/network-monitor';
+import '../components/information-banner';
 
 import '../filters';
 import '../services';
@@ -85,6 +86,7 @@ const App = angular.module('lisk_explorer', [
 	'lisk_explorer.home',
 	'lisk_explorer.networkMonitor',
 	'lisk_explorer.marketWatcher',
+	'lisk_explorer.infoBanner',
 ]);
 
 export default App;
