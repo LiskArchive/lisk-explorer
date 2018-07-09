@@ -43,6 +43,7 @@
     "angular": "<=1.6.10",
     "angular-advanced-searchbox": "github:reyraa/angular-advanced-searchbox",
     "angular-animate": "^1.6.4",
+    "angular-cookies": "^1.7.2",
     "angular-gettext": "^2.3.9",
     "angular-naturalsort": "https://github.com/isabello/angular-naturalsort.git",
     "angular-qrcode": "^7.2.0",

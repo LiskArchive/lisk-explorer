@@ -780,6 +780,17 @@ qrcode + span {
   font-weight: normal;
 }
 
+/* information banner */
+.cookies-banner {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	min-height: 50px;
+	z-index: 1;
+	background: #fff;
+}
+
 /* progress bar */
 .progress {
   background-color: transparent;
