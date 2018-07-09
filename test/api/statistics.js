@@ -125,7 +125,7 @@ describe('Statistics API', () => {
 				checkBlock(res.body.best);
 				done();
 			});
-		}).timeout(60000);
+		});
 	});
 
 	describe('GET /api/statistics/getPeers', () => {

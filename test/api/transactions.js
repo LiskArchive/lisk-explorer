@@ -133,7 +133,7 @@ describe('Transactions API', () => {
 				checkTransactions(res.body.transactions);
 				done();
 			});
-		}).timeout(10000);
+		});
 	});
 
 	describe('GET /api/getTransactionsByAddress', () => {
@@ -181,7 +181,7 @@ describe('Transactions API', () => {
 				checkTransactions(res.body.transactions);
 				done();
 			});
-		}).timeout(5000);
+		});
 
 		it('using known block and offset of 20 should be ok', (done) => {
 			getTransactionsByBlock(params.blockId, params.offset, params.limit, (err, res) => {
@@ -190,7 +190,7 @@ describe('Transactions API', () => {
 				checkTransactions(res.body.transactions);
 				done();
 			});
-		}).timeout(5000);
+		});
 
 		it('using invalid block should fail', (done) => {
 			getTransactionsByBlock('', '0', params.limit, (err, res) => {
