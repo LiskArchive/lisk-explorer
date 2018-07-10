@@ -22,6 +22,13 @@ config.host = '0.0.0.0'; // Interface to listen on, 0.0.0.0 to listen on all ava
 config.port = 6040; // Port to listen on
 
 /**
+ * Lisk Service server
+ */
+config.liskService.host = process.env.LISK_SERVICE_HOST || '127.0.0.1';
+config.liskService.port = process.env.LISK_SERVICE_PORT || 6041;
+config.liskService.apiPath = '/api';
+
+/**
  * LISK node
  */
 config.lisk.host = process.env.LISK_HOST || '127.0.0.1';

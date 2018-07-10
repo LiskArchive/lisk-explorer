@@ -14,6 +14,7 @@
  *
  */
 const config = {};
+config.liskService = {};
 config.lisk = {};
 config.freegeoip = {};
 config.redis = {};
