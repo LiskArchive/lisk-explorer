@@ -789,6 +789,20 @@ qrcode + span {
 	min-height: 50px;
 	z-index: 1;
 	background: #fff;
+	border-top: 6px solid rgb(1, 56, 115);
+}
+
+.cookies-banner .cookies-text-container {
+  padding: 24px 0;
+}
+
+.cookies-banner .row .cookies-text p {
+	text-align: center;
+	padding-bottom: 24px;
+}
+
+.cookies-banner .btn {
+	padding: 6px;
 }
 
 /* progress bar */
