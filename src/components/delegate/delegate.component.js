@@ -21,7 +21,7 @@ const DelegateConstructor = function ($rootScope, $stateParams,
 	const vm = this;
 	$rootScope.breadCrumb = { address: $stateParams.delegateId };
 	vm.getAddress = () => {
-		$http.get('/api/getAccount', {
+		$http.get(`${$rootScope.apiBaseUrl}/getAccount`, {
 			params: {
 				address: $stateParams.delegateId,
 			},

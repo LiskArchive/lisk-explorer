@@ -16,9 +16,9 @@
 import AppTopAccounts from './top-accounts.module';
 import template from './top-accounts.html';
 
-const TopAccountsConstructor = function (lessMore) {
+const TopAccountsConstructor = function ($rootScope, lessMore) {
 	this.topAccounts = lessMore({
-		url: '/api/getTopAccounts',
+		url: `${$rootScope.apiBaseUrl}/getTopAccounts`,
 		key: 'accounts',
 	});
 

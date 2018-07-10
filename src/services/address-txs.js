@@ -17,9 +17,9 @@ import AppServices from './services.module';
 import LessMore from './less-more';
 
 AppServices.factory('addressTxs',
-	($http, $q) => (data) => {
+	($rootScope, $http, $q) => (data) => {
 		const params = Object.assign({}, data, {
-			url: '/api/getTransactionsByAddress',
+			url: `${$rootScope.apiBaseUrl}/getTransactionsByAddress`,
 			parent: 'address',
 			key: 'transactions',
 		});

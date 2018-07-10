@@ -23,7 +23,7 @@ const MarketWatcher = function ($q, $http, $rootScope, vm) {
 	const updateAll = () => vm.newExchange || (!vm.newExchange && !vm.newDuration);
 
 	const getCandles = () =>
-		$http.get(['/api/exchanges/getCandles',
+		$http.get([`${$rootScope.apiBaseUrl}/exchanges/getCandles`,
 			'?e=', angular.lowercase(vm.exchange),
 			'&d=', vm.duration].join(''));
 
@@ -31,7 +31,7 @@ const MarketWatcher = function ($q, $http, $rootScope, vm) {
 		if (!updateAll()) {
 			return false;
 		}
-		return $http.get(['/api/exchanges/getStatistics',
+		return $http.get([`${$rootScope.apiBaseUrl}/exchanges/getStatistics`,
 			'?e=', angular.lowercase(vm.exchange)].join(''));
 	};
 
@@ -39,7 +39,7 @@ const MarketWatcher = function ($q, $http, $rootScope, vm) {
 		if (!updateAll()) {
 			return false;
 		}
-		return $http.get(['/api/exchanges/getOrders',
+		return $http.get([`${$rootScope.apiBaseUrl}/exchanges/getOrders`,
 			'?e=', angular.lowercase(vm.exchange)].join(''));
 	};
 
@@ -61,7 +61,7 @@ const MarketWatcher = function ($q, $http, $rootScope, vm) {
 	};
 
 	const getExchanges = () => {
-		$http.get('/api/exchanges').then((result) => {
+		$http.get(`${$rootScope.apiBaseUrl}/exchanges`).then((result) => {
 			if (result.data.success) {
 				vm.exchangeLogos = {};
 				vm.exchanges = Object.keys(result.data.exchanges).filter((key) => {

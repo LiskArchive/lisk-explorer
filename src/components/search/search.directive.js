@@ -16,7 +16,7 @@
 import AppSearch from './search.module';
 import template from './search.html';
 
-AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http) => {
+AppSearch.directive('search', ($rootScope, $location, $timeout, Global, $http) => {
 	const SearchCtrl = function () {
 		const sch = this;
 		this.loading = false;
@@ -55,7 +55,7 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 			this.loading = true;
 			sch.showingResults = false;
 
-			$http.get('/api/search', {
+			$http.get(`${$rootScope.apiBaseUrl}/search`, {
 				params: {
 					id: this.q,
 				},

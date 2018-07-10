@@ -17,9 +17,9 @@ import AppServices from './services.module';
 import LessMore from './less-more';
 
 AppServices.factory('blockTxs',
-	($http, $q) => (blockId) => {
+	($rootScope, $http, $q) => (blockId) => {
 		const lessMore = new LessMore($http, $q, {
-			url: '/api/getTransactionsByBlock',
+			url: `${$rootScope.apiBaseUrl}/getTransactionsByBlock`,
 			parent: 'block',
 			key: 'transactions',
 			blockId,
