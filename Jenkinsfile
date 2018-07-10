@@ -31,7 +31,7 @@ pipeline {
 				sh '''
 				cp ./test/known.test.json ./known.json
 				redis-cli -n $REDIS_DB flushdb
-				grunt candles:build
+				cat ./test/redis_dump.txt | redis-cli -n $REDIS_DB
 				'''
 			}
 		}
