@@ -20,7 +20,7 @@ import 'angular-animate';
 import 'angular-ui-bootstrap';
 import 'angular-gettext';
 import 'angular-advanced-searchbox';
-// import 'babel-polyfill';
+import 'angular-sanitize';
 
 // styles
 import 'amstock3/amcharts/style.css';
@@ -62,6 +62,7 @@ import '../shared';
 const App = angular.module('lisk_explorer', [
 	'ngAnimate',
 	'ngResource',
+	'ngSanitize',
 	'ui.router',
 	'ui.bootstrap',
 	'gettext',

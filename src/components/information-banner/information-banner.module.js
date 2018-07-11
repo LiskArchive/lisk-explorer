@@ -15,6 +15,6 @@
  */
 import angular from 'angular';
 
-const InformationBanner = angular.module('lisk_explorer.infoBanner', []);
+const InformationBanner = angular.module('lisk_explorer.infoBanner', ['ngSanitize']);
 
 export default InformationBanner;

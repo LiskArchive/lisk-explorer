@@ -17,6 +17,8 @@
 -->
 <div class="information-banner" data-ng-show="text">
 	<div class="container fadein">
-		<p>{{ text }}</p>
+		<div class="information-text-container">
+			<p ng-bind-html="text"></p>
+		</div>
 	</div>
 </div>

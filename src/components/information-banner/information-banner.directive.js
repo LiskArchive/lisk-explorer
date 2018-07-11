@@ -13,15 +13,16 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
+import ParseMarkdownJs from 'parse-markdown-js';
 import InformationBanner from './information-banner.module';
 import template from './information-banner.html';
 
-const directiveCtrl = ($scope, $http) => {
+const directiveCtrl = ($scope, $http, $sce) => {
 	$scope.text = '';
 
 	$http.get('/api/ui_message').then((result) => {
 		if (result.data.success && result.data.content) {
-			$scope.text = result.data.content;
+			$scope.text = $sce.trustAsHtml(ParseMarkdownJs(result.data.content));
 		}
 	});
 };
