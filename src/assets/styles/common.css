@@ -184,13 +184,9 @@ body {
     right:-1.66666%;
 }
 
-@media (max-width: 1024px) {
-  body {
-      /* background-color: #f9fbfd; */
-  }
-
+@media (max-width: 768px) {
   .splash-screen .background-stripes {
-      display: none;
+		display: none;
   }
 }
 
