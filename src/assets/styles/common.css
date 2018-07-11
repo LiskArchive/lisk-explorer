@@ -789,7 +789,7 @@ qrcode + span {
 	min-height: 50px;
 	z-index: 1;
 	background: #fff;
-	border-top: 6px solid rgb(1, 56, 115);
+	box-shadow: 0 0 2.2rem 0 rgba(0,36,62,0.18);
 }
 
 .cookies-banner .cookies-text-container {
