@@ -18,7 +18,9 @@ const config = require('./config.global');
 /**
  * Frontend UI Message
  */
-config.uiMessage = '';
+config.uiMessage.text = '';
+config.uiMessage.start = ''; // ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
+config.uiMessage.end = ''; // ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
 
 /**
  * CONFIGURATION
