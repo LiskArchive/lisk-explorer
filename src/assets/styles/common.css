@@ -788,7 +788,8 @@ qrcode + span {
 	min-height: 50px;
 	padding: 8px 12px;
 	z-index: 1;
-	background: rgb(218, 206, 0);
+	background:#C80039;
+	color: rgb(204, 204, 204);
 }
 
 .information-banner .information-text-container {
@@ -799,6 +800,14 @@ qrcode + span {
 	margin: 0 0;
 }
 
+.information-banner a {
+	color: rgb(204, 204, 204);
+	font-weight: bold;
+}
+
+.information-banner a:hover {
+	text-decoration: underline;
+}
 
 /* progress bar */
 .progress {
