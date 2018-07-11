@@ -803,6 +803,7 @@ qrcode + span {
 
 .cookies-banner .btn {
 	padding: 6px;
+	background-image: linear-gradient(-224deg, #17499b 0%, #3c7fb4 100%);
 }
 
 /* progress bar */
