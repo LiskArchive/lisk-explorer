@@ -788,8 +788,8 @@ qrcode + span {
 	min-height: 50px;
 	padding: 8px 12px;
 	z-index: 1;
-	background:#C80039;
-	color: rgb(204, 204, 204);
+	background:#f5f5f529;
+	color: #f5f5f5cc;
 }
 
 .information-banner .information-text-container {
