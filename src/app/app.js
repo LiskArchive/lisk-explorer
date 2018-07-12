@@ -20,6 +20,7 @@ import 'angular-animate';
 import 'angular-ui-bootstrap';
 import 'angular-gettext';
 import 'angular-advanced-searchbox';
+import 'angular-cookies';
 // import 'babel-polyfill';
 
 // styles
@@ -51,6 +52,7 @@ import '../components/home';
 import '../components/bread-crumb';
 import '../components/market-watcher';
 import '../components/network-monitor';
+import '../components/cookies-banner';
 
 import '../filters';
 import '../services';
@@ -61,6 +63,7 @@ import '../shared';
 const App = angular.module('lisk_explorer', [
 	'ngAnimate',
 	'ngResource',
+	'ngCookies',
 	'ui.router',
 	'ui.bootstrap',
 	'gettext',
@@ -85,6 +88,7 @@ const App = angular.module('lisk_explorer', [
 	'lisk_explorer.home',
 	'lisk_explorer.networkMonitor',
 	'lisk_explorer.marketWatcher',
+	'lisk_explorer.cookiesBanner',
 ]);
 
 export default App;
