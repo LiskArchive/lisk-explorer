@@ -14,6 +14,7 @@ services:
     environment:
       - LISK_SERVICE_HOST=lisk-service
 
+
   lisk-service:
     image: lisk/service:0.1.0
     depends_on:
@@ -22,19 +23,19 @@ services:
     ports:
       - "127.0.0.1:6041:6041"
     networks:
+      - lisk-service
       - lisk-explorer
-      - localhost
     restart: on-failure
     environment:
-      - LISK_HOST=ams1-testnet-explorer-001.lisk.io
-      - LISK_PORT=7000
+      - LISK_HOST=lisk-core
+      - LISK_PORT=4000
       - REDIS_HOST=service-cache
       - FREEGEOIP_HOST=freegeoip
 
   service-cache:
     image: redis:alpine
     networks:
-      - lisk-explorer
+      - lisk-service
     restart: on-failure
 
   service-cache-candles:
@@ -42,7 +43,7 @@ services:
     depends_on:
       - service-cache
     networks:
-      - lisk-explorer
+      - lisk-service
     environment:
       - REDIS_HOST=service-cache
     command: ./node_modules/grunt-cli/bin/grunt candles:build
@@ -50,11 +51,59 @@ services:
   freegeoip:
     image: fiorix/freegeoip
     networks:
-      - lisk-explorer
+      - lisk-service
     restart: on-failure
+
+
+  lisk-core:
+    image: lisk/development:1.0.0-beta.9.2
+    volumes:
+      - lisk-logs:/home/lisk/lisk/logs/
+    ports:
+      - 4000
+      - 5000
+    networks:
+      - lisk-core
+      - lisk-service
+    depends_on:
+      - db
+    restart: on-failure
+    command: ["/home/lisk/wait-for-it.sh", "db:5432", "--", "/home/lisk/run.sh"]
+    environment:
+      - LISK_DB_HOST=db
+
+  db:
+    image: postgres:9.6-alpine
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - lisk-core
+    restart: on-failure
+    environment:
+      - POSTGRES_DB=lisk_test
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=lisk
+
+  db-task:
+    image: postgres:9.6-alpine
+    networks:
+      - lisk-core
+    environment:
+      - PGUSER=lisk
+      - PGPASSWORD=password
+      - PGDATABASE=lisk_test
+      - PGHOST=db
+    command: /bin/true
 
 
 networks:
   lisk-explorer:
+  lisk-service:
+  lisk-core:
   localhost:
     external: true
+
+
+volumes:
+  db-data:
+  lisk-logs:
