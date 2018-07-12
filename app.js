@@ -63,7 +63,15 @@ app.use((req, res, next) => {
 	res.setHeader('X-Content-Type-Options', 'nosniff');
 	res.setHeader('X-XSS-Protection', '1; mode=block');
 	const wsSrc = `ws://${req.get('host')} wss://${req.get('host')}`;
-	res.setHeader('Content-Security-Policy', `frame-ancestors 'none'; default-src 'self'; connect-src 'self' ${wsSrc}; img-src 'self' https://*.tile.openstreetmap.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com`);
+	/* eslint-disable */
+	res.setHeader('Content-Security-Policy',
+		[`frame-ancestors 'none'; default-src 'self';`,
+		`connect-src 'self' ${wsSrc};`,
+		`img-src 'self' https://*.tile.openstreetmap.org www.google-analytics.com stats.g.doubleclick.net;`,
+		`style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;`,
+		`script-src 'self' 'unsafe-inline' 'unsafe-eval' www.googletagmanager.com www.google-analytics.com;`,
+		`font-src 'self' https://fonts.gstatic.com`].join(' '));
+	/* eslint-enable */
 	return next();
 });
 
