@@ -67,9 +67,9 @@ app.use((req, res, next) => {
 	res.setHeader('Content-Security-Policy',
 		[`frame-ancestors 'none'; default-src 'self';`,
 		`connect-src 'self' ${wsSrc};`,
-		`img-src 'self' https://*.tile.openstreetmap.org www.google-analytics.com;`,
+		`img-src 'self' https://*.tile.openstreetmap.org www.google-analytics.com stats.g.doubleclick.net;`,
 		`style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;`,
-		`script-src 'self' 'unsafe-inline' www.googletagmanager.com www.google-analytics.com;`,
+		`script-src 'self' 'unsafe-inline' 'unsafe-eval' www.googletagmanager.com www.google-analytics.com;`,
 		`font-src 'self' https://fonts.gstatic.com`].join(' '));
 	/* eslint-enable */
 	return next();
