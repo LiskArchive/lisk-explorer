@@ -1,3 +1,4 @@
+<!--
 /*
  * LiskHQ/lisk-explorer
  * Copyright © 2018 Lisk Foundation
@@ -13,18 +14,11 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-const config = {};
-config.lisk = {};
-config.freegeoip = {};
-config.redis = {};
-config.log = {};
-config.exchangeRates = {
-	exchanges: {
-		LSK: {},
-		BTC: {},
-	},
-};
-config.marketWatcher = { exchanges: {}, candles: { poloniex: {} }, orders: {} };
-config.uiMessage = {};
-
-module.exports = config;
+-->
+<div class="information-banner" data-ng-show="text">
+	<div class="container fadein">
+		<div class="information-text-container">
+			<p ng-bind-html="text"></p>
+		</div>
+	</div>
+</div>

@@ -20,8 +20,8 @@ import 'angular-animate';
 import 'angular-ui-bootstrap';
 import 'angular-gettext';
 import 'angular-advanced-searchbox';
+import 'angular-sanitize';
 import 'angular-cookies';
-// import 'babel-polyfill';
 
 // styles
 import 'amstock3/amcharts/style.css';
@@ -52,6 +52,7 @@ import '../components/home';
 import '../components/bread-crumb';
 import '../components/market-watcher';
 import '../components/network-monitor';
+import '../components/information-banner';
 import '../components/cookies-banner';
 
 import '../filters';
@@ -63,6 +64,7 @@ import '../shared';
 const App = angular.module('lisk_explorer', [
 	'ngAnimate',
 	'ngResource',
+	'ngSanitize',
 	'ngCookies',
 	'ui.router',
 	'ui.bootstrap',
@@ -88,6 +90,7 @@ const App = angular.module('lisk_explorer', [
 	'lisk_explorer.home',
 	'lisk_explorer.networkMonitor',
 	'lisk_explorer.marketWatcher',
+	'lisk_explorer.infoBanner',
 	'lisk_explorer.cookiesBanner',
 ]);
 
