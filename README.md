@@ -1,6 +1,8 @@
 # Lisk Explorer
 
-Lisk Explorer is a frontend application for visualising and presenting the information and activity on the Lisk blockchain. It works in conjunction with the Lisk Service API.
+Lisk Explorer is a frontend application for visualising and presenting the information and activity on the Lisk blockchain.
+
+It works in conjunction with the Lisk Service API.
 
 [![Build Status](https://travis-ci.org/LiskHQ/lisk-explorer.svg?branch=development)](https://travis-ci.org/LiskHQ/lisk-explorer)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
@@ -16,13 +18,23 @@ These programs and resources are required to install and run Lisk Explorer
   sudo apt-get install -y nodejs
   ```
 
+- Update `npm` to the latest version
+
+  ```
+  npm install -g npm@latest
+  ```
+
 - Bower (<https://bower.io/>) -- Bower is used to look after frontend libraries.
 
-  `sudo npm install -g bower`
+  ```
+  sudo npm install -g bower
+  ```
 
 - PM2 (https://github.com/Unitech/pm2) -- PM2 manages the node process for Lisk Explorer and handles log rotation (Highly Recommended)
 
-  `sudo npm install -g pm2`
+  ```
+  sudo npm install -g pm2
+  ```
   
 - PM2-logrotate (https://github.com/pm2-hive/pm2-logrotate) -- Manages PM2 logs
 
@@ -33,11 +45,15 @@ These programs and resources are required to install and run Lisk Explorer
 
 - Git (<https://github.com/git/git>) -- Used for cloning and updating Lisk Explorer
 
-  `sudo apt-get install -y git`
+  ```
+  sudo apt-get install -y git
+  ```
 
 - Tool chain components -- Used for compiling dependencies
 
-  `sudo apt-get install -y python build-essential automake autoconf libtool`
+  ```
+  sudo apt-get install -y python build-essential automake autoconf libtool
+  ```
 
 ## Installation Steps
 
@@ -51,19 +67,25 @@ npm install
 
 ## Build Steps
 
- Lisk Explorer uses Webpack to create the bundles.
- 
- For having a watcher to generate bundles continuously for all the changes of the code, Run the following command:
+Lisk Explorer uses Webpack to create the bundles.
 
-`npm run start`
- 
- And for generating the minified bundles in production environment run:
- 
-`npm run build`
+For having a watcher to generate bundles continuously for all the changes of the code, Run the following command:
 
- If you want to add a meta tag with name and content defined (For example to verify your ownership to Google analytics) run:
+```
+npm run start
+```
  
- `SERVICE_NAME='your service name' CLIENT_ID='you client id' npm run build`
+And for generating the minified bundles in production environment run:
+ 
+```
+npm run build
+```
+
+If you want to add a meta tag with name and content defined (For example to verify your ownership to Google analytics) run:
+ 
+```
+SERVICE_NAME='your service name' CLIENT_ID='you client id' npm run build
+```
 
 ## Post-deployment Actions
 
