@@ -114,7 +114,7 @@ Feature: Top menu
     And I should see table "latest transactions" with 20 rows starting with:
       | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
       |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | 18234943547133247982L | /~\d+(,\d{3})?(\.\d+)? JPY/ | /~\d+(\.\d+)? JPY/ |
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? JPY/ | /~\d+(\.\d+)? JPY/ |
 
   Scenario: should allow to switch currency to PLN
     Given I'm on page "/"
@@ -123,7 +123,7 @@ Feature: Top menu
     And I should see table "latest transactions" with 20 rows starting with:
       | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
       |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | 18234943547133247982L | /~\d+(,\d{3})?(\.\d+)? PLN/ | /~\d+(\.\d+)? PLN/ |
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? PLN/ | /~\d+(\.\d+)? PLN/ |
 
   Scenario: should allow to switch currency to GBP
     Given I'm on page "/"
@@ -132,7 +132,7 @@ Feature: Top menu
     And I should see table "latest transactions" with 20 rows starting with:
       | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
       |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | 18234943547133247982L | /~\d+(,\d{3})?(\.\d+)? GBP/ | /~\d+(\.\d+)? GBP/ |
+      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? GBP/ | /~\d+(\.\d+)? GBP/ |
 
   Scenario: should allow to switch currency to LSK
     Given I'm on page "/"
