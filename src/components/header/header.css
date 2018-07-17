@@ -236,6 +236,14 @@
   float: none;
 }
 
+.navbar-fixed-top .network-status .information-banner {
+  background-color: rgb(211, 190, 6);
+}
+
+.navbar-fixed-top .network-status .flex-container .information-banner {
+  background: rgb(211, 190, 6);
+}
+
 @media (max-width: 768px) {
   .navbar-fixed-top  .network-status .container {
     display: block;

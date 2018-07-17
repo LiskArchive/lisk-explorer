@@ -13,19 +13,5 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-const config = {};
-config.lisk = {};
-config.freegeoip = {};
-config.redis = {};
-config.log = {};
-config.exchangeRates = {
-	exchanges: {
-		LSK: {},
-		BTC: {},
-	},
-};
-config.marketWatcher = { exchanges: {}, candles: { poloniex: {} }, orders: {} };
-config.cacheDelegateAddress = {};
-config.uiMessage = {};
-
-module.exports = config;
+import './information-banner.module';
+import './information-banner.directive';

@@ -13,19 +13,8 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-const config = {};
-config.lisk = {};
-config.freegeoip = {};
-config.redis = {};
-config.log = {};
-config.exchangeRates = {
-	exchanges: {
-		LSK: {},
-		BTC: {},
-	},
-};
-config.marketWatcher = { exchanges: {}, candles: { poloniex: {} }, orders: {} };
-config.cacheDelegateAddress = {};
-config.uiMessage = {};
+import angular from 'angular';
 
-module.exports = config;
+const CookiesBanner = angular.module('lisk_explorer.cookiesBanner', []);
+
+export default CookiesBanner;

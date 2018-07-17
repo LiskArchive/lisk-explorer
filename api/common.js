@@ -23,4 +23,9 @@ module.exports = [
 		service: '',
 		params: req => req.query.id,
 	},
+	{
+		path: 'ui_message',
+		service: '',
+		params: () => undefined,
+	},
 ];

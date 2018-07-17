@@ -18,6 +18,12 @@ import template from './home.html';
 
 const HomeConstructor = function ($scope, $http, $interval) {
 	const vm = this;
+
+	const setHref = (tx) => {
+		tx.hrefSender = tx.senderDelegate ? `/delegate/${tx.senderId}` : `/address/${tx.senderId}`;
+		tx.hrefRecipient = tx.recipientDelegate ? `/delegate/${tx.recipientId}` : `/address/${tx.recipientId}`;
+	};
+
 	vm.getLastBlocks = () => {
 		$http.get('/api/getLastBlocks').then((resp) => {
 			if (resp.data.success) {
@@ -44,9 +50,11 @@ const HomeConstructor = function ($scope, $http, $interval) {
 				if (vm.txs && vm.txs.length > 0) {
 					if (vm.txs[0] !== resp.data.transactions[0]) {
 						vm.txs = resp.data.transactions;
+						vm.txs.map(setHref);
 					}
 				} else {
 					vm.txs = resp.data.transactions;
+					vm.txs.map(setHref);
 				}
 			}
 		});
