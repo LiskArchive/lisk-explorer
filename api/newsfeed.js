@@ -13,19 +13,13 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-const config = {};
-config.lisk = {};
-config.freegeoip = {};
-config.redis = {};
-config.log = {};
-config.exchangeRates = {
-	exchanges: {
-		LSK: {},
-		BTC: {},
+module.exports = [
+	{
+		path: 'newsfeed',
+		service: 'newsfeed',
+		params: req => ({
+			source: req.query.source,
+			limit: req.query.limit,
+		}),
 	},
-};
-config.marketWatcher = { exchanges: {}, candles: { poloniex: {} }, orders: {} };
-config.cacheDelegateAddress = {};
-config.uiMessage = {};
-
-module.exports = config;
+];

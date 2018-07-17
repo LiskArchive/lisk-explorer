@@ -13,19 +13,6 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-const config = {};
-config.lisk = {};
-config.freegeoip = {};
-config.redis = {};
-config.log = {};
-config.exchangeRates = {
-	exchanges: {
-		LSK: {},
-		BTC: {},
-	},
+module.exports = {
+	TwitterService: require('./TwitterService'),
 };
-config.marketWatcher = { exchanges: {}, candles: { poloniex: {} }, orders: {} };
-config.cacheDelegateAddress = {};
-config.uiMessage = {};
-
-module.exports = config;

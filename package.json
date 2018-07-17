@@ -1,6 +1,6 @@
 {
   "name": "lisk-explorer",
-  "version": "2.1.2",
+  "version": "2.1.3-alpha",
   "description": "Lisk blockchain explorer",
   "keywords": [
     "lisk",
@@ -42,11 +42,13 @@
     "amstock3": "github:amcharts/amstock3",
     "angular": "<=1.6.10",
     "angular-advanced-searchbox": "github:reyraa/angular-advanced-searchbox",
-    "angular-animate": "^1.6.4",
+    "angular-animate": "~1.6.4",
+    "angular-cookies": "~1.6.10",
     "angular-gettext": "^2.3.9",
     "angular-naturalsort": "https://github.com/isabello/angular-naturalsort.git",
     "angular-qrcode": "^7.2.0",
-    "angular-resource": "^1.6.4",
+    "angular-resource": "~1.6.4",
+    "angular-sanitize": "~1.6.10",
     "angular-ui-bootstrap": "^2.5.0",
     "angular-ui-router": "=1.0.0-rc.1",
     "async": "^2.0.1",
@@ -71,6 +73,7 @@
     "ng-annotate": "^1.2.1",
     "ng-annotate-webpack-plugin": "^0.2.1-pre",
     "ngprogress": "https://github.com/VictorBjelkholm/ngProgress.git",
+    "parse-markdown-js": "^1.3.6",
     "popsicle": "=8.2.0",
     "qrcode": "^0.8.1",
     "qrcode-generator": "^1.2.0",
@@ -81,6 +84,7 @@
     "socket.io-client": "^2.0.3",
     "split": "^1.0.0",
     "string-similarity": "^1.2.0",
+    "twitter": "^1.7.1",
     "underscore": "^1.8.3"
   },
   "devDependencies": {
