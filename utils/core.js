@@ -39,7 +39,7 @@ const get = url => new Promise((resolve, reject) => {
 });
 
 const parseAddress = function (address) {
-	return address.replace('l', 'L');
+	return address && address.replace('l', 'L');
 };
 
 module.exports = {
