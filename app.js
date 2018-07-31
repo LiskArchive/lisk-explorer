@@ -128,6 +128,13 @@ app.use(allowCrossDomain);
 app.use((req, res, next) => {
 	logger.info(req.originalUrl);
 
+	try {
+		decodeURIComponent(req.path);
+	} catch (err) {
+		logger.info(err);
+		return res.redirect('/');
+	}
+
 	if (req.originalUrl === undefined || req.originalUrl.split('/')[1] !== 'api') {
 		return next();
 	}
