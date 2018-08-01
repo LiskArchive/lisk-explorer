@@ -13,14 +13,8 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-module.exports = {
-	accounts: require('./accounts.js'),
-	blocks: require('./blocks.js'),
-	candles: require('./candles.js'),
-	common: require('./common.js'),
-	delegates: require('./delegates.js'),
-	newsfeed: require('./newsfeed.js'),
-	orders: require('./orders.js'),
-	statistics: require('./statistics.js'),
-	transactions: require('./transactions.js'),
-};
+import angular from 'angular';
+
+const CookiesBanner = angular.module('lisk_explorer.cookiesBanner', []);
+
+export default CookiesBanner;

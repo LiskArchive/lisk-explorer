@@ -49,13 +49,13 @@
 							<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double hidden-xs"><a class="ellipsis" href="/tx/{{tx.id}}">{{tx.id}}</a></td>
 							<td class="text-right hidden-xs hidden-sm hidden-md"><span class="ellipsis">{{tx.timestamp | timestamp}}<span></td>
 							<td class="left-padding-xs">
-								<a class="ellipsis" data-account-href="tx" data-type="sender">
+								<a class="ellipsis" data-ng-href="{{tx.hrefSender}}">
 									<span class="pull-right hidden-xs">{{tx | txSender}}</span>
 									<span class="pull-left visible-xs">{{tx | txSender | middleEllipsis:10}}</span>
 								</a>
 							</td>
 							<td class="left-padding-xs">
-								<a class="ellipsis" data-ng-show="tx.type == 0" data-account-href="tx" data-type="recipient">
+								<a class="ellipsis" data-ng-show="tx.type == 0" data-ng-href="{{tx.hrefRecipient}}">
 									<span class="pull-right hidden-xs">{{tx | txRecipient}}</span>
 									<span class="pull-left visible-xs">{{tx | txRecipient | middleEllipsis:10}}</span>
 								</a>
