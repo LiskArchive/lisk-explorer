@@ -27,6 +27,6 @@ config.port = 6040; // Port to listen on
 config.liskService = {};
 config.liskService.host = process.env.LISK_SERVICE_HOST || '127.0.0.1';
 config.liskService.port = process.env.LISK_SERVICE_PORT || 6041;
-config.liskService.apiPath = '/api';
+config.liskService.apiPath = '/explorer-legacy';
 
 module.exports = config;

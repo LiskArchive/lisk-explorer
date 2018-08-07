@@ -5,7 +5,7 @@ if [ ! -f blockchain_explorer.db.gz ]; then
   wget https://downloads.lisk.io/lisk-explorer/dev/blockchain_explorer.db.gz
 fi
 
-docker-compose exec lisk-service cp test/known.test.json known.json
+docker-compose exec lisk-service cp services/legacy/test/known.test.json services/legacy/known.json
 docker-compose restart lisk-service
 
 docker-compose stop lisk-core
