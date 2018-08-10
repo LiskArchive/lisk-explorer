@@ -14,6 +14,7 @@
  *
  */
 import App from './app';
+import config from '../../config';
 
 App.run((
 	$rootScope,
@@ -26,13 +27,16 @@ App.run((
 	$transitions,
 ) => {
 	gettextCatalog.currentLanguage = 'en';
+	$rootScope.serviceBaseUrl = `//${config.liskService.host}:${config.liskService.port}`;
+	$rootScope.apiBaseUrl = `${$rootScope.serviceBaseUrl}${config.liskService.apiPath}`;
+
 	$transitions.onSuccess({ to: '*' }, () => {
 		$rootScope.titleDetail = '';
 		$rootScope.title = $state.current.title;
 		$rootScope.isCollapsed = true;
 
 		// Market Watcher
-		$http.get('/api/exchanges').then((result) => {
+		$http.get(`${$rootScope.apiBaseUrl}/exchanges`).then((result) => {
 			if (result.data.success && result.data.enabled) {
 				$rootScope.marketWatcher = true;
 			}
@@ -42,7 +46,7 @@ App.run((
 		$anchorScroll();
 	});
 
-	$http.get('/api/nodeConstants').then((result) => {
+	$http.get(`${$rootScope.apiBaseUrl}/nodeConstants`).then((result) => {
 		if (result && result.data) {
 			$rootScope.nodeConstants = result.data;
 		}

@@ -20,7 +20,7 @@ import template from './address.html';
 const AddressConstructor = function ($rootScope, $stateParams, $location, $http, addressTxs) {
 	const vm = this;
 	vm.getAddress = () => {
-		$http.get('/api/getAccount', {
+		$http.get(`${$rootScope.apiBaseUrl}/getAccount`, {
 			params: {
 				address: $stateParams.address,
 			},

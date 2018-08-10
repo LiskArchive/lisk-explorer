@@ -30,7 +30,7 @@ const DelegateMonitorConstructor = function (delegateMonitor, orderBy, $rootScop
 
 		vm.standbyDelegates = null;
 
-		$http.get(`/api/delegates/getStandby?n=${offset}`).then((resp) => {
+		$http.get(`${$rootScope.apiBaseUrl}/delegates/getStandby?n=${offset}`).then((resp) => {
 			if (resp.data.success) {
 				vm.standbyDelegates = resp.data.delegates;
 			}

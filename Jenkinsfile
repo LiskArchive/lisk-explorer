@@ -3,11 +3,8 @@
 pipeline {
 	agent { node { label 'lisk-explorer' } }
 	environment {
-		LISK_VERSION = '1.0.0-beta.9.2'
-		EXPLORER_PORT = "604$EXECUTOR_NUMBER"
-		LISK_HOST = 'localhost'
-		REDIS_DB = "$EXECUTOR_NUMBER"
-		REDIS_HOST = 'localhost'
+		LISK_SERVICE_VERSION = '0.1.0'
+		LISK_EXPLORER_PORT = "604$EXECUTOR_NUMBER"
 	}
 	stages {
 		stage ('Build dependencies') {
@@ -25,17 +22,7 @@ pipeline {
 				sh 'npm run build'
 			}
 		}
-		stage ('Build candles') {
-			steps {
-				// marketwatcher needs to be enabled to builds candles
-				sh '''
-				cp ./test/known.test.json ./known.json
-				redis-cli -n $REDIS_DB flushdb
-				grunt candles:build
-				'''
-			}
-		}
-		stage ('Start Lisk') {
+		stage ('Start Lisk Service') {
 			steps {
 				dir("$WORKSPACE/$BRANCH_NAME/") {
 					ansiColor('xterm') {
@@ -50,43 +37,19 @@ pipeline {
 						docker-compose config
 						docker-compose ps
 						'''
-						// Explorer needs the topAccounts feature to be enabled
-						sh '''
-						docker-compose exec -T lisk sed -i -r -e 's/(\\s*"topAccounts":)\\s*false,/\\1 true,/' config.json
-						docker-compose restart lisk
-						'''
 					}
 				}
 			}
 		}
-		stage ('Start Explorer') {
+		stage ('Run E2E tests') {
 			steps {
-				sh '''
-				cd $WORKSPACE/$BRANCH_NAME
-				LISK_PORT=$( docker-compose port lisk 4000 |cut -d ":" -f 2 )
-				cd -
-				LISK_PORT=$LISK_PORT node app.js -p $EXPLORER_PORT &>/dev/null &
-				sleep 20
-				'''
+				wrap([$class: 'Xvfb']) {
+					sh '''
+					npm run e2e -- --params.baseURL http://localhost:$LISK_EXPLORER_PORT
+					'''
+				}
 			}
 		}
-		stage ('Run API tests') {
-			steps {
-				sh '''
-				sed -i -r -e "s/6040/$EXPLORER_PORT/" test/node.js
-				npm run test
-				'''
-			}
-		}
-		// stage ('Run E2E tests') {
-		// 	steps {
-		// 		wrap([$class: 'Xvfb']) {
-		// 			sh '''
-		// 			npm run e2e -- --params.baseURL http://localhost:$EXPLORER_PORT
-		// 			'''
-		// 		}
-		// 	}
-		// }
 	}
 	post {
 		success {

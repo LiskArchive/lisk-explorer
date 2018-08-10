@@ -21,8 +21,8 @@ import AppServices from './services.module';
  * @todo isolate socket.io
  */
 AppServices.factory('$socket',
-	($location, $rootScope) => (namespace) => {
-		const socket = io(`${$location.host()}:${$location.port()}${namespace}`, { forceNew: true });
+	$rootScope => (namespace) => {
+		const socket = io(`${$rootScope.serviceBaseUrl}${namespace}`, { forceNew: true });
 
 		return {
 			on(eventName, callback) {

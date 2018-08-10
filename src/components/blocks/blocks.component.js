@@ -25,7 +25,7 @@ const BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $ht
 			offset = (n - 1) * 20;
 		}
 
-		$http.get(`/api/getLastBlocks?n=${offset}`).then((resp) => {
+		$http.get(`${$rootScope.apiBaseUrl}/getLastBlocks?n=${offset}`).then((resp) => {
 			if (resp.data.success) {
 				vm.blocks = resp.data.blocks;
 
@@ -39,7 +39,7 @@ const BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $ht
 	};
 
 	vm.getBlock = (blockId) => {
-		$http.get('/api/getBlock', {
+		$http.get(`${$rootScope.apiBaseUrl}/getBlock`, {
 			params: {
 				blockId,
 			},
