@@ -25,8 +25,13 @@ config.port = 6040; // Port to listen on
  * Lisk Service server
  */
 config.liskService = {};
-config.liskService.host = process.env.LISK_SERVICE_HOST || '127.0.0.1';
-config.liskService.port = process.env.LISK_SERVICE_PORT || 6041;
-config.liskService.apiPath = '/explorer-legacy';
+// config.liskService.baseUrl = 'https://testnet-explorer.lisk.io';
+// config.liskService.apiPath = '/api';
+
+config.liskService.baseUrl = 'http://localhost:5999';
+config.liskService.apiPath = '/api';
+
+config.liskService.apiUrl = `${config.liskService.baseUrl}${config.liskService.apiPath}`;
+
 
 module.exports = config;
