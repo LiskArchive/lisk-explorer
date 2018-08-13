@@ -24,13 +24,22 @@ const client = new Twitter({
 	access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET,
 });
 
+const safeRef = (obj, path) => {
+	try {
+		// eslint-disable-next-line
+		return path.split('.').reduce((xs, x) => (xs && xs[x]) ? xs[x] : null, obj);
+	} catch (e) {
+		return null;
+	}
+};
+
 const tweetUrl = (o) => {
 	if (o.retweeted_status) {
-		return o.retweeted_status.entities.urls[0].url;
+		return safeRef(o, 'retweeted_status.entities.urls.0.url');
 	} else if (o.extended_entities) {
-		return o.extended_entities.media[0].url;
+		return safeRef(o, 'extended_entities.media.0.url');
 	} else if (o.entities) {
-		return o.entities.urls[0].url;
+		return safeRef(o, 'entities.urls.0.url');
 	}
 	return null;
 };
