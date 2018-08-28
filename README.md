@@ -9,10 +9,16 @@ Lisk Explorer works in conjunction with the Lisk Core API. It uses Redis for cac
 
 These programs and resources are required to install and run Lisk Explorer
 
-- Nodejs v6.12.3 or higher (<https://nodejs.org/>) -- Nodejs serves as the underlying engine for code execution.
+- Tool chain components -- Used for compiling dependencies
+
+  `sudo apt-get update`
+
+  `sudo apt-get install -y python build-essential automake autoconf libtool pkg-config`
+
+- Nodejs v8.x (<https://nodejs.org/>) -- Nodejs serves as the underlying engine for code execution.
 
   ```
-  curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
   sudo apt-get install -y nodejs
   ```
 
@@ -60,9 +66,12 @@ These programs and resources are required to install and run Lisk Explorer
 
   `sudo apt-get install -y git`
 
-- Tool chain components -- Used for compiling dependencies
+- Set appropriate permissions.
 
-  `sudo apt-get install -y python build-essential automake autoconf libtool`
+  ```
+  sudo chown -R $USER:$GROUP ~/.npm
+  sudo chown -R $USER:$GROUP ~/.config
+  ```
 
 ## Installation Steps
 
