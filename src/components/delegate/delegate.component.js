@@ -19,7 +19,9 @@ import template from './delegate.html';
 const DelegateConstructor = function ($rootScope, $stateParams,
 	$location, $http, addressTxs, $state) {
 	const vm = this;
+
 	$rootScope.breadCrumb = { address: $stateParams.delegateId };
+
 	vm.getAddress = () => {
 		$http.get('/api/getAccount', {
 			params: {
@@ -28,8 +30,11 @@ const DelegateConstructor = function ($rootScope, $stateParams,
 		}).then((resp) => {
 			if (resp.data.success) {
 				vm.address = resp.data;
+				vm.getVotes(vm.address.publicKey);
 
-				if (!vm.address.delegate) {
+				if (vm.address.delegate) {
+					vm.getVoters(vm.address.publicKey);
+				} else {
 					$state.go('address', { address: $stateParams.delegateId });
 				}
 			} else {
@@ -37,6 +42,22 @@ const DelegateConstructor = function ($rootScope, $stateParams,
 			}
 		}).catch(() => {
 			$location.path('/');
+		});
+	};
+
+	vm.getVotes = (publicKey) => {
+		$http.get('/api/getVotes', { params: { publicKey } }).then((resp) => {
+			if (resp.data.success) {
+				vm.address.votes = resp.data.votes;
+			}
+		});
+	};
+
+	vm.getVoters = (publicKey) => {
+		$http.get('/api/getVoters', { params: { publicKey } }).then((resp) => {
+			if (resp.data.success) {
+				vm.address.voters = resp.data.voters;
+			}
 		});
 	};
 
