@@ -113,7 +113,7 @@ LessMore.prototype.acceptData = function (data) {
 };
 
 LessMore.prototype.loadData = function () {
-	this.getData(0, (this.limit + 1),
+	this.getData(this.offset, (this.limit + 1),
 		(data) => {
 			this.acceptData(data);
 		});
