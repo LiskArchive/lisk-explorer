@@ -54,15 +54,13 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 		{ key: 'type', name: 'Type', placeholder: 'Comma separated...' },
 		{ key: 'senderPublicKey', name: 'SenderPk', placeholder: 'Sender Public Key...' },
 		{ key: 'recipientPublicKey', name: 'RecipientPk', placeholder: 'Recipient Public Key...' },
-		{ key: 'minConfirmations', name: 'Min Confirmations', placeholder: 'Minimum Confirmations...' },
-		{ key: 'blockId', name: 'blockId', placeholder: 'Block Id...' },
-		{ key: 'fromHeight', name: 'fromHeight', placeholder: 'From Height...' },
-		{ key: 'toHeight', name: 'toHeight', placeholder: 'To Height...' },
+		{ key: 'height', name: 'Block Height', placeholder: 'Block Id...' },
+		{ key: 'blockId', name: 'Block Id', placeholder: 'Block Id...' },
 		{ key: 'fromTimestamp', name: 'fromTimestamp', placeholder: 'From Timestamp...' },
 		{ key: 'toTimestamp', name: 'toTimestamp', placeholder: 'To Timestamp...' },
 		{ key: 'limit', name: 'limit', placeholder: 'Limit...' },
 		{ key: 'offset', name: 'offset', placeholder: 'Offset...' },
-		{ key: 'orderBy', name: 'orderBy', placeholder: 'Order By...' },
+		{ key: 'sort', name: 'orderBy', placeholder: 'Order By...' },
 	];
 	vm.parametersDisplayLimit = vm.availableSearchParams.length;
 
