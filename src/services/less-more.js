@@ -23,9 +23,9 @@ const LessMore = function ($http, $q, params) {
 	this.url = params.url || '';
 	this.parent = params.parent || 'parent';
 	this.key = params.key || '';
-	this.offset = params.offset || 0;
-	this.maximum = params.maximum || 2000;
-	this.limit = params.limit || 50;
+	this.offset = Number(params.offset) || 0;
+	this.maximum = Number(params.maximum) || 2000;
+	this.limit = Number(params.limit) || 50;
 
 	['url', 'parent', 'key', 'offset', 'maximum', 'limit'].forEach((key) => {
 		delete params[key];
