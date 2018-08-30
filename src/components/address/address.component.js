@@ -60,7 +60,13 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 		{ key: 'toTimestamp', name: 'toTimestamp', placeholder: 'To Timestamp...' },
 		{ key: 'limit', name: 'limit', placeholder: 'Limit...' },
 		{ key: 'offset', name: 'offset', placeholder: 'Offset...' },
-		{ key: 'sort', name: 'orderBy', placeholder: 'Order By...' },
+		{
+			key: 'sort',
+			name: 'orderBy',
+			placeholder: 'Order By...',
+			restrictToSuggestedValues: true,
+			suggestedValues: ['amount:asc', 'amount:desc', 'fee:asc', 'fee:desc', 'type:asc', 'type:desc', 'timestamp:asc', 'timestamp:desc'],
+		},
 	];
 	vm.parametersDisplayLimit = vm.availableSearchParams.length;
 
