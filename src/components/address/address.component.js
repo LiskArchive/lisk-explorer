@@ -133,7 +133,12 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 	};
 
 	$rootScope.$on('advanced-searchbox:modelUpdated', (event, model) => {
-		vm.searchModel = model;
+		if (vm.searchModel.query !== model.query) {
+			vm.searchModel = Object.assign({}, model);
+			return onSearchChange();
+		}
+
+		return vm.searchModel = Object.assign({}, model);
 	});
 
 	$rootScope.$on('advanced-searchbox:removedSearchParam', (event, searchParameter) => {
