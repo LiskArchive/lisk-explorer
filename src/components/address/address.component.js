@@ -17,7 +17,14 @@ import angular from 'angular';
 import AppAddress from './address.module';
 import template from './address.html';
 
-const AddressConstructor = function ($rootScope, $stateParams, $location, $http, addressTxs) {
+const AddressConstructor = function (
+	$rootScope,
+	$stateParams,
+	$location,
+	$http,
+	$timeout,
+	addressTxs,
+) {
 	const vm = this;
 	vm.getAddress = () => {
 		$http.get('/api/getAccount', {
@@ -27,6 +34,7 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 		}).then((resp) => {
 			if (resp.data.success) {
 				vm.address = resp.data;
+				vm.disableAutocomplete();
 				vm.getVotes(vm.address.publicKey);
 			} else {
 				throw new Error('Account was not found!');
@@ -46,6 +54,13 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 
 	vm.address = {
 		address: $stateParams.address,
+	};
+
+	// Sets autocomplete attr off
+	vm.disableAutocomplete = () => {
+		$timeout(() => {
+			document.getElementsByClassName('search-parameter-input')[0].setAttribute('autocomplete', 'off');
+		}, 0);
 	};
 
 	// Sets the filter for which transactions to display
