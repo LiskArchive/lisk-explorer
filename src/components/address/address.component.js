@@ -27,11 +27,20 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 		}).then((resp) => {
 			if (resp.data.success) {
 				vm.address = resp.data;
+				vm.getVotes(vm.address.publicKey);
 			} else {
 				throw new Error('Account was not found!');
 			}
 		}).catch(() => {
 			$location.path('/');
+		});
+	};
+
+	vm.getVotes = (publicKey) => {
+		$http.get('/api/getVotes', { params: { publicKey } }).then((resp) => {
+			if (resp.data.success) {
+				vm.address.votes = resp.data.votes;
+			}
 		});
 	};
 

@@ -26,4 +26,22 @@ module.exports = [
 			limit: req.query.limit,
 		}),
 	},
+	{
+		path: 'getVotes',
+		service: 'accounts',
+		params: req => ({
+			publicKey: req.query.publicKey,
+			offset: req.query.offset,
+			limit: req.query.limit,
+		}),
+	},
+	{
+		path: 'getVoters',
+		service: 'accounts',
+		params: req => ({
+			publicKey: req.query.publicKey,
+			offset: req.query.offset,
+			limit: req.query.limit,
+		}),
+	},
 ];
