@@ -19,6 +19,8 @@ import template from './address.html';
 
 const AddressConstructor = function ($rootScope, $stateParams, $location, $http, addressTxs) {
 	const vm = this;
+	vm.searchModel = [];
+
 	vm.getAddress = () => {
 		$http.get('/api/getAccount', {
 			params: {
@@ -100,11 +102,11 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 
 	const isValidAddress = id => /([0-9]+)L$/.test(id);
 
-	$rootScope.$on('advanced-searchbox:modelUpdated', (event, model) => {
+	const onSearchChange = () => {
 		const params = {};
-		Object.keys(model).forEach((key) => {
-			if (model[key] !== undefined && model[key] !== '') {
-				params[key] = model[key];
+		Object.keys(vm.searchModel).forEach((key) => {
+			if (vm.searchModel[key] !== undefined && vm.searchModel[key] !== '') {
+				params[key] = vm.searchModel[key];
 			}
 			if ((key === 'minAmount' || key === 'maxAmount') && params[key] !== '') {
 				params[key] = Math.floor(parseFloat(params[key]) * 1e8);
@@ -120,14 +122,28 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 			(isValidAddress(params.recipientId) ||
 			isValidAddress(params.senderId))) {
 			searchByParams(params);
-		} else if (Object.keys(model).length === 0) {
+		} else if (Object.keys(vm.searchModel).length === 0) {
 			onSearchBoxCleaned();
 		} else {
 			vm.invalidParams = true;
 		}
+	};
+
+	$rootScope.$on('advanced-searchbox:modelUpdated', (event, model) => {
+		vm.searchModel = model;
 	});
+
+	$rootScope.$on('advanced-searchbox:removedSearchParam', (event, searchParameter) => {
+		delete vm.searchModel[searchParameter.key];
+		onSearchChange();
+	});
+
 	$rootScope.$on('advanced-searchbox:removedAllSearchParam', () => {
 		onSearchBoxCleaned();
+	});
+
+	$rootScope.$on('advanced-searchbox:leavedEditMode', () => {
+		onSearchChange();
 	});
 
 	vm.getAddress();
