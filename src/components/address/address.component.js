@@ -113,9 +113,12 @@ const AddressConstructor = function ($rootScope, $stateParams, $location, $http,
 			}
 		});
 
-		if (Object.keys(params).length > 0 && !params.recipientId && !params.senderId) {
-			params.recipientId = $stateParams.address;
-			params.senderId = $stateParams.address;
+		if (params.query) {
+			params.senderId = params.query;
+			params.recipientId = params.query;
+		} else {
+			params.senderId = params.senderId || $stateParams.address;
+			params.recipientId = params.recipientId || $stateParams.address;
 		}
 
 		if (Object.keys(params).length > 0 &&
