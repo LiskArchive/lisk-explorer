@@ -39,15 +39,21 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 			}, 200);
 		};
 
-		this.expandInput = () => {
-			this.activeForm = !this.activeForm;
-			$timeout(() => {
-				document.getElementById('search').focus();
-			}, 500);
+		this.onSearchIconClick = () => {
+			if (!this.mobileView) {
+				this.search();
+			} else {
+				this.activeForm = !this.activeForm;
+				$timeout(() => {
+					document.getElementById('search').focus();
+				}, 500);
+			}
 		};
 
 		this.hideSuggestion = () => {
-			_resetSearch();
+			if (!this.loading) {
+				_resetSearch();
+			}
 		};
 
 		this.search = () => {
@@ -75,7 +81,8 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 		};
 	};
 
-	const SearchLink = function () {
+	const SearchLink = function (scope) {
+		scope.activeForm = !scope.mobileView;
 	};
 
 	return {
