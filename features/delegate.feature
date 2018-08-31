@@ -16,7 +16,7 @@ Feature: Delegate page
   Scenario: should allow to show voters
     Given I'm on page "/delegate/537318935439898807L"
     When I click "show voters button"
-    Then I should see "gottavoteemall • 16313739661670634666L" in "voters" element
+    Then I should see "gottavoteemall • 16313739661670634666L •" in "voters" element
 
   Scenario: should link voters to address page
     Given I'm on page "/delegate/537318935439898807L"
