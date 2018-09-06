@@ -33,7 +33,9 @@ These programs and resources are required to install and run Lisk Explorer
 
 - Redis (<http://redis.io>) -- Redis is used for caching parsed exchange data.
 
-  `sudo apt-get install -y redis-server`
+  ```
+  sudo apt-get install -y redis-server
+  ```
 
 - Freegeoip (<https://github.com/fiorix/freegeoip>) -- Freegeoip is used by the Network Monitor for IP address geo-location.
 
@@ -54,15 +56,21 @@ These programs and resources are required to install and run Lisk Explorer
 
 - Grunt.js (<http://gruntjs.com/>) -- Grunt is used to run eslint and unit tests.
 
-  `sudo npm install -g grunt`
+  ```
+  sudo npm install -g grunt
+  ```
 
 - Bower (<https://bower.io/>) -- Bower is used to look after frontend libraries.
 
-  `sudo npm install -g bower`
+  ```
+  sudo npm install -g bower
+  ```
 
 - PM2 (https://github.com/Unitech/pm2) -- PM2 manages the node process for Lisk Explorer and handles log rotation (Highly Recommended)
 
-  `sudo npm install -g pm2`
+  ```
+  sudo npm install -g pm2
+  ```
   
 - PM2-logrotate (https://github.com/pm2-hive/pm2-logrotate) -- Manages PM2 logs
 
@@ -73,7 +81,9 @@ These programs and resources are required to install and run Lisk Explorer
 
 - Git (<https://github.com/git/git>) -- Used for cloning and updating Lisk Explorer
 
-  `sudo apt-get install -y git`
+  ```
+  sudo apt-get install -y git
+  ```
 
 - Set appropriate permissions.
 
