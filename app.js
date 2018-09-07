@@ -70,7 +70,7 @@ app.use((req, res, next) => {
 	res.setHeader('Content-Security-Policy',
 		[`frame-ancestors 'none'; default-src 'self';`,
 		`connect-src 'self' ${wsSrc};`,
-		`img-src 'self' https://*.tile.openstreetmap.org www.google-analytics.com stats.g.doubleclick.net;`,
+		`img-src 'self' https:;`,
 		`style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;`,
 		`script-src 'self' 'sha256-L6JyfNh6FtKC6umsFxtawnD4dtWi8szFRQZU0tVgsQk=' 'unsafe-eval' www.googletagmanager.com www.google-analytics.com;`,
 		`font-src 'self' https://fonts.gstatic.com`].join(' '));
