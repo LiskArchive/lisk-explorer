@@ -26,6 +26,8 @@ const AddressConstructor = function (
 	addressTxs,
 ) {
 	const vm = this;
+	vm.searchModel = [];
+
 	vm.getAddress = () => {
 		$http.get('/api/getAccount', {
 			params: {
@@ -78,15 +80,19 @@ const AddressConstructor = function (
 		{ key: 'type', name: 'Type', placeholder: 'Comma separated...' },
 		{ key: 'senderPublicKey', name: 'SenderPk', placeholder: 'Sender Public Key...' },
 		{ key: 'recipientPublicKey', name: 'RecipientPk', placeholder: 'Recipient Public Key...' },
-		{ key: 'minConfirmations', name: 'Min Confirmations', placeholder: 'Minimum Confirmations...' },
-		{ key: 'blockId', name: 'blockId', placeholder: 'Block Id...' },
-		{ key: 'fromHeight', name: 'fromHeight', placeholder: 'From Height...' },
-		{ key: 'toHeight', name: 'toHeight', placeholder: 'To Height...' },
+		{ key: 'height', name: 'Block Height', placeholder: 'Block Id...' },
+		{ key: 'blockId', name: 'Block Id', placeholder: 'Block Id...' },
 		{ key: 'fromTimestamp', name: 'fromTimestamp', placeholder: 'From Timestamp...' },
 		{ key: 'toTimestamp', name: 'toTimestamp', placeholder: 'To Timestamp...' },
 		{ key: 'limit', name: 'limit', placeholder: 'Limit...' },
 		{ key: 'offset', name: 'offset', placeholder: 'Offset...' },
-		{ key: 'orderBy', name: 'orderBy', placeholder: 'Order By...' },
+		{
+			key: 'sort',
+			name: 'orderBy',
+			placeholder: 'Order By...',
+			restrictToSuggestedValues: true,
+			suggestedValues: ['amount:asc', 'amount:desc', 'fee:asc', 'fee:desc', 'type:asc', 'type:desc', 'timestamp:asc', 'timestamp:desc'],
+		},
 	];
 	vm.parametersDisplayLimit = vm.availableSearchParams.length;
 
@@ -120,34 +126,56 @@ const AddressConstructor = function (
 
 	const isValidAddress = id => /([0-9]+)L$/.test(id);
 
-	$rootScope.$on('advanced-searchbox:modelUpdated', (event, model) => {
+	const onSearchChange = () => {
 		const params = {};
-		Object.keys(model).forEach((key) => {
-			if (model[key] !== undefined && model[key] !== '') {
-				params[key] = model[key];
+		Object.keys(vm.searchModel).forEach((key) => {
+			if (vm.searchModel[key] !== undefined && vm.searchModel[key] !== '') {
+				params[key] = vm.searchModel[key];
 			}
 			if ((key === 'minAmount' || key === 'maxAmount') && params[key] !== '') {
 				params[key] = Math.floor(parseFloat(params[key]) * 1e8);
 			}
 		});
 
-		if (Object.keys(params).length > 0 && !params.recipientId && !params.senderId) {
-			params.recipientId = $stateParams.address;
-			params.senderId = $stateParams.address;
+		if (params.query) {
+			params.senderId = params.query;
+			params.recipientId = params.query;
+		} else {
+			params.senderId = params.senderId || $stateParams.address;
+			params.recipientId = params.recipientId || $stateParams.address;
 		}
 
 		if (Object.keys(params).length > 0 &&
 			(isValidAddress(params.recipientId) ||
 			isValidAddress(params.senderId))) {
 			searchByParams(params);
-		} else if (Object.keys(model).length === 0) {
+		} else if (Object.keys(vm.searchModel).length === 0) {
 			onSearchBoxCleaned();
 		} else {
 			vm.invalidParams = true;
 		}
+	};
+
+	$rootScope.$on('advanced-searchbox:modelUpdated', (event, model) => {
+		if (vm.searchModel.query !== model.query) {
+			vm.searchModel = Object.assign({}, model);
+			return onSearchChange();
+		}
+
+		return vm.searchModel = Object.assign({}, model);
 	});
+
+	$rootScope.$on('advanced-searchbox:removedSearchParam', (event, searchParameter) => {
+		delete vm.searchModel[searchParameter.key];
+		onSearchChange();
+	});
+
 	$rootScope.$on('advanced-searchbox:removedAllSearchParam', () => {
 		onSearchBoxCleaned();
+	});
+
+	$rootScope.$on('advanced-searchbox:leavedEditMode', () => {
+		onSearchChange();
 	});
 
 	vm.getAddress();
