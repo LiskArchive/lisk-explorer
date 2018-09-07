@@ -64,17 +64,21 @@ app.use((req, res, next) => {
 	res.setHeader('X-Frame-Options', 'DENY');
 	res.setHeader('X-Content-Type-Options', 'nosniff');
 	res.setHeader('X-XSS-Protection', '1; mode=block');
-	const wsSrc = `ws://${req.get('host')} wss://${req.get('host')}`;
 
 	/* eslint-disable */
-	res.setHeader('Content-Security-Policy',
-		[`frame-ancestors 'none'; default-src 'self';`,
-		`connect-src 'self' ${wsSrc};`,
+	const connectSrc = `ws://${req.get('host')} wss://${req.get('host')}`;
+	const contentSecurityPolicy = [
+		`default-src 'self';`,
+		`frame-ancestors 'none';`,
+		`connect-src 'self' ${connectSrc};`,
 		`img-src 'self' https:;`,
 		`style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;`,
 		`script-src 'self' 'sha256-L6JyfNh6FtKC6umsFxtawnD4dtWi8szFRQZU0tVgsQk=' 'unsafe-eval' www.googletagmanager.com www.google-analytics.com;`,
-		`font-src 'self' https://fonts.gstatic.com`].join(' '));
+		`font-src 'self' https://fonts.gstatic.com`,
+	].join(' ');
 	/* eslint-enable */
+
+	res.setHeader('Content-Security-Policy', contentSecurityPolicy);
 	return next();
 });
 
