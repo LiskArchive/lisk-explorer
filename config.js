@@ -23,12 +23,11 @@ config.port = 6040; // Port to listen on
 
 /**
  * Lisk Service server
+ *
+ * Remember to rebuild the project using `npm run build` every time you change the params below.
  */
 config.liskService = {};
-// config.liskService.baseUrl = 'https://testnet-explorer.lisk.io';
-// config.liskService.apiPath = '/api';
-
-config.liskService.baseUrl = 'http://localhost:5999';
+config.liskService.baseUrl = 'https://explorer.lisk.io';
 config.liskService.apiPath = '/api';
 
 config.liskService.apiUrl = `${config.liskService.baseUrl}${config.liskService.apiPath}`;
