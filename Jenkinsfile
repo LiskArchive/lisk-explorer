@@ -22,34 +22,6 @@ pipeline {
 				sh 'npm run build'
 			}
 		}
-		stage ('Start Lisk Service') {
-			steps {
-				dir("$WORKSPACE/$BRANCH_NAME/") {
-					ansiColor('xterm') {
-						sh '''
-						rsync -axl --delete ~/lisk-docker/examples/development/ ./
-						cp ~/blockchain_explorer.db.gz ./blockchain.db.gz
-						make coldstart
-						'''
-						// show some build-related info
-						sh '''
-						sha1sum ./blockchain.db.gz
-						docker-compose config
-						docker-compose ps
-						'''
-					}
-				}
-			}
-		}
-		stage ('Run E2E tests') {
-			steps {
-				wrap([$class: 'Xvfb']) {
-					sh '''
-					npm run e2e -- --params.baseURL http://localhost:$LISK_EXPLORER_PORT
-					'''
-				}
-			}
-		}
 	}
 	post {
 		success {
@@ -76,8 +48,6 @@ pipeline {
 					sh 'make mrproper'
 				}
 			}
-
-			junit 'xunit-report.xml'
 
 			archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
 			dir('logs') {

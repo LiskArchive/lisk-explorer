@@ -27,8 +27,8 @@ App.run((
 	$transitions,
 ) => {
 	gettextCatalog.currentLanguage = 'en';
-	$rootScope.serviceBaseUrl = `//${config.liskService.host}:${config.liskService.port}`;
-	$rootScope.apiBaseUrl = `${$rootScope.serviceBaseUrl}${config.liskService.apiPath}`;
+	$rootScope.serviceBaseUrl = config.liskService.baseUrl;
+	$rootScope.apiBaseUrl = config.liskService.apiUrl;
 
 	$transitions.onSuccess({ to: '*' }, () => {
 		$rootScope.titleDetail = '';
