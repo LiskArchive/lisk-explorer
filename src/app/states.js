@@ -35,7 +35,7 @@ App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 		.state('transaction', {
 			url: '/tx/:txId',
 			parentDir: 'home',
-			component: 'transactions',
+			component: 'transaction',
 		})
 		.state('address', {
 			url: '/address/:address',
