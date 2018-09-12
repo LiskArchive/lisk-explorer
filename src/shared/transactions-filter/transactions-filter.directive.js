@@ -13,11 +13,10 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import angular from 'angular';
 import AppTools from '../../app/app-tools.module';
 import template from './transactions-filter.html';
 
-const TransactionsConstructor = function ($rootScope, $scope, allTxs) {
+const TransactionsConstructor = function ($rootScope, $scope, $timeout, allTxs) {
 	$scope.searchModel = [];
 	$scope.searchParams = [];
 	$scope.availableSearchParams = [
@@ -44,18 +43,6 @@ const TransactionsConstructor = function ($rootScope, $scope, allTxs) {
 	];
 
 	$scope.parametersDisplayLimit = $scope.availableSearchParams.length;
-
-	$scope.setTxs = (txs) => {
-		$scope.txs = txs;
-	};
-
-	$scope.onFiltersUsed = () => {
-		$scope.cleanByFilters = true;
-		const { removeAll } = angular.element(document.getElementsByClassName('search-parameter-input')[0]).scope();
-		if (removeAll) {
-			removeAll();
-		}
-	};
 
 	const onSearchBoxCleaned = () => {
 		if ($scope.cleanByFilters) {
@@ -123,6 +110,15 @@ const TransactionsConstructor = function ($rootScope, $scope, allTxs) {
 	$rootScope.$on('advanced-searchbox:leavedEditMode', () => {
 		onSearchChange();
 	});
+
+	// Sets autocomplete attr off
+	const disableAutocomplete = () => {
+		$timeout(() => {
+			document.getElementsByClassName('search-parameter-input')[0].setAttribute('autocomplete', 'off');
+		}, 0);
+	};
+
+	disableAutocomplete();
 };
 
 const transactionsFilter = AppTools.directive('transactionsFilter', () => ({
