@@ -161,7 +161,8 @@ describe('Transactions API', () => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				node.expect(res.body.transactions).to.have.lengthOf(100);
-				checkTransactions(res.body.transactions, tx => (tx.senderId === params.address));
+				checkTransactions(res.body.transactions,
+					tx => (tx.senderId === params.address));
 				done();
 			});
 		});
@@ -171,7 +172,8 @@ describe('Transactions API', () => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				node.expect(res.body.transactions).to.have.lengthOf(100);
-				checkTransactions(res.body.transactions, tx => (tx.senderPublicKey === params.publicKey));
+				checkTransactions(res.body.transactions,
+					tx => (tx.senderPublicKey === params.publicKey));
 				done();
 			});
 		});
@@ -181,7 +183,8 @@ describe('Transactions API', () => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				node.expect(res.body.transactions).to.have.lengthOf(2);
-				checkTransactions(res.body.transactions, tx => (tx.recipientId === params.address));
+				checkTransactions(res.body.transactions,
+					tx => (tx.recipientId === params.address));
 				done();
 			});
 		});
@@ -191,7 +194,8 @@ describe('Transactions API', () => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				node.expect(res.body.transactions).to.have.lengthOf(2);
-				checkTransactions(res.body.transactions, tx => (tx.recipientPublicKey === params.publicKey));
+				checkTransactions(res.body.transactions,
+					tx => (tx.recipientPublicKey === params.publicKey));
 				done();
 			});
 		});
@@ -201,7 +205,8 @@ describe('Transactions API', () => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				node.expect(res.body.transactions).to.have.lengthOf(100);
-				checkTransactions(res.body.transactions, tx => (tx.height === params.blockHeight));
+				checkTransactions(res.body.transactions,
+					tx => (tx.height === params.blockHeight));
 				done();
 			});
 		});
@@ -211,7 +216,8 @@ describe('Transactions API', () => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				node.expect(res.body.transactions).to.have.lengthOf(25);
-				checkTransactions(res.body.transactions, tx => (tx.blockId === params.blockId));
+				checkTransactions(res.body.transactions,
+					tx => (tx.blockId === params.blockId));
 				done();
 			});
 		});
@@ -222,7 +228,8 @@ describe('Transactions API', () => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				node.expect(res.body.transactions).to.have.lengthOf(3);
-				checkTransactions(res.body.transactions, tx => (tx.amount >= minAmount));
+				checkTransactions(res.body.transactions,
+					tx => (tx.amount >= minAmount));
 				done();
 			});
 		});
@@ -233,7 +240,8 @@ describe('Transactions API', () => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				node.expect(res.body.transactions).to.have.lengthOf(100);
-				checkTransactions(res.body.transactions, tx => (tx.amount <= maxAmount));
+				checkTransactions(res.body.transactions,
+					tx => (tx.amount <= maxAmount));
 				done();
 			});
 		});
@@ -244,7 +252,8 @@ describe('Transactions API', () => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				node.expect(res.body.transactions).to.have.lengthOf(100);
-				checkTransactions(res.body.transactions, tx => (tx.timestamp >= fromTimestamp));
+				checkTransactions(res.body.transactions,
+					tx => (tx.timestamp >= fromTimestamp));
 				done();
 			});
 		});
@@ -255,7 +264,8 @@ describe('Transactions API', () => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				node.expect(res.body.transactions).to.have.lengthOf(100);
-				checkTransactions(res.body.transactions, tx => (tx.timestamp <= toTimestamp));
+				checkTransactions(res.body.transactions,
+					tx => (tx.timestamp <= toTimestamp));
 				done();
 			});
 		});
