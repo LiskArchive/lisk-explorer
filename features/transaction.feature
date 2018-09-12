@@ -24,3 +24,23 @@ Feature: Transaction page
     And I should see "genesis_51 • genesis_2 • genesis_7 • genesis_3 • genesis_4 • genesis_5 • genesis_6 • genesis_8 • genesis_9 • genesis_10 • genesis_11" in "deleted votes" element
     And I click "vote deleted link" no. 1
     Then I should be on page "/address/2581762640681118072L"
+
+  Scenario: should show transactions list
+      Given I'm on page "/txs/"
+      Then I should see "Transactions" in "h1" html element
+      And I should see "Home Transactions" in "breadcrumb" element
+      And I should see table "transactions" with 50 rows starting with:
+      | Transaction ID | Date                          | Sender                   | Recipient        | Amount           | Fee     | Confirm.  |
+      |----------------|-------------------------------|--------------------------|------------------|------------------|---------|-----------|
+      | /\d{18,20}/    | /2017\/06\/19 \d\d:\d\d:\d\d/ | /standby_\d{3}\|\d{20}L/ | Explorer Account |       123.45 LSK | 0.1 LSK | 5 / 101   |
+      | /\d{18,20}/    | /2017\/06\/19 \d\d:\d\d:\d\d/ | /standby_\d{3}\|\d{20}L/ | Explorer Account |          100 LSK | 0.1 LSK | 6 / 101   |
+      | /\d{18,20}/    | /2017\/06\/19 \d\d:\d\d:\d\d/ | /standby_\d{3}\|\d{20}L/ | Explorer Account | 100.12345678 LSK | 0.1 LSK | 7 / 101   |
+      | /\d{18,20}/    | /2017\/06\/19 \d\d:\d\d:\d\d/ | /standby_\d{3}\|\d{20}L/ | Explorer Account |     0.123456 LSK | 0.1 LSK | 8 / 101   |
+      | /\d{18,20}/    | /2017\/06\/19 \d\d:\d\d:\d\d/ | /standby_\d{3}\|\d{20}L/ | Explorer Account |     123.4567 LSK | 0.1 LSK | 9 / 101   |
+
+  Scenario: should allow to load more transactions
+    Given I'm on page "/txs/"
+    And I should see table "transactions" with 50 rows
+    When I scroll to "more button"
+    And I click "more button"
+    Then I should see table "transactions" with 100 rows
