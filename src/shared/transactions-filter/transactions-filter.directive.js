@@ -20,22 +20,22 @@ const TransactionsConstructor = function ($rootScope, $scope, $timeout, allTxs) 
 	$scope.searchModel = [];
 	$scope.searchParams = [];
 	$scope.availableSearchParams = [
-		{ key: 'senderId', name: 'Sender', placeholder: 'Sender...' },
-		{ key: 'recipientId', name: 'Recipient', placeholder: 'Recipient...' },
-		{ key: 'minAmount', name: 'Min', placeholder: 'Min Amount...' },
-		{ key: 'maxAmount', name: 'Max', placeholder: 'Max Amount...' },
-		{ key: 'type', name: 'Type', placeholder: 'Comma separated...' },
-		{ key: 'senderPublicKey', name: 'SenderPk', placeholder: 'Sender Public Key...' },
-		{ key: 'recipientPublicKey', name: 'RecipientPk', placeholder: 'Recipient Public Key...' },
-		{ key: 'height', name: 'Block Height', placeholder: 'Block Id...' },
+		{ key: 'senderId', name: 'Sender ID', placeholder: 'Sender...' },
+		{ key: 'senderPublicKey', name: 'Sender Public Key', placeholder: 'Sender Public Key...' },
+		{ key: 'recipientId', name: 'Recipient ID', placeholder: 'Recipient...' },
+		{ key: 'recipientPublicKey', name: 'Recipient Public Key', placeholder: 'Recipient Public Key...' },
+		{ key: 'minAmount', name: 'Min Amount', placeholder: 'Min Amount...' },
+		{ key: 'maxAmount', name: 'Max Amount', placeholder: 'Max Amount...' },
+		{ key: 'type', name: 'Transaction Type', placeholder: 'Comma separated...' },
+		{ key: 'height', name: 'Block Height', placeholder: 'Block Height...' },
 		{ key: 'blockId', name: 'Block Id', placeholder: 'Block Id...' },
-		{ key: 'fromTimestamp', name: 'fromTimestamp', placeholder: 'From Timestamp...' },
-		{ key: 'toTimestamp', name: 'toTimestamp', placeholder: 'To Timestamp...' },
-		{ key: 'limit', name: 'limit', placeholder: 'Limit...' },
-		{ key: 'offset', name: 'offset', placeholder: 'Offset...' },
+		{ key: 'fromTimestamp', name: 'From Timestamp', placeholder: 'From Timestamp...' },
+		{ key: 'toTimestamp', name: 'To Timestamp', placeholder: 'To Timestamp...' },
+		{ key: 'limit', name: 'Limit', placeholder: 'Limit...' },
+		{ key: 'offset', name: 'Offset', placeholder: 'Offset...' },
 		{
 			key: 'sort',
-			name: 'orderBy',
+			name: 'Order By',
 			placeholder: 'Order By...',
 			restrictToSuggestedValues: true,
 			suggestedValues: ['amount:asc', 'amount:desc', 'fee:asc', 'fee:desc', 'type:asc', 'type:desc', 'timestamp:asc', 'timestamp:desc'],
@@ -82,10 +82,8 @@ const TransactionsConstructor = function ($rootScope, $scope, $timeout, allTxs) 
 
 		if (Object.keys(params).length > 0) {
 			searchByParams(params);
-		} else if (Object.keys($scope.searchModel).length === 0) {
-			onSearchBoxCleaned();
 		} else {
-			$scope.invalidParams = true;
+			onSearchBoxCleaned();
 		}
 	};
 
@@ -107,7 +105,8 @@ const TransactionsConstructor = function ($rootScope, $scope, $timeout, allTxs) 
 		onSearchBoxCleaned();
 	});
 
-	$rootScope.$on('advanced-searchbox:leavedEditMode', () => {
+	$rootScope.$on('advanced-searchbox:leavedEditMode', (event, searchParameter) => {
+		$scope.searchModel[searchParameter.key] = searchParameter.value;
 		onSearchChange();
 	});
 
