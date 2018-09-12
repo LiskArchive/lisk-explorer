@@ -29,10 +29,7 @@ module.exports = [
 	}, {
 		path: 'getTransactions',
 		service: 'transactions',
-		params: req => ({
-			offset: req.query.offset,
-			limit: req.query.limit,
-		}),
+		params: req => req.query,
 	}, {
 		path: 'getTransactionsByAddress',
 		service: 'transactions',
