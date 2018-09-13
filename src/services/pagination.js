@@ -24,7 +24,9 @@ const Pagination = function ($http, $q, params) {
 	this.parent = params.parent || 'parent';
 	this.key = params.key || '';
 	this.offset = Number(params.offset) || 0;
+	this.currentPage = Number(params.currentPage) || 1;
 	this.limit = Number(params.limit) || 50;
+	this.count = Number(params.count) || 0;
 
 	['url', 'parent', 'key', 'offset', 'limit'].forEach((key) => {
 		delete params[key];
@@ -51,10 +53,9 @@ Pagination.prototype.getData = function (offset, limit, cb) {
 	const params = Object.assign({}, { offset, limit }, this.params);
 	this.disable();
 	this.loading = true;
-	this.$http.get(this.url, {
-		params,
-	}).then((resp) => {
+	this.$http.get(this.url, { params }).then((resp) => {
 		if (resp.data.success && angular.isArray(resp.data[this.key])) {
+			this.setNextPrev();
 			cb(resp.data[this.key]);
 		} else {
 			cb(null);
@@ -62,6 +63,11 @@ Pagination.prototype.getData = function (offset, limit, cb) {
 	}).catch(() => {
 		cb(null);
 	});
+};
+
+Pagination.prototype.setNextPrev = function () {
+	this.hasNext = this.currentPage < (this.count / this.limit);
+	this.hasPrev = this.currentPage > 1;
 };
 
 Pagination.prototype.anyMore = function (length) {
@@ -91,38 +97,26 @@ Pagination.prototype.concatNoDuplicates = function (data) {
 	}
 };
 
-Pagination.prototype.acceptData = function (data) {
-	if (!angular.isArray(data)) { data = []; }
-
-	this.spliceData(data);
-
-	this.results = data;
-
-	this.hasPrev = this.anyLess();
-	this.loading = false;
-};
-
 Pagination.prototype.loadData = function () {
-	this.getData(this.offset, (this.limit + 1),
+	this.results = [];
+	this.getData(this.offset, this.limit,
 		(data) => {
-			this.acceptData(data);
+			if (!angular.isArray(data)) { data = []; }
+			this.results = data;
+			this.loading = false;
 		});
 };
 
 Pagination.prototype.loadNext = function () {
-	this.getData(this.offset, (this.limit + 1),
-		(data) => {
-			this.acceptData(data);
-		});
 	this.nextOffset();
+	this.loadData();
+	this.setNextPrev();
 };
 
 Pagination.prototype.loadPrev = function () {
-	this.getData(this.offset, (this.limit + 1),
-		(data) => {
-			this.acceptData(data);
-		});
 	this.prevOffset();
+	this.loadData();
+	this.setNextPrev();
 };
 
 Pagination.prototype.reloadMore = function () {
@@ -134,7 +128,7 @@ Pagination.prototype.reloadMore = function () {
 	self.results = [];
 
 	for (let o = 0; o < maxOffset; o += self.limit) {
-		const params = angular.extend({ offset: o, limit: self.limit + 1 }, self.params);
+		const params = angular.extend({ offset: o, limit: self.limit }, self.params);
 		promises.push(self.$http.get(self.url, { params }));
 	}
 
@@ -150,10 +144,12 @@ Pagination.prototype.reloadMore = function () {
 };
 
 Pagination.prototype.nextOffset = function () {
+	this.currentPage += 1;
 	return this.offset += this.limit;
 };
 
 Pagination.prototype.prevOffset = function () {
+	this.currentPage -= 1;
 	return this.offset -= this.limit;
 };
 
