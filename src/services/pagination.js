@@ -26,7 +26,6 @@ const Pagination = function ($http, $q, params) {
 	this.offset = Number(params.offset) || 0;
 	this.currentPage = Number(params.currentPage) || 1;
 	this.limit = Number(params.limit) || 50;
-	this.count = Number(params.count) || 0;
 
 	['url', 'parent', 'key', 'offset', 'limit'].forEach((key) => {
 		delete params[key];
@@ -55,7 +54,6 @@ Pagination.prototype.getData = function (offset, limit, cb) {
 	this.loading = true;
 	this.$http.get(this.url, { params }).then((resp) => {
 		if (resp.data.success && angular.isArray(resp.data[this.key])) {
-			this.setNextPrev();
 			cb(resp.data[this.key]);
 		} else {
 			cb(null);
@@ -65,17 +63,14 @@ Pagination.prototype.getData = function (offset, limit, cb) {
 	});
 };
 
-Pagination.prototype.setNextPrev = function () {
-	this.hasNext = this.currentPage < (this.count / this.limit);
-	this.hasPrev = this.currentPage > 1;
-};
-
 Pagination.prototype.anyMore = function (length) {
 	return (this.limit <= 1 && (this.limit % length) === 1) ||
 		(length > 1 && this.limit >= 1 && (length % this.limit) === 1);
 };
 
 Pagination.prototype.spliceData = function (data) {
+	this.hasPrev = this.currentPage > 1;
+
 	if (this.anyMore(angular.isArray(data) ? data.length : 0)) {
 		this.hasNext = true;
 		data.splice(-1, 1);
@@ -99,9 +94,10 @@ Pagination.prototype.concatNoDuplicates = function (data) {
 
 Pagination.prototype.loadData = function () {
 	this.results = [];
-	this.getData(this.offset, this.limit,
+	this.getData(this.offset, (this.limit + 1),
 		(data) => {
 			if (!angular.isArray(data)) { data = []; }
+			this.spliceData(data);
 			this.results = data;
 			this.loading = false;
 		});
@@ -110,13 +106,11 @@ Pagination.prototype.loadData = function () {
 Pagination.prototype.loadNext = function () {
 	this.nextOffset();
 	this.loadData();
-	this.setNextPrev();
 };
 
 Pagination.prototype.loadPrev = function () {
 	this.prevOffset();
 	this.loadData();
-	this.setNextPrev();
 };
 
 Pagination.prototype.reloadMore = function () {
