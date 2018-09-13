@@ -24,10 +24,9 @@ const Pagination = function ($http, $q, params) {
 	this.parent = params.parent || 'parent';
 	this.key = params.key || '';
 	this.offset = Number(params.offset) || 0;
-	this.maximum = Number(params.maximum) || 2000;
 	this.limit = Number(params.limit) || 50;
 
-	['url', 'parent', 'key', 'offset', 'maximum', 'limit'].forEach((key) => {
+	['url', 'parent', 'key', 'offset', 'limit'].forEach((key) => {
 		delete params[key];
 	});
 
@@ -97,19 +96,10 @@ Pagination.prototype.acceptData = function (data) {
 
 	this.spliceData(data);
 
-	if (this.results.length > 0) {
-		this.concatNoDuplicates(data);
-	} else {
-		this.results = data;
-	}
+	this.results = data;
 
-	if ((this.results.length + this.limit) > this.maximum) {
-		this.hasNext = false;
-	}
-
-	this.hasPrev = this.anyLess(this.results.length);
+	this.hasPrev = this.anyLess();
 	this.loading = false;
-	this.nextOffset();
 };
 
 Pagination.prototype.loadData = function () {
@@ -119,11 +109,20 @@ Pagination.prototype.loadData = function () {
 		});
 };
 
-Pagination.prototype.loadMore = function () {
+Pagination.prototype.loadNext = function () {
 	this.getData(this.offset, (this.limit + 1),
 		(data) => {
 			this.acceptData(data);
 		});
+	this.nextOffset();
+};
+
+Pagination.prototype.loadPrev = function () {
+	this.getData(this.offset, (this.limit + 1),
+		(data) => {
+			this.acceptData(data);
+		});
+	this.prevOffset();
 };
 
 Pagination.prototype.reloadMore = function () {
@@ -158,24 +157,8 @@ Pagination.prototype.prevOffset = function () {
 	return this.offset -= this.limit;
 };
 
-Pagination.prototype.anyLess = function (length) {
-	if (length > this.limit) {
-		const mod = length % this.limit;
-		this.splice = (mod === 0) ? this.limit : mod;
-		return true;
-	}
-	this.splice = 0;
-	return false;
-};
-
-Pagination.prototype.loadLess = function () {
-	this.hasPrev = false;
-	this.hasNext = true;
-	if (angular.isArray(this.results)) {
-		this.results.splice(-this.splice, this.splice);
-		this.hasPrev = this.anyLess(this.results.length);
-	}
-	this.prevOffset();
+Pagination.prototype.anyLess = function () {
+	return this.offset > 0;
 };
 
 AppServices.factory('pagination',

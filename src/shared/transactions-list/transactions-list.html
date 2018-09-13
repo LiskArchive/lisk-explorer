@@ -67,9 +67,9 @@
 		</div>
 	</div>
 </div>
-<div class="paginator" aria-label="Less/More Transactions" data-ng-hide="txs.disabled()">
+<div class="paginator" aria-label="Next/Prev Transactions" data-ng-hide="txs.disabled()">
 	<div class="btn-group" role="group">
-		<button class="btn btn-default less-button bordered-button" data-ng-disabled="!txs.lessData" data-ng-click="txs.loadLess()">Less</button>
-		<button class="btn btn-default more-button bordered-button" data-ng-disabled="!txs.moreData" data-ng-click="txs.loadMore()">More</button>
+		<button class="btn btn-default less-button bordered-button" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPrev()">Prev</button>
+		<button class="btn btn-default more-button bordered-button" data-ng-disabled="!txs.hasNext" data-ng-click="txs.loadNext()">Next</button>
 	</div>
 </div>
