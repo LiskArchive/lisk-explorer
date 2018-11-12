@@ -21,7 +21,14 @@
 <section>
 	<div id="home" class="row">
 		<div class="col-xs-12 col-md-12">
-			<h1>Latest Transactions</h1>
+			<div class="row">
+				<div class="col-sm-9">
+					<h1>Latest Transactions</h1>
+				</div>
+				<div class="col-sm-3">
+					<a href="/txs/" class="see-all-transactions pull-right">See all transactions -></a>
+				</div>
+			</div>
 
 			<div class="table-responsive">
 				<table class="table table-hover table-striped latest-transactions">
@@ -74,14 +81,19 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="paginator">
-					<div class="btn-group" role="group">
-						<a href="/txs/" class="btn btn-default see-all-transactions bordered-button">See all transactions</a>
-					</div>
+
+			</div>
+
+
+			<div class="row">
+				<div class="col-sm-9">
+					<h1>Latest Blocks</h1>
+				</div>
+				<div class="col-sm-3">
+					<a href="/blocks/" class="see-all-transactions pull-right">See all blocks -></a>
 				</div>
 			</div>
 
-			<h1>Latest Blocks</h1>
 
 			<div class="table-responsive">
 				<table class="table table-hover table-striped latest-blocks">
@@ -123,11 +135,6 @@
 						</tr>
 					</tbody>
 				</table>
-				<div class="paginator">
-					<div class="btn-group" role="group">
-						<a href="/blocks/" class="btn btn-default see-all-blocks bordered-button">See all blocks</a>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>
