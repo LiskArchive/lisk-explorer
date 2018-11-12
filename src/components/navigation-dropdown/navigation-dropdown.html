@@ -18,20 +18,14 @@
 <li class="dropdown" data-uib-dropdown>
 	<a href id="main-menu-dropdown" class="dropdown-toggle tools-menu" data-uib-dropdown-toggle data-aria-haspopup="true" role="button" data-aria-expanded="false">Tools <span class="caret"></span></a>
 	<ul class="dropdown-menu" role="menu" data-aria-labelledby="main-menu-dropdown">
-		<li>
-			<a href="/topAccounts" class="top-accounts">Top Accounts</a>
-		</li>
-		<li>
-			<a href="/activityGraph" class="activity-graph">Activity Graph</a>
-		</li>
-		<li>
-			<a href="/delegateMonitor" class="delegate-monitor">Delegate Monitor</a>
-		</li>
-		<li data-ng-if="$root.marketWatcher">
-			<a href="/marketWatcher" class="market-watcher">Market Watcher</a>
-		</li>
-		<li>
-			<a href="/networkMonitor" class="network-monitor">Network Monitor</a>
-		</li>
+		<li><a href="/txs/" class="top-accounts">Transaction browser</a></li>
+		<li><a href="/blocks/" class="top-accounts">Block browser</a></li>
+		<li role="separator" class="divider" style="clear:both;"></li>
+		<li><a href="/delegateMonitor" class="delegate-monitor">Delegate Monitor</a></li>
+		<li><a href="/networkMonitor" class="network-monitor">Network Monitor</a></li>
+		<li role="separator" class="divider" style="clear:both;"></li>
+		<li><a href="/topAccounts" class="top-accounts">Top Accounts</a></li>
+		<li><a href="/activityGraph" class="activity-graph">Activity Graph</a></li>
+		<li data-ng-if="$root.marketWatcher"><a href="/marketWatcher" class="market-watcher">Market Watcher</a></li>
 	</ul>
 </li>
