@@ -16,8 +16,18 @@
  */
 -->
 <section>
+	<h1>
+		Address summary&nbsp;
+		<small data-ng-if="vm.address.secondSignature" data-uib-tooltip="Second signature">
+			<i class="glyphicon glyphicon-lock"></i>
+		</small>
+		<small data-ng-if="vm.address.multisignatures && vm.address.multisignatures.length" data-uib-tooltip="Multi Signature">
+			<i class="glyphicon glyphicon-info-sign"></i>
+		</small>
+	</h1>
+
 	<div class="secondary_navbar hidden-xs hidden-sm" scroll data-ng-class="{'hidden': !secondaryNavbar}"
-		data-ng-if="vm.address.balance" data-ng-init="hideSNavbar=0">
+	data-ng-if="vm.address.balance" data-ng-init="hideSNavbar=0">
 		<div class="container" data-ng-if="!hideSNavbar">
 			<div class="col-md-8 text-left">
 				<span>
@@ -36,19 +46,11 @@
 				<span data-ng-if="!hideSNavbar"><span class="text-muted glyphicon glyphicon-chevron-up"></span></span>
 			</a>
 		</div>
+		<div class="text-muted" data-ng-if="!vm.address.balance">
+			<span>Loading Address <i class="fa fa-spinner fa-spin"></i></span>
+		</div>
 	</div>
-	<div class="text-muted" data-ng-if="!vm.address.balance">
-		<span>Loading Address <i class="fa fa-spinner fa-spin"></i></span>
-	</div>
-	<h1>
-		Address Summary&nbsp;
-		<small data-ng-if="vm.address.secondSignature" data-uib-tooltip="Second signature">
-			<i class="glyphicon glyphicon-lock"></i>
-		</small>
-		<small data-ng-if="vm.address.multisignatures && vm.address.multisignatures.length" data-uib-tooltip="Multi Signature">
-			<i class="glyphicon glyphicon-info-sign"></i>
-		</small>
-	</h1>
+
 	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 		<div class="col-md-9 col-lg-10">
 			<div class="table-responsive">
@@ -108,18 +110,18 @@
 		</div>
 	</div>
 
-	<votes data-votes="vm.address.votes"></votes>
-
 	<div data-ng-if="vm.address.balance" data-ng-init="vm.txs.loadData()">
-		<h1>Transactions</h1>
-		<transactions-filter data-txs="vm.txs" data-address="vm.address.address"></transactions-filter>
+
 		<div class="transactions-filter-header horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double" role="group"
 			aria-label="All/Sent/Received Transactions" data-ng-class="{disabled: vm.direction === 'search'}">
 				<button data-ng-disabled="!vm.direction" data-ng-click="vm.filterTxs();vm.txs.loadData();vm.onFiltersUsed();">All</button>
 				<button class="sent-tab" data-ng-disabled="vm.direction==='sent'" data-ng-click="vm.filterTxs('sent');vm.txs.loadData();vm.onFiltersUsed();">Sent</button>
 				<button class="received-tab" data-ng-disabled="vm.direction==='received'" data-ng-click="vm.filterTxs('received');vm.txs.loadData();vm.onFiltersUsed();">Received</button>
 				<button class="others-tab" data-ng-disabled="vm.direction==='others'" data-ng-click="vm.filterTxs('others');vm.txs.loadData();vm.onFiltersUsed();">Others</button>
+				<button class="votes-tab" data-ng-disabled="vm.direction==='votes'" data-ng-click="">Votes</button>
 		</div>
+		<transactions-filter data-txs="vm.txs" data-address="vm.address.address"></transactions-filter>
 		<transactions-list data-txs="vm.txs" data-address="vm.address.address"></transactions-list>
+		<!-- <votes data-votes="vm.address.votes"></votes> -->
 	</div>
 </section>

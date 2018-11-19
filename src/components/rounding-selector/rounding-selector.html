@@ -15,8 +15,11 @@
  *
  */
 -->
-<li class="dropdown">
-	<a href id="main-menu-decimal" class="dropdown-toggle tools-menu" data-uib-dropdown-toggle data-aria-haspopup="true" role="button" data-aria-expanded="false">Decimal places <span class="caret"></span></a>
+<li class="dropdown" data-uib-dropdown>
+	<a class="dropdown-toggle rounding-menu" id="main-rounding-selector" data-uib-dropdown-toggle data-aria-haspopup="true" role="button" data-aria-expanded="false">
+		<span class="visible-xs">Decimal&nbsp;<span class="caret"></span></span>
+		<span class="hidden-xs">Decimal&nbsp;places&nbsp;<span class="caret"></span></span>
+	</a>
 	<ul class="dropdown-menu" role="decimal-menu" data-aria-labelledby="decimal-menu-dropdown">
 		<li data-ng-class='{active: $root.decimalPlaces === undefined}'>
 			<a data-ng-click='cs.setDecimalPlaces(undefined)' class='trim-floating-points'>Trim trailing zeros</a>

@@ -59,17 +59,25 @@
 			<tr data-transaction-item data-address="address" data-tx="tx" data-ng-repeat="tx in txs.results | orderBy:filter.predicate:filter.reverse:filter.order track by tx.id"></tr>
 		</tbody>
 	</table>
+
+	<nav>
+		<ul class="nav nav-pills nav-justified">
+			<li role="presentation" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPrev()">
+				<button class="btn btn-default less-button bordered-button" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPrev()">Prev</button>
+			</li>
+			<li role="presentation">
+				<button class="btn btn-default more-button bordered-button">Pagination</button>
+			</li>
+			<li role="presentation" data-ng-disabled="!txs.hasNext" data-ng-click="txs.loadNext()">
+				<button class="btn btn-default more-button bordered-button" data-ng-disabled="!txs.hasNext" data-ng-click="txs.loadNext()">Next</button>
+			</li>
+		</ul>
+	</nav>
 </div>
 <div class="progress progress-striped horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double  active" data-ng-if="txs.loading">
 	<div class="wrapper">
 		<div class="progress-bar progress-bar-loading" style="width: 100%">
 			<span>Loading Transactions...</span>
 		</div>
-	</div>
-</div>
-<div class="paginator" aria-label="Next/Prev Transactions" data-ng-hide="txs.disabled()">
-	<div class="btn-group" role="group">
-		<button class="btn btn-default less-button bordered-button" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPrev()">Prev</button>
-		<button class="btn btn-default more-button bordered-button" data-ng-disabled="!txs.hasNext" data-ng-click="txs.loadNext()">Next</button>
 	</div>
 </div>

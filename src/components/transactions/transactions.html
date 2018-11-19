@@ -16,9 +16,10 @@
  */
 -->
 <section>
-	<h1>Transactions</h1>
 	<div class="text-muted" data-ng-if="!vm.txs">
-		<span>Loading Transaction <i class="fa fa-spinner fa-spin"></i>
+		<div class="jumbotron">
+			<span>Loading transactions list <i class="fa fa-spinner fa-spin"></i>
+		</div>
 	</div>
 	<div data-ng-init="vm.txs.loadData()">
 		<transactions-filter data-txs="vm.txs"></transactions-filter>

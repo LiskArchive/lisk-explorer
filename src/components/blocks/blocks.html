@@ -18,9 +18,6 @@
 <section>
     <div class="row">
         <div class="col-xs-12 col-md-12">
-            <div class="page-header">
-                <h1>Blocks <small data-ng-if="vm.blocks.length > 1">{{vm.blocks[0].height}} &#8594; {{vm.blocks[vm.blocks.length - 1].height}}</small></h1>
-            </div>
             <div class="table-responsive">
                 <table class="table table-hover table-striped">
                     <thead>
@@ -61,13 +58,21 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-            <div class="paginator" aria-label="Next Previous Blocks" data-ng-if="vm.pagination && (vm.pagination.more || vm.pagination.before)">
-                <div class="btn-group" role="group">
-                    <a class="btn btn-default less-button bordered-button" data-ng-class="{'disabled': !vm.pagination.before}" data-ng-disabled="!vm.pagination.before" href="/blocks/{{vm.pagination.previousPage}}">Previous</a>
-                    <a class="btn btn-default more-button bordered-button" data-ng-class="{'disabled': !(vm.pagination.more && vm.pagination.nextPage != 0)}" data-ng-disabled="!(vm.pagination.more && vm.pagination.nextPage != 0)" href="/blocks/{{vm.pagination.nextPage}}">Next</a>
-                </div>
-            </div>
+			</div>
+
+			<nav>
+				<ul class="nav nav-pills nav-justified">
+					<li>
+						<a class="btn btn-default less-button bordered-button" data-ng-class="{'disabled': !vm.pagination.before}" data-ng-disabled="!vm.pagination.before" href="/blocks/{{vm.pagination.previousPage}}">Previous</a>
+					</li>
+					<li>
+						<small data-ng-if="vm.blocks.length > 1">{{vm.blocks[0].height}} &#8594; {{vm.blocks[vm.blocks.length - 1].height}}</small>
+					</li>
+					<li>
+						<a class="btn btn-default more-button bordered-button" data-ng-class="{'disabled': !(vm.pagination.more && vm.pagination.nextPage != 0)}" data-ng-disabled="!(vm.pagination.more && vm.pagination.nextPage != 0)" href="/blocks/{{vm.pagination.nextPage}}">Next</a>
+					</li>
+				</ul>
+			</nav>
         </div>
     </div>
     <h2 class="text-center text-muted" data-ng-if="!loading && !vm.blocks.length">No blocks yet.</h2>

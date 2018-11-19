@@ -22,26 +22,6 @@
 			<a href="https://lisk.io" target="_blank" title="Official Lisk Website" class="link website-link">Website</a>
 			<a href="https://blog.lisk.io" target="_blank" title="Official Lisk Blog" class="link blog-link">Blog</a>
 			<a href="https://lisk.chat" target="_blank" title="Official Lisk Chat" class="link chat-link">Chat</a>
-			<div class="dropup decimal-places-selector" data-uib-dropdown>
-				<a href id="decimal-points-dropdown" class="dropdown-toggle decimal-places-menu"
-				data-uib-dropdown-toggle data-aria-haspopup="true"
-				data-ng-class="{disabled: ($root.currency.symbol !== 'BTC' && $root.currency.symbol !== 'LSK')}"
-				role="button" data-aria-expanded="false">Decimal places <span class="caret"></span></a>
-				<ul class="dropdown-menu" role="menu" data-aria-labelledby="decimal-points-dropdown">
-					<li data-ng-class='{active: $root.decimalPlaces === undefined}'>
-						<a data-ng-click='$root.decimalPlaces = undefined;' class='trim-floating-points'>Trim trailing zeros</a>
-					</li>
-					<li data-ng-class='{active: $root.decimalPlaces === 0}'>
-						<a data-ng-click='$root.decimalPlaces = 0;' class='round-to-0'>Round to whole number</a>
-					</li>
-					<li data-ng-class='{active: $root.decimalPlaces === 4}'>
-						<a data-ng-click='$root.decimalPlaces = 4;' class='round-to-4'>Round to 4th decimal place</a>
-					</li>
-					<li data-ng-class='{active: $root.decimalPlaces === 8}'>
-						<a data-ng-click='$root.decimalPlaces = 8;' class='show-all-8'>Show all decimals</a>
-					</li>
-				</ul>
-			</div>
 		</div>
 		<div class="col-right col-sm-4 hidden-xs social-networks">
 			<a href="https://www.reddit.com/r/Lisk/" target="_blank" title="Reddit" class="link reddit-link"><i class="fa fa-reddit-square fa-2x"></i></a>
