@@ -19,6 +19,18 @@ const flatstr = require('flatstr');
 const newConsole = require('console').Console;
 const config = require('../config');
 
+const defaultOutput = '/dev/stdout';
+
+if (!Array.isArray(config.log.output)) {
+	if (typeof config.log.output === 'string') {
+		config.log.output = [config.log.output];
+	} else if (typeof config.log.file === 'string') {
+		config.log.output = [config.log.file];
+	} else {
+		config.log.output = [defaultOutput];
+	}
+}
+
 const logOutputs = config.log.output.map((outputPath) => {
 	const fileOutput = fs.createWriteStream(outputPath, { flags: 'a' });
 	return new newConsole(fileOutput, fileOutput);
