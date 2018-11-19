@@ -19,8 +19,10 @@ const flatstr = require('flatstr');
 const newConsole = require('console').Console;
 const config = require('../config');
 
-const output = fs.createWriteStream(config.log.file, { flags: 'a' });
-const myConsole = new newConsole(output, output);
+const logOutputs = config.log.output.map((outputPath) => {
+	const fileOutput = fs.createWriteStream(outputPath, { flags: 'a' });
+	return new newConsole(fileOutput, fileOutput);
+});
 
 const levels = {
 	trace: 0,
@@ -35,25 +37,24 @@ const logger = {};
 logger.doLog = function doLog(level, msg, extra) {
 	if (config.log.enabled) {
 		const timestamp = Date.now();
-
-		// const stringMsg = typeof msg === 'string' ? msg : JSON.stringify(msg);
-		// const parsedMsg = stringMsg.replace(/(\r\n|\n|\r)/gm, ' ');
+		let outputString;
 
 		if (extra) {
 			const stringExtra = typeof extra === 'string' ? extra : JSON.stringify(extra);
 			const parsedExtra = stringExtra.replace(/(\r\n|\n|\r)/gm, ' ');
-			myConsole.log(flatstr(safeStringify({
-				level,
-				timestamp,
-				message: `${msg} ${parsedExtra}`,
-			})));
+			outputString = `${msg} ${parsedExtra}`;
 		} else {
-			myConsole.log(flatstr(safeStringify({
+			outputString = msg;
+		}
+
+		logOutputs.map((logOutput) => {
+			logOutput.log(flatstr(safeStringify({
 				level,
 				timestamp,
-				message: msg,
+				message: outputString,
 			})));
-		}
+			return logOutput;
+		});
 	}
 };
 
