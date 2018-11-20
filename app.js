@@ -73,7 +73,7 @@ app.use((req, res, next) => {
 		`connect-src 'self' ${connectSrc} https://www.google-analytics.com;`,
 		`img-src 'self' https:;`,
 		`style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;`,
-		`script-src 'self' 'unsafe-eval' 'unsafe-inline' https://tagmanager.google.com/ https://www.googletagmanager.com/ https://www.google-analytics.com/ http://*.cloudfront.net/ https://*.ipify.org/ https://*.crazyegg.com https://s3.amazonaws.com/trk.cetrk.com;`,
+		`script-src 'self' 'unsafe-eval' 'unsafe-inline' https://tagmanager.google.com/ https://www.googletagmanager.com/ https://www.google-analytics.com/ https://dnn506yrbagrg.cloudfront.net/ https://*.ipify.org/ https://*.crazyegg.com/ http://trk.cetrk.com/ https://s3.amazonaws.com/trk.cetrk.com/;`,
 		`font-src 'self' https://fonts.gstatic.com data:`,
 	].join(' ');
 	/* eslint-enable */
