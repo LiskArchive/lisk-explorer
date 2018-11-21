@@ -118,129 +118,231 @@
 			<div id="map">&nbsp;</div>
 		</div>
 	</div>
-	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-if="vm.peers" data-ng-cloak>
-		<div class="col-xs-12 col-sm-12 col-md-5 big-info platforms-block">
-			<p class="small-title text-center">Platforms</p>
 
-			<div class="row platforms">
-				<div class="col-xs-12">
-					<div class="platform">
-						<p class="details-wrapper">
-							<span class="main-info">
-								<img os-icon os="'Darwin'" brand="{ name: 'darwin' }">
-							</span>
-							<span class="counter peers mac-counter">{{vm.counter.platforms.one.counter || 0}}</span>
-						</p>
-					</div>
-					<div class="platform">
-						<p class="details-wrapper">
-							<span class="main-info">
-								<img os-icon os="'Linux'" brand="{ name: 'linux' }">
-							</span>
-							<span class="counter peers linux-counter">{{vm.counter.platforms.two.counter || 0}}</span>
-						</p>
-					</div>
-					<div class="platform">
-						<p class="details-wrapper">
-							<span class="main-info">
-								<img os-icon os="'FreeBSD'" brand="{ name: 'freebsd' }">
-							</span>
-							<span class="counter peers freebsd-counter">{{vm.counter.platforms.three.counter || 0}}</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<p class="text-muted text-center">{{vm.counter.platforms.other.counter || 0}} Peers on other platforms.</p>
-				</div>
-			</div>
-		</div>
-		<div class="col-xs-12 col-sm-12 col-md-7 big-info versions-block">
-			<p class="small-title text-center">Versions</p>
-
-			<div class="row versions">
-				<div class="col-xs-12">
-					<div class="version" data-ng-if="vm.counter.versions.one.num">
-						<p class="details-wrapper">
-							<span class="main-info best">{{vm.counter.versions.one.num || '~'}}</span>
-							<span class="counter peers">{{vm.counter.versions.one.counter || 0}}</span>
-						</p>
-					</div>
-					<div class="version" data-ng-if="vm.counter.versions.two.num">
-						<p class="details-wrapper">
-							<span class="main-info">{{vm.counter.versions.two.num || '~'}}</span>
-							<span class="counter peers">{{vm.counter.versions.two.counter || 0}}</span>
-						</p>
-					</div>
-					<div class="version" data-ng-if="vm.counter.versions.three.num">
-						<p class="details-wrapper">
-							<span class="main-info">{{vm.counter.versions.three.num || '~'}}</span>
-							<span class="counter peers">{{vm.counter.versions.three.counter || 0}}</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<p class="text-muted text-center">{{vm.counter.versions.other.counter || 0}} Peers on other versions.</p>
-				</div>
-			</div>
-		</div>
-	</div>
-	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-if="vm.peers" data-ng-cloak>
-		<div class="col-xs-12 col-sm-12 big-info best-heights-block">
-			<p class="small-title text-center">Best heights</p>
-
-			<div class="row heights">
-				<div class="col-xs-12">
-					<div class="height" data-ng-if="vm.counter.heights.heights[0]">
-						<p class="details-wrapper">
-							<span class="main-info best">{{vm.counter.heights.heights[0] || '~'}}</span>
-							<span class="counter peers">{{vm.counter.heights.counter[0] || 0}}</span>
-							<span class="counter percetage">{{vm.counter.percents[0] || 0}}%</span>
-						</p>
-					</div>
-					<div class="height" data-ng-if="vm.counter.heights.heights[1]">
-						<p class="details-wrapper">
-							<span class="main-info">{{vm.counter.heights.heights[1] || '~'}}</span>
-							<span class="counter peers">{{vm.counter.heights.counter[1] || 0}}</span>
-							<span class="counter percetage">{{vm.counter.percents[1] || 0}}%</span>
-						</p>
-					</div>
-					<div class="height" data-ng-if="vm.counter.heights.heights[2]">
-						<p class="details-wrapper">
-							<span class="main-info">{{vm.counter.heights.heights[2] || '~'}}</span>
-							<span class="counter peers">{{vm.counter.heights.counter[2] || 0}}</span>
-							<span class="counter percetage">{{vm.counter.percents[2] || 0}}%</span>
-						</p>
-					</div>
-					<div class="height" data-ng-if="vm.counter.heights.heights[3]">
-						<p class="details-wrapper">
-							<span class="main-info">{{vm.counter.heights.heights[3] || '~'}}</span>
-							<span class="counter peers">{{vm.counter.heights.counter[3] || 0}}</span>
-							<span class="counter percetage">{{vm.counter.percents[3] || 0}}%</span>
-						</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-xs-12">
-					<p class="text-muted text-center">{{vm.counter.heights.counter[4] || 0}} &bull; {{vm.counter.percents[4] || 0}}% Peers at other heights</p>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-xs-12 big-info peers">
-			<uib-tabset justified="true" class="peers">
+			<uib-tabset class="peers">
 				<uib-tab>
-					<uib-tab-heading><span class="glyphicon glyphicon-ok-sign"></span> Connected Peers</uib-tab-heading>
+					<uib-tab-heading><span class="glyphicon glyphicon-info-sign"></span> Summary</uib-tab-heading>
+					<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-if="vm.peers" data-ng-cloak>
+						<div class="col-xs-12 col-sm-12 col-md-5 big-info platforms-block">
+							<p class="small-title text-center">Platforms</p>
+
+							<div class="row platforms">
+								<div class="col-xs-12">
+									<div class="platform">
+										<p class="details-wrapper">
+											<span class="main-info">
+												<img os-icon os="'Darwin'" brand="{ name: 'darwin' }">
+											</span>
+											<span class="counter peers mac-counter">{{vm.counter.platforms.one.counter || 0}}</span>
+										</p>
+									</div>
+									<div class="platform">
+										<p class="details-wrapper">
+											<span class="main-info">
+												<img os-icon os="'Linux'" brand="{ name: 'linux' }">
+											</span>
+											<span class="counter peers linux-counter">{{vm.counter.platforms.two.counter || 0}}</span>
+										</p>
+									</div>
+									<div class="platform">
+										<p class="details-wrapper">
+											<span class="main-info">
+												<img os-icon os="'FreeBSD'" brand="{ name: 'freebsd' }">
+											</span>
+											<span class="counter peers freebsd-counter">{{vm.counter.platforms.three.counter || 0}}</span>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<p class="text-muted text-center">{{vm.counter.platforms.other.counter || 0}} Peers on other platforms.</p>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-12 col-sm-12 col-md-7 big-info versions-block">
+							<p class="small-title text-center">Versions</p>
+
+							<div class="row versions">
+								<div class="col-xs-12">
+									<div class="version" data-ng-if="vm.counter.versions.one.num">
+										<p class="details-wrapper">
+											<span class="main-info best">{{vm.counter.versions.one.num || '~'}}</span>
+											<span class="counter peers">{{vm.counter.versions.one.counter || 0}}</span>
+										</p>
+									</div>
+									<div class="version" data-ng-if="vm.counter.versions.two.num">
+										<p class="details-wrapper">
+											<span class="main-info">{{vm.counter.versions.two.num || '~'}}</span>
+											<span class="counter peers">{{vm.counter.versions.two.counter || 0}}</span>
+										</p>
+									</div>
+									<div class="version" data-ng-if="vm.counter.versions.three.num">
+										<p class="details-wrapper">
+											<span class="main-info">{{vm.counter.versions.three.num || '~'}}</span>
+											<span class="counter peers">{{vm.counter.versions.three.counter || 0}}</span>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<p class="text-muted text-center">{{vm.counter.versions.other.counter || 0}} Peers on other versions.</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-if="vm.peers" data-ng-cloak>
+						<div class="col-xs-12 col-sm-12 big-info best-heights-block">
+							<p class="small-title text-center">Best heights</p>
+
+							<div class="row heights">
+								<div class="col-xs-12">
+									<div class="height" data-ng-if="vm.counter.heights.heights[0]">
+										<p class="details-wrapper">
+											<span class="main-info best">{{vm.counter.heights.heights[0] || '~'}}</span>
+											<span class="counter peers">{{vm.counter.heights.counter[0] || 0}}</span>
+											<span class="counter percetage">{{vm.counter.percents[0] || 0}}%</span>
+										</p>
+									</div>
+									<div class="height" data-ng-if="vm.counter.heights.heights[1]">
+										<p class="details-wrapper">
+											<span class="main-info">{{vm.counter.heights.heights[1] || '~'}}</span>
+											<span class="counter peers">{{vm.counter.heights.counter[1] || 0}}</span>
+											<span class="counter percetage">{{vm.counter.percents[1] || 0}}%</span>
+										</p>
+									</div>
+									<div class="height" data-ng-if="vm.counter.heights.heights[2]">
+										<p class="details-wrapper">
+											<span class="main-info">{{vm.counter.heights.heights[2] || '~'}}</span>
+											<span class="counter peers">{{vm.counter.heights.counter[2] || 0}}</span>
+											<span class="counter percetage">{{vm.counter.percents[2] || 0}}%</span>
+										</p>
+									</div>
+									<div class="height" data-ng-if="vm.counter.heights.heights[3]">
+										<p class="details-wrapper">
+											<span class="main-info">{{vm.counter.heights.heights[3] || '~'}}</span>
+											<span class="counter peers">{{vm.counter.heights.counter[3] || 0}}</span>
+											<span class="counter percetage">{{vm.counter.percents[3] || 0}}%</span>
+										</p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-12">
+									<p class="text-muted text-center">{{vm.counter.heights.counter[4] || 0}} &bull; {{vm.counter.percents[4] || 0}}% Peers at other heights</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</uib-tab>
+				<uib-tab>
+					<uib-tab-heading><span class="glyphicon glyphicon-ok-sign"></span> Connected Peers <span class="badge">{{vm.counter.connected || 0}}</span></uib-tab-heading>
 					<peers peers="vm.peers.connected"></peers>
 				</uib-tab>
 				<uib-tab>
-					<uib-tab-heading><span class="glyphicon glyphicon-remove-sign"></span> Disconnected Peers</uib-tab-heading>
+					<uib-tab-heading><span class="glyphicon glyphicon-remove-sign"></span> Disconnected Peers <span class="badge">{{vm.counter.disconnected || 0}}</span></uib-tab-heading>
 					<peers peers="vm.peers.disconnected"></peers>
+				</uib-tab>
+				<uib-tab>
+					<uib-tab-heading><span class="glyphicon glyphicon-stats"></span> Statistics</uib-tab-heading>
+
+					<div class="row" style="margin-left: 0; margin-right:0;" data-ng-if="vm.peers" data-ng-cloak>
+						<div class="col-xs-3 col-sm-3 big-info best-heights-block">
+							<p class="small-title text-center">Basic Stats</p>
+							<div class="row" style="margin-left: 0; margin-right:0;">
+								<table class="table table-striped">
+										<thead>
+											<th class="">Name</th>
+											<th class="text-right">Value</th>
+										</thead>
+										<tr>
+											<td class="">Connected Peers</td>
+											<td class="text-right">{{vm.counter.connected || 0}}</td>
+										</tr>
+										<tr>
+											<td class="">Disconnected Peers</td>
+											<td class="text-right">{{vm.counter.disconnected || 0}}</td>
+										</tr>
+										<tr>
+											<td class="">Total no. of Peers</td>
+											<td class="text-right">{{vm.counter.total || 0}}</td>
+										</tr>
+										<tr>
+											<td class="" colspan="2">Volume in LSK <span class="pull-right">{{vm.volume.amount}}</span></td>
+										</tr>
+										<tr>
+											<td class="">Number of transactions</td>
+											<td class="text-right">{{vm.volume.txs || 0}}</td>
+										</tr>
+										<tr>
+											<td class="">Number of withTxts</td>
+											<td class="text-right">{{vm.volume.withTxs || 0}}</td>
+										</tr>
+										<tr>
+											<td class="">Blocks with transactions</td>
+											<td class="text-right">{{vm.volume.blocks || 0}}</td>
+										</tr>
+								</table>
+							</div>
+						</div>
+
+						<div class="col-xs-3 col-sm-3 big-info best-heights-block">
+							<p class="small-title text-center">Height distribution</p>
+							<div class="row" style="margin-left: 0; margin-right:0;">
+								<table class="table table-striped">
+									<thead>
+										<th class="">Height</th>
+										<th class="text-right">Count</th>
+										<th class="text-right">%</th>
+									</thead>
+									<tr data-ng-repeat='v in vm.counter.heightDistribution track by $index'>
+										<td class="">{{v.group}}</td>
+										<td class="text-right">{{v.count}}</td>
+										<td class="text-right">{{v.percent}} %</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+						<div class="col-xs-3 col-sm-3 big-info best-heights-block">
+							<p class="small-title text-center">Version distribution</p>
+							<div class="row" style="margin-left: 0; margin-right:0;">
+								<table class="table table-striped">
+									<thead>
+										<th class="">Version</th>
+										<th class="text-right">Count</th>
+										<th class="text-right">%</th>
+									</thead>
+									<tr data-ng-repeat='v in vm.counter.versionDistribution track by $index'>
+										<td class="">{{v.version}}</td>
+										<td class="text-right">{{v.count}}</td>
+										<td class="text-right">{{v.percent}} %</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+						<div class="col-xs-3 col-sm-3 big-info best-heights-block">
+							<p class="small-title text-center">Platform distribution</p>
+							<div class="row" style="margin-left: 0; margin-right:0;">
+								<table class="table table-striped">
+									<thead>
+										<th class="">Platform</th>
+										<th class="text-right">Count</th>
+										<th class="text-right">%</th>
+									</thead>
+									<tr data-ng-repeat='v in vm.counter.platformDistribution track by $index'>
+										<td class="">{{v.platform}}</td>
+										<td class="text-right">{{v.count}}</td>
+										<td class="text-right">{{v.percent}} %</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
 				</uib-tab>
 			</uib-tabset>
 		</div>
