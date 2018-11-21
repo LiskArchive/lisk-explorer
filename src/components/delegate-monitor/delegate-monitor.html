@@ -147,97 +147,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
-		<div class="col-lg-12">
-			<div class="row">
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-					<div class="row big-info">
-						<div class="col-xs-12">
-							<div class="latest-votes">
-								<p class="small-title">Latest Votes</p>
 
-								<div class="table-responsive">
-									<table class="table table-condensed votes inner">
-										<thead>
-											<tr>
-												<th class="left-padding-xs left-padding-s left-padding-l">Voter</th>
-												<th class="hidden-xs">Transaction</th>
-												<th>Time</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr data-ng-if="!vm.votes">
-												<td class="left-padding-xs left-padding-s left-padding-l" colspan="4">Waiting for votes <i class="fa fa-spinner fa-spin"></i></td>
-											</tr>
-										</tbody>
-										<tbody>
-											<tr data-ng-repeat='v in vm.votes track by $index'>
-												<td class="voter left-padding-xs left-padding-s left-padding-l">
-													<a data-account-href="v" data-type="sender" data-ng-if="v.senderId && !v.delegate.username">{{v.senderId}}</a>
-													<a data-account-href="v.delegate" data-type="delegate" data-ng-if="v.delegate.username">{{v.delegate.username}}</a>
-												</td>
-												<td class="tx hidden-xs">
-													<a class="ellipsis" data-ng-href="/tx/{{v.id}}">{{v.id}}</a>
-												</td>
-												<td class="time-ago">
-													<span class="text-muted">{{v.timestamp | timeAgo}}</span>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
-					<div class="row big-info">
-						<div class="col-xs-12">
-							<div class="newest-delegates">
-								<p class="small-title">Newest Delegates</p>
-
-								<div class="table-responsive">
-									<table class="table table-condensed registrations inner">
-										<thead>
-											<tr>
-												<th>Delegate</th>
-												<th class="hidden-xs">Transaction</th>
-												<th>Time</th>
-											</tr>
-										</thead>
-										<tbody>
-											<tr data-ng-if="!vm.registrations">
-												<td colspan="4">Waiting for registrations <i class="fa fa-spinner fa-spin"></i></td>
-											</tr>
-										</tbody>
-										<tbody>
-											<tr data-ng-repeat='r in vm.registrations track by $index'>
-												<td class="delegate">
-													<a data-account-href="r.delegate" data-type="delegate">{{r.delegate.username}}</a>
-												</td>
-												<td class="tx hidden-xs">
-													<a class="ellipsis" data-ng-href="/tx/{{r.id}}">{{r.id}}</a>
-												</td>
-												<td class="time-ago">
-													<span class="text-muted">{{r.timestamp | timeAgo}}</span>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="row">
 		<div class="col-xs-12 big-info">
-			<uib-tabset vertical="true" type="pills">
-				<uib-tab heading="Active Delegates" class="active-delegates-tab horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
-					<p class="small-title horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double">Active Delegates</p>
-
+			<uib-tabset>
+				<uib-tab>
+					<uib-tab-heading>Active Delegates <span class="badge">{{vm.totalActive || 0}}</span></uib-tab-heading>
 					<div class="row forging-totals horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 						<div class="col-xs-12 col-sm-3">
 							<div class="forging-total green">
@@ -313,12 +228,8 @@
 						</table>
 					</div>
 				</uib-tab>
-				<uib-tab heading="Standby Delegates" data-ng-click="vm.getStandby(1)" class="standby-delegates-tab horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
-					<div class='row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l'>
-						<div class="col-lg-12">
-							<p class="small-title">Standby Delegates</p>
-						</div>
-					</div>
+				<uib-tab data-ng-click="vm.getStandby(1)" class="standby-delegates-tab">
+					<uib-tab-heading>Standby Delegates <span class="badge">{{vm.totalStandby || 0}}</span></uib-tab-heading>
 
 					<div class="table-responsive">
 						<table class="table table-hover table-striped standby-delegates">
@@ -354,6 +265,73 @@
 							<button class="btn btn-default less-button bordered-button" data-ng-click="vm.getStandby(vm.pagination.previousPage)" data-ng-disabled="!vm.pagination.before">Previous page</button>
 							<button class="btn btn-default more-button bordered-button" data-ng-click="vm.getStandby(vm.pagination.nextPage)"data-ng-disabled="!vm.pagination.more">Next page</button>
 						</div>
+					</div>
+				</uib-tab>
+				<uib-tab>
+					<uib-tab-heading>Latest votes</uib-tab-heading>
+
+					<div class="table-responsive">
+						<table class="table table-condensed votes inner">
+							<thead>
+								<tr>
+									<th class="left-padding-xs left-padding-s left-padding-l">Voter</th>
+									<th class="hidden-xs">Transaction</th>
+									<th>Time</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-ng-if="!vm.votes">
+									<td class="left-padding-xs left-padding-s left-padding-l" colspan="4">Waiting for votes <i class="fa fa-spinner fa-spin"></i></td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr data-ng-repeat='v in vm.votes track by $index'>
+									<td class="voter left-padding-xs left-padding-s left-padding-l">
+										<a data-account-href="v" data-type="sender" data-ng-if="v.senderId && !v.delegate.username">{{v.senderId}}</a>
+										<a data-account-href="v.delegate" data-type="delegate" data-ng-if="v.delegate.username">{{v.delegate.username}}</a>
+									</td>
+									<td class="tx hidden-xs">
+										<a class="ellipsis" data-ng-href="/tx/{{v.id}}">{{v.id}}</a>
+									</td>
+									<td class="time-ago">
+										<span class="text-muted">{{v.timestamp | timeAgo}}</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</uib-tab>
+				<uib-tab>
+					<uib-tab-heading>Newest delegates</uib-tab-heading>
+
+					<div class="table-responsive">
+						<table class="table table-condensed registrations inner">
+							<thead>
+								<tr>
+									<th>Delegate</th>
+									<th class="hidden-xs">Transaction</th>
+									<th>Time</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr data-ng-if="!vm.registrations">
+									<td colspan="4">Waiting for registrations <i class="fa fa-spinner fa-spin"></i></td>
+								</tr>
+							</tbody>
+							<tbody>
+								<tr data-ng-repeat='r in vm.registrations track by $index'>
+									<td class="delegate">
+										<a data-account-href="r.delegate" data-type="delegate">{{r.delegate.username}}</a>
+									</td>
+									<td class="tx hidden-xs">
+										<a class="ellipsis" data-ng-href="/tx/{{r.id}}">{{r.id}}</a>
+									</td>
+									<td class="time-ago">
+										<span class="text-muted">{{r.timestamp | timeAgo}}</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
 					</div>
 				</uib-tab>
 			</uib-tabset>
