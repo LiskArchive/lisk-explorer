@@ -163,28 +163,6 @@ const devConfig = {
 			clientId: process.env.CLIENT_ID,
 			version: packageConfig.version,
 		}),
-		// new BundleAnalyzerPlugin({
-		// 	openAnalyzer: false,
-		// 	analyzerMode: 'static',
-		// }),
-		// new Webpack.optimize.UglifyJsPlugin({
-		// 	sourceMap: true,
-		// 	mangle: false,
-		// }),
-		// new Webpack.optimize.CommonsChunkPlugin({
-		// 	name: 'vendor',
-		// 	chunks: ['main'],
-		// 	minChunks: module => PATHS.vendors.test(module.resource),
-		// }),
-		// new Webpack.ProvidePlugin({
-		// 	app: `exports?exports.default!${Path.join(PATHS.app, 'app')}`,
-		// 	$: Path.resolve(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
-		// }),
-		// new Webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
-
-		// new NgAnnotatePlugin({
-		// 	add: true,
-		// }),
 	]),
 };
 
