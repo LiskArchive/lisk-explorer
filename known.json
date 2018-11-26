@@ -20,5 +20,7 @@
 	"2797034409072178585L" 	: { "owner" : "BitBay.net", "description" : "Withdrawal Wallet" },
 	"15610359283786884938L" : { "owner" : "Binance", "description" : "Hot Wallet" },
 	"14367838290034827614L" : { "owner" : "Coincheck.com", "description" : "Old Wallet" },
-	"16293716040102736949L" : { "owner" : "Coincheck.com", "description" : "Main Wallet"}
+	"16293716040102736949L" : { "owner" : "Coincheck.com", "description" : "Main Wallet"},
+	"9094944264474023843L"  : { "owner" : "ICONOMI", "description" : "ICO Wallet"},
+	"12167418142926850031L" : { "owner" : "Binance", "description" : "Main Wallet"}
 }
