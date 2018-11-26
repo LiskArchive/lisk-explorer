@@ -38,13 +38,15 @@ const PATHS = {
 
 process.traceDeprecation = true;
 
-module.exports = () => ({
-	devtool: 'hidden',
+const debug = process.env.DEBUG === 'true';
+
+const defaultConfig = {
+	devtool: 'source-map',
 	entry: Path.resolve(__dirname, `${PATHS.app}/main.js`),
 	output: {
-		filename: '[name].bundle.js',
+		filename: '[name].[hash].bundle.js',
 		path: Path.resolve(__dirname, PATHS.dev),
-		sourceMapFilename: '[name].map',
+		sourceMapFilename: '[name].[hash].map',
 	},
 	devServer: {
 		contentBase: PATHS.dev,
@@ -60,36 +62,7 @@ module.exports = () => ({
 			sigma: Path.resolve(__dirname, 'node_modules/sigma/build/sigma.require.js'),
 		},
 	},
-	plugins: removeEmpty([
-		new HtmlWebpackPlugin({
-			template: 'src/index.ejs',
-			serviceName: process.env.SERVICE_NAME,
-			clientId: process.env.CLIENT_ID,
-			version: packageConfig.version,
-		}),
-		new BundleAnalyzerPlugin({
-			openAnalyzer: false,
-			analyzerMode: 'static',
-		}),
-		new Webpack.optimize.UglifyJsPlugin({
-			sourceMap: false,
-			mangle: false,
-		}),
-		new Webpack.optimize.CommonsChunkPlugin({
-			name: 'vendor',
-			chunks: ['main'],
-			minChunks: module => PATHS.vendors.test(module.resource),
-		}),
-		new Webpack.ProvidePlugin({
-			app: `exports?exports.default!${Path.join(PATHS.app, 'app')}`,
-			$: Path.resolve(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
-		}),
-		new Webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
-
-		new NgAnnotatePlugin({
-			add: true,
-		}),
-	]),
+	plugins: [],
 	module: {
 		rules: [
 			{
@@ -174,4 +147,86 @@ module.exports = () => ({
 			},
 		],
 	},
-});
+};
+
+const devConfig = {
+	devtool: 'source-map',
+	output: {
+		filename: '[name].[hash].bundle.js',
+		path: Path.resolve(__dirname, PATHS.dev),
+		sourceMapFilename: '[name].[hash].map',
+	},
+	plugins: removeEmpty([
+		new HtmlWebpackPlugin({
+			template: 'src/index.ejs',
+			serviceName: process.env.SERVICE_NAME,
+			clientId: process.env.CLIENT_ID,
+			version: packageConfig.version,
+		}),
+		// new BundleAnalyzerPlugin({
+		// 	openAnalyzer: false,
+		// 	analyzerMode: 'static',
+		// }),
+		// new Webpack.optimize.UglifyJsPlugin({
+		// 	sourceMap: true,
+		// 	mangle: false,
+		// }),
+		// new Webpack.optimize.CommonsChunkPlugin({
+		// 	name: 'vendor',
+		// 	chunks: ['main'],
+		// 	minChunks: module => PATHS.vendors.test(module.resource),
+		// }),
+		// new Webpack.ProvidePlugin({
+		// 	app: `exports?exports.default!${Path.join(PATHS.app, 'app')}`,
+		// 	$: Path.resolve(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
+		// }),
+		// new Webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
+
+		// new NgAnnotatePlugin({
+		// 	add: true,
+		// }),
+	]),
+};
+
+const prodConfig = {
+	devtool: 'hidden',
+	output: {
+		filename: '[name].bundle.js',
+		path: Path.resolve(__dirname, PATHS.dev),
+		sourceMapFilename: '[name].map',
+	},
+	plugins: removeEmpty([
+		new HtmlWebpackPlugin({
+			template: 'src/index.ejs',
+			serviceName: process.env.SERVICE_NAME,
+			clientId: process.env.CLIENT_ID,
+			version: packageConfig.version,
+		}),
+		new BundleAnalyzerPlugin({
+			openAnalyzer: false,
+			analyzerMode: 'static',
+		}),
+		new Webpack.optimize.UglifyJsPlugin({
+			sourceMap: false,
+			mangle: false,
+		}),
+		new Webpack.optimize.CommonsChunkPlugin({
+			name: 'vendor',
+			chunks: ['main'],
+			minChunks: module => PATHS.vendors.test(module.resource),
+		}),
+		new Webpack.ProvidePlugin({
+			app: `exports?exports.default!${Path.join(PATHS.app, 'app')}`,
+			$: Path.resolve(__dirname, 'node_modules/jquery/dist/jquery.min.js'),
+		}),
+		new Webpack.ContextReplacementPlugin(/moment[/\\]locale$/, /en/),
+
+		new NgAnnotatePlugin({
+			add: true,
+		}),
+	]),
+};
+
+const complementaryConfig = debug ? devConfig : prodConfig;
+
+module.exports = () => ({ ...defaultConfig, ...complementaryConfig });
