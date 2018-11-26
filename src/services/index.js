@@ -15,6 +15,7 @@
  */
 import './services.module';
 import './address-txs';
+import './all-txs';
 import './block-txs';
 import './forging-monitor';
 import './forging-status';
