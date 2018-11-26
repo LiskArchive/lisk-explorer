@@ -267,7 +267,7 @@
 											<td class="text-right">{{vm.counter.total || 0}}</td>
 										</tr>
 										<tr>
-											<td class="" colspan="2">Volume in LSK <span class="pull-right">{{vm.volume.amount}}</span></td>
+											<td class="" colspan="2">Volume in LSK <span class="pull-right">{{vm.volume.amount || 0 | currency:{symbol: 'LSK'}:8}}</span></td>
 										</tr>
 										<tr>
 											<td class="">Number of transactions</td>
