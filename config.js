@@ -50,7 +50,7 @@ config.redis.db = process.env.REDIS_DB || 0;
 config.redis.password = '';
 
 // Time in seconds to store cache in Redis
-config.cacheTTL = 20;
+config.cacheTTL = 1;
 
 // Collect logs (true - enabled, false - disabled)
 config.log.enabled = true;

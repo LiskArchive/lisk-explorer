@@ -25,6 +25,31 @@ const AddressConstructor = function (
 ) {
 	const vm = this;
 
+	const addAccountTypeDescription = (d) => {
+		const isMultisig = d.multisignatureAccount !== null && typeof d.multisignatureAccount === 'object' && d.multisignatureAccount.members;
+		const isDelegate = d.delegate !== null && typeof d.delegate === 'object' && d.delegate.username;
+		if (isMultisig && isDelegate) {
+			d.accountType = 'Multisignature delegate account';
+		} else if (isMultisig) {
+			d.accountType = 'Multisignature account';
+		} else if (isDelegate) {
+			d.accountType = 'Delegate account';
+		} else {
+			d.accountType = 'Regular account';
+		}
+
+		if (d.secondSignature) {
+			d.accountType += ' with a second signature';
+		}
+		if (Array.isArray(d.multisignatureMemberships) && d.multisignatureMemberships.length >= 1) {
+			d.accountType += `, member of ${d.multisignatureMemberships.length} multisignature group`;
+		}
+		if (Array.isArray(d.multisignatureMemberships) && d.multisignatureMemberships.length > 1) {
+			d.accountType += 's';
+		}
+		return d;
+	};
+
 	vm.getAddress = () => {
 		$http.get('/api/getAccount', {
 			params: {
@@ -32,7 +57,7 @@ const AddressConstructor = function (
 			},
 		}).then((resp) => {
 			if (resp.data.success) {
-				vm.address = resp.data;
+				vm.address = addAccountTypeDescription(resp.data);
 				vm.getVotes(vm.address.publicKey);
 			} else {
 				throw new Error('Account was not found!');

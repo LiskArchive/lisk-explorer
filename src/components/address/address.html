@@ -16,16 +16,6 @@
  */
 -->
 <section>
-	<h1>
-		Address summary&nbsp;
-		<small data-ng-if="vm.address.secondSignature" data-uib-tooltip="Second signature">
-			<i class="glyphicon glyphicon-lock"></i>
-		</small>
-		<small data-ng-if="vm.address.multisignatures && vm.address.multisignatures.length" data-uib-tooltip="Multi Signature">
-			<i class="glyphicon glyphicon-info-sign"></i>
-		</small>
-	</h1>
-
 	<div class="secondary_navbar hidden-xs hidden-sm" scroll data-ng-class="{'hidden': !secondaryNavbar}"
 	data-ng-if="vm.address.balance" data-ng-init="hideSNavbar=0">
 		<div class="container" data-ng-if="!hideSNavbar">
@@ -50,7 +40,11 @@
 			<span>Loading Address <i class="fa fa-spinner fa-spin"></i></span>
 		</div>
 	</div>
-
+	<h1>
+		{{vm.address.address}}&nbsp;
+		<br />
+		<small><span>{{vm.address.accountType || 'Loading...'}}</span></small>
+	</h1>
 	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 		<div class="col-md-9 col-lg-10">
 			<div class="table-responsive">
