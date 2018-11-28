@@ -207,13 +207,10 @@ h1 {
   margin: 0;
 }
 
-h1>small {
-  white-space: nowrap;
-}
-
 @media (max-width: 769px) {
   h1 {
-    padding: 30px 12px 25px;
+		padding: 30px 12px 25px;
+		font-size: 2em;
   }
 }
 
