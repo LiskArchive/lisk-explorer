@@ -26,13 +26,11 @@ const AddressConstructor = function (
 	const vm = this;
 
 	const addAccountTypeDescription = (d) => {
-		const isMultisig = d.multisignatureAccount !== null && typeof d.multisignatureAccount === 'object' && d.multisignatureAccount.members;
-		const isDelegate = d.delegate !== null && typeof d.delegate === 'object' && d.delegate.username;
-		if (isMultisig && isDelegate) {
+		if (vm.address.isMultisig && vm.address.isDelegate) {
 			d.accountType = 'Multisignature delegate account';
-		} else if (isMultisig) {
+		} else if (vm.address.isMultisig) {
 			d.accountType = 'Multisignature account';
-		} else if (isDelegate) {
+		} else if (vm.address.isDelegate) {
 			d.accountType = 'Delegate account';
 		} else {
 			d.accountType = 'Regular account';
@@ -57,8 +55,11 @@ const AddressConstructor = function (
 			},
 		}).then((resp) => {
 			if (resp.data.success) {
+				vm.address.isMultisig = resp.data.multisignatureAccount !== null && typeof resp.data.multisignatureAccount === 'object' && resp.data.multisignatureAccount.members;
+				vm.address.isDelegate = resp.data.delegate !== null && typeof resp.data.delegate === 'object' && resp.data.delegate.username;
 				vm.address = addAccountTypeDescription(resp.data);
 				vm.getVotes(vm.address.publicKey);
+				if (vm.isDelegate) { vm.getVoters(vm.address.publicKey); }
 			} else {
 				throw new Error('Account was not found!');
 			}
@@ -71,6 +72,34 @@ const AddressConstructor = function (
 		$http.get('/api/getVotes', { params: { publicKey } }).then((resp) => {
 			if (resp.data.success) {
 				vm.address.votes = resp.data.votes;
+			}
+		});
+	};
+
+	vm.getVoters = (publicKey) => {
+		$http.get('/api/getVoters', { params: { publicKey } }).then((resp) => {
+			if (resp.data.success) {
+				vm.address.voters = resp.data.voters;
+				vm.address.votersMeta = resp.data.meta;
+				vm.address.votersCount = vm.address.votersMeta.count;
+			}
+		});
+	};
+
+	vm.loadMoreVoters = () => {
+		const limit = vm.address.votersMeta.limit;
+		const offset = vm.address.votersMeta.offset + limit;
+
+		$http.get('/api/getVoters', { params: { publicKey: vm.address.publicKey, limit, offset } }).then((resp) => {
+			if (resp.data.success) {
+				for (let i = 0; i < resp.data.voters.length; i++) {
+					if (vm.address.voters.indexOf(resp.data.voters[i]) < 0) {
+						vm.address.voters.push(resp.data.voters[i]);
+					}
+				}
+
+				vm.address.votersMeta = resp.data.meta;
+				vm.address.votersCount = vm.address.votersMeta.count;
 			}
 		});
 	};
@@ -94,6 +123,7 @@ const AddressConstructor = function (
 	};
 
 	vm.getAddress();
+
 	vm.txs = addressTxs({ address: $stateParams.address });
 };
 
