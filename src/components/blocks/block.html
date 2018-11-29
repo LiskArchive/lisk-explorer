@@ -17,9 +17,9 @@
 -->
 <section>
 	<h1>
-		Block&nbsp;
-		<small>{{vm.block.id}}</small>
-		<span class="btn-copy" clip-copy="vm.block.id"></span>
+		{{vm.block.id}}&nbsp;
+		<br />
+		<small>Block</small>
 	</h1>
 	<div class="text-muted" data-ng-if="!vm.block.height">
 		<span>Loading Block <i class="fa fa-spinner fa-spin"></i>
@@ -31,16 +31,20 @@
 					<table class="table summary">
 						<tbody>
 							<tr>
-								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Transactions</strong></td>
+								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Block ID</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.block.id}}<span class="btn-copy" clip-copy="vm.block.id"></span></td>
+							</tr>
+							<tr>
+								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Height</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.block.height}}<span class="btn-copy" clip-copy="vm.block.height"></span></td>
+							</tr>
+							<tr>
+								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Number of transactions</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.block.numberOfTransactions}}</td>
 							</tr>
 							<tr>
 								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Confirmations</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.block.confirmations}}</td>
-							</tr>
-							<tr>
-								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Height</strong></td>
-								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.block.height}}</td>
 							</tr>
 							<tr>
 								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Reward</strong></td>
