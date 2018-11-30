@@ -3,7 +3,7 @@
 pipeline {
 	agent { node { label 'lisk-explorer' } }
 	environment {
-		LISK_VERSION = '1.0.0-beta.9.2'
+		LISK_CORE_VERSION = '1.3.0'
 		EXPLORER_PORT = "604$EXECUTOR_NUMBER"
 		LISK_HOST = 'localhost'
 		REDIS_DB = "$EXECUTOR_NUMBER"
@@ -45,25 +45,47 @@ pipeline {
 		}
 		stage ('Start Lisk') {
 			steps {
-				dir("$WORKSPACE/$BRANCH_NAME/") {
-					ansiColor('xterm') {
-						sh '''
-						rsync -axl --delete ~/lisk-docker/examples/development/ ./
-						cp ~/blockchain_explorer.db.gz ./blockchain.db.gz
-						make coldstart
-						'''
-						// show some build-related info
-						sh '''
-						sha1sum ./blockchain.db.gz
-						docker-compose config
-						docker-compose ps
-						'''
-						// Explorer needs the topAccounts feature to be enabled
-						sh '''
-						docker-compose exec -T lisk sed -i -r -e 's/(\\s*"topAccounts":)\\s*false,/\\1 true,/' config.json
-						docker-compose restart lisk
-						'''
-					}
+				dir('lisk') {
+					checkout([$class: 'GitSCM',
+						  branches: [[name: "v${env.LISK_CORE_VERSION}" ]],
+						  userRemoteConfigs: [[url: 'https://github.com/LiskHQ/lisk']]])
+				}
+
+				ansiColor('xterm') {
+					sh '''#!/bin/bash -xe
+					rm -rf $WORKSPACE/$BRANCH_NAME/
+					cp -rf $WORKSPACE/lisk/docker/ $WORKSPACE/$BRANCH_NAME/
+					wget -nv https://downloads.lisk.io/lisk-explorer/dev/dev_blockchain.db.gz -O $WORKSPACE/$BRANCH_NAME/dev_blockchain.db.gz
+					cd $WORKSPACE/$BRANCH_NAME
+					cp .env.development .env
+
+					sed -i -r -e '/ports:/,+2d' docker-compose.yml
+					# random port assignment
+					cat <<EOF >docker-compose.override.yml
+version: "2"
+services:
+
+  lisk:
+    ports:
+      - \\${ENV_LISK_HTTP_PORT}
+      - \\${ENV_LISK_WS_PORT}
+EOF
+
+					ENV_LISK_VERSION="$LISK_CORE_VERSION" make coldstart
+					'''
+					// show some build-related info
+					sh '''
+					cd $WORKSPACE/$BRANCH_NAME
+					sha1sum dev_blockchain.db.gz
+					docker-compose config
+					docker-compose ps
+					'''
+					// Explorer needs the topAccounts feature to be enabled
+					sh '''
+					cd $WORKSPACE/$BRANCH_NAME
+					docker-compose exec -T lisk sed -i -r -e 's/(\\s*"topAccounts":)\\s*false,/\\1 true,/' config/default/config.json
+					docker-compose restart lisk
+					'''
 				}
 			}
 		}
@@ -93,9 +115,9 @@ pipeline {
 		// stage ('Run E2E tests') {
 		// 	steps {
 		// 		wrap([$class: 'Xvfb']) {
-		//			nvm(getNodejsVersion()) {
-		//	 			sh 'npm run e2e -- --params.baseURL http://localhost:$EXPLORER_PORT'
-		//			}
+		// 			nvm(getNodejsVersion()) {
+		// 				sh 'npm run e2e -- --params.baseURL http://localhost:$EXPLORER_PORT'
+		// 			}
 		// 		}
 		// 	}
 		// }
