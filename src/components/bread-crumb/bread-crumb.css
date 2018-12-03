@@ -13,12 +13,18 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
+.breadcrumb-row {
+	margin-left: 0;
+	margin-right: 0;
+}
+
 .breadcrumb {
   padding: 8px 12px;
   background-color: inherit;
   border-radius: 0;
   margin-top: 20px;
-  margin-bottom: 0;
+	margin-bottom: 0;
+	padding-bottom: 0;
 }
 
 .breadcrumb > li a,
@@ -33,3 +39,19 @@
 .breadcrumb > li + li:before {
     padding: 0 0 0 7px;
 }
+
+.breadcrumb-currency-picker {
+	margin-bottom: 0;
+	padding-bottom: 0;
+	margin-left: 0;
+}
+
+.breadcrumb-currency-picker > ul {
+	margin-bottom: 0;
+	padding: 1px 12px;
+	list-style-type: none;
+	float: right;
+	background-color: white;
+	border-radius: 8px 8px 0 0;
+}
+
