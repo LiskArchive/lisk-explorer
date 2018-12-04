@@ -26,24 +26,24 @@ const AddressConstructor = function (
 	const vm = this;
 
 	const addAccountTypeDescription = (d) => {
-		if (vm.address.isMultisig && vm.address.isDelegate) {
-			d.accountType = 'Multisignature delegate account';
-		} else if (vm.address.isMultisig) {
-			d.accountType = 'Multisignature account';
-		} else if (vm.address.isDelegate) {
-			d.accountType = 'Delegate account';
+		if (vm.isMultisig && vm.isDelegate) {
+			vm.accountType = 'Multisignature delegate account';
+		} else if (vm.isMultisig) {
+			vm.accountType = 'Multisignature account';
+		} else if (vm.isDelegate) {
+			vm.accountType = 'Delegate account';
 		} else {
-			d.accountType = 'Regular account';
+			vm.accountType = 'Regular account';
 		}
 
 		if (d.secondSignature) {
-			d.accountType += ' with a second signature';
+			vm.accountType += ' with a second signature';
 		}
 		if (Array.isArray(d.multisignatureMemberships) && d.multisignatureMemberships.length >= 1) {
-			d.accountType += `, member of ${d.multisignatureMemberships.length} multisignature group`;
+			vm.accountType += `, member of ${d.multisignatureMemberships.length} multisignature group`;
 		}
 		if (Array.isArray(d.multisignatureMemberships) && d.multisignatureMemberships.length > 1) {
-			d.accountType += 's';
+			vm.accountType += 's';
 		}
 		return d;
 	};
@@ -55,8 +55,8 @@ const AddressConstructor = function (
 			},
 		}).then((resp) => {
 			if (resp.data.success) {
-				vm.address.isMultisig = resp.data.multisignatureAccount !== null && typeof resp.data.multisignatureAccount === 'object' && resp.data.multisignatureAccount.members;
-				vm.address.isDelegate = resp.data.delegate !== null && typeof resp.data.delegate === 'object' && resp.data.delegate.username;
+				vm.isMultisig = resp.data.multisignatureAccount !== null && typeof resp.data.multisignatureAccount === 'object' && resp.data.multisignatureAccount.members;
+				vm.isDelegate = resp.data.delegate !== null && typeof resp.data.delegate === 'object' && resp.data.delegate.username;
 				vm.address = addAccountTypeDescription(resp.data);
 				vm.getVotes(vm.address.publicKey);
 				if (vm.isDelegate) { vm.getVoters(vm.address.publicKey); }
