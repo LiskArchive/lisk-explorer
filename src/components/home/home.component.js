@@ -13,6 +13,9 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
+import leaflet from 'leaflet';
+import 'leaflet.markercluster';
+
 import AppHome from './home.module';
 import template from './home.html';
 
@@ -27,13 +30,7 @@ const HomeConstructor = function ($scope, $http, $interval) {
 	vm.getLastBlocks = () => {
 		$http.get('/api/getLastBlocks').then((resp) => {
 			if (resp.data.success) {
-				if (vm.blocks && vm.blocks.length > 0) {
-					if (vm.blocks[0].id !== resp.data.blocks[0].id) {
-						vm.blocks = resp.data.blocks;
-					}
-				} else {
-					vm.blocks = resp.data.blocks;
-				}
+				vm.blocks = resp.data.blocks.splice(0, 5);
 			}
 		});
 	};
@@ -47,15 +44,9 @@ const HomeConstructor = function ($scope, $http, $interval) {
 	vm.getLastTransactions = () => {
 		$http.get('/api/getLastTransactions').then((resp) => {
 			if (resp.data.success) {
-				if (vm.txs && vm.txs.length > 0) {
-					if (vm.txs[0] !== resp.data.transactions[0]) {
-						vm.txs = resp.data.transactions;
-						vm.txs.map(setHref);
-					}
-				} else {
-					vm.txs = resp.data.transactions;
-					vm.txs.map(setHref);
-				}
+				vm.txs = resp.data.transactions.splice(0, 5);
+				vm.txs.map(setHref);
+
 			}
 		});
 	};
@@ -65,6 +56,72 @@ const HomeConstructor = function ($scope, $http, $interval) {
 	}, 30000);
 
 	vm.getLastTransactions();
+
+	const NetworkMap = function () {
+		this.markers = {};
+		this.options = {
+			center: leaflet.latLng(40, 0),
+			zoom: 1,
+			minZoom: 1,
+			maxZoom: 10,
+			dragging: !leaflet.Browser.mobile,
+			scrollWheelZoom: false,
+			tap: false,
+		};
+		this.map = leaflet.map('map', this.options);
+		this.cluster = leaflet.markerClusterGroup({ maxClusterRadius: 50 });
+
+		leaflet.Icon.Default.imagePath = '../../assets/img/leaflet';
+
+		leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+			attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+		}).addTo(this.map);
+
+		const PlatformIcon = leaflet.Icon.extend({
+			options: {
+				iconSize: [32, 41],
+				iconAnchor: [16, 41],
+				popupAnchor: [0, -41],
+			},
+		});
+
+		const validLocation = location => location && typeof location.latitude === 'number' &&
+		typeof location.longitude === 'number';
+
+		const popupContent = (p) => {
+			let content = '<p class="ip">'.concat(p.ip, '</p>');
+
+			if (p.location.hostname) {
+				content += '<p class="hostname">'
+					.concat('<span class="label">Hostname: </span>', p.location.hostname, '</p>');
+			}
+
+			content += '<p class="version">'
+				.concat('<span class="label">Version: </span>', p.version, '</p>');
+
+			content += '<p class="os">'
+				.concat('<span class="label">OS: </span>', p.os, '</p>');
+
+			if (p.location.city) {
+				content += '<p class="city">'
+					.concat('<span class="label">City: </span>', p.location.city, '</p>');
+			}
+
+			if (p.location.region_name) {
+				content += '<p class="region">'
+					.concat('<span class="label">Region: </span>', p.location.region_name, '</p>');
+			}
+
+			if (p.location.country_name) {
+				content += '<p class="country">'
+					.concat('<span class="label">Country: </span>', p.location.country_name, '</p>');
+			}
+
+			return content;
+		};
+	};
+
+	this.map = new NetworkMap();
 };
 
 AppHome.component('home', {
