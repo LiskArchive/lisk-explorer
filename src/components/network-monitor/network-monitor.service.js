@@ -154,7 +154,17 @@ const NetworkMap = function () {
 };
 
 const NetworkMonitor = function (vm) {
-	this.map = new NetworkMap();
+	this.map = undefined;
+
+	vm.enableMap = () => {
+		if (typeof this.map === 'undefined') {
+			this.map = new NetworkMap();
+			this.map.addConnected(vm.peers);
+		}
+		setTimeout(() => {
+			this.map.map.invalidateSize();
+		}, 0);
+	};
 
 	function Platforms() {
 		this.counter = [0, 0, 0, 0];
@@ -395,7 +405,9 @@ const NetworkMonitor = function (vm) {
 		};
 
 		vm.counter = this.counter(vm.peers);
-		this.map.addConnected(vm.peers);
+		if (typeof this.map !== 'undefined') {
+			this.map.addConnected(vm.peers);
+		}
 	};
 
 	this.updateLastBlock = (lastBlock) => {
