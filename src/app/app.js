@@ -26,7 +26,7 @@ import 'angular-cookies';
 // styles
 import 'amstock3/amcharts/style.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import 'font-awesome/css/font-awesome.css';
+import '@fortawesome/fontawesome-free';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'angular-advanced-searchbox/dist/angular-advanced-searchbox.min.css';
