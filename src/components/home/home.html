@@ -199,6 +199,11 @@
 								<span class="ellipsis">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
 							</td>
 						</tr>
+						<tfoot>
+							<tr>
+								<td colspan="4"><a href="/txs/" class="pull-right">See more transactions -></a></td>
+							</tr>
+						</tfoot>
 					</tbody>
 				</table>
 			</div>
@@ -241,6 +246,11 @@
 							<td class="right-padding-m right-padding-l double text-right">{{b.totalForged | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td>
 						</tr>
 					</tbody>
+					<tfoot>
+						<tr>
+							<td colspan="6"><a href="/blocks/" class="pull-right">See more blocks -></a></td>
+						</tr>
+					</tfoot>
 				</table>
 			</div>
 		</div>
