@@ -55,3 +55,6 @@
 	border-radius: 8px 8px 0 0;
 }
 
+.breadcrumb-currency-picker > ul:first-of-type {
+	margin-left: 12px;
+}
