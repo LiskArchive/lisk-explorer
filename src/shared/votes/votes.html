@@ -18,7 +18,6 @@
 <div class="delegate-vote" data-ng-show="votes && votes.length > 0">
 	<div class="row votes horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 		<div class="col-md-12">
-			<p>{{votes.length}} votes in total</p>
 			<span data-ng-repeat='vote in votes'>
 				<span data-ng-if="!$last">
 					<a data-account-href="vote" data-type="vote" class="vote-link">{{vote | votes}}</a>
