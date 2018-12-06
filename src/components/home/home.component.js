@@ -13,9 +13,6 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import leaflet from 'leaflet';
-import 'leaflet.markercluster';
-
 import AppHome from './home.module';
 import template from './home.html';
 
@@ -46,7 +43,6 @@ const HomeConstructor = function ($scope, $http, $interval) {
 			if (resp.data.success) {
 				vm.txs = resp.data.transactions.splice(0, 5);
 				vm.txs.map(setHref);
-
 			}
 		});
 	};
