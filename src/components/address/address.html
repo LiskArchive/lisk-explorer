@@ -96,162 +96,157 @@
 			<qrcode size="160" data="{{vm.address.address}}"></qrcode>
 			<span>(Scan for Address)</span>
 		</div>
-
-		<div class="row">
-			<div class="col-xs-12">
-				<uib-tabset>
-					<uib-tab>
-						<uib-tab-heading>Transactions</uib-tab-heading>
-						<div data-ng-if="vm.address.balance" data-ng-init="vm.txs.loadData()">
-							<div class="transactions-filter-header horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double" role="group"
-								aria-label="All/Sent/Received Transactions" data-ng-class="{disabled: vm.direction === 'search'}">
-									<button data-ng-disabled="!vm.direction" data-ng-click="vm.filterTxs();vm.txs.loadData();vm.onFiltersUsed();">All</button>
-									<button class="sent-tab" data-ng-disabled="vm.direction==='sent'" data-ng-click="vm.filterTxs('sent');vm.txs.loadData();vm.onFiltersUsed();">Sent</button>
-									<button class="received-tab" data-ng-disabled="vm.direction==='received'" data-ng-click="vm.filterTxs('received');vm.txs.loadData();vm.onFiltersUsed();">Received</button>
-									<button class="others-tab" data-ng-disabled="vm.direction==='others'" data-ng-click="vm.filterTxs('others');vm.txs.loadData();vm.onFiltersUsed();">Others</button>
-							</div>
-							<transactions-filter data-txs="vm.txs" data-address="vm.address.address"></transactions-filter>
-							<transactions-list data-txs="vm.txs" data-address="vm.address.address"></transactions-list>
-						</div>
-					</uib-tab>
-					<uib-tab>
-						<uib-tab-heading>Details</uib-tab-heading>
-
-						<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-if="vm.isDelegate">
-							<div class="col-md-6 col-lg-7">
-								<h3>Voters <small>{{vm.address.voters.length}}</small></h3>
-								<div class="delegate-vote" data-ng-if="vm.address.voters">
-									<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
-										<div class="col-md-12 voters">
-											<span data-ng-repeat='voter in vm.address.voters'>
-												<span>
-													<a data-account-href="voter" data-type="voter" class="voter-link">{{voter | votes}}</a>
-													<span class="text-muted">&bull;</span>
-												</span>
-												<span data-ng-if="$last && vm.address.voters.length < vm.address.votersCount">
-													<span role="button" class="load-more" data-ng-click="vm.loadMoreVoters()"><b>Load more...</b></span>
-												</span>
-											</span>
-										</div>
-									</div>
-								</div>
-
-								<h3>Votes <small>{{vm.address.votes.length}}</small></h3>
-								<votes data-votes="vm.address.votes"></votes>
-							</div>
-							<div class="col-md-6 col-lg-5">
-								<h3>Forging statistics</h3>
-								<div class="table-responsive">
-									<table class="table summary">
-										<tbody>
-											<tr>
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Name</strong></td>
-												<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
-													<a href="/address/{{vm.address.delegate.address}}">{{vm.address.delegate.username}}</a>
-												</td>
-											</tr>
-											<tr>
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Address</strong></td>
-												<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
-													<a href="/address/{{vm.address.address}}">{{vm.address.address}}</a>
-												</td>
-											</tr>
-											<tr>
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Uptime</strong></td>
-												<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.address.delegate.productivity || 0.00}}%</td>
-											</tr>
-											<tr>
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Rank / Status</strong></td>
-												<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.address.delegate.rate}} / <span class="text-muted">{{(vm.address.delegate.rate &lt;= 101) ? 'Active' : 'Standby'}}</span></td>
-											</tr>
-											<tr>
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Approval</strong></td>
-												<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.address.delegate.approval}}%</td>
-											</tr>
-											<tr>
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Vote weight</strong></td>
-												<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.address.delegate.vote || 0 | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
-											</tr>
-											<tr>
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Forged</strong></td>
-												<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.address.delegate.forged || 0 | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
-											</tr>
-											<tr>
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Blocks</strong></td>
-												<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.address.delegate.producedblocks}} <span class="text-muted">({{vm.address.delegate.missedblocks}} missed)</span></td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-
-						<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
-							<div class="col-md-6" data-ng-if="!vm.isDelegate">
-								<h3>Votes <small>{{vm.address.votes.length}}</small></h3>
-								<votes data-votes="vm.address.votes"></votes>
-							</div>
-							<div class="col-md-6" data-ng-if="vm.isMultisig">
-								<h3>Multisignature account details</h3>
-								<div class="table-responsive">
-									<table class="table summary">
-										<tbody>
-											<tr>
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Multisig lifetime</strong></td>
-												<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
-													{{vm.address.multisignatureAccount.lifetime}}
-												</td>
-											</tr>
-											<tr>
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double" colspan="2"><strong>Minimum number of accounts<br />needed to confirm a multisig transaction</strong>
-													<span class="pull-right">{{vm.address.multisignatureAccount.min}}</span>
-												</td>
-											</tr>
-											<tr>
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Members</strong></td>
-												<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
-													<span data-ng-repeat="acc in vm.address.multisignatureAccount.members">
-															<a href="/address/{{acc.address}}">{{acc.address}}</a><br />
-													</span>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-							<div class="col-md-6" data-ng-if="vm.address.multisignatureMemberships.length">
-								<h3>Multisignature membership details</h3>
-								<div class="table-responsive">
-									<table class="table summary">
-										<tbody>
-											<thead>
-												<th>Lisk ID</th>
-												<th>Lifetime</th>
-												<th>Min</th>
-												<th>Second<br />passphrase?</th>
-											</thead>
-											<tr data-ng-repeat="acc in vm.address.multisignatureMemberships">
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><a href="/address/{{acc.address}}">{{acc.address}}</a></td>
-												<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
-													{{acc.lifetime}}
-												</td>
-												<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
-													{{acc.min}}
-												</td>
-												<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double">
-													<span class="pull-right" data-ng-if="acc.secondPublicKey">yes</span>
-													<span class="pull-right" data-ng-if="!acc.secondPublicKey">no</span>
-												</td>
-											</tr>
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-					</uib-tab>
-				</uib-tabset>
-			</div>
-		</div>
 	</div>
+	<uib-tabset>
+		<uib-tab>
+			<uib-tab-heading><span class="glyphicon glyphicon glyphicon-book"></span> Transactions</uib-tab-heading>
+			<div data-ng-if="vm.address.balance" data-ng-init="vm.txs.loadData()">
+				<div class="transactions-filter-header horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double" role="group"
+					aria-label="All/Sent/Received Transactions" data-ng-class="{disabled: vm.direction === 'search'}">
+						<button data-ng-disabled="!vm.direction" data-ng-click="vm.filterTxs();vm.txs.loadData();vm.onFiltersUsed();">All</button>
+						<button class="sent-tab" data-ng-disabled="vm.direction==='sent'" data-ng-click="vm.filterTxs('sent');vm.txs.loadData();vm.onFiltersUsed();">Sent</button>
+						<button class="received-tab" data-ng-disabled="vm.direction==='received'" data-ng-click="vm.filterTxs('received');vm.txs.loadData();vm.onFiltersUsed();">Received</button>
+						<button class="others-tab" data-ng-disabled="vm.direction==='others'" data-ng-click="vm.filterTxs('others');vm.txs.loadData();vm.onFiltersUsed();">Others</button>
+				</div>
+				<transactions-filter data-txs="vm.txs" data-address="vm.address.address"></transactions-filter>
+				<transactions-list data-txs="vm.txs" data-address="vm.address.address"></transactions-list>
+			</div>
+		</uib-tab>
+		<uib-tab>
+			<uib-tab-heading><span class="glyphicon glyphicon glyphicon-list-alt"></span> Details</uib-tab-heading>
+
+			<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-if="vm.isDelegate">
+				<div class="col-md-6 col-lg-7">
+					<h3>Voters <small>{{vm.address.voters.length}}</small></h3>
+					<div class="delegate-vote" data-ng-if="vm.address.voters">
+						<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+							<div class="col-md-12 voters">
+								<span data-ng-repeat='voter in vm.address.voters'>
+									<span>
+										<a data-account-href="voter" data-type="voter" class="voter-link">{{voter | votes}}</a>
+										<span class="text-muted">&bull;</span>
+									</span>
+									<span data-ng-if="$last && vm.address.voters.length < vm.address.votersCount">
+										<span role="button" class="load-more" data-ng-click="vm.loadMoreVoters()"><b>Load more...</b></span>
+									</span>
+								</span>
+							</div>
+						</div>
+					</div>
+
+					<h3>Votes <small>{{vm.address.votes.length}}</small></h3>
+					<votes data-votes="vm.address.votes"></votes>
+				</div>
+				<div class="col-md-6 col-lg-5">
+					<h3>Forging statistics</h3>
+					<div class="table-responsive">
+						<table class="table summary">
+							<tbody>
+								<tr>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Name</strong></td>
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+										<a href="/address/{{vm.address.delegate.address}}">{{vm.address.delegate.username}}</a>
+									</td>
+								</tr>
+								<tr>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Address</strong></td>
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+										<a href="/address/{{vm.address.address}}">{{vm.address.address}}</a>
+									</td>
+								</tr>
+								<tr>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Uptime</strong></td>
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.address.delegate.productivity || 0.00}}%</td>
+								</tr>
+								<tr>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Rank / Status</strong></td>
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.address.delegate.rate}} / <span class="text-muted">{{(vm.address.delegate.rate &lt;= 101) ? 'Active' : 'Standby'}}</span></td>
+								</tr>
+								<tr>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Approval</strong></td>
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.address.delegate.approval}}%</td>
+								</tr>
+								<tr>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Vote weight</strong></td>
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.address.delegate.vote || 0 | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+								</tr>
+								<tr>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Forged</strong></td>
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.address.delegate.forged || 0 | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+								</tr>
+								<tr>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Blocks</strong></td>
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.address.delegate.producedblocks}} <span class="text-muted">({{vm.address.delegate.missedblocks}} missed)</span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+				<div class="col-md-6" data-ng-if="!vm.isDelegate">
+					<h3>Votes <small>{{vm.address.votes.length}}</small></h3>
+					<votes data-votes="vm.address.votes"></votes>
+				</div>
+				<div class="col-md-6" data-ng-if="vm.isMultisig">
+					<h3>Multisignature account details</h3>
+					<div class="table-responsive">
+						<table class="table summary">
+							<tbody>
+								<tr>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Multisig lifetime</strong></td>
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+										{{vm.address.multisignatureAccount.lifetime}}
+									</td>
+								</tr>
+								<tr>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double" colspan="2"><strong>Minimum number of accounts<br />needed to confirm a multisig transaction</strong>
+										<span class="pull-right">{{vm.address.multisignatureAccount.min}}</span>
+									</td>
+								</tr>
+								<tr>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Members</strong></td>
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+										<span data-ng-repeat="acc in vm.address.multisignatureAccount.members">
+												<a href="/address/{{acc.address}}">{{acc.address}}</a><br />
+										</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="col-md-6" data-ng-if="vm.address.multisignatureMemberships.length">
+					<h3>Multisignature membership details</h3>
+					<div class="table-responsive">
+						<table class="table summary">
+							<tbody>
+								<thead>
+									<th>Lisk ID</th>
+									<th>Lifetime</th>
+									<th>Min</th>
+									<th>Second<br />passphrase?</th>
+								</thead>
+								<tr data-ng-repeat="acc in vm.address.multisignatureMemberships">
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><a href="/address/{{acc.address}}">{{acc.address}}</a></td>
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+										{{acc.lifetime}}
+									</td>
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+										{{acc.min}}
+									</td>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double">
+										<span class="pull-right" data-ng-if="acc.secondPublicKey">yes</span>
+										<span class="pull-right" data-ng-if="!acc.secondPublicKey">no</span>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</uib-tab>
+	</uib-tabset>
 </section>
 
