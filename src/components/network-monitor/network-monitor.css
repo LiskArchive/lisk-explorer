@@ -48,6 +48,7 @@
   position: relative;
 	border-radius:6px;
 	border: lightgray 1px solid;
+	margin-bottom: 24px;
 }
 
 #map .leaflet-popup-content p,
@@ -255,8 +256,8 @@ div.row.stats div {
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .big-info {
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-top: 0px;
+		padding-bottom: 24px;
 	}
 
 	.big-info p.big-details {
