@@ -103,24 +103,20 @@
 		</div>
 		<div class="col-xs-12 col-md-6">
 			<div class="big-info">
-				<p class="small-title">Latest blocks<a href="/blocks/" class="pull-right">More blocks<span class="glyphicon glyphicon-chevron-right"></span></a></p>
+				<p class="small-title">Latest blocks<a href="/blocks/" class="pull-right">More<span class="hidden-xs"> blocks</span><span class="glyphicon glyphicon-chevron-right"></span></a></p>
 			</div>
 
 			<div class="table-responsive">
 				<table class="table table-hover table-striped latest-blocks">
 					<thead>
 						<tr>
-							<th class="left-padding-s left-padding-m left-padding-l double hidden-xs">Id</th>
-							<th class="left-padding-xs">
-								<span class="pull-left">Height</span>
-							</th>
+							<th class="left-padding-s left-padding-m left-padding-l double">Id</th>
+							<th class="left-padding-xs text-right"><span>Height</span></th>
 							<!-- <th class="text-right">Timestamp</th> -->
-							<th class="right-padding-s text-right">
-								<span class="">Txs.</span>
-							</th>
+							<th class="right-padding-s text-right hidden-xs"><span class="">Txs.</span></th>
 							<th class="right-padding-xs right-padding-s text-right">Gen. by</th>
 							<!-- <th class="text-right hidden-xs">Amount</th> -->
-							<th class="right-padding-m right-padding-l double text-right">Forged</th>
+							<!-- <th class="right-padding-m right-padding-l double text-right">Forged</th> -->
 						</tr>
 					</thead>
 					<tbody>
@@ -128,18 +124,18 @@
 							<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double" colspan="7">Waiting for blocks...</td>
 						</tr>
 						<tr data-ng-repeat='b in vm.blocks track by $index'>
-							<td class="left-padding-s left-padding-m left-padding-l double hidden-xs"><a class="ellipsis" href="/block/{{b.id}}">{{b.id | middleEllipsis:10}}</a></td>
+							<td class="left-padding-s left-padding-m left-padding-l double"><a class="ellipsis" href="/block/{{b.id}}">{{b.id}}</a></td>
 							<td class="left-padding-xs">
 								<span class="ellipsis text-right">{{b.height}}</span>
-								<!-- <a class="ellipsis pull-left" href="/block/{{b.id}}">{{b.height}}</a> -->
+								<!-- <a class="ellipsis pull-left visible-xs" href="/block/{{b.id}}">{{b.height}}</a> -->
 							</td>
 							<!-- <td class="text-right hidden-xs hidden-sm"><span class="ellipsis">{{b.timestamp | timestamp}}</span></td> -->
-							<td class="right-padding-s text-right">{{b.transactionsCount}}</td>
+							<td class="right-padding-s text-right hidden-xs">{{b.transactionsCount}}</td>
 							<td class="right-padding-xs right-padding-s text-right">
 								<a class="" href="/address/{{b.generator}}">{{b.delegate.username || b.generator | middleEllipsis:10}}</a>
 							</td>
 							<!-- <td class="text-right">{{b.totalAmount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td> -->
-							<td class="right-padding-m right-padding-l double text-right">{{b.totalForged | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td>
+							<!-- <td class="right-padding-m right-padding-l double text-right">{{b.totalForged | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td> -->
 						</tr>
 					</tbody>
 				</table>
@@ -150,7 +146,7 @@
 	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 		<div class="col-xs-12">
 			<div class="big-info">
-				<p class="small-title">Latest transactions<a href="/txs/" class="pull-right">More transactions<span class="glyphicon glyphicon-chevron-right"></span></a></p>
+				<p class="small-title">Latest transactions<a href="/txs/" class="pull-right">More<span class="hidden-xs"> transactions</span><span class="glyphicon glyphicon-chevron-right"></span></a></p>
 			</div>
 			<!-- <h2 class="left-padding-m left-padding-l">Latest transactions</h2> -->
 			<div class="table-responsive">
