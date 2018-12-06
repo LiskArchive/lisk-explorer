@@ -23,8 +23,8 @@ const HomeConstructor = function ($scope, $http, $interval) {
 	const vm = this;
 
 	const setHref = (tx) => {
-		tx.hrefSender = tx.senderDelegate ? `/delegate/${tx.senderId}` : `/address/${tx.senderId}`;
-		tx.hrefRecipient = tx.recipientDelegate ? `/delegate/${tx.recipientId}` : `/address/${tx.recipientId}`;
+		tx.hrefSender = `/address/${tx.senderId}`;
+		tx.hrefRecipient = `/address/${tx.recipientId}`;
 	};
 
 	vm.getLastBlocks = () => {
