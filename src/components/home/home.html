@@ -21,14 +21,12 @@
 <section>
 	<h1>
 		Lisk Blockchain Explorer
-		<br />
-		<small><span>{{vm.totalActive || 0}} active delegates, last block forged 5 seconds ago</span></small>
 	</h1>
 
 	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
-		<div class="col-lg-7">
+		<div class="col-xs-12 col-md-6">
 			<div class="row">
-				<div class="col-xs-12 col-sm-4">
+				<div class="col-xs-6 col-sm-5">
 					<div class="row big-info">
 						<div class="col-xs-12">
 							<div class="pull-left delegates">
@@ -42,7 +40,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-4">
+				<div class="col-xs-6 col-sm-5">
 					<div class="row big-info">
 						<div class="col-xs-12">
 							<div class="pull-left last-block">
@@ -63,33 +61,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-4">
-					<div class="row big-info">
-						<div class="col-xs-12">
-							<div class="latest-votes next-forgers">
-								<p class="small-title">Next Forgers</p>
-								<div>
-									<div data-ng-if="!vm.nextForgers || vm.nextForgers.length === 0">
-										<span>Waiting for next forgers <i class="fa fa-spinner fa-spin"></i></span>
-									</div>
-									<span data-ng-repeat='v in vm.nextForgers track by $index'>
-										<div data-ng-if="$first">
-											<p class="big-details">
-												<a data-account-href="v" data-type="delegate">{{v.username}}</a>
-											</p>
-										</div>
-										<span data-ng-if="!$first">
-											<a data-account-href="v" data-type="delegate">{{v.username}}</a>
-											<span data-ng-if="!$last" class="text-muted">&bull;</span>
-										</span>
-									</span>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
 
-				<div class="col-xs-12 col-sm-5">
+				<div class="col-xs-6 col-sm-5">
 					<div class="row big-info">
 						<div class="col-xs-12">
 							<div class="pull-left active-nodes">
@@ -104,34 +77,8 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-3">
-					<div class="row big-info">
-						<div class="col-xs-12">
-							<div class="pull-left last-block">
-								<p class="small-title">Last Block</p>
 
-								<div data-ng-if="!vm.lastBlock">
-									<p class="big-details">
-										<span class="text-muted">N/A</span>
-									</p>
-									<p class="text-muted">waiting for block <i class="fa fa-spinner fa-spin"></i></p>
-								</div>
-								<div data-ng-if="vm.lastBlock" class="last-block-loaded">
-									<p class="big-details">
-										<a data-ng-href="/block/{{vm.lastBlock.id}}">{{vm.lastBlock.id}}</a>
-									</p>
-									<p class="text-muted">
-										<span class="lisk">{{vm.lastBlock.totalAmount + vm.lastBlock.totalFee || 0 | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
-										<span class="num-trans">from {{vm.lastBlock.numberOfTransactions || 0}} transactions</span>
-									</p>
-									<p class="text-muted">{{vm.lastBlock.timestamp | timeAgo}}</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-xs-12 col-sm-4">
+				<div class="col-xs-6 col-sm-5">
 					<div class="row big-info">
 						<div class="col-xs-12">
 							<div class="pull-left volume">
@@ -154,62 +101,11 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-5">
-			<div id="map" style="margin: 10px;margin-top: 30px;padding: 30px;border-radius:6px;border: lightgray 1px solid;height:295px;">&nbsp;</div>
-		</div>
-	</div>
-
-	<div class="row">
 		<div class="col-xs-12 col-md-6">
-			<h2 class="left-padding-m left-padding-l">Latest transactions</h2>
-			<div class="table-responsive">
-				<table class="table table-hover table-striped latest-transactions">
-					<thead>
-						<tr>
-							<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double hidden-xs">Id</th>
-							<th class="left-padding-xs">
-								<span class="pull-left">Sender</span>
-							</th>
-							<th class="left-padding-xs">
-								<span class="pull-left">Recipient</span>
-							</th>
-							<th class="right-padding-xs right-padding-s right-padding-m text-right">Amount</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr data-ng-if="!vm.txs.length">
-							<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double" colspan="6">Waiting for transactions...</td>
-						</tr>
-						<tr data-ng-repeat='tx in vm.txs track by $index'>
-							<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double hidden-xs"><a class="ellipsis" href="/tx/{{tx.id}}">{{tx.id | middleEllipsis:10}}</a></td>
-							<td class="left-padding-xs">
-								<a class="ellipsis" data-ng-href="{{tx.hrefSender}}">
-									<span class="pull-left">{{tx | txSender | middleEllipsis:10}}</span>
-								</a>
-							</td>
-							<td class="left-padding-xs">
-								<a class="ellipsis" data-ng-show="tx.type == 0" data-ng-href="{{tx.hrefRecipient}}">
-									<span class="pull-left">{{tx | txRecipient | middleEllipsis:10}}</span>
-								</a>
-								<span class="ellipsis" data-ng-show="tx.type >= 1">
-									<span class="pull-left">{{tx | txRecipient | middleEllipsis:12}}</span>
-								</span>
-							</td>
-							<td class="right-padding-xs right-padding-s right-padding-m right-padding-l text-right">
-								<span class="ellipsis">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
-							</td>
-						</tr>
-						<tfoot>
-							<tr>
-								<td colspan="4"><a href="/txs/" class="pull-right">See more transactions -></a></td>
-							</tr>
-						</tfoot>
-					</tbody>
-				</table>
+			<div class="big-info">
+				<p class="small-title">Latest blocks<a href="/blocks/" class="pull-right">More blocks<span class="glyphicon glyphicon-chevron-right"></span></a></p>
 			</div>
-		</div>
-		<div class="col-xs-12 col-md-6">
-			<h2 class="left-padding-m left-padding-l">Latest blocks</h2>
+
 			<div class="table-responsive">
 				<table class="table table-hover table-striped latest-blocks">
 					<thead>
@@ -223,7 +119,7 @@
 								<span class="">Txs.</span>
 							</th>
 							<th class="right-padding-xs right-padding-s text-right">Gen. by</th>
-							<th class="text-right hidden-xs">Amount</th>
+							<!-- <th class="text-right hidden-xs">Amount</th> -->
 							<th class="right-padding-m right-padding-l double text-right">Forged</th>
 						</tr>
 					</thead>
@@ -242,18 +138,73 @@
 							<td class="right-padding-xs right-padding-s text-right">
 								<a class="" href="/address/{{b.generator}}">{{b.delegate.username || b.generator | middleEllipsis:10}}</a>
 							</td>
-							<td class="text-right">{{b.totalAmount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td>
+							<!-- <td class="text-right">{{b.totalAmount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td> -->
 							<td class="right-padding-m right-padding-l double text-right">{{b.totalForged | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td>
 						</tr>
 					</tbody>
-					<tfoot>
-						<tr>
-							<td colspan="6"><a href="/blocks/" class="pull-right">See more blocks -></a></td>
-						</tr>
-					</tfoot>
 				</table>
 			</div>
 		</div>
+	</div>
 
+	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+		<div class="col-xs-12">
+			<div class="big-info">
+				<p class="small-title">Latest transactions<a href="/txs/" class="pull-right">More transactions<span class="glyphicon glyphicon-chevron-right"></span></a></p>
+			</div>
+			<!-- <h2 class="left-padding-m left-padding-l">Latest transactions</h2> -->
+			<div class="table-responsive">
+				<table class="table table-hover table-striped latest-transactions">
+					<thead>
+						<tr>
+							<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double hidden-xs">Id</th>
+							<th class="text-right hidden-xs hidden-sm hidden-md">Timestamp</th>
+							<th class="left-padding-xs">
+								<span class="pull-right hidden-xs">Sender</span>
+								<span class="pull-left visible-xs">Sender</span>
+							</th>
+							<th class="left-padding-xs">
+								<span class="pull-right hidden-xs">Recipient</span>
+								<span class="pull-left visible-xs">Recipient</span>
+							</th>
+							<th class="right-padding-xs right-padding-s right-padding-m text-right">Amount</th>
+							<th class="right-padding-l double text-right hidden-xs hidden-sm hidden-md">Fee</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr data-ng-if="!vm.txs.length">
+							<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double" colspan="6">Waiting for transactions...</td>
+						</tr>
+						<tr data-ng-repeat='tx in vm.txs track by $index'>
+							<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double hidden-xs"><a class="ellipsis" href="/tx/{{tx.id}}">{{tx.id}}</a></td>
+							<td class="text-right hidden-xs hidden-sm hidden-md"><span class="ellipsis">{{tx.timestamp | timestamp}}<span></td>
+							<td class="left-padding-xs">
+								<a class="ellipsis" data-ng-href="{{tx.hrefSender}}">
+									<span class="pull-right hidden-xs">{{tx | txSender}}</span>
+									<span class="pull-left visible-xs">{{tx | txSender | middleEllipsis:10}}</span>
+								</a>
+							</td>
+							<td class="left-padding-xs">
+								<a class="ellipsis" data-ng-show="tx.type == 0" data-ng-href="{{tx.hrefRecipient}}">
+									<span class="pull-right hidden-xs">{{tx | txRecipient}}</span>
+									<span class="pull-left visible-xs">{{tx | txRecipient | middleEllipsis:10}}</span>
+								</a>
+								<span class="ellipsis" data-ng-show="tx.type >= 1">
+									<span class="pull-right hidden-xs">{{tx | txRecipient}}</span>
+									<span class="pull-left visible-xs">{{tx | txRecipient | middleEllipsis:12}}</span>
+								</span>
+							</td>
+							<td class="right-padding-xs right-padding-s right-padding-m text-right">
+								<span class="ellipsis hidden-xs">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
+								<span class="ellipsis visible-xs"><a class="ellipsis" href="/tx/{{tx.id}}">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</a></span>
+							</td>
+							<td class="right-padding-l double text-right hidden-xs hidden-sm hidden-md">
+								<span class="ellipsis">{{tx.fee | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
 	</div>
 </section>
