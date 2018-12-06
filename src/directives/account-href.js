@@ -28,14 +28,6 @@ const accountHref = AppTools.directive('accountHref', () => {
 		return first.toLowerCase() + rest.join('');
 	};
 
-	const getUserName = (scope, attrs) => {
-		if (attrs.type === 'delegate') {
-			return scope.accountHref[joinCameCased(attrs.type, 'delegate')] &&
-				scope.accountHref[joinCameCased(attrs.type, 'delegate')].username;
-		}
-		return scope.accountHref[joinCameCased(attrs.type, 'username')];
-	};
-
 	return {
 		scope: {
 			accountHref: '=',
