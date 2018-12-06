@@ -20,7 +20,7 @@ const directiveCtrl = ($scope, $cookies) => {
 	$scope.visible = true;
 	const cookieKey = 'cookiesBannerConfirmed';
 
-	// setting expireDate to 2 years ahead
+	// setting the expiredate to 2years ahead
 	const expireDate = new Date();
 	expireDate.setDate(expireDate.getDate() + 730);
 
