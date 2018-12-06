@@ -19,7 +19,7 @@
 	<h1>
 		{{vm.block.id}}&nbsp;
 		<br />
-		<small>Block</small>
+		<small>Block with {{vm.block.numberOfTransactions}} transaction{{vm.block.numberOfTransactions != 1 ? 's' : '' }}</small>
 	</h1>
 	<div class="text-muted" data-ng-if="!vm.block.height">
 		<span>Loading Block <i class="fa fa-spinner fa-spin"></i>
