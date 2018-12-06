@@ -122,19 +122,21 @@ const NetworkMap = function () {
 
 	this.addConnected = function (peers) {
 		const connected = [];
-		peers.connected.forEach((item) => {
-			if (validLocation(item.location)) {
-				if (!Object.keys(this.markers).includes(item.ip)) {
-					this.cluster.addLayer(
-						this.markers[item.ip] = leaflet.marker(
-							[item.location.latitude, item.location.longitude],
-							{ title: item.ipString, icon: platformIcons[item.osBrand.name] },
-						).bindPopup(popupContent(item)),
-					);
+		if (peers) {
+			peers.connected.forEach((item) => {
+				if (validLocation(item.location)) {
+					if (!Object.keys(this.markers).includes(item.ip)) {
+						this.cluster.addLayer(
+							this.markers[item.ip] = leaflet.marker(
+								[item.location.latitude, item.location.longitude],
+								{ title: item.ipString, icon: platformIcons[item.osBrand.name] },
+							).bindPopup(popupContent(item)),
+						);
+					}
+					connected.push(item.ip);
 				}
-				connected.push(item.ip);
-			}
-		});
+			});
+		}
 
 		this.removeDisconnected(connected);
 		this.map.addLayer(this.cluster);
@@ -159,10 +161,10 @@ const NetworkMonitor = function (vm) {
 	vm.enableMap = () => {
 		if (typeof this.map === 'undefined') {
 			this.map = new NetworkMap();
-			this.map.addConnected(vm.peers);
 		}
 		setTimeout(() => {
 			this.map.map.invalidateSize();
+			this.map.addConnected(vm.peers);
 		}, 0);
 	};
 
