@@ -12,31 +12,35 @@ pipeline {
 	stages {
 		stage ('Build dependencies') {
 			steps {
-				script {
-					cache_file = restoreCache("package.json")
-					sh 'npm install'
-					saveCache(cache_file, './node_modules', 10)
+				nvm(getNodejsVersion()) {
+					sh 'npm ci'
 				}
 			}
 		}
 		stage ('Run ESLint') {
 			steps {
-				sh 'npm run eslint'
+				nvm(getNodejsVersion()) {
+					sh 'npm run eslint'
+				}
 			}
 		}
 		stage ('Build bundles') {
 			steps {
-				sh 'npm run build'
+				nvm(getNodejsVersion()) {
+					sh 'npm run build'
+				}
 			}
 		}
 		stage ('Build candles') {
 			steps {
-				// marketwatcher needs to be enabled to builds candles
-				sh '''
-				cp ./test/known.test.json ./known.json
-				redis-cli -n $REDIS_DB flushdb
-				grunt candles:build
-				'''
+				nvm(getNodejsVersion()) {
+					// marketwatcher needs to be enabled to builds candles
+					sh '''
+					cp ./test/known.test.json ./known.json
+					redis-cli -n $REDIS_DB flushdb
+					grunt candles:build
+					'''
+				}
 			}
 		}
 		stage ('Start Lisk') {
@@ -65,29 +69,33 @@ pipeline {
 		}
 		stage ('Start Explorer') {
 			steps {
-				sh '''
-				cd $WORKSPACE/$BRANCH_NAME
-				LISK_PORT=$( docker-compose port lisk 4000 |cut -d ":" -f 2 )
-				cd -
-				LISK_PORT=$LISK_PORT node app.js -p $EXPLORER_PORT &>/dev/null &
-				sleep 20
-				'''
+				nvm(getNodejsVersion()) {
+					sh '''
+					cd $WORKSPACE/$BRANCH_NAME
+					LISK_PORT=$( docker-compose port lisk 4000 |cut -d ":" -f 2 )
+					cd -
+					LISK_PORT=$LISK_PORT node app.js -p $EXPLORER_PORT &>/dev/null &
+					sleep 20
+					'''
+				}
 			}
 		}
 		stage ('Run API tests') {
 			steps {
-				sh '''
-				sed -i -r -e "s/6040/$EXPLORER_PORT/" test/node.js
-				npm run test
-				'''
+				nvm(getNodejsVersion()) {
+					sh '''
+					sed -i -r -e "s/6040/$EXPLORER_PORT/" test/node.js
+					npm run test
+					'''
+				}
 			}
 		}
 		// stage ('Run E2E tests') {
 		// 	steps {
 		// 		wrap([$class: 'Xvfb']) {
-		// 			sh '''
-		// 			npm run e2e -- --params.baseURL http://localhost:$EXPLORER_PORT
-		// 			'''
+		//			nvm(getNodejsVersion()) {
+		//	 			sh 'npm run e2e -- --params.baseURL http://localhost:$EXPLORER_PORT'
+		//			}
 		// 		}
 		// 	}
 		// }
