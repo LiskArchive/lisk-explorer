@@ -193,6 +193,7 @@ const NetworkMonitor = function (vm) {
 			darwin: 'Darwin',
 			linux: 'Linux',
 			freebsd: 'FreeBSD',
+			win: 'Windows',
 		};
 
 		const detect = function (platformCode) {
@@ -298,16 +299,6 @@ const NetworkMonitor = function (vm) {
 	}
 
 	function VersionDistribution(peers) {
-		// const inspect = () => {
-		// 	if (peers instanceof Array) {
-		// 		return uniq(peers.map(p => p.version)).sort(sortByVersion).reverse().slice(0, 3);
-		// 	}
-		// 	return [];
-		// };
-
-		// this.counter = [0, 0, 0, 0];
-		// this.versions = inspect();
-
 		/* eslint-disable */
 		const versionsObj = peers.map(p => p.version).reduce((acc, v) => {
 			typeof acc[v] === 'number' ? acc[v] += 1 : acc[v] = 1;
