@@ -279,19 +279,17 @@
 										</tr>
 								</table>
 							</div>
-						</div>
 
-						<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-							<p class="small-title text-center">Height distribution</p>
+							<p class="small-title text-center">Platform distribution</p>
 							<div class="row">
 								<table class="table table-striped">
 									<thead>
-										<th class="">Height</th>
+										<th class="">Platform</th>
 										<th class="text-right">Count</th>
 										<th class="text-right">%</th>
 									</thead>
-									<tr data-ng-repeat='v in vm.counter.heightDistribution track by $index'>
-										<td class="">{{v.group}}</td>
+									<tr data-ng-repeat='v in vm.counter.platformDistribution track by $index'>
+										<td class="">{{v.platform}}</td>
 										<td class="text-right">{{v.count}}</td>
 										<td class="text-right">{{v.percent}} %</td>
 									</tr>
@@ -300,7 +298,25 @@
 						</div>
 
 						<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-							<p class="small-title text-center">Version distribution</p>
+							<p class="small-title text-center">OS distribution</p>
+							<div class="row">
+								<table class="table table-striped">
+									<thead>
+										<th class="">System</th>
+										<th class="text-right">Count</th>
+										<th class="text-right">%</th>
+									</thead>
+									<tr data-ng-repeat='v in vm.counter.osDistribution track by $index'>
+										<td class="">{{v.platform}}</td>
+										<td class="text-right">{{v.count}}</td>
+										<td class="text-right">{{v.percent}} %</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+							<p class="small-title text-center">Core ver. distribution</p>
 							<div class="row">
 								<table class="table table-striped">
 									<thead>
@@ -318,16 +334,16 @@
 						</div>
 
 						<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-							<p class="small-title text-center">Platform distribution</p>
+							<p class="small-title text-center">Height distribution</p>
 							<div class="row">
 								<table class="table table-striped">
 									<thead>
-										<th class="">Platform</th>
+										<th class="">Height</th>
 										<th class="text-right">Count</th>
 										<th class="text-right">%</th>
 									</thead>
-									<tr data-ng-repeat='v in vm.counter.platformDistribution track by $index'>
-										<td class="">{{v.platform}}</td>
+									<tr data-ng-repeat='v in vm.counter.heightDistribution track by $index'>
+										<td class="">{{v.group}}</td>
 										<td class="text-right">{{v.count}}</td>
 										<td class="text-right">{{v.percent}} %</td>
 									</tr>

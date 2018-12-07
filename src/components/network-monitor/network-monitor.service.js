@@ -219,6 +219,34 @@ const NetworkMonitor = function (vm) {
 		};
 	}
 
+	function OsDistribution(peers) {
+		const detect = (os) => {
+			if (os.match(/^linux(.*)/)) {
+				const splitOsString = os.replace('linux', '').split('.');
+				return `Linux ${splitOsString[0]}.${splitOsString[1]}`;
+			}
+			return os;
+		};
+		/* eslint-disable */
+		const platformsObj = peers.map(p => detect(p.os)).reduce((acc, v) => {
+			typeof acc[v] === 'number' ? acc[v] += 1 : acc[v] = 1;
+			return acc;
+		}, {});
+
+		const platformsArr = Object.keys(platformsObj).map(p => {
+			return {
+				platform: p,
+				count: platformsObj[p],
+				percent: Math.round((platformsObj[p] / peers.length) * 100),
+			};
+		});
+
+		/* eslint-enable */
+		this.detected = function () {
+			return platformsArr;
+		};
+	}
+
 	const uniq = arrArg => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
 
 	function Versions(peers) {
@@ -377,6 +405,7 @@ const NetworkMonitor = function (vm) {
 		const heights = new Heights(peers.connected);
 		const versionDistribution = new VersionDistribution(peers.connected);
 		const platformDistribution = new PlatformDistribution(peers.connected);
+		const osDistribution = new OsDistribution(peers.connected);
 		const heightDistribution = new HeightDistribution(peers.connected);
 
 		peers.connected.forEach((item) => {
@@ -391,6 +420,7 @@ const NetworkMonitor = function (vm) {
 			total: peers.connected.length + peers.disconnected.length,
 			platforms: platforms.detected(),
 			platformDistribution: platformDistribution.detected(),
+			osDistribution: osDistribution.detected(),
 			versions: versions.detected(),
 			versionDistribution: versionDistribution.detected(),
 			heights: heights.detected(),
