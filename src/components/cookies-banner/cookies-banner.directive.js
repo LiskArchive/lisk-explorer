@@ -22,11 +22,12 @@ const directiveCtrl = ($scope, $cookies) => {
 
 	// setting the expiredate to 2years ahead
 	const expireDate = new Date();
-	expireDate.setDate(expireDate.getDate() + 730);
+	const expireDays = 365 * 2;
+	expireDate.setDate(expireDate.getDate() + expireDays);
 
 	$scope.clicked = () => {
 		$scope.visible = false;
-		$cookies.put(cookieKey, 'true', { 'expires': expireDate });
+		$cookies.put(cookieKey, 'true', { expires: expireDate });
 	};
 
 	const result = $cookies.get(cookieKey);
