@@ -14,6 +14,7 @@
  *
  */
 import App from './app';
+import { homedir } from 'os';
 
 App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 	$stateProvider
@@ -78,10 +79,28 @@ App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 			component: 'delegate',
 		})
 		.state('error', {
-			url: '404',
+			url: '/404',
 			parentDir: 'home',
 			component: 'c404',
+			// redirectTo: 'home',
 		});
-	// $urlRouterProvider.otherwise('/404');
+	
+		$urlRouterProvider.rule(function ($injector, $location) {
+			var path = $location.url();
+			console.log(path)
+		
+			// check to see if the path already has a slash where it should be
+			if (path[path.length - 1] === '/' || path.indexOf('/?') > -1) {
+				return;
+			}
+		
+			if (path.indexOf('?') > -1) {
+				return path.replace('?', '/?');
+			}
+		
+			return path + '/';
+		});
+
+	$urlRouterProvider.otherwise('/404');
 	$locationProvider.html5Mode(true);
 });
