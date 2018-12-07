@@ -81,7 +81,6 @@ App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 			url: '/404',
 			parentDir: 'home',
 			component: 'c404',
-			// redirectTo: 'home',
 		});
 	$urlRouterProvider.otherwise('/404');
 	$locationProvider.html5Mode(true);
