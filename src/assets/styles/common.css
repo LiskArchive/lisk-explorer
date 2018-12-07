@@ -1378,7 +1378,8 @@ table tbody tr:nth-of-type(odd) {
   margin-right: 2.4rem;
 }
 
-.paginator .btn-group .see-all-blocks {
+.paginator .btn-group .see-all-blocks,
+.paginator .btn-group .see-all-transactions {
   width: 50%;
 }
 

@@ -1,0 +1,30 @@
+<!--
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
+-->
+<section class='horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double'>
+	<nit-advanced-searchbox
+		ng-model="searchParams"
+		parameters="availableSearchParams"
+		parameters-display-limit="parametersDisplayLimit"
+		placeholder="Search...">
+	</nit-advanced-searchbox>
+	<div ng-if="invalidParams" class="alert alert-danger" role="alert">
+		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		<span class="sr-only">Error:</span>
+		Please provide a valid address for sender id and/or recipient id. Username is not accepted.
+	</div>
+</section>

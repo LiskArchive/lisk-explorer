@@ -112,19 +112,7 @@
 
 	<div data-ng-if="vm.address.balance" data-ng-init="vm.txs.loadData()">
 		<h1>Transactions</h1>
-		<section class='horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double'>
-			<nit-advanced-searchbox
-				ng-model="vm.searchParams"
-				parameters="vm.availableSearchParams"
-				parameters-display-limit="vm.parametersDisplayLimit"
-				placeholder="Search...">
-			</nit-advanced-searchbox>
-			<div ng-if="vm.invalidParams" class="alert alert-danger" role="alert">
-				<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-				<span class="sr-only">Error:</span>
-				Please provide a valid address for sender id and/or recipient id. Username is not accepted.
-			</div>
-		</section>
+		<transactions-filter data-txs="vm.txs" data-address="vm.address.address"></transactions-filter>
 		<div class="transactions-filter-header horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double" role="group"
 			aria-label="All/Sent/Received Transactions" data-ng-class="{disabled: vm.direction === 'search'}">
 				<button data-ng-disabled="!vm.direction" data-ng-click="vm.filterTxs();vm.txs.loadData();vm.onFiltersUsed();">All</button>

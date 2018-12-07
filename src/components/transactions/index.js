@@ -15,3 +15,4 @@
  */
 import './transactions.module';
 import './transactions.component';
+import './transaction.component';
