@@ -18,7 +18,7 @@
 <form role="search" data-ng-submit="sch.search()" data-ng-class="{'loading': sch.loading, 'active': !sch.mobileView || sch.activeForm}" class='search-box'>
 	<div class="wrapper" data-ng-class="{'has-error': sch.badQuery}">
 		<input id="search" type="text" class="input search" data-ng-model="sch.q" placeholder="Find a transaction, address, delegate or block"
-			data-ng-submit="sch.search()" data-ng-blur="sch.hideSuggestion()" autocomplete="off" />
+			data-ng-submit="sch.search()" data-ng-blur="sch.hideSuggestion()" autocomplete="off" autocapitalize="none" />
 		<span class="glyphicon" aria-hidden="true" data-ng-mousedown="sch.onSearchIconClick()" data-ng-class="{'glyphicon-remove': sch.mobileView && sch.activeForm, 'glyphicon-search': !sch.mobileView || !sch.activeForm}"></span>
 		<div class="search-suggestion-list list-group"
 			ng-if="sch.showingResults && sch.results">
