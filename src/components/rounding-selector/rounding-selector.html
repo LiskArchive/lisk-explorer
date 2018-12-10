@@ -22,16 +22,16 @@
 	</a>
 	<ul class="dropdown-menu dropdown-menu-right" role="decimal-menu" data-aria-labelledby="decimal-menu-dropdown">
 		<li data-ng-class='{active: $root.decimalPlaces === undefined}'>
-			<a data-ng-click='cs.setDecimalPlaces(undefined)' class='trim-floating-points'>Trim trailing zeros</a>
+			<a data-ng-click='rs.setDecimalPlaces(undefined)' class='trim-floating-points'>Trim trailing zeros</a>
 		</li>
 		<li data-ng-class='{active: $root.decimalPlaces === 0}'>
-			<a data-ng-click='cs.setDecimalPlaces(0)' class='round-to-0'>Round to whole number</a>
+			<a data-ng-click='rs.setDecimalPlaces(0)' class='round-to-0'>Round to whole number</a>
 		</li>
 		<li data-ng-class='{active: $root.decimalPlaces === 4}'>
-			<a data-ng-click='cs.setDecimalPlaces(4)' class='round-to-4'>Round to 4th decimal place</a>
+			<a data-ng-click='rs.setDecimalPlaces(4)' class='round-to-4'>Round to 4th decimal place</a>
 		</li>
 		<li data-ng-class='{active: $root.decimalPlaces === 8}'>
-			<a data-ng-click='cs.setDecimalPlaces(8)' class='show-all-8'>Show all decimals</a>
+			<a data-ng-click='rs.setDecimalPlaces(8)' class='show-all-8'>Show all decimals</a>
 		</li>
 	</ul>
 </li>
