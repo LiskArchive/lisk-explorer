@@ -958,7 +958,6 @@ qrcode + span {
     white-space:normal;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    width: 100%;
 }
 
 .pk-mobile-style {
@@ -1137,9 +1136,6 @@ qrcode + span {
   -webkit-animation-duration: 2s;
   -webkit-animation-iteration-count: infinite;
   -webkit-animation-timing-function: linear;
-}
-
-.transaction-vin-vout {
 }
 
 .v_highlight {
