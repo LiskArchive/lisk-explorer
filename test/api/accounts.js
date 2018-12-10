@@ -50,8 +50,10 @@ describe('Accounts API', () => {
 	function checkAccountTypes(o) {
 		node.expect(o.success).to.be.a('boolean');
 		node.expect(o.multisignatures).to.be.an('array');
+		node.expect(o.multisignatureAccount).to.be.an('object');
+		node.expect(o.multisignatureMemberships).to.be.an('array');
 		node.expect(o.secondPublicKey).to.be.a('string');
-		node.expect(o.secondSignature).to.be.a('number');
+		node.expect(o.secondSignature).to.be.a('boolean');
 		node.expect(o.unconfirmedSignature).to.be.a('number');
 		node.expect(o.publicKey).to.be.a('string');
 		node.expect(o.balance).to.be.a('string');
@@ -68,6 +70,8 @@ describe('Accounts API', () => {
 		node.expect(o).to.have.all.keys(
 			'success',
 			'multisignatures',
+			'multisignatureAccount',
+			'multisignatureMemberships',
 			'secondPublicKey',
 			'secondSignature',
 			'unconfirmedSignature',

@@ -207,13 +207,10 @@ h1 {
   margin: 0;
 }
 
-h1>small {
-  white-space: nowrap;
-}
-
 @media (max-width: 769px) {
   h1 {
-    padding: 30px 12px 25px;
+		padding: 30px 12px 25px;
+		font-size: 2em;
   }
 }
 
@@ -1200,8 +1197,8 @@ a.v_highlight_more {
 }
 
 .big-info {
-  padding-bottom: 23px;
-  padding-top: 23px;
+  padding-bottom: 24px;
+  padding-top: 0px;
 }
 
 .big-info p.small-title {
@@ -1223,8 +1220,8 @@ a.v_highlight_more {
 
 @media (max-width: 768px) {
   .big-info {
-    padding-bottom: 10px;
-    padding-top: 10px;
+    padding-bottom: 12px;
+    padding-top: 0px;
   }
 }
 

@@ -122,19 +122,21 @@ const NetworkMap = function () {
 
 	this.addConnected = function (peers) {
 		const connected = [];
-		peers.connected.forEach((item) => {
-			if (validLocation(item.location)) {
-				if (!Object.keys(this.markers).includes(item.ip)) {
-					this.cluster.addLayer(
-						this.markers[item.ip] = leaflet.marker(
-							[item.location.latitude, item.location.longitude],
-							{ title: item.ipString, icon: platformIcons[item.osBrand.name] },
-						).bindPopup(popupContent(item)),
-					);
+		if (peers) {
+			peers.connected.forEach((item) => {
+				if (validLocation(item.location)) {
+					if (!Object.keys(this.markers).includes(item.ip)) {
+						this.cluster.addLayer(
+							this.markers[item.ip] = leaflet.marker(
+								[item.location.latitude, item.location.longitude],
+								{ title: item.ipString, icon: platformIcons[item.osBrand.name] },
+							).bindPopup(popupContent(item)),
+						);
+					}
+					connected.push(item.ip);
 				}
-				connected.push(item.ip);
-			}
-		});
+			});
+		}
 
 		this.removeDisconnected(connected);
 		this.map.addLayer(this.cluster);
@@ -154,7 +156,17 @@ const NetworkMap = function () {
 };
 
 const NetworkMonitor = function (vm) {
-	this.map = new NetworkMap();
+	this.map = undefined;
+
+	vm.enableMap = () => {
+		if (typeof this.map === 'undefined') {
+			this.map = new NetworkMap();
+		}
+		setTimeout(() => {
+			this.map.map.invalidateSize();
+			this.map.addConnected(vm.peers);
+		}, 0);
+	};
 
 	function Platforms() {
 		this.counter = [0, 0, 0, 0];
@@ -176,6 +188,66 @@ const NetworkMonitor = function (vm) {
 		};
 	}
 
+	function PlatformDistribution(peers) {
+		const platforms = {
+			darwin: 'Darwin',
+			linux: 'Linux',
+			freebsd: 'FreeBSD',
+			win: 'Windows',
+		};
+
+		const detect = function (platformCode) {
+			return platforms[platformCode] || 'Unknown';
+		};
+
+		/* eslint-disable */
+		const platformsObj = peers.map(p => p.osBrand.name).reduce((acc, v) => {
+			typeof acc[v] === 'number' ? acc[v] += 1 : acc[v] = 1;
+			return acc;
+		}, {});
+
+		const platformsArr = Object.keys(platformsObj).map(p => {
+			return {
+				platform: detect(p),
+				count: platformsObj[p],
+				percent: Math.round((platformsObj[p] / peers.length) * 100),
+			};
+		});
+
+		/* eslint-enable */
+		this.detected = function () {
+			return platformsArr;
+		};
+	}
+
+	function OsDistribution(peers) {
+		const detect = (os) => {
+			if (os.match(/^linux(.*)/)) {
+				const splitOsString = os.replace('linux', '').split('.');
+				return `Linux ${splitOsString[0]}.${splitOsString[1]}`;
+			}
+			return os;
+		};
+		/* eslint-disable */
+		const platformsObj = peers.map(p => detect(p.os)).reduce((acc, v) => {
+			typeof acc[v] === 'number' ? acc[v] += 1 : acc[v] = 1;
+			return acc;
+		}, {});
+
+		const platformsArr = Object.keys(platformsObj).map(p => {
+			return {
+				platform: p,
+				count: platformsObj[p],
+				percent: Math.round((platformsObj[p] / peers.length) * 100),
+			};
+		});
+
+		/* eslint-enable */
+		this.detected = function () {
+			return platformsArr;
+		};
+	}
+
 	const uniq = arrArg => arrArg.filter((elem, pos, arr) => arr.indexOf(elem) === pos);
 
 	function Versions(peers) {
@@ -188,6 +260,16 @@ const NetworkMonitor = function (vm) {
 
 		this.counter = [0, 0, 0, 0];
 		this.versions = inspect();
+
+		/* eslint-disable */
+		this.versionsObj = peers.map(p => p.version).reduce((acc, v) => {
+			typeof acc[v] === 'number' ? acc[v] += 1 : acc[v] = 1;
+			return acc;
+		}, {});
+
+		this.versionsArr = Object.keys(this.versionsObj).map(v => {
+			return { version: v, count: this.versionsObj[v] };
+		});
 
 		this.detect = function (version) {
 			let detected = null;
@@ -214,6 +296,29 @@ const NetworkMonitor = function (vm) {
 				other: { num: null, counter: this.counter[3] },
 			};
 		};
+	}
+
+	function VersionDistribution(peers) {
+		/* eslint-disable */
+		const versionsObj = peers.map(p => p.version).reduce((acc, v) => {
+			typeof acc[v] === 'number' ? acc[v] += 1 : acc[v] = 1;
+			return acc;
+		}, {});
+
+		const total = peers.length;
+
+		const versionsArr = Object.keys(versionsObj).map(v => {
+			return {
+				version: v,
+				count: versionsObj[v],
+				percent: Math.round((versionsObj[v] / total) * 100),
+			};
+		});
+
+		this.detected = function () {
+			return versionsArr;
+		};
+		/* eslint-enable */
 	}
 
 	function Heights(peers) {
@@ -264,10 +369,35 @@ const NetworkMonitor = function (vm) {
 		};
 	}
 
+	function HeightDistribution(peers) {
+		/* eslint-disable */
+		const aggregateResult = peers.filter(p => typeof p.height === 'number').map(p => p.height).reduce((acc, v) => {
+			typeof acc[v] === 'number' ? acc[v] += 1 : acc[v] = 1;
+			return acc;
+		}, {});
+
+		const arrayResult = Object.keys(aggregateResult).map(v => {
+			return {
+				group: v,
+				count: aggregateResult[v],
+				percent: Math.round((aggregateResult[v] / peers.length) * 100),
+			};
+		}).sort((a, b) => { return parseInt(a.group) - parseInt(b.group); }).reverse();
+
+		/* eslint-enable */
+		this.detected = function () {
+			return arrayResult;
+		};
+	}
+
 	this.counter = (peers) => {
 		const platforms = new Platforms();
 		const versions = new Versions(peers.connected);
 		const heights = new Heights(peers.connected);
+		const versionDistribution = new VersionDistribution(peers.connected);
+		const platformDistribution = new PlatformDistribution(peers.connected);
+		const osDistribution = new OsDistribution(peers.connected);
+		const heightDistribution = new HeightDistribution(peers.connected);
 
 		peers.connected.forEach((item) => {
 			platforms.detect(item.osBrand);
@@ -280,8 +410,12 @@ const NetworkMonitor = function (vm) {
 			disconnected: peers.disconnected.length,
 			total: peers.connected.length + peers.disconnected.length,
 			platforms: platforms.detected(),
+			platformDistribution: platformDistribution.detected(),
+			osDistribution: osDistribution.detected(),
 			versions: versions.detected(),
+			versionDistribution: versionDistribution.detected(),
 			heights: heights.detected(),
+			heightDistribution: heightDistribution.detected(),
 			percents: heights.calculatePercent(peers.connected),
 		};
 	};
@@ -294,7 +428,9 @@ const NetworkMonitor = function (vm) {
 		};
 
 		vm.counter = this.counter(vm.peers);
-		this.map.addConnected(vm.peers);
+		if (typeof this.map !== 'undefined') {
+			this.map.addConnected(vm.peers);
+		}
 	};
 
 	this.updateLastBlock = (lastBlock) => {

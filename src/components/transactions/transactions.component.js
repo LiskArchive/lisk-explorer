@@ -16,9 +16,42 @@
 import AppTransactions from './transactions.module';
 import template from './transactions.html';
 
-const TransactionsConstructor = function (allTxs) {
+const TransactionsConstructor = function ($rootScope, $stateParams, $location, $http, $interval) {
 	const vm = this;
-	vm.txs = allTxs();
+	vm.getLastTransactions = (n) => {
+		const limit = 20 + 1;
+		let offset = 0;
+
+		if (n) {
+			offset = (n - 1) * limit;
+		}
+
+		$http.get(`/api/getTransactions?limit=${limit}&offset=${offset}`).then((resp) => {
+			if (resp.data.success) {
+				const removedTx = resp.data.transactions.splice(-1, 1);
+
+				vm.txs = { results: resp.data.transactions };
+				vm.txs.hasPrev = !!offset;
+				vm.txs.hasNext = !!removedTx;
+			} else {
+				vm.txs = {};
+			}
+		});
+	};
+
+	const update = () => {
+		if ($stateParams.page) {
+			vm.getLastTransactions($stateParams.page);
+		} else {
+			vm.getLastTransactions();
+		}
+	};
+
+	update();
+
+	vm.transactionsInterval = $interval(() => {
+		update();
+	}, 30000);
 };
 
 AppTransactions.component('transactions', {
