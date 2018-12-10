@@ -78,10 +78,21 @@ App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 			component: 'delegate',
 		})
 		.state('error', {
-			url: '404',
+			url: '/404',
 			parentDir: 'home',
 			component: 'c404',
 		});
-	// $urlRouterProvider.otherwise('/404');
+	$urlRouterProvider.otherwise('/404');
 	$locationProvider.html5Mode(true);
+	$urlRouterProvider.rule(($injector, $location) => {
+		const path = $location.path();
+		const hasTrailingSlash = path[path.length - 1] === '/';
+		const hasTargetUrl = path === '/block' || path === '/blocks' || path === '/txs';
+		if (hasTargetUrl && !hasTrailingSlash) {
+			// if the target url doesn't have '/' at last, adds '/'
+			const newPath = path.concat('/');
+			return newPath;
+		}
+		return undefined;
+	});
 });
