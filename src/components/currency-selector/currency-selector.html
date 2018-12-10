@@ -20,7 +20,7 @@
 		<span class="visible-xs">Currency&nbsp;<span class="caret"></span></span>
 		<span class="hidden-xs">{{currency.symbol}}&nbsp;<span class="caret"></span></span>
 	</a>
-	<ul class="dropdown-menu currency-selector" role="menu" data-aria-labelledby="main-currency-selector">
+	<ul class="dropdown-menu dropdown-menu-right currency-selector" role="menu" data-aria-labelledby="main-currency-selector">
 		<li ng-class="key">
 			<a data-ng-click="cs.setCurrency('LSK')"
 			data-ng-class="{active: currency-code.symbol == 'LSK'}" class="LSK">

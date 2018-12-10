@@ -20,20 +20,14 @@ const HomeConstructor = function ($scope, $http, $interval) {
 	const vm = this;
 
 	const setHref = (tx) => {
-		tx.hrefSender = tx.senderDelegate ? `/delegate/${tx.senderId}` : `/address/${tx.senderId}`;
-		tx.hrefRecipient = tx.recipientDelegate ? `/delegate/${tx.recipientId}` : `/address/${tx.recipientId}`;
+		tx.hrefSender = `/address/${tx.senderId}`;
+		tx.hrefRecipient = `/address/${tx.recipientId}`;
 	};
 
 	vm.getLastBlocks = () => {
 		$http.get('/api/getLastBlocks').then((resp) => {
 			if (resp.data.success) {
-				if (vm.blocks && vm.blocks.length > 0) {
-					if (vm.blocks[0].id !== resp.data.blocks[0].id) {
-						vm.blocks = resp.data.blocks;
-					}
-				} else {
-					vm.blocks = resp.data.blocks;
-				}
+				vm.blocks = resp.data.blocks.splice(0, 5);
 			}
 		});
 	};
@@ -47,15 +41,8 @@ const HomeConstructor = function ($scope, $http, $interval) {
 	vm.getLastTransactions = () => {
 		$http.get('/api/getLastTransactions').then((resp) => {
 			if (resp.data.success) {
-				if (vm.txs && vm.txs.length > 0) {
-					if (vm.txs[0] !== resp.data.transactions[0]) {
-						vm.txs = resp.data.transactions;
-						vm.txs.map(setHref);
-					}
-				} else {
-					vm.txs = resp.data.transactions;
-					vm.txs.map(setHref);
-				}
+				vm.txs = resp.data.transactions.splice(0, 5);
+				vm.txs.map(setHref);
 			}
 		});
 	};

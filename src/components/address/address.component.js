@@ -25,6 +25,29 @@ const AddressConstructor = function (
 ) {
 	const vm = this;
 
+	const addAccountTypeDescription = (d) => {
+		if (vm.isMultisig && vm.isDelegate) {
+			vm.accountType = 'Multisignature delegate account';
+		} else if (vm.isMultisig) {
+			vm.accountType = 'Multisignature account';
+		} else if (vm.isDelegate) {
+			vm.accountType = 'Delegate account';
+		} else {
+			vm.accountType = 'Regular account';
+		}
+
+		if (d.secondSignature) {
+			vm.accountType += ' with a second signature';
+		}
+		if (Array.isArray(d.multisignatureMemberships) && d.multisignatureMemberships.length >= 1) {
+			vm.accountType += `, member of ${d.multisignatureMemberships.length} multisignature group`;
+		}
+		if (Array.isArray(d.multisignatureMemberships) && d.multisignatureMemberships.length > 1) {
+			vm.accountType += 's';
+		}
+		return d;
+	};
+
 	vm.getAddress = () => {
 		$http.get('/api/getAccount', {
 			params: {
@@ -32,8 +55,11 @@ const AddressConstructor = function (
 			},
 		}).then((resp) => {
 			if (resp.data.success) {
-				vm.address = resp.data;
+				vm.isMultisig = resp.data.multisignatureAccount !== null && typeof resp.data.multisignatureAccount === 'object' && resp.data.multisignatureAccount.members;
+				vm.isDelegate = resp.data.delegate !== null && typeof resp.data.delegate === 'object' && resp.data.delegate.username;
+				vm.address = addAccountTypeDescription(resp.data);
 				vm.getVotes(vm.address.publicKey);
+				if (vm.isDelegate) { vm.getVoters(vm.address.publicKey); }
 			} else {
 				throw new Error('Account was not found!');
 			}
@@ -46,6 +72,34 @@ const AddressConstructor = function (
 		$http.get('/api/getVotes', { params: { publicKey } }).then((resp) => {
 			if (resp.data.success) {
 				vm.address.votes = resp.data.votes;
+			}
+		});
+	};
+
+	vm.getVoters = (publicKey) => {
+		$http.get('/api/getVoters', { params: { publicKey } }).then((resp) => {
+			if (resp.data.success) {
+				vm.address.voters = resp.data.voters;
+				vm.address.votersMeta = resp.data.meta;
+				vm.address.votersCount = vm.address.votersMeta.count;
+			}
+		});
+	};
+
+	vm.loadMoreVoters = () => {
+		const limit = vm.address.votersMeta.limit;
+		const offset = vm.address.votersMeta.offset + limit;
+
+		$http.get('/api/getVoters', { params: { publicKey: vm.address.publicKey, limit, offset } }).then((resp) => {
+			if (resp.data.success) {
+				for (let i = 0; i < resp.data.voters.length; i++) {
+					if (vm.address.voters.indexOf(resp.data.voters[i]) < 0) {
+						vm.address.voters.push(resp.data.voters[i]);
+					}
+				}
+
+				vm.address.votersMeta = resp.data.meta;
+				vm.address.votersCount = vm.address.votersMeta.count;
 			}
 		});
 	};
@@ -69,6 +123,7 @@ const AddressConstructor = function (
 	};
 
 	vm.getAddress();
+
 	vm.txs = addressTxs({ address: $stateParams.address });
 };
 
