@@ -29,12 +29,11 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'angular-advanced-searchbox/dist/angular-advanced-searchbox.min.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/css/v4-shims.css';
 import '../assets/styles/common.css';
 import '../assets/styles/flags.css';
 import '../assets/styles/tableMobile.css';
-import '@fortawesome/fontawesome-free/css/all.css';
-import '@fortawesome/fontawesome-free/css/v4-shims.css';
-
 
 // submodules
 import '../components/blocks';
