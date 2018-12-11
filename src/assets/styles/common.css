@@ -1194,7 +1194,7 @@ a.v_highlight_more {
 }
 
 .big-info {
-  padding-bottom: 0px;
+  padding-bottom: 24px;
   padding-top: 0px;
 }
 
@@ -1215,10 +1215,18 @@ a.v_highlight_more {
   line-height: 32px;
 }
 
+.top-pb {
+  padding-bottom: 0px;
+}
+
 @media (max-width: 768px) {
   .big-info {
-    padding-bottom: 0px;
+    padding-bottom: 12px;
     padding-top: 0px;
+  }
+
+  .top-pb {
+    padding-bottom: 0px;
   }
 }
 
