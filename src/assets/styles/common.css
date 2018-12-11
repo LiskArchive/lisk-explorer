@@ -1600,3 +1600,8 @@ table tbody tr:nth-of-type(odd) {
     padding-left: 32px;
   }
 }
+
+#footer .social-networks {
+	padding-top: 5px;
+}
+
