@@ -1600,3 +1600,9 @@ table tbody tr:nth-of-type(odd) {
     padding-left: 32px;
   }
 }
+
+li.dropdown.disabled a {
+	color: grey;
+}
+
+
