@@ -62,13 +62,13 @@
 
 	<nav>
 		<ul class="nav nav-pills nav-justified">
-			<li role="presentation" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPrev()">
+			<li role="presentation" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)">
 				<button class="btn btn-default less-button bordered-button" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPrev()">Prev</button>
 			</li>
 			<li role="presentation">
 				<button class="btn btn-default more-button bordered-button">Pagination</button>
 			</li>
-			<li role="presentation" data-ng-disabled="!txs.hasNext" data-ng-click="txs.loadNext()">
+			<li role="presentation" data-ng-disabled="!txs.hasNext" data-ng-click="txs.loadPageOffset(1)">
 				<button class="btn btn-default more-button bordered-button" data-ng-disabled="!txs.hasNext" data-ng-click="txs.loadNext()">Next</button>
 			</li>
 		</ul>
