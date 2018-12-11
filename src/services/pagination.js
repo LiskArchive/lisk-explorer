@@ -15,7 +15,6 @@
  */
 import angular from 'angular';
 import AppServices from './services.module';
-import { identity } from 'ui-router-core';
 
 const Pagination = function ($http, $q, params) {
 	this.$http = $http;
