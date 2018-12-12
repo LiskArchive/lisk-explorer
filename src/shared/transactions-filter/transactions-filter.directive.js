@@ -84,6 +84,7 @@ const TransactionsConstructor = function ($rootScope, $scope, $stateParams, $ele
 	$scope.queryText = Object.keys($stateParams)
 		.filter(key => key !== 'page')
 		.filter(key => key !== 'address')
+		.filter(key => key !== 'sort')
 		.filter(key => key !== '#')
 		.filter(key => typeof $stateParams[key] !== 'undefined')
 		.map(key => `${key}=${convertFromUrl(key, $stateParams[key])}`)

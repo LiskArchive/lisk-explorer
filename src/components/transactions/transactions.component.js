@@ -46,6 +46,8 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $state, $htt
 				vm.txs.page = $stateParams.page || 1;
 				vm.txs.loadPageOffset = vm.loadPageOffset;
 				vm.txs.loadPage = vm.loadPage;
+				vm.txs.activeSort = vm.activeSort;
+				vm.txs.applySort = vm.applySort;
 			} else {
 				vm.txs = {};
 			}
@@ -59,6 +61,15 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $state, $htt
 	vm.loadPage = (pageNumber) => {
 		$state.go($state.current.component, { page: pageNumber });
 	};
+
+	vm.applySort = (predicate) => {
+		const direction = (predicate === vm.activeSort.predicate && vm.activeSort.direction === 'asc') ? 'desc' : 'asc';
+		$state.go($state.current.component, { sort: `${predicate}:${direction}` });
+	};
+
+	vm.activeSort = typeof $stateParams.sort === 'string'
+		? { predicate: $stateParams.sort.split(':')[0], direction: $stateParams.sort.split(':')[1] }
+		: { predicate: 'timestamp', direction: 'desc' };
 
 	const update = () => {
 		vm.getLastTransactions($stateParams.page || 1);
