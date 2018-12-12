@@ -44,7 +44,7 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $state, $htt
 	};
 
 	vm.loadPage = (pageNumber) => {
-		$state.go($state.current.component, { page: Number(vm.txs.page || 1) + pageNumber });
+		$state.go($state.current.component, { page: pageNumber });
 	};
 
 	const update = () => {
