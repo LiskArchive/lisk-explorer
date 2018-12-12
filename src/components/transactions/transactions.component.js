@@ -18,19 +18,32 @@ import template from './transactions.html';
 
 const TransactionsConstructor = function ($rootScope, $stateParams, $state, $http, $interval) {
 	const vm = this;
+
+	const filters = Object.keys($stateParams)
+		.filter(key => key !== 'page')
+		.filter(key => key !== '#')
+		.filter(key => typeof $stateParams[key] !== 'undefined')
+		.map(key => `${key}=${$stateParams[key]}`);
+
 	vm.getLastTransactions = (n) => {
 		const limit = 20 + 1;
 		let offset = 0;
 		if (n) offset = (n - 1) * limit;
 
-		$http.get(`/api/getTransactions?limit=${limit}&offset=${offset}`).then((resp) => {
+		let requestUrl = `/api/getTransactions?limit=${limit}&offset=${offset}`;
+		requestUrl += filters.length ? `&${filters.join('&')}` : '';
+
+		$http.get(requestUrl).then((resp) => {
 			if (resp.data.success) {
-				const removedTx = resp.data.transactions.splice(-1, 1);
+				let removedTx;
+				if (resp.data.transactions.length > limit - 1) {
+					removedTx = resp.data.transactions.splice(-1, 1);
+				}
 
 				vm.txs = { results: resp.data.transactions };
 				vm.txs.hasPrev = !!offset;
 				vm.txs.hasNext = !!removedTx;
-				vm.txs.page = $stateParams.page || 0;
+				vm.txs.page = $stateParams.page || 1;
 				vm.txs.loadPageOffset = vm.loadPageOffset;
 				vm.txs.loadPage = vm.loadPage;
 			} else {
