@@ -98,13 +98,19 @@ Pagination.prototype.loadPrev = function () {
 	this.loadData();
 };
 
-Pagination.prototype.nextOffset = function () {
-	this.currentPage += 1;
+Pagination.prototype.loadPageOffset = function (offset) {
+	if (offset > 0) this.nextOffset(offset);
+	if (offset < 0) this.prevOffset(offset);
+	this.loadData();
+};
+
+Pagination.prototype.nextOffset = function (offset) {
+	this.currentPage += offset || 1;
 	return this.offset += this.limit;
 };
 
-Pagination.prototype.prevOffset = function () {
-	this.currentPage -= 1;
+Pagination.prototype.prevOffset = function (offset) {
+	this.currentPage -= offset || 1;
 	return this.offset -= this.limit;
 };
 

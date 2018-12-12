@@ -958,7 +958,6 @@ qrcode + span {
     white-space:normal;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    width: 100%;
 }
 
 .pk-mobile-style {
@@ -1139,8 +1138,6 @@ qrcode + span {
   -webkit-animation-timing-function: linear;
 }
 
-.transaction-vin-vout {
-}
 
 .v_highlight {
   margin-bottom: 1em;
@@ -1197,8 +1194,8 @@ a.v_highlight_more {
   display: none;
 }
 
-.big-info {
-  padding-bottom: 24px;
+.top-pb .big-info {
+  padding-bottom: 0px;
   padding-top: 0px;
 }
 
@@ -1220,8 +1217,8 @@ a.v_highlight_more {
 }
 
 @media (max-width: 768px) {
-  .big-info {
-    padding-bottom: 12px;
+  .top-pb .big-info {
+    padding-bottom: 0px;
     padding-top: 0px;
   }
 }
@@ -1605,4 +1602,6 @@ li.dropdown.disabled a {
 	color: grey;
 }
 
-
+#footer .social-networks {
+	padding-top: 5px;
+}
