@@ -1598,7 +1598,10 @@ table tbody tr:nth-of-type(odd) {
   }
 }
 
+li.dropdown.disabled a {
+	color: grey;
+}
+
 #footer .social-networks {
 	padding-top: 5px;
 }
-
