@@ -16,7 +16,7 @@
  */
 -->
 <div class="row breadcrumb-row">
-	<div class="col-sm-8">
+	<div class="col-sm-7">
 		<ol class="breadcrumb">
 			<li data-ng-repeat="section in sections">
 				<a class="text-capitalize" data-ng-if="section.url != '#'" href="{{section.url}}">{{section.name | alterWordSeparation: 'spaceSeparated'}}</a>
@@ -24,7 +24,7 @@
 			</li>
 		</ol>
 	</div>
-	<div class="col-sm-4 breadcrumb breadcrumb-currency-picker pull-right">
+	<div class="col-sm-5 breadcrumb breadcrumb-currency-picker pull-right">
 		<ul class="hidden-xs"><currency-selector /></ul>
 		<ul class="hidden-xs"><rounding-selector /></ul>
 	</div>
