@@ -32,6 +32,8 @@
 			<a href="" class="pull-right" data-ng-click="queryBoxActive = false">Close [x]</a>
 			<h4>Available params</h4>
 			<p><span data-ng-repeat="param in availableSearchParams">{{ param.key }}, </span></p>
+			<h4>Transaction types</h4>
+			<p>0: Balance transfer, 1: Second signature creation, 2: Delegate registration, 3: Delegate vote, 4: Multi-signature creation,	5: DApp registration</p>
 			<h4>Examples</h4>
 			<span data-ng-repeat="i in [0,4,6,7]"><strong>{{ availableSearchParams[i].key }}</strong>={{ availableSearchParams[i].example }} </span><br>
 			<span data-ng-repeat="i in [3,5,8]" class="hidden-xs"><strong>{{ availableSearchParams[i].key }}</strong>={{ availableSearchParams[i].example }} </span><br>
