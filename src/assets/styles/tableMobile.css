@@ -22,6 +22,7 @@
     max-width: inherit;
 }
 
+
 @media only screen and (max-width: 995px) {
     
     /* Force table to not be like tables anymore */
@@ -32,7 +33,7 @@
 	#table-mobile td, 
 	#table-mobile tr { 
 		display: block;
-		padding: 10px 0;
+		/* padding: 10px 0; */
 	}
  
 	/* Hide table headers (but not display: none;, for accessibility) */
