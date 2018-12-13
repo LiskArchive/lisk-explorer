@@ -31,11 +31,21 @@ const BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $ht
 
 				if (resp.data.pagination) {
 					vm.pagination = resp.data.pagination;
+					vm.pages = vm.makePages(vm.pagination.currentPage);
 				}
 			} else {
 				vm.blocks = [];
 			}
 		});
+	};
+
+	vm.makePages = (page) => {
+		const arr = [];
+		const n = Number(page);
+		if (n === 0 || n === 1) {
+			arr.push(1, 2, 3);
+		} else { arr.push(n - 1, n, n + 1); }
+		return arr;
 	};
 
 	vm.getBlock = (blockId) => {

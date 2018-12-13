@@ -66,7 +66,7 @@
 				<button class="btn btn-default less-button bordered-button" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)">Prev</button>
 			</li>
 			<li role="presentation"  data-ng-repeat="page in txs.pages">
-				<a href="txs/{{page}}" data-ng-class="{{txs.page}} === {{page}} ? 'text-primary' : 'text-muted'">{{ page }}</a>
+				<a href="txs/{{page}}" data-ng-class="{{txs.page}} === {{page}} ? 'tx-other' : 'text-muted'">{{ page }}</a>
 				<!-- <button class="btn btn-default more-button bordered-button" data-ng-repeat="page in txs.pages">{{ page }}</button> -->
 			</li>
 			<li role="presentation" data-ng-disabled="!txs.hasNext">

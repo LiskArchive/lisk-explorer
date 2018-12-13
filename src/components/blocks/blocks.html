@@ -70,14 +70,15 @@
 					<li>
 						<a class="btn btn-default less-button bordered-button" data-ng-class="{'disabled': !vm.pagination.before}" data-ng-disabled="!vm.pagination.before" href="/blocks/{{vm.pagination.previousPage}}">Previous</a>
 					</li>
-					<li>
-						<small data-ng-if="vm.blocks.length > 1">{{vm.blocks[0].height}} &#8594; {{vm.blocks[vm.blocks.length - 1].height}}</small>
+					<li data-ng-repeat="page in vm.pages">
+                        <!-- <small data-ng-if="vm.blocks.length > 1">{{vm.blocks[0].height}} &#8594; {{vm.blocks[vm.blocks.length - 1].height}}</small> -->
+                        <a href="blocks/{{page}}" data-ng-class="{{page}} === {{vm.pagination.currentPage}} ? 'tx-other' : 'text-muted'">{{ page }}</a>
 					</li>
 					<li>
 						<a class="btn btn-default more-button bordered-button" data-ng-class="{'disabled': !(vm.pagination.more && vm.pagination.nextPage != 0)}" data-ng-disabled="!(vm.pagination.more && vm.pagination.nextPage != 0)" href="/blocks/{{vm.pagination.nextPage}}">Next</a>
 					</li>
 				</ul>
-			</nav>
+            </nav>
         </div>
     </div>
     <h2 class="text-center text-muted" data-ng-if="!loading && !vm.blocks.length">No blocks yet.</h2>
