@@ -15,6 +15,7 @@
  */
 import AppTransactions from './transactions.module';
 import template from './transactions.html';
+import { identity } from 'ui-router-core';
 
 const TransactionsConstructor = function ($rootScope, $stateParams, $state, $http, $interval) {
 	const vm = this;
@@ -31,12 +32,22 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $state, $htt
 				vm.txs.hasPrev = !!offset;
 				vm.txs.hasNext = !!removedTx;
 				vm.txs.page = $stateParams.page || 0;
+				vm.txs.pages = vm.makePages(vm.txs.page);
 				vm.txs.loadPageOffset = vm.loadPageOffset;
 				vm.txs.loadPage = vm.loadPage;
 			} else {
 				vm.txs = {};
 			}
 		});
+	};
+
+	vm.makePages = (page) => {
+		const arr = [];
+		const n = Number(page);
+		if (n === 0 || n === 1) {
+			arr.push(1, 2, 3);
+		} else { arr.push(n - 1, n, n + 1); }
+		return arr;
 	};
 
 	vm.loadPageOffset = (offset) => {
