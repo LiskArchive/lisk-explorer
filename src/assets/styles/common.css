@@ -335,6 +335,8 @@ qrcode + span {
 
 .m10b { margin-bottom: 10px; }
 
+.m20b { margin-bottom: 20px; }
+
 .m10l { margin-left: 10px; }
 
 .vm { vertical-align: middle; }
@@ -1003,6 +1005,14 @@ qrcode + span {
   white-space: nowrap;
 }
 
+.badge-delegate {
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+  padding: 4px 9px 4px;
+}
+
+
 .badge:hover {
   color: white;
   text-decoration: none;
@@ -1274,6 +1284,16 @@ a.sort-order span.reverse:after {
 
 .delegate-vote {
   margin-bottom: 40px;
+}
+
+.latest-votes {
+  padding-left: 5px;
+}
+
+@media (min-width: 1080px) {
+  .latest-votes {
+    padding-left: 17px;
+  }
 }
 
 .lead {
