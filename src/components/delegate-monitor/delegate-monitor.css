@@ -113,7 +113,8 @@
   border-left-color:  #c80039;
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
+
+@media (max-width: 991px) {
   .forging-totals {
     margin-left: -10px;
     margin-right: -10px;
@@ -125,6 +126,7 @@
     min-height: 110px;
   }
 }
+
 
 @media (min-width: 992px) and (max-width: 1199px) {
   .forging-totals {
