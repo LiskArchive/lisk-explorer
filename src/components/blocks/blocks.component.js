@@ -42,9 +42,9 @@ const BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $ht
 	vm.makePages = (page) => {
 		const arr = [];
 		const n = Number(page);
-		if (n === 0 || n === 1) {
-			arr.push(1, 2, 3);
-		} else { arr.push(n - 1, n, n + 1); }
+		if (n === 0 || n === 1 || n === 2) {
+			arr.push(1, 2, 3, 4, 5);
+		} else { arr.push(n - 2, n - 1, n, n + 1, n + 2); }
 		return arr;
 	};
 
