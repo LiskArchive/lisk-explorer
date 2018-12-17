@@ -202,14 +202,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 h1 {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   margin: 0;
 }
 
 @media (max-width: 769px) {
   h1 {
-		padding: 30px 12px 25px;
+		padding: 30px 12px 0px;
 		font-size: 2em;
   }
 }
