@@ -61,7 +61,7 @@ module.exports = function (app, config, client) {
 		const getFromHmset = key => new Promise((resolve, reject) => {
 			client.hgetall(key, (err, result) => {
 				if (err) reject(err.message);
-				resolve(result);
+				resolve(result || {});
 			});
 		});
 
