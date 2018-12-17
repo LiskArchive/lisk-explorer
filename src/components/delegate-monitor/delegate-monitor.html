@@ -41,6 +41,19 @@
 				<div class="col-xs-6 col-sm-3">
 					<div class="row big-info">
 						<div class="col-xs-12">
+							<div class="pull-left total-forged">
+								<p class="small-title">Total Forged <span class="text-muted">({{$root.currency.symbol}})</span></p>
+								<p class="big-details">
+									<span class="lisk">{{vm.totalForged || 0 | currency:$root.currency:vm.decimalPlaceCrypto:vm.decimalPlaceFiat}}</span>
+								</p>
+								<p class="text-muted total-active">between {{vm.totalActive || 0 }} active delegates</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-3">
+					<div class="row big-info">
+						<div class="col-xs-12">
 							<div class="pull-left last-block">
 								<p class="small-title">Last Block By</p>
 								<p class="big-details" data-ng-switch="!!vm.lastBlock">
@@ -93,34 +106,6 @@
 				<div class="col-xs-6 col-sm-3">
 					<div class="row big-info">
 						<div class="col-xs-12">
-							<div class="pull-left total-forged">
-								<p class="small-title">Total Forged <span class="text-muted">({{$root.currency.symbol}})</span></p>
-								<p class="big-details">
-									<span class="lisk">{{vm.totalForged || 0 | currency:$root.currency:vm.decimalPlaceCrypto:vm.decimalPlaceFiat}}</span>
-								</p>
-								<p class="text-muted total-active">between {{vm.totalActive || 0 }} active delegates</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-3">
-					<div class="row big-info">
-						<div class="col-xs-12">
-							<div class="pull-left best-forger">
-								<p class="small-title">Best Forger</p>
-								<p class="big-details" data-ng-switch="!!vm.bestForger">
-									<a data-account-href="vm.bestForger" data-type="delegate" data-ng-switch-when="true">{{vm.bestForger.username}}</a>
-									<span class="text-muted" data-ng-switch-when="false">N/A</span>
-								</p>
-								<p class="text-muted lisk">{{vm.bestForger.forged || 0 | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}} forged</p>
-								<p class="text-muted time-since">since registration</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-xs-6 col-sm-3">
-					<div class="row big-info">
-						<div class="col-xs-12">
 							<div class="pull-left best-productivity">
 								<p class="small-title">Best Productivity</p>
 								<p class="big-details">{{vm.bestProductivity.productivity || 0}}%</p>
@@ -144,6 +129,21 @@
 									<a data-account-href="vm.worstProductivity" data-type="delegate" data-ng-switch-when="true">{{vm.worstProductivity.username}}</a>
 									<span class="text-muted" data-ng-switch-when="false">N/A</span>
 								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-3">
+					<div class="row big-info">
+						<div class="col-xs-12">
+							<div class="pull-left best-forger">
+								<p class="small-title">Best Forger</p>
+								<p class="big-details" data-ng-switch="!!vm.bestForger">
+									<a data-account-href="vm.bestForger" data-type="delegate" data-ng-switch-when="true">{{vm.bestForger.username}}</a>
+									<span class="text-muted" data-ng-switch-when="false">N/A</span>
+								</p>
+								<p class="text-muted lisk">{{vm.bestForger.forged || 0 | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}} forged</p>
+								<p class="text-muted time-since">since registration</p>
 							</div>
 						</div>
 					</div>
