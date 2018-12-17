@@ -595,6 +595,10 @@ qrcode + span {
   border-radius: 5px;
 }
 
+a.btn-pagination-inactive {
+  color: #D9DCE3;
+}
+
 .btn-pagination-inactive {
   color: #D9DCE3;
   background-color: rgb(239, 241, 245);

@@ -67,7 +67,7 @@
             <nav>
                 <ul class="nav-pagination">
                     <li>
-                        <a data-ng-class="{{vm.pagination.currentPage}} === 1 ? 'btn-pagination-inactive' : 'btn-pagination'" data-ng-disabled="!vm.pagination.before" href="/blocks/{{vm.pagination.previousPage}}">
+                        <a class="btn-pagination" data-ng-class="{'btn-pagination-inactive': !vm.pagination.before}" data-ng-disabled="!vm.pagination.before" href="/blocks/{{vm.pagination.previousPage}}">
                             <i class="fas fa-caret-left fa-lg"></i>
                         </a>
                     </li>
