@@ -335,6 +335,8 @@ qrcode + span {
 
 .m10b { margin-bottom: 10px; }
 
+.m20b { margin-bottom: 20px; }
+
 .m10l { margin-left: 10px; }
 
 .vm { vertical-align: middle; }
@@ -1211,8 +1213,8 @@ a.v_highlight_more {
 }
 
 .big-info p.big-details {
-  font-weight: 200;
-  font-size: 24px;
+  font-weight: 600;
+  font-size: 18px;
   line-height: 32px;
 }
 
