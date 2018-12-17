@@ -45,7 +45,7 @@ config.freegeoip.port = process.env.FREEGEOIP_PORT || 8080;
  * Redis server
  */
 config.redis.host = process.env.REDIS_HOST || '127.0.0.1';
-config.redis.port = process.env.REDIS_PORT || 6380;
+config.redis.port = process.env.REDIS_PORT || 6379;
 config.redis.db = process.env.REDIS_DB || 0;
 config.redis.password = '';
 
