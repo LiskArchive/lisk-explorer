@@ -17,13 +17,13 @@
 -->
 <section>
 	<h1>Transactions</h1>
+	<div data-ng-init="vm.txs.loadData()">
+		<transactions-filter data-txs="vm.txs"></transactions-filter>
+		<transactions-list data-txs="vm.txs"></transactions-list>
+	</div>
 	<div class="text-muted" data-ng-if="!vm.txs">
 		<div class="jumbotron">
 			<span>Loading transactions list <i class="fa fa-spinner fa-spin"></i>
 		</div>
-	</div>
-	<div data-ng-init="vm.txs.loadData()">
-		<!-- <transactions-filter data-txs="vm.txs"></transactions-filter> -->
-		<transactions-list data-txs="vm.txs"></transactions-list>
 	</div>
 </section>
