@@ -559,7 +559,13 @@ qrcode + span {
   justify-content: space-between;
   width: 420px;
   margin: 0 auto;
-  /* background: #eee; */
+  padding: 0 10px;
+}
+
+@media (max-width: 420px) {
+  .nav-pagination {
+    width: 360px;
+  }
 }
 
 .nav-pagination > li {
