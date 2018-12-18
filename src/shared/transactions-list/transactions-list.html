@@ -50,11 +50,17 @@
 	</table>
 	<nav>
 		<ul class="nav-pagination">
-			<li data-ng-disabled="!txs.hasPrev">
+			<li data-ng-if="!txs.currentPage" data-ng-disabled="!txs.hasPrev">
 				<button data-ng-class="{{txs.page}} === 1 || {{txs.page}} === 0 ? 'btn-pagination-inactive' : 'btn-pagination'" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)"><i class="fas fa-caret-left fa-lg"></i></button>
 			</li>
+			<li data-ng-if="txs.currentPage" data-ng-disabled="!txs.hasPrev">
+				<button data-ng-class="{{txs.currentPage}} === 1 || {{txs.currentPage}} === 0 ? 'btn-pagination-inactive' : 'btn-pagination'" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)"><i class="fas fa-caret-left fa-lg"></i></button>
+			</li>
 			<li role="presentation" class="nav-item"  data-ng-repeat="page in txs.pages">
-				<a href="txs/{{page}}" data-ng-class="{{txs.page}} === {{page}} ? 'curr-page' : 'tx-other'">{{ page }}</a>
+				<a href="txs/{{page}}" data-ng-class="{{txs.page}} === {{page}} ? 'curr-page' : 'tx-other'">{{ page }}</a> 
+			</li>
+			<li data-ng-if="txs.currentPage" role="presentation" class="nav-item">
+				Page <span class="address-currpage">{{txs.currentPage}}</span>
 			</li>
 			<li data-ng-disabled="!txs.hasNext">
 				<a href="#" aria-label="Next">

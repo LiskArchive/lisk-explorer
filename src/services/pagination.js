@@ -101,7 +101,7 @@ Pagination.prototype.loadPrev = function () {
 
 Pagination.prototype.loadPageOffset = function (offset) {
 	if (offset > 0) this.nextOffset(offset);
-	if (offset < 0) this.prevOffset(offset);
+	if (offset < 0) this.prevOffset(-offset);
 	this.loadData();
 };
 

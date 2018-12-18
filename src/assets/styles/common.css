@@ -625,6 +625,10 @@ a.btn-pagination-inactive {
   border-style: none;
 }
 
+.address-currpage {
+  font-size: 1.1em;
+  font-weight: bold;
+}
 
 .col-gray {
   -moz-border-radius: 5px;
