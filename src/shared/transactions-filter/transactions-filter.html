@@ -42,7 +42,7 @@
 			<span data-ng-repeat="i in [0,4,6,7]"><strong>{{ availableSearchParams[i].key }}</strong>={{ availableSearchParams[i].example }} </span><br>
 			<span data-ng-repeat="i in [3,5,8]" class="hidden-xs"><strong>{{ availableSearchParams[i].key }}</strong>={{ availableSearchParams[i].example }} </span><br>
 			</p>
-			<p>For detailed instruction <a href="" ng-model="queryHelpActive" data-ng-click="queryHelpActive = true">click here...</a></p>
+			<p>For detailed instruction <a href="" ng-model="queryHelpOn" data-ng-click="queryHelpOn = true">click here...</a></p>
 		</div>
 	</div>
 	<div data-ng-show="queryHelpOn" class="panel panel-default">
