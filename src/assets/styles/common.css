@@ -601,6 +601,11 @@ qrcode + span {
   border-radius: 5px;
 }
 
+.btn-pagination:hover {
+  color: #fff;
+  background-color: #2475b9;
+}
+
 a.btn-pagination-inactive {
   color: #D9DCE3;
 }
