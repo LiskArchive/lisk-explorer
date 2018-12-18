@@ -18,13 +18,23 @@ import template from './transactions.html';
 
 const TransactionsConstructor = function ($rootScope, $stateParams, $state, $http, $interval) {
 	const vm = this;
+
+	const filters = Object.keys($stateParams)
+		.filter(key => key !== 'page')
+		.filter(key => key !== '#')
+		.filter(key => typeof $stateParams[key] !== 'undefined')
+		.map(key => `${key}=${$stateParams[key]}`);
+
 	vm.getLastTransactions = (n) => {
 		const limit = 40 + 1;
 		const pageLength = 20;
 		let offset = 0;
 		if (n) offset = (n - 1) * limit;
 
-		$http.get(`/api/getTransactions?limit=${limit}&offset=${offset}`).then((resp) => {
+		let requestUrl = `/api/getTransactions?limit=${limit}&offset=${offset}`;
+		requestUrl += filters.length ? `&${filters.join('&')}` : '';
+
+		$http.get(requestUrl).then((resp) => {
 			if (resp.data.success) {
 				vm.txs = { results: resp.data.transactions.slice(0, 19) };
 				vm.txs.hasPrev = !!offset;
@@ -39,10 +49,12 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $state, $htt
 					vm.txs.hasNextNext = false;
 					vm.txs.hasNext = false;
 				}
-				vm.txs.page = $stateParams.page || 0;
+				vm.txs.page = $stateParams.page || 1;
 				vm.txs.pages = vm.makePages(vm.txs.page, vm.txs);
 				vm.txs.loadPageOffset = vm.loadPageOffset;
 				vm.txs.loadPage = vm.loadPage;
+				vm.txs.activeSort = vm.activeSort;
+				vm.txs.applySort = vm.applySort;
 			} else {
 				vm.txs = {};
 			}
@@ -71,6 +83,15 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $state, $htt
 	vm.loadPage = (pageNumber) => {
 		$state.go($state.current.component, { page: pageNumber });
 	};
+
+	vm.applySort = (predicate) => {
+		const direction = (predicate === vm.activeSort.predicate && vm.activeSort.direction === 'asc') ? 'desc' : 'asc';
+		$state.go($state.current.component, { sort: `${predicate}:${direction}` });
+	};
+
+	vm.activeSort = typeof $stateParams.sort === 'string'
+		? { predicate: $stateParams.sort.split(':')[0], direction: $stateParams.sort.split(':')[1] }
+		: { predicate: 'timestamp', direction: 'desc' };
 
 	const update = () => {
 		vm.getLastTransactions($stateParams.page || 1);

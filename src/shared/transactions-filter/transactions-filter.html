@@ -15,16 +15,53 @@
  *
  */
 -->
-<section class='horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double'>
-	<nit-advanced-searchbox
-		ng-model="searchParams"
-		parameters="availableSearchParams"
-		parameters-display-limit="parametersDisplayLimit"
-		placeholder="Filter transactions...">
-	</nit-advanced-searchbox>
-	<div ng-if="invalidParams" class="alert alert-danger" role="alert">
-		<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-		<span class="sr-only">Error:</span>
-		Please provide a valid address for sender id and/or recipient id. Username is not accepted.
+<section class="horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double transaction-filter" ng-init="queryHelpActive = false">
+	<div class="input-group">
+		<form data-ng-submit="performSearch()">
+			<input
+				type="text"
+				class="form-control filter-query-box"
+				placeholder="Filter transactions..."
+				autocomplete="off"
+				data-ng-model="queryText"
+				data-ng-focus="queryBoxActive = true">
+		</form>
+		<div class="input-group-btn">
+			<button type="button" class="btn btn-default btn-small" data-ng-focus="queryCheatSheetOn = true"><span class="glyphicon glyphicon-question-sign"></span></button>
+			<button type="submit" class="btn btn-default btn-small" data-ng-click="performSearch()"><span class="glyphicon glyphicon-search"></span></button>
+		</div>
+	</div>
+	<div data-ng-show="queryBoxActive && queryCheatSheetOn" data-ng-init="queryCheatSheetOn = true" class="panel panel-default">
+		<div class="panel-body">
+			<a href="" class="pull-right" data-ng-click="queryCheatSheetOn = false">Close [x]</a>
+			<h4>Available params</h4>
+			<p><span data-ng-repeat="param in availableSearchParams">{{ param.key }}, </span></p>
+			<h4>Transaction types</h4>
+			<p>0: Balance transfer, 1: Second signature creation, 2: Delegate registration, 3: Delegate vote, 4: Multi-signature creation,	5: DApp registration</p>
+			<h4>Examples</h4>
+			<span data-ng-repeat="i in [0,4,6,7]"><strong>{{ availableSearchParams[i].key }}</strong>={{ availableSearchParams[i].example }} </span><br>
+			<span data-ng-repeat="i in [3,5,8]" class="hidden-xs"><strong>{{ availableSearchParams[i].key }}</strong>={{ availableSearchParams[i].example }} </span><br>
+			</p>
+			<p>For detailed instruction <a href="" ng-model="queryHelpActive" data-ng-click="queryHelpActive = true">click here...</a></p>
+		</div>
+	</div>
+	<div data-ng-show="queryHelpOn" class="panel panel-default">
+		<div class="panel-body">
+			<a href="" class="pull-right" data-ng-click="queryHelpOn = false">Close [x]</a>
+			<table class="table transactions">
+				<thead>
+					<th>Param</th>
+					<th class="hidden-xs">Name</th>
+					<th>Example</th>
+				</thead>
+				<tbody>
+					<tr data-ng-repeat="param in availableSearchParams">
+						<td>{{ param.key }}</td>
+						<td class="hidden-xs">{{ param.name }}</td>
+						<td>{{ param.example }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </section>
