@@ -44,9 +44,6 @@ const TransactionsConstructor = function ($rootScope, $scope, $stateParams, $ele
 		// },
 	];
 
-	$scope.queryBoxActive = false;
-	// $scope.queryHelpActive = true;
-
 	const convertToUrl = (key, param) => {
 		switch (key) {
 		case 'minAmount':
@@ -63,7 +60,7 @@ const TransactionsConstructor = function ($rootScope, $scope, $stateParams, $ele
 		case 'maxAmount':
 			return Number(param) / Math.pow(10, 8);
 		default:
-			return param;
+			return encodeURI(param);
 		}
 	};
 

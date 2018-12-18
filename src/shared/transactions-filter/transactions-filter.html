@@ -15,8 +15,8 @@
  *
  */
 -->
-<section class='horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double' ng-init="queryHelpActive = false">
-	<div class="form-group">
+<section class="horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double transaction-filter" ng-init="queryHelpActive = false">
+	<div class="input-group">
 		<form data-ng-submit="performSearch()">
 			<input
 				type="text"
@@ -26,10 +26,14 @@
 				data-ng-model="queryText"
 				data-ng-focus="queryBoxActive = true">
 		</form>
+		<div class="input-group-btn">
+			<button type="button" class="btn btn-default btn-small" data-ng-focus="queryCheatSheetOn = true"><span class="glyphicon glyphicon-question-sign"></span></button>
+			<button type="submit" class="btn btn-default btn-small" data-ng-click="performSearch()"><span class="glyphicon glyphicon-search"></span></button>
+		</div>
 	</div>
-	<div data-ng-show="queryBoxActive" class="panel panel-default" data-ng-click="queryBoxActive = true">
+	<div data-ng-show="queryBoxActive && queryCheatSheetOn" data-ng-init="queryCheatSheetOn = true" class="panel panel-default">
 		<div class="panel-body">
-			<a href="" class="pull-right" data-ng-click="queryBoxActive = false">Close [x]</a>
+			<a href="" class="pull-right" data-ng-click="queryCheatSheetOn = false">Close [x]</a>
 			<h4>Available params</h4>
 			<p><span data-ng-repeat="param in availableSearchParams">{{ param.key }}, </span></p>
 			<h4>Transaction types</h4>
@@ -41,9 +45,9 @@
 			<p>For detailed instruction <a href="" ng-model="queryHelpActive" data-ng-click="queryHelpActive = true">click here...</a></p>
 		</div>
 	</div>
-	<div data-ng-show="queryHelpActive" class="panel panel-default">
+	<div data-ng-show="queryHelpOn" class="panel panel-default">
 		<div class="panel-body">
-			<a href="" class="pull-right" data-ng-click="queryHelpActive = false">Close [x]</a>
+			<a href="" class="pull-right" data-ng-click="queryHelpOn = false">Close [x]</a>
 			<table class="table transactions">
 				<thead>
 					<th>Param</th>

@@ -1605,3 +1605,32 @@ li.dropdown.disabled a {
 #footer .social-networks {
 	padding-top: 5px;
 }
+
+.transaction-filter button {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	touch-action: manipulation;
+	cursor: pointer;
+	user-select: none;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-style: solid none;
+	height: auto;
+	width: auto;
+}
+
+.transaction-filter button:first-of-type {
+	border-style: solid none solid none;
+}
+
+.transaction-filter button:last-of-type {
+	border-style: solid solid solid none;
+}
+

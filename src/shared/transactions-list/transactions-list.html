@@ -15,14 +15,6 @@
  *
  */
 -->
-<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-l" data-ng-if="!txs.loading && !txs.results.length">
-	<div class="col-md-12">
-		<div class='empty-state'>
-			<h2>No transactions</h2>
-			<p>There are no transactions involving this {{txs.parent}}.</p>
-		</div>
-	</div>
-</div>
 <div id="table-mobile" class="table-responsive" data-ng-if="txs.results.length">
 	<table class="table transactions">
 		<thead>
@@ -75,6 +67,14 @@
 	<div class="wrapper">
 		<div class="progress-bar progress-bar-loading" style="width: 100%">
 			<span>Loading Transactions...</span>
+		</div>
+	</div>
+</div>
+<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-l" data-ng-if="!txs.loading && !txs.results.length">
+	<div class="col-md-12">
+		<div class='empty-state'>
+			<h2>No transactions</h2>
+			<p>There are no transactions found.</p>
 		</div>
 	</div>
 </div>
