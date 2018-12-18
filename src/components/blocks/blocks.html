@@ -67,7 +67,7 @@
             <nav>
                 <ul class="nav-pagination">
                     <li>
-                        <a data-ng-class="{'btn-pagination-inactive': !vm.pagination.before}" data-ng-disabled="!vm.pagination.before" class="btn-pagination"  href="/blocks/{{vm.pagination.previousPage}}">
+                        <a data-ng-class="{'btn-pagination-inactive': !vm.pagination.before, 'btn-pagination': vm.pagination.before}" data-ng-disabled="!vm.pagination.before"  href="/blocks/{{vm.pagination.previousPage}}">
                             <i class="fas fa-caret-left fa-lg"></i>
                         </a>
                     </li>
@@ -75,7 +75,7 @@
                         <a href="blocks/{{page}}" data-ng-class="{{page}} === {{vm.pagination.currentPage}} ? 'curr-page' : 'tx-other'">{{ page }}</a>
                     </li>
                     <li>
-                        <a class="btn-pagination" data-ng-class="{'disabled': !(vm.pagination.more && vm.pagination.nextPage != 0)}" data-ng-disabled="!(vm.pagination.more && vm.pagination.nextPage != 0)" href="/blocks/{{vm.pagination.nextPage}}">
+                        <a data-ng-class="{'disabled': !(vm.pagination.more && vm.pagination.nextPage != 0), 'btn-pagination': vm.pagination.more}" data-ng-disabled="!(vm.pagination.more && vm.pagination.nextPage != 0)" href="/blocks/{{vm.pagination.nextPage}}">
                             <i class="fas fa-caret-right fa-lg"></i>
                         </a>
                     </li>
