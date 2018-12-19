@@ -209,7 +209,7 @@ h1 {
 
 @media (max-width: 769px) {
   h1 {
-		padding: 30px 12px 0px;
+		padding: 30px 12px 12px;
 		font-size: 2em;
   }
 }
@@ -1631,5 +1631,13 @@ li.dropdown.disabled a {
 
 .transaction-filter button:last-of-type {
 	border-style: solid solid solid none;
+}
+
+.home .stats {
+	margin-top: 20px;
+}
+
+.home .latest-transactions-box {
+	margin-top: 40px;
 }
 
