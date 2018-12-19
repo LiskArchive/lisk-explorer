@@ -1342,6 +1342,10 @@ a.sort-order span.reverse:after {
   transition: all ease 300ms;
 }
 
+.best-productivity {
+  padding-right: 10px;
+}
+
 .advancedSearchBox .search-icon {
   position: absolute;
   z-index: 2;
@@ -1428,6 +1432,10 @@ table tbody tr:nth-of-type(odd) {
 .bordered-button:hover {
   color: #fff;
   background-color: #2475b9;
+}
+
+.total-forged {
+  height: 140px;
 }
 
 

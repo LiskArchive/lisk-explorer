@@ -57,7 +57,7 @@
 							<div class="pull-left last-block">
 								<p class="small-title">Last Block By</p>
 								<p class="big-details" data-ng-switch="!!vm.lastBlock">
-									<a data-account-href="vm.lastBlock.delegate" data-type="delegate" data-ng-switch-when="true">{{vm.lastBlock.delegate.username}}</a>
+									<a data-account-href="vm.lastBlock.delegate" data-type="delegate" data-ng-switch-when="true">{{vm.lastBlock.delegate.username | middleEllipsis:10}}</a>
 									<span class="text-muted" data-ng-switch-when="false">N/A</span>
 								</p>
 								<p class="text-muted" data-ng-switch="!!vm.lastBlock">
@@ -84,7 +84,7 @@
 									<span data-ng-repeat='v in vm.nextForgers track by $index'>
 										<div data-ng-if="$first">
 											<p class="big-details">
-												<a data-account-href="v" data-type="delegate">{{v.username}}</a>
+												<a data-account-href="v" data-type="delegate">{{v.username | middleEllipsis:15}}</a>
 											</p>
 										</div>
 										<span data-ng-if="!$first">
