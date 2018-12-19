@@ -842,6 +842,11 @@ a.btn-pagination-inactive {
   color: #da1d00;
 }
 
+.tx-pagination-num {
+  color: #2475b9;
+  font-weight: bold;
+}
+
 .txvalues-normal {
   background-color: transparent;
   text-transform: none;

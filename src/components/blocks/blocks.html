@@ -72,7 +72,7 @@
                         </a>
                     </li>
                     <li class="nav-item" data-ng-repeat="page in vm.pages">
-                        <a href="blocks/{{page}}" data-ng-class="{{page}} === {{vm.pagination.currentPage}} ? 'curr-page' : 'tx-other'">{{ page }}</a>
+                        <a href="blocks/{{page}}" data-ng-class="{{page}} === {{vm.pagination.currentPage}} ? 'curr-page' : 'tx-pagination-num'">{{ page }}</a>
                     </li>
                     <li>
                         <a data-ng-class="{'disabled': !(vm.pagination.more && vm.pagination.nextPage != 0), 'btn-pagination': vm.pagination.more}" data-ng-disabled="!(vm.pagination.more && vm.pagination.nextPage != 0)" href="/blocks/{{vm.pagination.nextPage}}">
