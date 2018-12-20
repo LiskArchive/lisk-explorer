@@ -202,14 +202,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 h1 {
-  padding-top: 50px;
-  padding-bottom: 50px;
+  padding-top: 30px;
+  padding-bottom: 30px;
   margin: 0;
 }
 
 @media (max-width: 769px) {
   h1 {
-		padding: 30px 12px 25px;
+		padding: 30px 12px 12px;
 		font-size: 2em;
   }
 }
@@ -335,6 +335,8 @@ qrcode + span {
 
 .m10b { margin-bottom: 10px; }
 
+.m20b { margin-bottom: 20px; }
+
 .m10l { margin-left: 10px; }
 
 .vm { vertical-align: middle; }
@@ -408,10 +410,7 @@ qrcode + span {
   color: white;
   font-family: 'Roboto', 'Ubuntu', sans-serif;
   margin-left: 1px;
-  padding-left: 25px;
-  padding-right: 25px;
-  padding-top: 30px;
-  padding-bottom: 30px;
+  padding: 30px 0px 30px 50px;
 }
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus {
@@ -846,6 +845,11 @@ a.btn-pagination-inactive {
   color: #da1d00;
 }
 
+.tx-pagination-num {
+  color: #2475b9;
+  font-weight: bold;
+}
+
 .txvalues-normal {
   background-color: transparent;
   text-transform: none;
@@ -1084,6 +1088,14 @@ a.btn-pagination-inactive {
   white-space: nowrap;
 }
 
+.badge-delegate {
+  -moz-border-radius: 12px;
+  -webkit-border-radius: 12px;
+  border-radius: 12px;
+  padding: 4px 9px 4px;
+}
+
+
 .badge:hover {
   color: white;
   text-decoration: none;
@@ -1292,8 +1304,8 @@ a.v_highlight_more {
 }
 
 .big-info p.big-details {
-  font-weight: 200;
-  font-size: 24px;
+  font-weight: 600;
+  font-size: 18px;
   line-height: 32px;
 }
 
@@ -1357,6 +1369,16 @@ a.sort-order span.reverse:after {
   margin-bottom: 40px;
 }
 
+.latest-votes {
+  padding-left: 5px;
+}
+
+@media (min-width: 1080px) {
+  .latest-votes {
+    padding-left: 17px;
+  }
+}
+
 .lead {
     font-size: 30px;
 }
@@ -1401,6 +1423,10 @@ a.sort-order span.reverse:after {
 .transactions-filter-header.disabled:hover {
   -webkit-transition: all ease 300ms;
   transition: all ease 300ms;
+}
+
+.best-productivity {
+  padding-right: 10px;
 }
 
 .advancedSearchBox .search-icon {
@@ -1489,6 +1515,10 @@ table tbody tr:nth-of-type(odd) {
 .bordered-button:hover {
   color: #fff;
   background-color: #2475b9;
+}
+
+.total-forged {
+  height: 140px;
 }
 
 
@@ -1714,5 +1744,13 @@ li.dropdown.disabled a {
 
 .transaction-filter button:last-of-type {
 	border-style: solid solid solid none;
+}
+
+.home .stats {
+	margin-top: 20px;
+}
+
+.home .latest-transactions-box {
+	margin-top: 40px;
 }
 
