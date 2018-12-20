@@ -26,7 +26,8 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $state, $htt
 		.map(key => `${key}=${$stateParams[key]}`);
 
 	vm.getLastTransactions = (n) => {
-		const limit = 20 + 1;
+		const limit = 40 + 1;
+		const pageLength = 20;
 		let offset = 0;
 		if (n) offset = (n - 1) * limit;
 
@@ -35,15 +36,21 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $state, $htt
 
 		$http.get(requestUrl).then((resp) => {
 			if (resp.data.success) {
-				let removedTx;
-				if (resp.data.transactions.length > limit - 1) {
-					removedTx = resp.data.transactions.splice(-1, 1);
-				}
-
-				vm.txs = { results: resp.data.transactions };
+				vm.txs = { results: resp.data.transactions.slice(0, 19) };
 				vm.txs.hasPrev = !!offset;
-				vm.txs.hasNext = !!removedTx;
+
+				if (resp.data.transactions.length > pageLength * 2) {
+					vm.txs.hasNextNext = true;
+					vm.txs.hasNext = true;
+				} else if (resp.data.transactions.length > pageLength) {
+					vm.txs.hasNextNext = false;
+					vm.txs.hasNext = true;
+				} else {
+					vm.txs.hasNextNext = false;
+					vm.txs.hasNext = false;
+				}
 				vm.txs.page = $stateParams.page || 1;
+				vm.txs.pages = vm.makePages(vm.txs.page, vm.txs);
 				vm.txs.loadPageOffset = vm.loadPageOffset;
 				vm.txs.loadPage = vm.loadPage;
 				vm.txs.activeSort = vm.activeSort;
@@ -52,6 +59,21 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $state, $htt
 				vm.txs = {};
 			}
 		});
+	};
+
+	vm.makePages = (page, txs) => {
+		let arr;
+		const n = Number(page);
+		if (page > 2 && txs.hasNextNext) {
+			arr = [n - 2, n - 1, n, n + 1, n + 2];
+		} else if (!txs.hasNextNext && txs.hasNext) {
+			arr = [n - 3, n - 2, n - 1, n, n + 1];
+		} else if (!txs.hasNextNext && !txs.hasNext) {
+			arr = [n - 4, n - 3, n - 2, n - 1, n];
+		} else {
+			arr = [1, 2, 3, 4, 5];
+		}
+		return arr;
 	};
 
 	vm.loadPageOffset = (offset) => {

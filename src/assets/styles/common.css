@@ -548,6 +548,83 @@ qrcode + span {
   padding-bottom: 22px;
 }
 
+.nav-pages>li>.curr-page{
+  color: white;
+  background-color: #27292A;
+}
+
+.nav-pagination {
+  display: flex;
+  justify-content: space-between;
+  width: 420px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
+@media (max-width: 420px) {
+  .nav-pagination {
+    width: 360px;
+  }
+}
+
+.nav-pagination > li {
+  display: inline-block;
+}
+
+.nav-pagination>li>.curr-page{
+  color: white;
+  background-color: #2475b9;
+  border-radius: 5px;
+}
+
+.nav-item {
+  margin-top: 15px;
+}
+
+.nav-item a {
+  padding: 8px 16px;
+  font-size: 1.5rem;
+}
+
+.btn-pagination {
+  color: #2475b9;
+  border: solid 1px #2475b9;
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  line-height: 1;
+  padding: 0 20px;
+  text-align: center;
+  width: 100%;
+  height: 5.2rem;
+  border-radius: 5px;
+}
+
+.btn-pagination:hover {
+  color: #fff;
+  background-color: #2475b9;
+}
+
+a.btn-pagination-inactive {
+  color: #D9DCE3;
+}
+
+.btn-pagination-inactive {
+  color: #D9DCE3;
+  background-color: rgb(239, 241, 245);
+  align-items: center;
+  display: inline-flex;
+  justify-content: center;
+  line-height: 1;
+  padding: 0 20px;
+  text-align: center;
+  width: 100%;
+  height: 5.2rem;
+  border-radius: 5px;
+  border-style: none;
+}
+
+
 .col-gray {
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -762,6 +839,11 @@ qrcode + span {
 
 .tx-outgoing {
   color: #da1d00;
+}
+
+.tx-pagination-num {
+  color: #2475b9;
+  font-weight: bold;
 }
 
 .txvalues-normal {
@@ -1434,6 +1516,7 @@ table tbody tr:nth-of-type(odd) {
 .total-forged {
   height: 140px;
 }
+
 
 
 /* Empty state of lists */

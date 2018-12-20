@@ -48,17 +48,18 @@
 			<tr data-transaction-item data-address="address" data-tx="tx" data-ng-repeat="tx in txs.results | orderBy:filter.predicate:filter.reverse:filter.order track by tx.id"></tr>
 		</tbody>
 	</table>
-
 	<nav>
-		<ul class="nav nav-pills nav-justified">
-			<li role="presentation" data-ng-disabled="!txs.hasPrev">
-				<button class="btn btn-default less-button bordered-button" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)">Prev</button>
+		<ul class="nav-pagination">
+			<li data-ng-disabled="!txs.hasPrev">
+				<button data-ng-class="{{txs.page}} === 1 || {{txs.page}} === 0 ? 'btn-pagination-inactive' : 'btn-pagination'" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)"><i class="fas fa-caret-left fa-lg"></i></button>
 			</li>
-			<li role="presentation">
-				<button class="btn btn-default more-button disabled" style="cursor: default;">Page {{txs.page}}</button>
+			<li role="presentation" class="nav-item"  data-ng-repeat="page in txs.pages">
+				<a href="txs/{{page}}" data-ng-class="{{txs.page}} === {{page}} ? 'curr-page' : 'tx-pagination-num'">{{ page }}</a>
 			</li>
-			<li role="presentation" data-ng-disabled="!txs.hasNext">
-				<button class="btn btn-default more-button bordered-button" data-ng-disabled="!txs.hasNext" data-ng-click="txs.loadPageOffset(1)">Next</button>
+			<li data-ng-disabled="!txs.hasNext">
+				<a href="#" aria-label="Next">
+					<button class="btn-pagination" data-ng-disabled="!txs.hasNext" data-ng-click="txs.loadPageOffset(1)"><i class="fas fa-caret-right fa-lg"></i></button>
+				</a>
 			</li>
 		</ul>
 	</nav>
