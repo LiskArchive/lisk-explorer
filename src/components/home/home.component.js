@@ -24,34 +24,61 @@ const HomeConstructor = function ($scope, $http, $interval) {
 		tx.hrefRecipient = `/address/${tx.recipientId}`;
 	};
 
+	// Blocks
 	vm.getLastBlocks = () => {
 		$http.get('/api/getLastBlocks').then((resp) => {
-			if (resp.data.success) {
-				vm.blocks = resp.data.blocks.splice(0, 5);
+			if (resp.data.success && Array.isArray(resp.data.blocks)) {
+				resp.data.blocks.sort((a, b) => b.height > a.height);
+				vm.lastBlock = resp.data.blocks.slice(0, 1)[0];
+				vm.latestBlocks = resp.data.blocks.slice(1, 5);
 			}
 		});
 	};
-
 	vm.blocksInterval = $interval(() => {
 		vm.getLastBlocks();
-	}, 30000);
-
+	}, 10000);
 	vm.getLastBlocks();
 
+	// Transactions
 	vm.getLastTransactions = () => {
 		$http.get('/api/getLastTransactions').then((resp) => {
 			if (resp.data.success) {
-				vm.txs = resp.data.transactions.splice(0, 5);
+				vm.txs = resp.data.transactions.splice(0, 10);
 				vm.txs.map(setHref);
 			}
 		});
 	};
-
 	vm.transactionsInterval = $interval(() => {
 		vm.getLastTransactions();
 	}, 30000);
-
 	vm.getLastTransactions();
+
+	// Peers
+	vm.getPeers = () => {
+		$http.get('/api/statistics/getPeers').then((resp) => {
+			if (resp.data.success) {
+				vm.peers = resp.data.list;
+			}
+		});
+	};
+	vm.getPeersInterval = $interval(() => {
+		vm.getLastTransactions();
+	}, 30000);
+	vm.getPeers();
+
+	// Delegates
+	vm.getDelegates = () => {
+		$http.get('/api/delegates/getActive').then((resp) => {
+			if (resp.data.success) {
+				vm.activeDelegates = resp.data.delegates;
+				vm.delegatesCount = resp.data.totalCount;
+			}
+		});
+	};
+	vm.getDelegatesInterval = $interval(() => {
+		vm.getLastTransactions();
+	}, 30000);
+	vm.getDelegates();
 };
 
 AppHome.component('home', {
