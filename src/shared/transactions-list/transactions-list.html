@@ -59,7 +59,7 @@
 			<li data-ng-if="txs.currentPage" role="presentation" class="nav-item">
 				Page <span class="address-currpage">{{txs.currentPage}}</span>
 			</li>
-			<li data-ng-if="txs.currentPage" data-ng-disabled="!txs.hasNext">
+			<li data-ng-disabled="!txs.hasNext">
 				<a href="#" aria-label="Next">
 					<button data-ng-class="txs.hasNext ? 'btn-pagination' : 'btn-pagination-inactive'" data-ng-disabled="!txs.hasNext" data-ng-click="txs.loadPageOffset(1)"><i class="fas fa-caret-right fa-lg"></i></button>
 				</a>
