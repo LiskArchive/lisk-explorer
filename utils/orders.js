@@ -24,7 +24,7 @@ module.exports = function (config, client) {
 
 	this.updateOrders = () => {
 		if (running) {
-			logger.error('Orders:', 'Update already in progress');
+			logger.info('Orders:', 'Update already in progress');
 			return;
 		}
 		running = true;
