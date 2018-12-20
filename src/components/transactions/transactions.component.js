@@ -73,7 +73,7 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $state, $htt
 		} else {
 			arr = [1, 2, 3, 4, 5];
 		}
-		return arr;
+		return arr.filter(el => el > 0);
 	};
 
 	vm.loadPageOffset = (offset) => {
