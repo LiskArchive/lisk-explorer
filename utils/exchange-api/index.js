@@ -213,7 +213,7 @@ module.exports = function (config) {
 				});
 			},
 			() => {
-				logger.error('Exchange rates:', currency);
+				logger.info('Exchange rates:', currency);
 				cb(null, currency);
 			});
 		},
