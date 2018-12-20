@@ -25,6 +25,7 @@ const Pagination = function ($http, $q, params) {
 	this.key = params.key || '';
 	this.offset = Number(params.offset) || 0;
 	this.currentPage = Number(params.currentPage) || 1;
+	this.page = this.currentPage;
 	this.limit = Number(params.limit) || 25;
 
 	['url', 'parent', 'key', 'offset', 'limit'].forEach((key) => {
@@ -100,7 +101,7 @@ Pagination.prototype.loadPrev = function () {
 
 Pagination.prototype.loadPageOffset = function (offset) {
 	if (offset > 0) this.nextOffset(offset);
-	if (offset < 0) this.prevOffset(offset);
+	if (offset < 0) this.prevOffset(-offset);
 	this.loadData();
 };
 

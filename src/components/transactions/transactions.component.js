@@ -18,25 +18,62 @@ import template from './transactions.html';
 
 const TransactionsConstructor = function ($rootScope, $stateParams, $state, $http, $interval) {
 	const vm = this;
+
+	const filters = Object.keys($stateParams)
+		.filter(key => key !== 'page')
+		.filter(key => key !== '#')
+		.filter(key => typeof $stateParams[key] !== 'undefined')
+		.map(key => `${key}=${$stateParams[key]}`);
+
 	vm.getLastTransactions = (n) => {
-		const limit = 20 + 1;
+		const limit = 40 + 1;
+		const pageLength = 20;
 		let offset = 0;
 		if (n) offset = (n - 1) * limit;
 
-		$http.get(`/api/getTransactions?limit=${limit}&offset=${offset}`).then((resp) => {
-			if (resp.data.success) {
-				const removedTx = resp.data.transactions.splice(-1, 1);
+		let requestUrl = `/api/getTransactions?limit=${limit}&offset=${offset}`;
+		requestUrl += filters.length ? `&${filters.join('&')}` : '';
 
-				vm.txs = { results: resp.data.transactions };
+		$http.get(requestUrl).then((resp) => {
+			if (resp.data.success) {
+				vm.txs = { results: resp.data.transactions.slice(0, 19) };
 				vm.txs.hasPrev = !!offset;
-				vm.txs.hasNext = !!removedTx;
-				vm.txs.page = $stateParams.page || 0;
+
+				if (resp.data.transactions.length > pageLength * 2) {
+					vm.txs.hasNextNext = true;
+					vm.txs.hasNext = true;
+				} else if (resp.data.transactions.length > pageLength) {
+					vm.txs.hasNextNext = false;
+					vm.txs.hasNext = true;
+				} else {
+					vm.txs.hasNextNext = false;
+					vm.txs.hasNext = false;
+				}
+				vm.txs.page = $stateParams.page || 1;
+				vm.txs.pages = vm.makePages(vm.txs.page, vm.txs);
 				vm.txs.loadPageOffset = vm.loadPageOffset;
 				vm.txs.loadPage = vm.loadPage;
+				vm.txs.activeSort = vm.activeSort;
+				vm.txs.applySort = vm.applySort;
 			} else {
 				vm.txs = {};
 			}
 		});
+	};
+
+	vm.makePages = (page, txs) => {
+		let arr;
+		const n = Number(page);
+		if (page > 2 && txs.hasNextNext) {
+			arr = [n - 2, n - 1, n, n + 1, n + 2];
+		} else if (!txs.hasNextNext && txs.hasNext) {
+			arr = [n - 3, n - 2, n - 1, n, n + 1];
+		} else if (!txs.hasNextNext && !txs.hasNext) {
+			arr = [n - 4, n - 3, n - 2, n - 1, n];
+		} else {
+			arr = [1, 2, 3, 4, 5];
+		}
+		return arr;
 	};
 
 	vm.loadPageOffset = (offset) => {
@@ -46,6 +83,15 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $state, $htt
 	vm.loadPage = (pageNumber) => {
 		$state.go($state.current.component, { page: pageNumber });
 	};
+
+	vm.applySort = (predicate) => {
+		const direction = (predicate === vm.activeSort.predicate && vm.activeSort.direction === 'asc') ? 'desc' : 'asc';
+		$state.go($state.current.component, { sort: `${predicate}:${direction}` });
+	};
+
+	vm.activeSort = typeof $stateParams.sort === 'string'
+		? { predicate: $stateParams.sort.split(':')[0], direction: $stateParams.sort.split(':')[1] }
+		: { predicate: 'timestamp', direction: 'desc' };
 
 	const update = () => {
 		vm.getLastTransactions($stateParams.page || 1);

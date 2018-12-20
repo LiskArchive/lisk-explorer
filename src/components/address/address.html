@@ -108,7 +108,7 @@
 						<button class="received-tab" data-ng-disabled="vm.direction==='received'" data-ng-click="vm.filterTxs('received');vm.txs.loadData();vm.onFiltersUsed();">Received</button>
 						<button class="others-tab" data-ng-disabled="vm.direction==='others'" data-ng-click="vm.filterTxs('others');vm.txs.loadData();vm.onFiltersUsed();">Others</button>
 				</div>
-				<transactions-filter data-txs="vm.txs" data-address="vm.address.address"></transactions-filter>
+				<!-- <transactions-filter data-txs="vm.txs" data-address="vm.address.address"></transactions-filter> -->
 				<transactions-list data-txs="vm.txs" data-address="vm.address.address"></transactions-list>
 			</div>
 		</uib-tab>

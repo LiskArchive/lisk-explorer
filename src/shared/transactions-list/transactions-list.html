@@ -15,42 +15,31 @@
  *
  */
 -->
-<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-l" data-ng-if="!txs.loading && !txs.results.length">
-	<div class="col-md-12">
-		<div class='empty-state'>
-			<h2>No transactions</h2>
-			<p>There are no transactions involving this {{txs.parent}}.</p>
-		</div>
-	</div>
-</div>
 <div id="table-mobile" class="table-responsive" data-ng-if="txs.results.length">
 	<table class="table transactions">
 		<thead>
 			<tr>
-				<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double" role="button" data-ng-class="filter.predicate === 'id' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('id')">
-					<span class="hidden-md">
-						Transaction ID
-						<i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'id'"></i>
-					</span>
+				<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double text-muted">
+					<span class="hidden-md">Transaction ID</span>
 					<span class="visible-md">ID</span>
 				</th>
-				<th role="button" data-ng-class="filter.predicate === 'timestamp' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('timestamp')">
-					<span>Date</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'timestamp'"></i>
+				<th role="button" data-ng-class="txs.activeSort.predicate === 'timestamp' ? 'text-primary' : 'text-muted'" data-ng-click="txs.applySort('timestamp')">
+					<span>Date</span><i class="glyphicon" data-ng-class="txs.activeSort.direction === 'desc' ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="txs.activeSort.predicate === 'timestamp'"></i>
 				</th>
-				<th role="button" data-ng-class="filter.predicate === 'senderId' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('senderId')">
-					<span>Sender</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'senderId'"></i>
+				<th class="text-muted">
+					<span>Sender</span>
 				</th>
-				<th role="button" data-ng-class="filter.predicate === 'recipientId' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('recipientId')">
-					<span>Recipient</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'recipientId'"></i>
+				<th class="text-muted">
+					<span>Recipient</span>
 				</th>
-				<th role="button" data-ng-class="filter.predicate === 'amount' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('amount')" class="amount text-right">
-					<span>Amount</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'amount'"></i>
+				<th role="button" data-ng-class="txs.activeSort.predicate === 'amount' ? 'text-primary' : 'text-muted'" data-ng-click="txs.applySort('amount')" class="amount text-right">
+					<span>Amount</span><i class="glyphicon" data-ng-class="txs.activeSort.direction === 'desc' ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="txs.activeSort.predicate === 'amount'"></i>
 				</th>
-				<th role="button" data-ng-class="filter.predicate === 'fee' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('fee')" class="text-nowrap text-right">
-					<span>Fee</span><i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'fee'"></i>
+				<th role="button" data-ng-class="txs.activeSort.predicate === 'fee' ? 'text-primary' : 'text-muted'" data-ng-click="txs.applySort('fee')" class="text-nowrap text-right">
+					<span>Fee</span><i class="glyphicon" data-ng-class="txs.activeSort.direction === 'desc' ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="txs.activeSort.predicate === 'fee'"></i>
 				</th>
-				<th role="button" data-ng-class="filter.predicate === 'confirmations' ? 'text-primary' : 'text-muted'" data-ng-click="filter.setPredicate('confirmations')" class="text-right right-padding-m right-padding-l double">
-					<span class="hidden-md">Confirm.<i class="glyphicon" data-ng-class="filter.reverse ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="filter.predicate === 'confirmations'"></i></span>
+				<th class="text-right right-padding-m right-padding-l double text-muted">
+					<span class="hidden-md">Confirm.</span>
 					<span class="visible-md"><i class="glyphicon glyphicon-check" style="left:0"></i></span>
 				</th>
 			</tr>
@@ -59,17 +48,21 @@
 			<tr data-transaction-item data-address="address" data-tx="tx" data-ng-repeat="tx in txs.results | orderBy:filter.predicate:filter.reverse:filter.order track by tx.id"></tr>
 		</tbody>
 	</table>
-
 	<nav>
-		<ul class="nav nav-pills nav-justified">
-			<li role="presentation" data-ng-disabled="!txs.hasPrev">
-				<button class="btn btn-default less-button bordered-button" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)">Prev</button>
+		<ul class="nav-pagination">
+			<li data-ng-disabled="!txs.hasPrev">
+				<button data-ng-class="!txs.hasPrev ? 'btn-pagination-inactive' : 'btn-pagination'" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)"><i class="fas fa-caret-left fa-lg"></i></button>
 			</li>
-			<li role="presentation">
-				<button class="btn btn-default more-button bordered-button">Pagination</button>
+			<li role="presentation" class="nav-item"  data-ng-repeat="page in txs.pages">
+				<a href="txs/{{page}}" data-ng-class="{{txs.page}} === {{page}} ? 'curr-page' : 'tx-other'">{{ page }}</a> 
 			</li>
-			<li role="presentation" data-ng-disabled="!txs.hasNext">
-				<button class="btn btn-default more-button bordered-button" data-ng-disabled="!txs.hasNext" data-ng-click="txs.loadPageOffset(1)">Next</button>
+			<li data-ng-if="txs.currentPage" role="presentation" class="nav-item">
+				Page <span class="address-currpage">{{txs.currentPage}}</span>
+			</li>
+			<li data-ng-disabled="!txs.hasNext">
+				<a href="#" aria-label="Next">
+					<button data-ng-class="txs.hasNext ? 'btn-pagination' : 'btn-pagination-inactive'" data-ng-disabled="!txs.hasNext" data-ng-click="txs.loadPageOffset(1)"><i class="fas fa-caret-right fa-lg"></i></button>
+				</a>
 			</li>
 		</ul>
 	</nav>
@@ -78,6 +71,14 @@
 	<div class="wrapper">
 		<div class="progress-bar progress-bar-loading" style="width: 100%">
 			<span>Loading Transactions...</span>
+		</div>
+	</div>
+</div>
+<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-l" data-ng-if="!txs.loading && !txs.results.length">
+	<div class="col-md-12">
+		<div class='empty-state'>
+			<h2>No transactions</h2>
+			<p>There are no transactions found.</p>
 		</div>
 	</div>
 </div>

@@ -24,7 +24,7 @@ module.exports = function (config, client) {
 
 	this.updateCandles = function () {
 		if (running) {
-			logger.error('Candles:', 'Update already in progress');
+			logger.info('Candles:', 'Update already in progress');
 			return;
 		}
 		running = true;
