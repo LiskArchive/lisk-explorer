@@ -107,7 +107,8 @@
 					<div class="row big-info">
 						<div class="col-xs-12">
 							<div class="pull-left best-productivity">
-								<p class="small-title">Best Productivity</p>
+								<p class="small-title hidden-xs">Best Productivity</p>
+								<p class="small-title visible-xs">Best<br>Productivity</p>
 								<p class="big-details">{{vm.bestProductivity.productivity || 0}}%</p>
 								<p data-ng-switch="!!vm.bestProductivity">
 									<span class="text-muted">by</span>
@@ -122,7 +123,8 @@
 					<div class="row big-info">
 						<div class="col-xs-12">
 							<div class="pull-left worst-productivity">
-								<p class="small-title">Worst Productivity</p>
+								<p class="small-title hidden-xs">Worst Productivity</p>
+								<p class="small-title visible-xs">Worst<br>Productivity</p>
 								<p class="big-details">{{vm.worstProductivity.productivity || 0}}%</p>
 								<p data-ng-switch="!!vm.worstProductivity">
 									<span class="text-muted">by</span>
