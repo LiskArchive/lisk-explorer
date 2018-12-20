@@ -1290,6 +1290,16 @@ a.sort-order span.reverse:after {
   padding-left: 5px;
 }
 
+.delegate-monitor-top  > div {
+  margin-bottom: 10px;
+  padding-right: 10px;
+}
+
+.row.equal {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 @media (min-width: 1080px) {
   .latest-votes {
     padding-left: 17px;
@@ -1432,10 +1442,6 @@ table tbody tr:nth-of-type(odd) {
 .bordered-button:hover {
   color: #fff;
   background-color: #2475b9;
-}
-
-.total-forged {
-  height: 140px;
 }
 
 
