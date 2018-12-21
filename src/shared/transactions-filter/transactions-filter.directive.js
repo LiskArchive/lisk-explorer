@@ -29,8 +29,8 @@ const TransactionsConstructor = function ($rootScope, $scope, $stateParams, $ele
 		{ key: 'type', name: 'Comma separated transaction types', placeholder: 'Comma separated...', example: '1,3' },
 		{ key: 'height', name: 'Block height', placeholder: 'Block Height...', example: '2963014' },
 		{ key: 'blockId', name: 'Block Id', placeholder: 'Block Id...', example: '17238091754034756025' },
-		{ key: 'fromTimestamp', name: 'From Timestamp', placeholder: 'From Timestamp...', example: '17238091754034756025' },
-		{ key: 'toTimestamp', name: 'To Timestamp', placeholder: 'To Timestamp...', example: '12317412804123L' },
+		// { key: 'fromTimestamp', name: 'From', placeholder: 'From...', example: '' },
+		// { key: 'toTimestamp', name: 'To', placeholder: 'To...', example: '' },
 		// { key: 'limit', name: 'Limit', placeholder: 'Limit...', example: '12317412804123L' },
 		// { key: 'offset', name: 'Offset', placeholder: 'Offset...', example: '12317412804123L' },
 		// {
