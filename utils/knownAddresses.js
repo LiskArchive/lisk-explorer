@@ -44,10 +44,29 @@ module.exports = function (app, config, client) {
 				return false;
 			}
 
-			return client.hmset(`address:${account.address}`, entry);
+			const writeToHmset = (key, value) => {
+				client.hmset(key, value, (err) => {
+					if (err) logger.error(err.message);
+				});
+			};
+
+			writeToHmset(`username:${entry.owner}`, { address: account.address });
+			writeToHmset(`address:${account.address}`, entry);
+
+			return true;
 		};
 
 		this.getKnownAddress = (address, callback) => client.hgetall(`address:${address}`, callback);
+
+		const getFromHmset = key => new Promise((resolve, reject) => {
+			client.hgetall(key, (err, result) => {
+				if (err) reject(err.message);
+				resolve(result || {});
+			});
+		});
+
+		this.getByAddress = async address => getFromHmset(`address:${address}`);
+		this.getByUser = async username => getFromHmset(`username:${username}`);
 
 		this.loadFromJson = () => {
 			try {

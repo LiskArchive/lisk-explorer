@@ -26,10 +26,11 @@ import 'angular-cookies';
 // styles
 import 'amstock3/amcharts/style.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import 'font-awesome/css/font-awesome.css';
 import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import 'angular-advanced-searchbox/dist/angular-advanced-searchbox.min.css';
+import '@fortawesome/fontawesome-free/css/all.css';
+import '@fortawesome/fontawesome-free/css/v4-shims.css';
 import '../assets/styles/common.css';
 import '../assets/styles/flags.css';
 import '../assets/styles/tableMobile.css';
@@ -54,6 +55,8 @@ import '../components/market-watcher';
 import '../components/network-monitor';
 import '../components/information-banner';
 import '../components/cookies-banner';
+import '../components/404';
+
 
 import '../filters';
 import '../services';
@@ -92,6 +95,7 @@ const App = angular.module('lisk_explorer', [
 	'lisk_explorer.marketWatcher',
 	'lisk_explorer.infoBanner',
 	'lisk_explorer.cookiesBanner',
+	'lisk_explorer.404',
 ]);
 
 export default App;

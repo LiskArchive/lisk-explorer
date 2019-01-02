@@ -13,15 +13,15 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import './services.module';
-import './address-txs';
-import './all-txs';
-import './block-txs';
-import './forging-monitor';
-import './forging-status';
-import './global';
-import './is-fiat';
-import './less-more';
-import './order-by';
-import './socket';
-import './tx-types';
+import AppServices from './services.module';
+import Pagination from './pagination';
+
+AppServices.factory('allTxs',
+	($http, $q) => (data) => {
+		const params = Object.assign({}, data, {
+			url: '/api/getTransactions',
+			key: 'transactions',
+		});
+
+		return new Pagination($http, $q, params);
+	});

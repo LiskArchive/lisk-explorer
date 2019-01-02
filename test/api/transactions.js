@@ -16,9 +16,11 @@
 const node = require('./../node.js');
 
 const params = {
-	blockId: '6524861224470851795',
+	blockHeight: 1,
+	blockId: '16821502558291654665',
 	transactionId: '1465651642158264047',
 	address: '16313739661670634666L',
+	publicKey: 'c094ebee7ec0c50ebee32918655e089f6e1a604b83bcaa760293c61e0f18ab6f',
 	address_lowercase: '16313739661670634666l',
 	offset: 20,
 	limit: 100,
@@ -36,6 +38,10 @@ describe('Transactions API', () => {
 
 	function getLastTransactions(done) {
 		node.get('/api/getLastTransactions', done);
+	}
+
+	function getTransactions(query, done) {
+		node.get(`/api/getTransactions?${query}`, done);
 	}
 
 	function getTransactionsByAddress(id, id2, id3, done) {
@@ -89,8 +95,11 @@ describe('Transactions API', () => {
 		checkTransactionTypes(o);
 	}
 
-	function checkTransactions(txs) {
+	function checkTransactions(txs, checkAttribute) {
 		for (let i = 0; i < txs.length; i++) {
+			if (checkAttribute) {
+				node.expect(txs[i]).to.satisfy(checkAttribute);
+			}
 			checkTransaction(txs[i]);
 		}
 	}
@@ -131,6 +140,140 @@ describe('Transactions API', () => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('transactions').that.is.an('array');
 				checkTransactions(res.body.transactions);
+				done();
+			});
+		});
+	});
+
+	describe('GET /api/getTransactions', () => {
+		it('using no params should be ok', (done) => {
+			getTransactions('', (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').that.is.an('array');
+				node.expect(res.body.transactions).to.have.lengthOf(100);
+				checkTransactions(res.body.transactions);
+				done();
+			});
+		});
+
+		it('using senderId should be ok', (done) => {
+			getTransactions(`senderId=${params.address}`, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').that.is.an('array');
+				node.expect(res.body.transactions).to.have.lengthOf(100);
+				checkTransactions(res.body.transactions,
+					tx => (tx.senderId === params.address));
+				done();
+			});
+		});
+
+		it('using senderPublicKey id should be ok', (done) => {
+			getTransactions(`senderPublicKey=${params.publicKey}`, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').that.is.an('array');
+				node.expect(res.body.transactions).to.have.lengthOf(100);
+				checkTransactions(res.body.transactions,
+					tx => (tx.senderPublicKey === params.publicKey));
+				done();
+			});
+		});
+
+		it('using recipientId should be ok', (done) => {
+			getTransactions(`recipientId=${params.address}`, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').that.is.an('array');
+				node.expect(res.body.transactions).to.have.lengthOf(2);
+				checkTransactions(res.body.transactions,
+					tx => (tx.recipientId === params.address));
+				done();
+			});
+		});
+
+		it('using recipientPublicKey id should be ok', (done) => {
+			getTransactions(`recipientPublicKey=${params.publicKey}`, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').that.is.an('array');
+				node.expect(res.body.transactions).to.have.lengthOf(2);
+				checkTransactions(res.body.transactions,
+					tx => (tx.recipientPublicKey === params.publicKey));
+				done();
+			});
+		});
+
+		it('using height id should be ok', (done) => {
+			getTransactions(`height=${params.blockHeight}`, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').that.is.an('array');
+				node.expect(res.body.transactions).to.have.lengthOf(100);
+				checkTransactions(res.body.transactions,
+					tx => (tx.height === params.blockHeight));
+				done();
+			});
+		});
+
+		it('using blockId id should be ok', (done) => {
+			getTransactions(`blockId=${params.blockId}`, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').that.is.an('array');
+				node.expect(res.body.transactions).to.have.lengthOf(25);
+				checkTransactions(res.body.transactions,
+					tx => (tx.blockId === params.blockId));
+				done();
+			});
+		});
+
+		it('using minAmount id should be ok', (done) => {
+			const minAmount = 10000 * 1e8;
+			getTransactions(`minAmount=${minAmount}`, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').that.is.an('array');
+				node.expect(res.body.transactions).to.have.lengthOf(3);
+				checkTransactions(res.body.transactions,
+					tx => (tx.amount >= minAmount));
+				done();
+			});
+		});
+
+		it('using maxAmount id should be ok', (done) => {
+			const maxAmount = 100 * 1e8;
+			getTransactions(`maxAmount=${maxAmount}`, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').that.is.an('array');
+				node.expect(res.body.transactions).to.have.lengthOf(100);
+				checkTransactions(res.body.transactions,
+					tx => (tx.amount <= maxAmount));
+				done();
+			});
+		});
+
+		it('using fromTimestamp id should be ok', (done) => {
+			const fromTimestamp = 33505109;
+			getTransactions(`fromTimestamp=${fromTimestamp}`, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').that.is.an('array');
+				node.expect(res.body.transactions).to.have.lengthOf(100);
+				checkTransactions(res.body.transactions,
+					tx => (tx.timestamp >= fromTimestamp));
+				done();
+			});
+		});
+
+		it('using toTimestamp id should be ok', (done) => {
+			const toTimestamp = 33505109;
+			getTransactions(`toTimestamp=${toTimestamp}`, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('transactions').that.is.an('array');
+				node.expect(res.body.transactions).to.have.lengthOf(100);
+				checkTransactions(res.body.transactions,
+					tx => (tx.timestamp <= toTimestamp));
+				done();
+			});
+		});
+
+		it('using invalid address should return empty array', (done) => {
+			getTransactions('recipientId=qwerty', (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
+				node.expect(res.body).to.have.property('error');
 				done();
 			});
 		});

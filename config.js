@@ -55,7 +55,7 @@ config.cacheTTL = 20;
 // Collect logs (true - enabled, false - disabled)
 config.log.enabled = true;
 // Output for logs - can be device file or ordinary path
-config.log.file = './logs/explorer.log';
+config.log.output = ['/dev/stdout', './logs/explorer.log'];
 // Log level - (trace, debug, info, warn, error)
 config.log.level = 'info';
 

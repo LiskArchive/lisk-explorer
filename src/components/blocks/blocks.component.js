@@ -31,11 +31,23 @@ const BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $ht
 
 				if (resp.data.pagination) {
 					vm.pagination = resp.data.pagination;
+					vm.pages = vm.makePages(vm.pagination.currentPage);
 				}
 			} else {
 				vm.blocks = [];
 			}
 		});
+	};
+
+	vm.makePages = (page) => {
+		let arr;
+		const n = Number(page);
+		if (n > 2) {
+			arr = [n - 2, n - 1, n, n + 1, n + 2];
+		} else {
+			arr = [1, 2, 3, 4, 5];
+		}
+		return arr;
 	};
 
 	vm.getBlock = (blockId) => {
