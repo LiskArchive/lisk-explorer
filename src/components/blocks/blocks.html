@@ -75,7 +75,7 @@
                         <a href="blocks/{{page}}" data-ng-class="{{page}} === {{vm.pagination.currentPage}} ? 'curr-page' : 'tx-pagination-num'">{{ page }}</a>
                     </li>
                     <li>
-                        <a data-ng-class="{'btn-pagination-inactive': !(vm.pagination.more && vm.pagination.nextPage != 0), 'btn-pagination': vm.pagination.more}" data-ng-disabled="!(vm.pagination.more && vm.pagination.nextPage != 0)" href="/blocks/{{vm.pagination.nextPage}}">
+                        <a data-ng-class="{'btn-pagination-inactive': !(vm.pagination.more && vm.pagination.nextPage != 0), 'btn-next': vm.pagination.more}" data-ng-disabled="!(vm.pagination.more && vm.pagination.nextPage != 0)" href="/blocks/{{vm.pagination.nextPage}}">
                             <i class="fas fa-caret-right fa-lg"></i>
                         </a>
                     </li>
