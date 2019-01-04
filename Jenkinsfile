@@ -36,7 +36,6 @@ pipeline {
 				nvm(getNodejsVersion()) {
 					// marketwatcher needs to be enabled to builds candles
 					sh '''
-					cp ./test/known.test.json ./known.json
 					redis-cli -n $REDIS_DB flushdb
 					grunt candles:build
 					'''
@@ -55,7 +54,7 @@ pipeline {
 					sh '''#!/bin/bash -xe
 					rm -rf $WORKSPACE/$BRANCH_NAME/
 					cp -rf $WORKSPACE/lisk/docker/ $WORKSPACE/$BRANCH_NAME/
-					wget -nv https://downloads.lisk.io/lisk-explorer/dev/dev_blockchain.db.gz -O $WORKSPACE/$BRANCH_NAME/dev_blockchain.db.gz
+					cp $WORKSPACE/test/data/test_blockchain-explorer.db.gz $WORKSPACE/$BRANCH_NAME/dev_blockchain.db.gz
 					cd $WORKSPACE/$BRANCH_NAME
 					cp .env.development .env
 
@@ -79,12 +78,6 @@ EOF
 					sha1sum dev_blockchain.db.gz
 					docker-compose config
 					docker-compose ps
-					'''
-					// Explorer needs the topAccounts feature to be enabled
-					sh '''
-					cd $WORKSPACE/$BRANCH_NAME
-					docker-compose exec -T lisk sed -i -r -e 's/(\\s*"topAccounts":)\\s*false,/\\1 true,/' config/default/config.json
-					docker-compose restart lisk
 					'''
 				}
 			}
