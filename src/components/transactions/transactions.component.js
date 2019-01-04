@@ -36,7 +36,7 @@ const TransactionsConstructor = function ($rootScope, $stateParams, $state, $htt
 
 		$http.get(requestUrl).then((resp) => {
 			if (resp.data.success) {
-				vm.txs = { results: resp.data.transactions.slice(0, 19) };
+				vm.txs = { results: resp.data.transactions.slice(0, 20) };
 				vm.txs.hasPrev = !!offset;
 
 				if (resp.data.transactions.length > pageLength * 2) {
