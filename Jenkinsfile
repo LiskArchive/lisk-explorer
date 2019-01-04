@@ -3,7 +3,7 @@
 pipeline {
 	agent { node { label 'lisk-explorer' } }
 	environment {
-		LISK_CORE_VERSION = '1.3.0'
+		LISK_CORE_VERSION = '1.3.1'
 		EXPLORER_PORT = "604$EXECUTOR_NUMBER"
 		LISK_HOST = 'localhost'
 		REDIS_DB = "$EXECUTOR_NUMBER"
