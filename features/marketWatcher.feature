@@ -37,7 +37,7 @@ Feature: Market Watcher
     And I should see "num trades" element with content that matches:
       """
       NUM TRADES
-      N/A
+      \d+
       """
 
   Scenario: should allow to switch to Bittrex 

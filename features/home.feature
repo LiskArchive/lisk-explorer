@@ -33,18 +33,15 @@ Feature: Home page
     And I should see "last block" element with content that matches:
       """
       LAST BLOCK
-      10045158952652080687 
+      10045158952652080687
       Forged by genesis_42
       5 LSK forged
       from 0 transactions
       """
     And I should see "latest blocks" element with content that matches:
       """
-      LASTEST BLOCKS
-      10925019339842276691 
-      12888533172885756103 
-      12344091314079488228 
-      5345792228665080891
+      LATEST BLOCKS
+      10925019339842276691 12888533172885756103 12344091314079488228 5345792228665080891
       more blocks
       """
 
