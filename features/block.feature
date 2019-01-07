@@ -1,7 +1,8 @@
 Feature: Block page
   Scenario: should show title, summary, and transactions
     Given I'm on page "/block/6524861224470851795"
-    # Then I should see "Block  6524861224470851795" in "h1" html element
+    Then I should see "6524861224470851795" in "top title" element
+    And I should see "Block with 103 transactions" in "sub title" element
     And I should see "Home Block 6524861224470851795" in "breadcrumb" element
     And I should see table "summary" containing:
       | Block ID               | 6524861224470851795        |

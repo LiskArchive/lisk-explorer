@@ -1,7 +1,8 @@
 Feature: Address page
   Scenario: should show title, summary, and transactions
     Given I'm on page "/address/16313739661670634666L"
-    # Then I should see "Address Summary " in "h1" html element
+    Then I should see "16313739661670634666L" in "top title" element
+    And I should see "Regular account" in "sub title" element
     And I should see "Home Address 16313739661670634666L" in "breadcrumb" element
     And I should see table "summary" containing:
       | Address       | 16313739661670634666L                                            |

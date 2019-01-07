@@ -1,7 +1,7 @@
 Feature: Delegate page
   Scenario: should show title, summary
     Given I'm on page "/delegate/537318935439898807L"
-    # Then I should see "Delegate" in "h1" html element
+    Then I should see "Delegate summary" in "h1" html element
     And I should see "Home Delegate 537318935439898807L" in "breadcrumb" element
     And I should see table "summary" containing:
       | Name          | genesis_17                |
