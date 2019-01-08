@@ -1760,3 +1760,9 @@ li.dropdown.disabled a {
 	margin-top: 40px;
 }
 
+@media (min-width: 769px){
+  .delegate-monitor-top > div > div {
+    margin: 0 15px;
+  }
+}
+
