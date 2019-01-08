@@ -1764,5 +1764,21 @@ li.dropdown.disabled a {
   .delegate-monitor-top > div > div {
     margin: 0 15px;
   }
+
+  .nav-tabs > li:first-child > a {
+    margin-left: 32px;
+  }
 }
 
+.nav-tabs > li > a {
+  height: 45px;
+  margin-bottom: -1px;
+}
+
+.exchanges .nav-tabs > li.active > a  {
+  height: auto;
+}
+
+.market-watcher .nav-tabs > li:first-child > a {
+  margin-left: 0px;
+}
