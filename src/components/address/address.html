@@ -117,9 +117,9 @@
 
 			<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-if="vm.isDelegate">
 				<div class="col-md-6 col-lg-7">
-					<h3>Voters <small>{{vm.address.votersMeta.count}}</small></h3>
+					<h3>Voters <small class="voter-count">{{vm.address.votersMeta.count}}</small></h3>
 					<div class="delegate-vote" data-ng-if="vm.address.voters">
-						<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+						<div class="row voters horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 							<div class="col-md-12 voters">
 								<span data-ng-repeat='voter in vm.address.voters'>
 									<span>
@@ -140,7 +140,7 @@
 				<div class="col-md-6 col-lg-5">
 					<h3>Forging statistics</h3>
 					<div class="table-responsive">
-						<table class="table summary">
+						<table class="table summary forging-statistics">
 							<tbody>
 								<tr>
 									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Name</strong></td>
