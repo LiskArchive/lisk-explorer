@@ -1782,3 +1782,13 @@ li.dropdown.disabled a {
 .market-watcher .nav-tabs > li:first-child > a {
   margin-left: 0px;
 }
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .latest-votes-table {
+    margin: 0px 4px;
+  }
+  
+  .newest-delegates-table {
+    margin: 0px 4px;
+  }
+} 

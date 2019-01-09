@@ -239,7 +239,7 @@
 
 					<div class="row">
 						<div class="col-md-6">
-							<div class="table-responsive">
+							<div class="table-responsive latest-votes-table">
 								<p class="small-title latest-votes">Latest votes</p>
 								<table class="table table-condensed votes inner">
 									<thead>
@@ -261,7 +261,7 @@
 												<a data-account-href="v.delegate" data-type="delegate" data-ng-if="v.delegate.username">{{v.delegate.username}}</a>
 											</td>
 											<td class="tx hidden-xs">
-												<a class="ellipsis" data-ng-href="/tx/{{v.id}}">{{v.id}}</a>
+												<a class="ellipsis" data-ng-href="/tx/{{v.id}}">{{v.id | middleEllipsis:12}}</a>
 											</td>
 											<td class="time-ago">
 												<span class="text-muted">{{v.timestamp | timeAgo}}</span>
@@ -272,7 +272,7 @@
 							</div>
 						</div>
 						<div class="col-md-6">
-							<div class="table-responsive">
+							<div class="table-responsive newest-delegates-table">
 								<p class="small-title">Newest delegates</p>
 								<table class="table table-condensed registrations inner">
 									<thead>
@@ -293,7 +293,7 @@
 												<a data-account-href="r.delegate" data-type="delegate">{{r.delegate.username}}</a>
 											</td>
 											<td class="tx hidden-xs">
-												<a class="ellipsis" data-ng-href="/tx/{{r.id}}">{{r.id}}</a>
+												<a class="ellipsis" data-ng-href="/tx/{{r.id}}">{{r.id | middleEllipsis:12}}</a>
 											</td>
 											<td class="time-ago">
 												<span class="text-muted">{{r.timestamp | timeAgo}}</span>
