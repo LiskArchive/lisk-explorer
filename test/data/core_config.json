@@ -14,7 +14,7 @@
 	"db": {
 		"host": "localhost",
 		"port": 5432,
-		"database": "lisk_test",
+		"database": "lisk_explorer_test",
 		"user": "",
 		"password": "password",
 		"min": 1,
@@ -73,6 +73,7 @@
 	},
 	"forging": {
 		"force": false,
+		"defaultPassword": "elephant tree paris dragon chair galaxy",
 		"delegates": [],
 		"access": {
 			"whiteList": ["127.0.0.1"]

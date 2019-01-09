@@ -17,9 +17,9 @@
 -->
 <section>
 	<h1>
-		{{vm.tx.id}}&nbsp;
+		<span class="top-title">{{vm.tx.id}}</span>
 		<br />
-		<small><span>{{vm.tx | txType}} transaction</span></small>
+		<small><span class="sub-title">{{vm.tx | txType}} transaction</span></small>
 	</h1>
 	<span data-ng-if="vm.tx.id">
 		<div class="row">
@@ -146,24 +146,28 @@
 							<tr>
 								<td>
 									Added votes ({{vm.tx.votes.added.length}}):
-									<span data-ng-repeat='v in vm.tx.votes.added'>
-										<span data-ng-if="!$last">
-											<a href="/address/{{v.delegate.account.address}}" class="vote-added-link">{{v.delegate.username || v.delegate.account.address}}</a>
-											<span class="text-muted">&bull;</span>
-										</span>
-										<span data-ng-if="$last">
-											<a href="/address/{{v.delegate.account.address}}" class="vote-added-link">{{v.delegate.username || v.delegate.account.address}}</a>
+									<span class="added-votes">
+										<span data-ng-repeat='v in vm.tx.votes.added' class="vote-added-link">
+											<span data-ng-if="!$last">
+												<a href="/address/{{v.delegate.account.address}}" class="vote-added-link">{{v.delegate.username || v.delegate.account.address}}</a>
+												<span class="text-muted">&bull;</span>
+											</span>
+											<span data-ng-if="$last">
+												<a href="/address/{{v.delegate.account.address}}" class="vote-added-link">{{v.delegate.username || v.delegate.account.address}}</a>
+											</span>
 										</span>
 									</span>
 									<br>
 									Deleted votes ({{vm.tx.votes.deleted.length}}):
-									<span data-ng-repeat='v in vm.tx.votes.deleted'>
-										<span data-ng-if="!$last">
-											<a href="/address/{{v.delegate.account.address}}" class="vote-deleted-link">{{v.delegate.username || v.delegate.account.address}}</a>
-											<span class="text-muted">&bull;</span>
-										</span>
-										<span data-ng-if="$last">
-											<a href="/address/{{v.delegate.account.address}}" class="vote-deleted-link">{{v.delegate.username || v.delegate.account.address}}</a>
+									<span class="deleted-votes">
+										<span data-ng-repeat='v in vm.tx.votes.deleted'>
+											<span data-ng-if="!$last">
+												<a href="/address/{{v.delegate.account.address}}" class="vote-deleted-link">{{v.delegate.username || v.delegate.account.address}}</a>
+												<span class="text-muted">&bull;</span>
+											</span>
+											<span data-ng-if="$last">
+												<a href="/address/{{v.delegate.account.address}}" class="vote-deleted-link">{{v.delegate.username || v.delegate.account.address}}</a>
+											</span>
 										</span>
 									</span>
 								</td>

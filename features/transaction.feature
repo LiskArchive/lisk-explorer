@@ -2,16 +2,23 @@ Feature: Transaction page
   
   Scenario: should show title, summary, and details
     Given I'm on page "/tx/1465651642158264047"
-    Then I should see "Transaction 1465651642158264047 " in "h1" html element
+    Then I should see "1465651642158264047" in "top title" element
+    And I should see "Balance transfer transaction" in "sub title" element
     And I should see "Home Transaction 1465651642158264047" in "breadcrumb" element
     And I should see table "summary" containing:
-      | Sender        | 1085993630748340485L      |
-      | Recipient     | 16313739661670634666L     |
-      | Confirmations | /\d+/                     |
-      | Amount        | 100,000,000 LSK           |
-      | Fee           | 0 LSK                     |
-      | Timestamp     | /2016\/05\/24 \d\d:00:00/ |
-      | Block         | 6524861224470851795       |
+      | Transaction ID      | 1465651642158264047       |
+      | Type                | Type 0 (Balance transfer) |
+      | Sender              | 1085993630748340485L      |
+      | Recipient           | 16313739661670634666L     |
+      | Confirmations       | /\d+/                     |
+      | Amount              | 100,000,000 LSK           |
+      | Fee                 | 0 LSK                     |
+      | Timestamp           | /2016\/05\/24 \d\d:00:00/ |
+      | Block               | 6524861224470851795       |
+    And I should see table "details" containing:
+      | Transaction details  |
+      | Data length\n0 bytes |
+      | Data text\n(no data) |
 
   Scenario: should link added votes to address page
     Given I'm on page "/tx/9211700107174373690"
@@ -25,22 +32,3 @@ Feature: Transaction page
     And I click "vote deleted link" no. 1
     Then I should be on page "/address/2581762640681118072L"
 
-  Scenario: should show transactions list
-      Given I'm on page "/txs/"
-      Then I should see "Transactions" in "h1" html element
-      And I should see "Home Transactions" in "breadcrumb" element
-      And I should see table "transactions" with 50 rows starting with:
-      | Transaction ID | Date                          | Sender                   | Recipient        | Amount           | Fee     | Confirm.  |
-      |----------------|-------------------------------|--------------------------|------------------|------------------|---------|-----------|
-      | /\d{18,20}/    | /2017\/06\/19 \d\d:\d\d:\d\d/ | /standby_\d{3}\|\d{20}L/ | Explorer Account |       123.45 LSK | 0.1 LSK | 5 / 101   |
-      | /\d{18,20}/    | /2017\/06\/19 \d\d:\d\d:\d\d/ | /standby_\d{3}\|\d{20}L/ | Explorer Account |          100 LSK | 0.1 LSK | 6 / 101   |
-      | /\d{18,20}/    | /2017\/06\/19 \d\d:\d\d:\d\d/ | /standby_\d{3}\|\d{20}L/ | Explorer Account | 100.12345678 LSK | 0.1 LSK | 7 / 101   |
-      | /\d{18,20}/    | /2017\/06\/19 \d\d:\d\d:\d\d/ | /standby_\d{3}\|\d{20}L/ | Explorer Account |     0.123456 LSK | 0.1 LSK | 8 / 101   |
-      | /\d{18,20}/    | /2017\/06\/19 \d\d:\d\d:\d\d/ | /standby_\d{3}\|\d{20}L/ | Explorer Account |     123.4567 LSK | 0.1 LSK | 9 / 101   |
-
-  Scenario: should allow to load more transactions
-    Given I'm on page "/txs/"
-    And I should see table "transactions" with 50 rows
-    When I scroll to "more button"
-    And I click "more button"
-    Then I should see table "transactions" with 100 rows

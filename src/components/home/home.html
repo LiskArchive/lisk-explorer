@@ -43,7 +43,7 @@
 				<div class="col-xs-6 col-sm-3">
 					<div class="row big-info">
 						<div class="col-xs-12">
-							<div class="pull-left active-nodes">
+							<div class="pull-left active-nodes peers">
 								<p class="small-title">Peers</p>
 								<p>
 									<span class="connected-peers">{{vm.peers.connected.length || 0}} connected peers</span><br>
@@ -78,7 +78,7 @@
 
 				<div class="col-xs-6 col-sm-3">
 					<div class="row big-info">
-						<div class="col-xs-12">
+						<div class="col-xs-12 latest-blocks">
 							<div class="big-info">
 								<p class="small-title">Latest blocks</p>
 							</div>
@@ -89,7 +89,7 @@
 									<!-- (<a class="" href="/address/{{b.generator}}">{{b.delegate.username || b.generator | middleEllipsis:10}}</a>) -->
 								</span>
 							</p>
-							<a href="/blocks/">more&nbsp;blocks</span><small><span class="glyphicon glyphicon-chevron-right"></span></small></a>
+							<a href="/blocks/">more blocks</span><small><span class="glyphicon glyphicon-chevron-right"></span></small></a>
 						</div>
 					</div>
 				</div>
@@ -100,7 +100,7 @@
 	<div class="top-pb row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l latest-transactions-box">
 		<div class="col-xs-12">
 			<div class="big-info">
-				<p class="small-title">Latest transactions<a href="/txs/" class="pull-right">More<span class="hidden-xs"> transactions</span><span class="glyphicon glyphicon-chevron-right"></span></a></p>
+				<p class="small-title more-transactions">Latest transactions<a href="/txs/" class="pull-right">More<span class="hidden-xs"> transactions</span><span class="glyphicon glyphicon-chevron-right"></span></a></p>
 			</div>
 			<!-- <h2 class="left-padding-m left-padding-l">Latest transactions</h2> -->
 			<div class="table-responsive">
