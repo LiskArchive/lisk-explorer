@@ -41,9 +41,9 @@
 		</div>
 	</div>
 	<h1>
-		{{vm.address.address}}&nbsp;
+		<span class="top-title">{{vm.address.address}}</span>
 		<br />
-		<small><span>{{vm.accountType || 'Loading...'}}</span></small>
+		<small><span class="sub-title">{{vm.accountType || 'Loading...'}}</span></small>
 	</h1>
 	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 		<div class="col-md-9 col-lg-10">
@@ -113,7 +113,7 @@
 			</div>
 		</uib-tab>
 		<uib-tab>
-			<uib-tab-heading><span class="glyphicon glyphicon glyphicon-list-alt"></span> Details</uib-tab-heading>
+			<uib-tab-heading class="details-tab"><span class="glyphicon glyphicon glyphicon-list-alt"></span> Details</uib-tab-heading>
 
 			<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-if="vm.isDelegate">
 				<div class="col-md-6 col-lg-7">

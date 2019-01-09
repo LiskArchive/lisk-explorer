@@ -1,7 +1,8 @@
 Feature: Market Watcher
   Scenario: should show statistics
     Given I'm on page "/marketWatcher"
-    Then I should see "Market Watcher" in "h1" html element
+    Then I should see "Market Watcher" in "top title" element
+    And I should see "Market data from popular crypto exchanges" in "sub title" element
     And I should see "Home Market Watcher" in "breadcrumb" element
     And I should see "last price" element with content that matches:
       """

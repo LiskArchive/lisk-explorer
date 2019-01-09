@@ -65,19 +65,36 @@ module.exports = function (app, config, client) {
 			});
 		});
 
+		const getKeys = key => new Promise((resolve, reject) => {
+			client.keys(key, (err, result) => {
+				if (err) reject(err.message);
+				resolve(result || {});
+			});
+		});
+
+		const deleteKey = key => new Promise((resolve, reject) => {
+			client.unlink(key, (err, result) => {
+				if (err) reject(err.message);
+				resolve(result);
+			});
+		});
+
 		this.getByAddress = async address => getFromHmset(`address:${address}`);
 		this.getByUser = async username => getFromHmset(`username:${username}`);
 
 		this.loadFromJson = () => {
 			try {
 				logger.info('KnownAddresses:', 'Loading known addresses...');
-				const knownJson = require('../known.json');
+				const knownNetworks = require('../knowledge/networks.json') || {};
+				const { nethash } = app.get('nodeConstants');
+				// eslint-disable-next-line import/no-dynamic-require
+				const knownAccounts = require(`../knowledge/known_${knownNetworks[nethash]}.json`) || {};
 
-				Object.keys(knownJson).forEach((address) => {
-					client.hmset(`address:${address}`, knownJson[address]);
+				Object.keys(knownAccounts).forEach((address) => {
+					client.hmset(`address:${address}`, knownAccounts[address]);
 				});
 
-				const length = Object.keys(knownJson).length;
+				const length = Object.keys(knownAccounts).length;
 				logger.info('KnownAddresses:', `${length} known addresses loaded`);
 			} catch (err) {
 				logger.error('KnownAddresses: Error loading known.json:', err.message);
@@ -103,7 +120,12 @@ module.exports = function (app, config, client) {
 			});
 		};
 
-		this.load = () => {
+		this.load = async () => {
+			const addresses = await getKeys('address:*');
+			const usernames = await getKeys('username:*');
+			if (Array.isArray(addresses)) addresses.map(key => deleteKey(key));
+			if (Array.isArray(usernames)) usernames.map(key => deleteKey(key));
+
 			this.loadFromJson();
 
 			if (config.cacheDelegateAddress.enabled) {

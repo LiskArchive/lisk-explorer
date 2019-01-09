@@ -586,7 +586,7 @@ qrcode + span {
   font-size: 1.5rem;
 }
 
-.btn-pagination {
+.btn-next,.btn-prev {
   color: #2475b9;
   border: solid 1px #2475b9;
   align-items: center;
@@ -600,7 +600,7 @@ qrcode + span {
   border-radius: 5px;
 }
 
-.btn-pagination:hover {
+.btn-next:hover,.btn-prev:hover {
   color: #fff;
   background-color: #2475b9;
 }
