@@ -75,7 +75,6 @@ Feature: Address page
       | /\d{18,20}/    | /2017\/06\/16 \d\d:58:04/ | standby_301 | Delegate registration | 0 LSK     | 25.0 LSK | Confirmed     |
       | /\d{18,20}/    | /2017\/06\/16 \d\d:57:43/ | standby_301 | Delegate vote         | 0 LSK     |  1.0 LSK | Confirmed     |
 
-
   Scenario: should allow to show votes
     Given I'm on page "/address/16313739661670634666L"
     When I click "details tab"
@@ -86,4 +85,3 @@ Feature: Address page
     When I click "details tab"
     And I click "vote link" no. 1
     Then I should be on page "/address/8273455169423958419L"
-
