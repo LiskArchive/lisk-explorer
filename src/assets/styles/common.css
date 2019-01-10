@@ -1764,7 +1764,7 @@ li.dropdown.disabled a {
 
 .nav-tabs > li > a {
   height: 45px;
-  margin-bottom: -1px;
+  margin-bottom: 0px;
 }
 
 .exchanges .nav-tabs > li.active > a  {
@@ -1774,7 +1774,6 @@ li.dropdown.disabled a {
 .market-watcher .nav-tabs > li:first-child > a {
   margin-left: 0px;
 }
-
 
 @media (min-width: 769px) and (max-width: 1024px) {
   .latest-updates > div > div {
