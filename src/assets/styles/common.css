@@ -1787,8 +1787,35 @@ li.dropdown.disabled a {
   .latest-votes-table {
     margin: 0px 4px;
   }
+
+  .latest-votes-table > table > thead > tr > th:first-child{
+    padding-left: 20px;
+  }
+
+  .latest-votes-table > table > tbody > tr > td:first-child{
+    padding-left: 20px;
+  }
   
   .newest-delegates-table {
     margin: 0px 4px;
   }
 } 
+
+
+@media (max-width: 1024px) {
+  .latest-votes-table > p {
+    padding-left: 16px;
+  }
+} 
+
+.newest-delegates-table > p {
+  padding-left: 16px;
+}
+
+.newest-delegates-table > table > thead > tr > th:first-child{
+  padding-left: 16px;
+}
+
+.newest-delegates-table > table > tbody > tr > td:first-child{
+  padding-left: 16px;
+}
