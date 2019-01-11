@@ -1764,3 +1764,7 @@ li.dropdown.disabled a {
 .decimal-menu > li > a {
   cursor: pointer;
 }
+
+.home .stats > div > div > div {
+  padding-left: 0px;
+}
