@@ -1760,3 +1760,7 @@ li.dropdown.disabled a {
 	margin-top: 40px;
 }
 
+.currency-selector > li > a,
+.decimal-menu > li > a {
+  cursor: pointer;
+}
