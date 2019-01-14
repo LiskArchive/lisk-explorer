@@ -592,6 +592,7 @@ qrcode + span {
 
 .btn-next,.btn-prev {
   color: #2475b9;
+  background-color: white;
   border: solid 1px #2475b9;
   align-items: center;
   display: inline-flex;
