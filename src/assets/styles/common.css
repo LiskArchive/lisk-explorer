@@ -411,14 +411,11 @@ qrcode + span {
   font-family: 'Roboto', 'Ubuntu', sans-serif;
   margin-left: 1px;
   padding: 30px 25px;
-} 
+}  
 
 .navbar-default .navbar-nav > li:last-child > a {
-  color: white;
-  font-family: 'Roboto', 'Ubuntu', sans-serif;
-  margin-left: 1px;
-  padding: 30px 0px 30px 25px;
-}
+  padding-right: 0px;
+}  
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus {
   background-color: #27292A;
