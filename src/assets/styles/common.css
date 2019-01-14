@@ -406,12 +406,16 @@ qrcode + span {
   border: 0;
 }
 
-.navbar-default .navbar-nav>li>a {
+.navbar-default .navbar-nav > li > a {
   color: white;
   font-family: 'Roboto', 'Ubuntu', sans-serif;
   margin-left: 1px;
-  padding: 30px 0px 30px 50px;
-}
+  padding: 30px 25px;
+}  
+
+.navbar-default .navbar-nav > li:last-child > a {
+  padding-right: 0px;
+}  
 
 .navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:focus {
   background-color: #27292A;
@@ -1759,6 +1763,7 @@ li.dropdown.disabled a {
 .home .latest-transactions-box {
 	margin-top: 40px;
 }
+<<<<<<< HEAD
 
 .currency-selector > li > a,
 .decimal-menu > li > a {
@@ -1768,3 +1773,5 @@ li.dropdown.disabled a {
 .home .stats > div > div > div {
   padding-left: 0px;
 }
+=======
+>>>>>>> 879-ui-fixes-nav-margins
