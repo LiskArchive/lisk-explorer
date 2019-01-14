@@ -54,7 +54,7 @@
 				<button data-ng-class="!txs.hasPrev ? 'btn-pagination-inactive' : 'btn-prev'" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)"><i class="fas fa-caret-left fa-lg"></i></button>
 			</li>
 			<li role="presentation" class="nav-item"  data-ng-repeat="page in txs.pages">
-				<a href="txs/{{page}}" data-ng-class="{{txs.page}} === {{page}} ? 'curr-page' : 'tx-other'">{{ page }}</a> 
+				<a href="txs/{{page}}" data-ng-class="{{txs.page}} === {{page}} ? 'curr-page' : 'tx-pagination-num'">{{ page }}</a> 
 			</li>
 			<li data-ng-if="txs.currentPage" role="presentation" class="nav-item">
 				Page <span class="address-currpage">{{txs.currentPage}}</span>

@@ -1369,9 +1369,7 @@ a.sort-order span.reverse:after {
   margin-bottom: 40px;
 }
 
-.latest-votes {
-  padding-left: 5px;
-}
+
 
 .delegate-monitor-top  > div {
   margin-bottom: 10px;
@@ -1381,12 +1379,6 @@ a.sort-order span.reverse:after {
 .row.equal {
   display: flex;
   flex-wrap: wrap;
-}
-
-@media (min-width: 1080px) {
-  .latest-votes {
-    padding-left: 17px;
-  }
 }
 
 .lead {
@@ -1760,3 +1752,38 @@ li.dropdown.disabled a {
 	margin-top: 40px;
 }
 
+@media (min-width: 769px){
+  .delegate-monitor-top > div > div {
+    margin: 0 15px;
+  }
+
+  .nav-tabs > li:first-child > a {
+    margin-left: 32px;
+  }
+}
+
+.nav-tabs > li > a {
+  height: 45px;
+  margin-bottom: 0px;
+}
+
+.exchanges .nav-tabs > li.active > a  {
+  height: auto;
+}
+
+.market-watcher .nav-tabs > li:first-child > a {
+  margin-left: 0px;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .latest-updates > div > div {
+    margin: 0 5px;
+  } 
+}
+
+.latest-updates > div > div > table > thead > tr > th:first-child,
+.latest-updates > div > div > table > tbody > tr > td:first-child,
+.latest-updates > div > div > p
+{
+  padding-left: 16px;
+}

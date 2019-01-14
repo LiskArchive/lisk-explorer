@@ -41,7 +41,7 @@
 }
 
 .breadcrumb-currency-picker {
-	margin-bottom: 0;
+	margin-bottom: -1px;
 	padding-bottom: 0;
 	margin-left: 0;
 }
