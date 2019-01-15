@@ -1798,3 +1798,7 @@ li.dropdown.disabled a {
     width: 40%;
   }
 }
+
+.network-monitor .big-info .big-details {
+  font-weight: 600;
+}
