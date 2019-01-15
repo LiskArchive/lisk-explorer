@@ -1485,7 +1485,7 @@ table tbody tr:nth-of-type(odd) {
 }
 
 .paginator .btn-group {
-  margin: 10rem 0 0;
+  margin: 1.5rem 0 0;
   display: flex;
   justify-content: center;
   text-align: center;
