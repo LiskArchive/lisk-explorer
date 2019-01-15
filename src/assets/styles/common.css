@@ -1773,3 +1773,28 @@ li.dropdown.disabled a {
 .home .stats > div > div > div {
   padding-left: 0px;
 }
+
+@media (min-width: 426px){
+  .table-tx-details > div > div {
+    margin: 0px 10px;
+  } 
+}
+
+.tx-type-1-table {
+  table-layout: fixed;
+}
+
+.tx-type-1-table > tbody > tr > td:nth-child(2) {
+  word-wrap:break-word;
+  white-space: normal;
+}
+
+.tx-type-1-table > tbody > tr:first-child > td:first-child {
+  width: 25%;
+}
+
+@media (min-width: 769px) {
+  .tx-type-1-table > tbody > tr:first-child > td:first-child {
+    width: 40%;
+  }
+}
