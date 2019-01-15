@@ -307,7 +307,7 @@
 										<th class="text-right">Count</th>
 										<th class="text-right">%</th>
 									</thead>
-									<tr data-ng-repeat='v in vm.counter.osDistribution track by $index'>
+									<tr data-ng-repeat= "v in vm.counter.osDistribution | orderBy:'-count' track by $index">
 										<td class="">{{v.platform}}</td>
 										<td class="text-right">{{v.count}}</td>
 										<td class="text-right">{{v.percent}} %</td>
