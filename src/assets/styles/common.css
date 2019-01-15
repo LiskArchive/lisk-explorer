@@ -1785,7 +1785,7 @@ li.dropdown.disabled a {
 }
 
 .tx-type-1-table > tbody > tr > td:nth-child(2) {
-  word-wrap:break-word;
+  word-wrap: break-word;
   white-space: normal;
 }
 
