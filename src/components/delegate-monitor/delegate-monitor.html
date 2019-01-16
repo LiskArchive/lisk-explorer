@@ -236,15 +236,14 @@
 				</uib-tab>
 				<uib-tab>
 					<uib-tab-heading><span class="glyphicon glyphicon-asterisk"></span> <span class="hidden-xs">Latest updates</span></uib-tab-heading>
-
-					<div class="row">
+					<div class="row latest-updates">
 						<div class="col-md-6">
 							<div class="table-responsive">
-								<p class="small-title latest-votes">Latest votes</p>
+								<p class="small-title">Latest votes</p>
 								<table class="table table-condensed votes inner">
 									<thead>
 										<tr>
-											<th class="left-padding-xs left-padding-s left-padding-l">Voter</th>
+											<th>Voter</th>
 											<th class="hidden-xs">Transaction</th>
 											<th>Time</th>
 										</tr>
@@ -256,14 +255,14 @@
 									</tbody>
 									<tbody>
 										<tr data-ng-repeat='v in vm.votes track by $index'>
-											<td class="voter left-padding-xs left-padding-s left-padding-l">
+											<td class="voter col-xs-6">
 												<a data-account-href="v" data-type="sender" data-ng-if="v.senderId && !v.delegate.username">{{v.senderId}}</a>
 												<a data-account-href="v.delegate" data-type="delegate" data-ng-if="v.delegate.username">{{v.delegate.username}}</a>
 											</td>
 											<td class="tx hidden-xs">
-												<a class="ellipsis" data-ng-href="/tx/{{v.id}}">{{v.id}}</a>
+												<a class="ellipsis" data-ng-href="/tx/{{v.id}}">{{v.id | middleEllipsis:12}}</a>
 											</td>
-											<td class="time-ago">
+											<td class="time-ago col-xs-3">
 												<span class="text-muted">{{v.timestamp | timeAgo}}</span>
 											</td>
 										</tr>
@@ -289,13 +288,13 @@
 									</tbody>
 									<tbody>
 										<tr data-ng-repeat='r in vm.registrations track by $index'>
-											<td class="delegate">
+											<td class="delegate col-xs-6">
 												<a data-account-href="r.delegate" data-type="delegate">{{r.delegate.username}}</a>
 											</td>
 											<td class="tx hidden-xs">
-												<a class="ellipsis" data-ng-href="/tx/{{r.id}}">{{r.id}}</a>
+												<a class="ellipsis" data-ng-href="/tx/{{r.id}}">{{r.id | middleEllipsis:12}}</a>
 											</td>
-											<td class="time-ago">
+											<td class="time-ago col-xs-3">
 												<span class="text-muted">{{r.timestamp | timeAgo}}</span>
 											</td>
 										</tr>
