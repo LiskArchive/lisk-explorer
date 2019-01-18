@@ -1856,3 +1856,13 @@ li.dropdown.disabled a {
 .mobile-xs-txs-page > span {
   font-weight: 600;
 }
+
+@media (max-width: 320px) {
+  .latest-blocks {
+    word-wrap: break-word;
+  }
+
+  .last-block {
+    word-wrap: break-word;
+  } 
+}
