@@ -237,11 +237,11 @@
 		<div class="col-xs-12 big-info peers">
 			<uib-tabset class="peers">
 				<uib-tab>
-					<uib-tab-heading><span class="glyphicon glyphicon-ok-sign hidden-xs"></span> Connected<span class="hidden-xs"> Peers</span> <span class="badge">{{vm.counter.connected || 0}}</span></uib-tab-heading>
+					<uib-tab-heading><span class="glyphicon glyphicon-ok-sign"></span><span> Connected</span><span class="hidden-xs"> Peers</span> <span class="badge">{{vm.counter.connected || 0}}</span></uib-tab-heading>
 					<peers peers="vm.peers.connected"></peers>
 				</uib-tab>
 				<uib-tab>
-					<uib-tab-heading><span class="glyphicon glyphicon-remove-sign hidden-xs"></span> Disconnected<span class="hidden-xs"> Peers</span> <span class="badge">{{vm.counter.disconnected || 0}}</span></uib-tab-heading>
+					<uib-tab-heading><span class="glyphicon glyphicon-remove-sign"></span><span class="hidden-xs"> Disconnected Peers</span> <span class="badge hidden-xs">{{vm.counter.disconnected || 0}}</span></uib-tab-heading>
 					<peers peers="vm.peers.disconnected"></peers>
 				</uib-tab>
 				<uib-tab>
