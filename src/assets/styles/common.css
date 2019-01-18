@@ -1866,3 +1866,18 @@ li.dropdown.disabled a {
     word-wrap: break-word;
   } 
 }
+
+@media (max-width: 375px) {
+  .block-table {
+    table-layout: fixed;
+  }
+
+  .block-table > tbody > tr > td:first-child {
+    word-wrap: break-word;
+    white-space: normal;
+  }
+
+  .block-table > tbody > tr:first-child > td:first-child {
+    width: 40%;
+  }
+}
