@@ -109,4 +109,9 @@ config.cacheDelegateAddress.enabled = true;
 // Interval in ms for checking new delegates registration (default: 60 seconds)
 config.cacheDelegateAddress.updateInterval = 60000;
 
+/*
+ * Known accounts can be loaded from the url below
+ */
+config.knownAccountsUrl = 'https://static-data.lisk.io';
+
 module.exports = config;
