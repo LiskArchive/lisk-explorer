@@ -20,10 +20,10 @@
 		<thead>
 			<tr>
 				<th class="left-padding-xs left-padding-s left-padding-m left-padding-l double text-muted">
-					<span class="hidden-md">Transaction ID</span>
-					<span class="visible-md">ID</span>
+					<span class="visible-lg">Transaction ID</span>
+					<span class="hidden-lg">ID</span>
 				</th>
-				<th role="button" data-ng-class="txs.activeSort.predicate === 'timestamp' ? 'text-primary' : 'text-muted'" data-ng-click="txs.applySort('timestamp')">
+				<th class="hidden-sm" role="button" data-ng-class="txs.activeSort.predicate === 'timestamp' ? 'text-primary' : 'text-muted'" data-ng-click="txs.applySort('timestamp')">
 					<span>Date</span><i class="glyphicon" data-ng-class="txs.activeSort.direction === 'desc' ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="txs.activeSort.predicate === 'timestamp'"></i>
 				</th>
 				<th class="text-muted">
@@ -35,12 +35,12 @@
 				<th role="button" data-ng-class="txs.activeSort.predicate === 'amount' ? 'text-primary' : 'text-muted'" data-ng-click="txs.applySort('amount')" class="amount text-right">
 					<span>Amount</span><i class="glyphicon" data-ng-class="txs.activeSort.direction === 'desc' ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="txs.activeSort.predicate === 'amount'"></i>
 				</th>
-				<th role="button" data-ng-class="txs.activeSort.predicate === 'fee' ? 'text-primary' : 'text-muted'" data-ng-click="txs.applySort('fee')" class="text-nowrap text-right">
+				<th class="hidden-sm" role="button" data-ng-class="txs.activeSort.predicate === 'fee' ? 'text-primary' : 'text-muted'" data-ng-click="txs.applySort('fee')" class="text-nowrap text-right">
 					<span>Fee</span><i class="glyphicon" data-ng-class="txs.activeSort.direction === 'desc' ? 'glyphicon-triangle-bottom' : 'glyphicon-triangle-top'" ng-if="txs.activeSort.predicate === 'fee'"></i>
 				</th>
 				<th class="text-right right-padding-m right-padding-l double text-muted">
-					<span class="hidden-md">Confirm.</span>
-					<span class="visible-md"><i class="glyphicon glyphicon-check" style="left:0"></i></span>
+					<span class="visible-lg">Confirm.</span>
+					<span class="hidden-lg"><i class="glyphicon glyphicon-check" style="left:0"></i></span>
 				</th>
 			</tr>
 		</thead>
