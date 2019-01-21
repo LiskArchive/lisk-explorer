@@ -15,6 +15,7 @@
  */
 const api = require('../lib/api');
 const logger = require('./logger');
+const request = require('request-promise');
 
 module.exports = function (app, config, client) {
 	const delegates = new api.delegates(app);
@@ -82,20 +83,31 @@ module.exports = function (app, config, client) {
 		this.getByAddress = async address => getFromHmset(`address:${address}`);
 		this.getByUser = async username => getFromHmset(`username:${username}`);
 
-		this.loadFromJson = () => {
+		this.loadFromServer = () => {
 			try {
-				logger.info('KnownAddresses:', 'Loading known addresses...');
-				const knownNetworks = require('../knowledge/networks.json') || {};
 				const { nethash } = app.get('nodeConstants');
-				// eslint-disable-next-line import/no-dynamic-require
-				const knownAccounts = require(`../knowledge/known_${knownNetworks[nethash]}.json`) || {};
+				let knownNetworks;
+				let knownAccounts;
 
-				Object.keys(knownAccounts).forEach((address) => {
-					client.hmset(`address:${address}`, knownAccounts[address]);
-				});
+				(async () => {
+					try {
+						logger.info('KnownAddresses:', `Loading known addresses from ${config.knownAccountsUrl}`);
+						knownNetworks = JSON.parse(await request(`${config.knownAccountsUrl}/networks.json`));
+						knownAccounts = JSON.parse(await request(`${config.knownAccountsUrl}/known_${knownNetworks[nethash]}.json`));
+					} catch (err) {
+						logger.warn('KnownAddresses:', `Failed to get known addresses from ${config.knownAccountsUrl}, falling back to the local copy`);
+						knownNetworks = require('../knowledge/networks.json') || {};
+						// eslint-disable-next-line import/no-dynamic-require
+						knownAccounts = require(`../knowledge/known_${knownNetworks[nethash]}.json`) || {};
+					}
 
-				const length = Object.keys(knownAccounts).length;
-				logger.info('KnownAddresses:', `${length} known addresses loaded`);
+					Object.keys(knownAccounts).forEach((address) => {
+						client.hmset(`address:${address}`, knownAccounts[address]);
+					});
+
+					const length = Object.keys(knownAccounts).length;
+					logger.info('KnownAddresses:', `${length} known addresses loaded`);
+				})();
 			} catch (err) {
 				logger.error('KnownAddresses: Error loading known.json:', err.message);
 			}
@@ -126,7 +138,7 @@ module.exports = function (app, config, client) {
 			if (Array.isArray(addresses)) addresses.map(key => deleteKey(key));
 			if (Array.isArray(usernames)) usernames.map(key => deleteKey(key));
 
-			this.loadFromJson();
+			this.loadFromServer();
 
 			if (config.cacheDelegateAddress.enabled) {
 				this.checkNewDelegates();
