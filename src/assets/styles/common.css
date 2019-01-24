@@ -571,6 +571,12 @@ qrcode + span {
   }
 }
 
+@media (max-width: 320px) {
+  .nav-pagination {
+    width: 280px;
+  }
+}
+
 .nav-pagination > li {
   display: inline-block;
 }
@@ -1794,6 +1800,7 @@ li.dropdown.disabled a {
 .network-monitor .big-info .big-details {
   font-weight: 600;
 }
+
 @media (min-width: 769px){
   .delegate-monitor-top > div > div {
     margin: 0 15px;
@@ -1828,4 +1835,49 @@ li.dropdown.disabled a {
 .latest-updates > div > div > p
 {
   padding-left: 16px;
+}
+
+@media (min-width: 321px) {
+  .mobile-xs-visible {
+    display: none;
+  }
+}
+
+@media (max-width: 320px) {
+  .mobile-xs-hidden {
+    display: none;
+  }
+}
+
+.mobile-xs-txs-page {
+  margin-top: 15px;
+}
+
+.mobile-xs-txs-page > span {
+  font-weight: 600;
+}
+
+@media (max-width: 320px) {
+  .latest-blocks {
+    word-wrap: break-word;
+  }
+
+  .last-block {
+    word-wrap: break-word;
+  } 
+}
+
+@media (max-width: 375px) {
+  .block-table {
+    table-layout: fixed;
+  }
+
+  .block-table > tbody > tr > td:first-child {
+    word-wrap: break-word;
+    white-space: normal;
+  }
+
+  .block-table > tbody > tr:first-child > td:first-child {
+    width: 40%;
+  }
 }

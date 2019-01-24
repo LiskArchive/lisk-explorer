@@ -16,15 +16,15 @@
  */
 -->
 <td data-title="Transaction ID" class="left-padding-m left-padding-l double">
-	<span class="hidden-md">
+	<span class="visible-lg visible-xs">
 		<a class="txid" href="/tx/{{tx.id}}">{{tx.id}}</a>
 		<span class="btn-copy pull-right right-padding-xs right-padding-s" clip-copy="tx.id"></span>
 	</span>
-	<span class="visible-md">
-		<span class="btn-copy" clip-copy="tx.id" data-on-hover="{{tx.id}}"></span>
+	<span class="hidden-lg hidden-xs">
+		<span class="btn-copy pull-right right-padding-xs right-padding-s" clip-copy="tx.id" data-on-hover="{{tx.id}}"></span>
 	</span>
 </td>
-<td data-title="Date">
+<td class="hidden-sm" data-title="Date">
 	<span class="hidden-md">{{tx.timestamp | timestamp }}</span>
 	<a class="visible-md" href="/tx/{{tx.id}}">{{tx.timestamp | timestamp }}</a>
 </td>
@@ -45,9 +45,9 @@
 	}">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}
 	</span>
 </td>
-<td data-title="Fee" class="text-nowrap text-right"><span>{{tx.fee | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span></td>
+<td data-title="Fee" class="text-nowrap text-right hidden-sm"><span>{{tx.fee | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</span></td>
 <td data-title="Confirmations" class="text-right right-padding-m right-padding-l double">
-	<span class="hidden-md">
+	<span class="visible-lg">
 		<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">
 			Transaction unconfirmed!&nbsp;<i class="glyphicon glyphicon-alert"></i>
 		</span>
@@ -61,7 +61,7 @@
 			Confirmed&nbsp;<i class="glyphicon glyphicon-ok"></span>
 		</span>
 	</span>
-	<span class="visible-md">
+	<span class="hidden-lg">
 		<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">
 			<i class="glyphicon glyphicon-alert">
 		</span>
