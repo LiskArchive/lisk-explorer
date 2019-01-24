@@ -22,7 +22,7 @@
 		<small><span class="sub-title">{{vm.tx | txType}} transaction</span></small>
 	</h1>
 	<span data-ng-if="vm.tx.id">
-		<div class="row">
+		<div class="row table-tx-details">
 			<div class="col-md-6">
 				<div class="table-responsive">
 					<table class="table summary">
@@ -89,22 +89,18 @@
 					</table>
 				</div>
 			</div>
-
 			<div class="col-md-6">
 				<div class="table-responsive" data-ng-if="vm.tx.type == 0">
-					<table class="table details">
+					<table class="table details tx-type-1-table">
 						<tbody>
+							<tr><td><strong>Transaction details</strong></td><td></td></tr>
 							<tr>
-								<td colspan="2"><strong>Transaction details</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">Data length</td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.data.length || 0}} bytes</td>
 							</tr>
 							<tr>
-								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double" colspan="2">
-									Data length<span class="pull-right">{{vm.tx.asset.data.length || 0}} bytes</span>
-								</td>
-							</tr>
-							<tr>
-								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double" colspan="2">
-									Data text
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><span>Data text</span></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
 									<span class="pull-right" style="font-family: monospace;" data-ng-if="vm.tx.asset.data">{{vm.tx.asset.data}}</span>
 									<span class="pull-right" data-ng-if="!vm.tx.asset.data"><i>(no data)</i></span>
 								</td>
@@ -114,25 +110,23 @@
 				</div>
 
 				<div class="table-responsive" data-ng-if="vm.tx.type == 1">
-					<table class="table details">
+					<table class="table details tx-type-1-table">
 						<tbody>
-							<tr><td colspan="2"><strong>Transaction details</strong>
+							<tr><td><strong>Transaction details</strong></td><td></td></tr>
 							<tr>
-								<td>
-									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Public Key</strong></td>
-									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.signature.publicKey}}</td>
-								</td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Public Key</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.signature.publicKey}}</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
 
 				<div class="table-responsive" data-ng-if="vm.tx.type == 2">
-					<table class="table details">
+					<table class="table details tx-type-1-table">
 						<tbody>
-							<tr><td colspan="2"><strong>Transaction details</strong>
+							<tr><td><strong>Transaction details</strong></td><td></td></tr>
 							<tr>
-								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Username</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Username</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.delegate.username}}</td>
 							</tr>
 						</tbody>
@@ -145,7 +139,7 @@
 							<tr><td><strong>Transaction details</strong></td></tr>
 							<tr>
 								<td>
-									Added votes ({{vm.tx.votes.added.length}}):
+									<span data-ng-if="vm.tx.votes.added.length">Added votes ({{vm.tx.votes.added.length}}):</span>
 									<span class="added-votes">
 										<span data-ng-repeat='v in vm.tx.votes.added' class="vote-added-link">
 											<span data-ng-if="!$last">
@@ -157,8 +151,8 @@
 											</span>
 										</span>
 									</span>
-									<br>
-									Deleted votes ({{vm.tx.votes.deleted.length}}):
+									<br data-ng-if="vm.tx.votes.added.length">
+									<span data-ng-if="vm.tx.votes.deleted.length">Deleted votes ({{vm.tx.votes.deleted.length}}):</span>
 									<span class="deleted-votes">
 										<span data-ng-repeat='v in vm.tx.votes.deleted'>
 											<span data-ng-if="!$last">
@@ -177,19 +171,19 @@
 				</div>
 
 				<div class="table-responsive" data-ng-if="vm.tx.type == 4">
-					<table class="table details">
+					<table class="table details tx-type-1-table">
 						<tbody>
-							<tr><td colspan="2"><strong>Transaction details</strong>
+							<tr><td><strong>Transaction details</strong></td><td></td></tr>
 							<tr>
-								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Minimum</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Minimum</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.multisignature.min}}</td>
 							</tr>
 							<tr>
-								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Lifetime</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Lifetime</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.multisignature.lifetime}} hours</td>
 							</tr>
 							<tr>
-								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Keys Group</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Keys Group</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
 									<span data-ng-repeat='key in vm.tx.asset.multisignature.keysgroup'>
 										<span>{{key}}</span>
@@ -201,35 +195,35 @@
 				</div>
 
 				<div class="table-responsive" data-ng-if="vm.tx.type == 5">
-					<table class="table details">
+					<table class="table details tx-type-1-table">
 						<tbody>
-							<tr><td colspan="2"><strong>Transaction details</strong>
+							<tr><td><strong>Transaction details</strong></td><td></td></tr>
 							<tr>
-								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Name</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Name</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.name}}</td>
 							</tr>
 							<tr>
-								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Description</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Description</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.description || '-'}}</td>
 							</tr>
 							<tr>
-								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Tags</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Tags</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.tags || '-'}}</td>
 							</tr>
 							<tr>
-								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Type</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Type</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.type}}</td>
 							</tr>
 							<tr>
-								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Link</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Link</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.link}}</td>
 							</tr>
 							<tr>
-								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Category</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Category</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.category}}</td>
 							</tr>
 							<tr>
-								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Icon</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Icon</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.icon || '-'}}</td>
 							</tr>
 						</tbody>

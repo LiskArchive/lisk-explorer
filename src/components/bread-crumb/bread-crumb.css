@@ -27,6 +27,12 @@
 	padding-bottom: 0;
 }
 
+@media (max-width: 320px) {
+	.breadcrumb  {
+	  letter-spacing: -0.1rem;
+	}
+  }
+
 .breadcrumb > li a,
 .breadcrumb > li span {
   color: #ccc;

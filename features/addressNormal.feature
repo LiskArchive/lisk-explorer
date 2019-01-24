@@ -22,7 +22,7 @@ Feature: Address page
   Scenario: should link transaction id to transaction page
     Given I'm on page "/address/16313739661670634666L"
     And I click link on row no. 1 cell no. 1 of "transactions" table
-    Then I should be on page "/tx/16295820046284152875"
+    Then I should be on page "/tx/3848396513989474236"
 
   Scenario: should link sender address to address page
     Given I'm on page "/address/18234943547133247982L"
@@ -32,7 +32,7 @@ Feature: Address page
   Scenario: should link recipient delegate name to address page
     Given I'm on page "/address/16313739661670634666L"
     And I click link on row no. 1 cell no. 4 of "transactions" table
-    Then I should be on page "/address/14706379298538803272L"
+    Then I should be on page "/address/14989416087250274755L"
 
   Scenario: should allow to load more transactions
     Given I'm on page "/address/16313739661670634666L"
@@ -71,8 +71,8 @@ Feature: Address page
     Then I should see table "transactions" containing:
       | Transaction ID | Date                      | Sender      | Recipient             | Amount    | Fee      | Confirm.      |
       |----------------|---------------------------|-------------|-----------------------|-----------|----------|---------------|
-      | /\d{18,20}/    | /2017\/06\/16 \d\d:58:04/ | standby_301 | Delegate vote         | 0 LSK     |  1.0 LSK | Confirmed     |
       | /\d{18,20}/    | /2017\/06\/16 \d\d:58:04/ | standby_301 | Delegate registration | 0 LSK     | 25.0 LSK | Confirmed     |
+      | /\d{18,20}/    | /2017\/06\/16 \d\d:58:04/ | standby_301 | Delegate vote         | 0 LSK     |  1.0 LSK | Confirmed     |
       | /\d{18,20}/    | /2017\/06\/16 \d\d:57:43/ | standby_301 | Delegate vote         | 0 LSK     |  1.0 LSK | Confirmed     |
 
   Scenario: should allow to show votes
