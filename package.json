@@ -41,7 +41,6 @@
   "dependencies": {
     "amstock3": "github:amcharts/amstock3",
     "angular": "<=1.6.10",
-    "angular-advanced-searchbox": "github:dnauck/angular-advanced-searchbox",
     "angular-animate": "~1.6.4",
     "angular-cookies": "~1.6.10",
     "angular-gettext": "^2.3.9",
