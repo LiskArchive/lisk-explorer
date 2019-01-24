@@ -1,5 +1,5 @@
-### Expected behaviour
+### Expected behavior
 
-### Actual behaviour
+### Actual behavior
 
 ### Steps to reproduce

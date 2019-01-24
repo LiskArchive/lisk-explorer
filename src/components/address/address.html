@@ -140,7 +140,7 @@
 				<div class="col-md-6 col-lg-5">
 					<h3>Forging statistics</h3>
 					<div class="table-responsive">
-						<table class="table summary forging-statistics">
+						<table class="table forging-statistics">
 							<tbody>
 								<tr>
 									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Name</strong></td>
@@ -201,7 +201,7 @@
 									</td>
 								</tr>
 								<tr>
-									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double" colspan="2"><strong>Minimum number of accounts<br />needed to confirm a multisig transaction</strong>
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l right-padding-xs right-padding-s right-padding-m right-padding-l double" colspan="2"><strong>Minimum number of accounts<br />needed to confirm a multisig transaction</strong>
 										<span class="pull-right">{{vm.address.multisignatureAccount.min}}</span>
 									</td>
 								</tr>
@@ -226,17 +226,17 @@
 									<th>Lisk ID</th>
 									<th>Lifetime</th>
 									<th>Min</th>
-									<th>2nd pass</th>
+									<th class="text-right">2nd pass</th>
 								</thead>
 								<tr data-ng-repeat="acc in vm.address.multisignatureMemberships">
-									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><a href="/address/{{acc.address}}">{{acc.address}}</a></td>
+									<td class=""><a href="/address/{{acc.address}}">{{acc.address}}</a></td>
 									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
 										{{acc.lifetime}}
 									</td>
-									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+									<td class="right-padding-xs right-padding-s right-padding-m right-padding-l right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
 										{{acc.min}}
 									</td>
-									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double">
+									<td class="left-padding-xs left-padding-s left-padding-m left-padding-l text-right double">
 										<span class="pull-right" data-ng-if="acc.secondPublicKey">yes</span>
 										<span class="pull-right" data-ng-if="!acc.secondPublicKey">no</span>
 									</td>
