@@ -15,11 +15,14 @@
  *
  */
 -->
-<div>
+<div class="network-monitor">
 	<h1>
 		Network Monitor
 		<br />
-		<small><span>{{vm.counter.connected || 0}} connected peers, last block forged {{vm.lastBlock.timestamp | timeAgo}}</span></small>
+		<small>
+		    <span data-ng-if="!vm.counter.connected">Loading...</span>
+			<span data-ng-if="vm.counter.connected">{{vm.counter.connected || 0}} connected peers, last block forged {{vm.lastBlock.timestamp | timeAgo}}</span>
+		</small>
 	</h1>
 	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
 		<div class="col-md-6 col-lg-6">
@@ -304,7 +307,7 @@
 										<th class="text-right">Count</th>
 										<th class="text-right">%</th>
 									</thead>
-									<tr data-ng-repeat='v in vm.counter.osDistribution track by $index'>
+									<tr data-ng-repeat= "v in vm.counter.osDistribution | orderBy:'-count' track by $index">
 										<td class="">{{v.platform}}</td>
 										<td class="text-right">{{v.count}}</td>
 										<td class="text-right">{{v.percent}} %</td>

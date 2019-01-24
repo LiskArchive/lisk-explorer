@@ -18,6 +18,7 @@ import template from './transaction.html';
 
 const TransactionConstructor = function ($rootScope, $stateParams, $location, $http) {
 	const vm = this;
+	vm.tx = {};
 	vm.getTransaction = () => {
 		$http.get('/api/getTransaction', {
 			params: {

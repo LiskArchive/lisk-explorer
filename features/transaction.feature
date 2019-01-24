@@ -16,9 +16,9 @@ Feature: Transaction page
       | Timestamp           | /2016\/05\/24 \d\d:00:00/ |
       | Block               | 6524861224470851795       |
     And I should see table "details" containing:
-      | Transaction details  |
-      | Data length\n0 bytes |
-      | Data text\n(no data) |
+      | Transaction details |          |
+      | Data length         | 0 bytes  |
+      | Data text           | (no data)|
 
   Scenario: should link added votes to address page
     Given I'm on page "/tx/9211700107174373690"
