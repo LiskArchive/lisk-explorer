@@ -16,13 +16,12 @@
 import AppHeader from './header.module';
 import template from './header.html';
 import './header.css';
-
 /**
  *
  * @todo Fix the service usage
  *
  */
-AppHeader.directive('mainHeader', ($socket, $rootScope, Header) => {
+AppHeader.directive('mainHeader', ($socket, $rootScope, Header, $timeout) => {
 	const HeaderLink = () => {
 		$rootScope.currency = {
 			symbol: 'LSK',
@@ -47,14 +46,16 @@ AppHeader.directive('mainHeader', ($socket, $rootScope, Header) => {
 		});
 
 		const events = ['connect', 'connect_error', 'error', 'disconnect', 'reconnect', 'reconnect_error', 'reconnect_failed'];
+
 		const registerSocketEvents = (arr) => {
 			arr.forEach((e) => {
 				ns.on(e, () => {
-					if (e === 'connected' || e === 'reconnect') $rootScope.connected = true;
-					else $rootScope.connected = false;
+					if (e === 'connect' || e === 'reconnect') $rootScope.connected = true;
+					else $timeout(() => $rootScope.connected = false, 4000);
 				});
 			});
 		};
+
 		registerSocketEvents(events);
 
 		$rootScope.$on('$destroy', () => {
