@@ -39,9 +39,23 @@ AppHeader.directive('mainHeader', ($socket, $rootScope, Header) => {
 		const ns = $socket('/header');
 
 		ns.on('data', (res) => {
-			if (res.status) { header.updateBlockStatus(res.status); }
+			if (res.status) {
+				header.updateBlockStatus(res.status);
+				$rootScope.connected = true;
+			}
 			if (res.ticker) { header.updatePriceTicker(res.ticker); }
 		});
+
+		const events = ['connect', 'connect_error', 'error', 'disconnect', 'reconnect', 'reconnect_error', 'reconnect_failed'];
+		const registerSocketEvents = (arr) => {
+			arr.forEach((e) => {
+				ns.on(e, () => {
+					if (e === 'connected' || e === 'reconnect') $rootScope.connected = true;
+					else $rootScope.connected = false;
+				});
+			});
+		};
+		registerSocketEvents(events);
 
 		$rootScope.$on('$destroy', () => {
 			ns.removeAllListeners();
