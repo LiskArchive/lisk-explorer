@@ -27,6 +27,9 @@ AppHeader.directive('mainHeader', ($socket, $rootScope, Header, $timeout) => {
 			symbol: 'LSK',
 		};
 
+		$rootScope.connected = true;
+		$rootScope.connectionMsg = false;
+
 		$rootScope.showNethash = (hash) => {
 			if (typeof hash === 'string' && hash.length > 0) {
 				return hash.toLowerCase() !== 'mainnet';
@@ -51,7 +54,8 @@ AppHeader.directive('mainHeader', ($socket, $rootScope, Header, $timeout) => {
 			arr.forEach((e) => {
 				ns.on(e, () => {
 					if (e === 'connect' || e === 'reconnect') $rootScope.connected = true;
-					else $timeout(() => $rootScope.connected = false, 4000);
+					else $timeout(() => $rootScope.connected = false, 5000);
+					if (!$rootScope.connected) $rootScope.connectionMsg = true;
 				});
 			});
 		};
