@@ -49,20 +49,36 @@ AppHeader.directive('mainHeader', ($socket, $rootScope, Header, $timeout) => {
 			if (res.ticker) { header.updatePriceTicker(res.ticker); }
 		});
 
-		const events = ['connect', 'connect_error', 'error', 'disconnect', 'reconnect', 'reconnect_error', 'reconnect_failed'];
+		const events = [
+			'connect',
+			'connect_error',
+			'error',
+			'disconnect',
+			'reconnect',
+			'reconnect_error',
+			'reconnect_failed',
+		];
 
 		const registerSocketEvents = (arr) => {
+			const reconnect = () => {
+				$rootScope.connectionMsg = true;
+				$timeout(() => $rootScope.connectionMsg = false, 2000);
+			};
+
+			const disconnect = () => {
+				$timeout(() => $rootScope.connected = false, 5000);
+				$timeout(() => $rootScope.connectionErrorMsg = true, 5000);
+				$timeout(() => $rootScope.connectionErrorMsg = false, 7000);
+			};
+
 			arr.forEach((e) => {
 				ns.on(e, () => {
 					if (e === 'connect') {
 						$rootScope.connected = true;
-					} else if (e === 'reconnect') {
-						$rootScope.connectionMsg = true;
-						$timeout(() => $rootScope.connectionMsg = false, 2000);
 					} else if (e === 'disconnect') {
-						$timeout(() => $rootScope.connectionErrorMsg = true, 5000);
-						$timeout(() => $rootScope.connectionErrorMsg = false, 7000);
-						$timeout(() => $rootScope.connected = false, 5000);
+						disconnect();
+					} else if (e === 'reconnect') {
+						reconnect();
 					} else {
 						$timeout(() => $rootScope.connected = false, 5000);
 					}
