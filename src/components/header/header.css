@@ -409,5 +409,11 @@
 }
 
 .not-connected {
-  color: red;
+  color: #eb1e1e;
+  padding-left: 27px;
+}
+
+.connected {
+  color: #0de42a;
+  padding-left: 27px;
 }

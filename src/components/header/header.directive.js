@@ -28,6 +28,7 @@ AppHeader.directive('mainHeader', ($socket, $rootScope, Header, $timeout) => {
 		};
 
 		$rootScope.connected = true;
+		$rootScope.connectionErrorMsg = false;
 		$rootScope.connectionMsg = false;
 
 		$rootScope.showNethash = (hash) => {
@@ -53,9 +54,18 @@ AppHeader.directive('mainHeader', ($socket, $rootScope, Header, $timeout) => {
 		const registerSocketEvents = (arr) => {
 			arr.forEach((e) => {
 				ns.on(e, () => {
-					if (e === 'connect' || e === 'reconnect') $rootScope.connected = true;
-					else $timeout(() => $rootScope.connected = false, 5000);
-					if (!$rootScope.connected) $rootScope.connectionMsg = true;
+					if (e === 'connect') {
+						$rootScope.connected = true;
+					} else if (e === 'reconnect') {
+						$rootScope.connectionMsg = true;
+						$timeout(() => $rootScope.connectionMsg = false, 2000);
+					} else if (e === 'disconnect') {
+						$timeout(() => $rootScope.connectionErrorMsg = true, 5000);
+						$timeout(() => $rootScope.connectionErrorMsg = false, 7000);
+						$timeout(() => $rootScope.connected = false, 5000);
+					} else {
+						$timeout(() => $rootScope.connected = false, 5000);
+					}
 				});
 			});
 		};
