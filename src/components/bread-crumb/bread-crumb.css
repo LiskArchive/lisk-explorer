@@ -27,6 +27,12 @@
 	padding-bottom: 0;
 }
 
+@media (max-width: 320px) {
+	.breadcrumb  {
+	  letter-spacing: -0.1rem;
+	}
+  }
+
 .breadcrumb > li a,
 .breadcrumb > li span {
   color: #ccc;
@@ -41,7 +47,7 @@
 }
 
 .breadcrumb-currency-picker {
-	margin-bottom: 0;
+	margin-bottom: -1px;
 	padding-bottom: 0;
 	margin-left: 0;
 }

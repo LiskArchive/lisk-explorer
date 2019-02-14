@@ -65,7 +65,7 @@
                 </table>
 			</div>
             <nav>
-                <ul class="nav-pagination">
+                <ul class="nav-pagination mobile-xs-hidden">
                     <li>
                         <a data-ng-class="{'btn-pagination-inactive': !vm.pagination.before, 'btn-prev': vm.pagination.before}" data-ng-disabled="!vm.pagination.before"  href="/blocks/{{vm.pagination.previousPage}}">
                             <i class="fas fa-caret-left fa-lg"></i>
@@ -73,6 +73,21 @@
                     </li>
                     <li class="nav-item" data-ng-repeat="page in vm.pages">
                         <a href="blocks/{{page}}" data-ng-class="{{page}} === {{vm.pagination.currentPage}} ? 'curr-page' : 'tx-pagination-num'">{{ page }}</a>
+                    </li>
+                    <li>
+                        <a data-ng-class="{'btn-pagination-inactive': !(vm.pagination.more && vm.pagination.nextPage != 0), 'btn-next': vm.pagination.more}" data-ng-disabled="!(vm.pagination.more && vm.pagination.nextPage != 0)" href="/blocks/{{vm.pagination.nextPage}}">
+                            <i class="fas fa-caret-right fa-lg"></i>
+                        </a>
+                    </li>
+                </ul>
+                <ul class="nav-pagination mobile-xs-visible">
+                    <li>
+                        <a data-ng-class="{'btn-pagination-inactive': !vm.pagination.before, 'btn-prev': vm.pagination.before}" data-ng-disabled="!vm.pagination.before"  href="/blocks/{{vm.pagination.previousPage}}">
+                            <i class="fas fa-caret-left fa-lg"></i>
+                        </a>
+                    </li>
+                    <li class="mobile-xs-txs-page nav-item">
+                        Page <span>{{ vm.pagination.currentPage }}</span>
                     </li>
                     <li>
                         <a data-ng-class="{'btn-pagination-inactive': !(vm.pagination.more && vm.pagination.nextPage != 0), 'btn-next': vm.pagination.more}" data-ng-disabled="!(vm.pagination.more && vm.pagination.nextPage != 0)" href="/blocks/{{vm.pagination.nextPage}}">
