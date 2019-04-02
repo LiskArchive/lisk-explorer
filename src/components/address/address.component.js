@@ -13,15 +13,16 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import angular from 'angular';
 import AppAddress from './address.module';
 import template from './address.html';
 
 const AddressConstructor = function (
+	$state,
 	$stateParams,
 	$location,
 	$http,
-	addressTxs,
+	$interval,
+	genericTxs,
 ) {
 	const vm = this;
 
@@ -108,23 +109,46 @@ const AddressConstructor = function (
 		address: $stateParams.address,
 	};
 
-	// Sets the filter for which transactions to display
-	vm.filterTxs = (direction) => {
-		vm.direction = direction;
-		vm.txs = addressTxs({ address: $stateParams.address, direction });
+	const filters = Object.keys($stateParams)
+		.filter(key => key !== 'page')
+		.filter(key => key !== '#')
+		.filter(key => typeof $stateParams[key] !== 'undefined')
+		.map(key => ({ key, value: $stateParams[key] }));
+
+	vm.loadPageOffset = (offset) => {
+		$state.go($state.current.component, { page: Number(vm.txs.page || 1) + offset });
 	};
 
-	vm.onFiltersUsed = () => {
-		vm.cleanByFilters = true;
-		const { removeAll } = angular.element(document.getElementsByClassName('search-parameter-input')[0]).scope();
-		if (removeAll) {
-			removeAll();
-		}
+	vm.loadPage = (pageNumber) => {
+		$state.go($state.current.component, { page: pageNumber });
 	};
 
-	vm.getAddress();
+	vm.applySort = (predicate) => {
+		const direction = (predicate === vm.activeSort.predicate && vm.activeSort.direction === 'asc') ? 'desc' : 'asc';
+		$state.go($state.current.component, { sort: `${predicate}:${direction}` });
+	};
 
-	vm.txs = addressTxs({ address: $stateParams.address });
+	vm.activeSort = typeof $stateParams.sort === 'string'
+		? { predicate: $stateParams.sort.split(':')[0], direction: $stateParams.sort.split(':')[1] }
+		: { predicate: 'timestamp', direction: 'desc' };
+
+	vm.txs = genericTxs({
+		page: $stateParams.page || 1,
+		limit: 20,
+		filters,
+	});
+	vm.txs.loadPageOffset = vm.loadPageOffset;
+	vm.txs.activeSort = vm.activeSort;
+	vm.txs.applySort = vm.applySort;
+	vm.txs.loadPage = vm.loadPage;
+
+	const update = () => {
+		vm.getAddress();
+		vm.txs.loadData();
+	};
+
+	vm.transactionsInterval = $interval(() => update(), 30000);
+	update();
 };
 
 AppAddress.component('address', {

@@ -17,18 +17,20 @@ import AppTools from '../../app/app-tools.module';
 import template from './transactions-filter.html';
 
 const TransactionsConstructor = function ($rootScope, $scope, $stateParams, $element, $state) {
+	$scope.currentPage = $state.current.component;
 	$scope.searchModel = [];
 	$scope.searchParams = [];
 	$scope.availableSearchParams = [
-		{ key: 'senderId', name: 'Sender ID', placeholder: 'Sender...', example: '12317412804123L' },
-		{ key: 'senderPublicKey', name: 'Sender Public Key', placeholder: 'Sender Public Key...', example: 'b550ede5...a26c78d8' },
-		{ key: 'recipientId', name: 'Recipient ID', placeholder: 'Recipient...', example: '12317412804123L' },
-		{ key: 'recipientPublicKey', name: 'Recipient Public Key', placeholder: 'Recipient Public Key...', example: 'b550ede5...a26c78d8' },
-		{ key: 'minAmount', name: 'Min Amount', placeholder: 'Min Amount...', example: '1.25' },
-		{ key: 'maxAmount', name: 'Max Amount', placeholder: 'Max Amount...', example: '1000.5' },
-		{ key: 'type', name: 'Comma separated transaction types', placeholder: 'Comma separated...', example: '1,3' },
-		{ key: 'height', name: 'Block height', placeholder: 'Block Height...', example: '2963014' },
-		{ key: 'blockId', name: 'Block Id', placeholder: 'Block Id...', example: '17238091754034756025' },
+		{ key: 'senderId', name: 'Sender ID', placeholder: 'Sender...', example: '12317412804123L', visible: ['transactions'] },
+		{ key: 'senderPublicKey', name: 'Sender Public Key', placeholder: 'Sender Public Key...', example: 'b550ede5...a26c78d8', visible: ['transactions'] },
+		{ key: 'recipientId', name: 'Recipient ID', placeholder: 'Recipient...', example: '12317412804123L', visible: ['transactions'] },
+		{ key: 'recipientPublicKey', name: 'Recipient Public Key', placeholder: 'Recipient Public Key...', example: 'b550ede5...a26c78d8', visible: ['transactions'] },
+		{ key: 'minAmount', name: 'Min Amount', placeholder: 'Min Amount...', example: '1.25', visible: ['transactions', 'address'] },
+		{ key: 'maxAmount', name: 'Max Amount', placeholder: 'Max Amount...', example: '1000.5', visible: ['transactions', 'address'] },
+		{ key: 'type', name: 'Comma separated transaction types', placeholder: 'Comma separated...', example: '1,3', visible: ['transactions', 'address'] },
+		{ key: 'height', name: 'Block height', placeholder: 'Block Height...', example: '2963014', visible: ['transactions', 'address'] },
+		{ key: 'blockId', name: 'Block Id', placeholder: 'Block Id...', example: '17238091754034756025', visible: ['transactions', 'address'] },
+
 		// { key: 'fromTimestamp', name: 'From', placeholder: 'From...', example: '' },
 		// { key: 'toTimestamp', name: 'To', placeholder: 'To...', example: '' },
 		// { key: 'limit', name: 'Limit', placeholder: 'Limit...', example: '12317412804123L' },
@@ -75,12 +77,13 @@ const TransactionsConstructor = function ($rootScope, $scope, $stateParams, $ele
 				acc[param[0]] = convertToUrl(param[0], param[1]);
 				return acc;
 			}, {});
-		$state.go($state.current.component, Object.assign({ page: 1 }, query), { inherit: false });
+		const obj = { address: $stateParams.address, page: 1 };
+		$state.go($state.current.component, Object.assign(obj, query), { inherit: false });
 	};
 
 	$scope.queryText = Object.keys($stateParams)
 		.filter(key => key !== 'page')
-		.filter(key => key !== 'address')
+		// .filter(key => key !== 'address')
 		.filter(key => key !== 'sort')
 		.filter(key => key !== '#')
 		.filter(key => typeof $stateParams[key] !== 'undefined')

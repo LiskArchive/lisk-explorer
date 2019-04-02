@@ -37,54 +37,36 @@ const Pagination = function ($http, $q, params) {
 };
 
 const availableSearchParams = [
-	{ key: 'address', paramName: 'address', name: 'Sender or recipient address or name', example: '12317412804123L', visible: ['transactions'] },
-	{ key: 'sender', paramName: 'senderId', name: 'Sender address or name', example: '12317412804123L', visible: ['transactions'] },
-	{ key: 'senderId', paramName: 'senderId' },
-	{ key: 'senderid', paramName: 'senderId' },
-	{ key: 'senderpk', paramName: 'senderPublicKey', name: 'Sender Public Key', example: 'b550ede5...a26c78d8', visible: ['transactions'] },
-	{ key: 'senderPublicKey', paramName: 'senderPublicKey' },
-	{ key: 'senderpublickey', paramName: 'senderPublicKey' },
-	{ key: 'recipient', paramName: 'recipientId', name: 'Recipient address or name', example: '12317412804123L', visible: ['transactions'] },
-	{ key: 'recipientId', paramName: 'recipientId' },
-	{ key: 'recipientid', paramName: 'recipientId' },
-	{ key: 'recipientpk', paramName: 'recipientPublicKey', name: 'Recipient Public Key', example: 'b550ede5...a26c78d8', visible: ['transactions'] },
-	{ key: 'recipientPublicKey', paramName: 'recipientPublicKey' },
-	{ key: 'recipientpublickey', paramName: 'recipientPublicKey' },
-	{ key: 'min', paramName: 'minAmount', name: 'Min Amount', example: '1.25', visible: ['transactions', 'address'] },
-	{ key: 'minAmount', paramName: 'minAmount' },
-	{ key: 'minamount', paramName: 'minAmount' },
-	{ key: 'max', paramName: 'maxAmount', name: 'Max Amount', example: '1000.5', visible: ['transactions', 'address'] },
-	{ key: 'maxAmount', paramName: 'maxAmount' },
-	{ key: 'maxamount', paramName: 'maxAmount' },
-	{ key: 'type', paramName: 'type', name: 'Comma separated transaction types', example: '1,3', visible: ['transactions', 'address'] },
-	{ key: 'height', paramName: 'height', name: 'Block height', example: '2963014', visible: ['transactions', 'address'] },
-	{ key: 'blockHeight', paramName: 'height' },
-	{ key: 'blockheight', paramName: 'height' },
-	{ key: 'block', paramName: 'blockId', name: 'Block Id', example: '17238091754034756025', visible: ['transactions', 'address'] },
-	{ key: 'blockId', paramName: 'blockId' },
-	{ key: 'blockid', paramName: 'blockId' },
-	{ key: 'sort', paramName: 'sort' },
+	{ key: 'senderId', name: 'Sender ID', placeholder: 'Sender...', example: '12317412804123L', visible: ['transactions'] },
+	{ key: 'senderPublicKey', name: 'Sender Public Key', placeholder: 'Sender Public Key...', example: 'b550ede5...a26c78d8', visible: ['transactions'] },
+	{ key: 'recipientId', name: 'Recipient ID', placeholder: 'Recipient...', example: '12317412804123L', visible: ['transactions'] },
+	{ key: 'recipientPublicKey', name: 'Recipient Public Key', placeholder: 'Recipient Public Key...', example: 'b550ede5...a26c78d8', visible: ['transactions'] },
+	{ key: 'minAmount', name: 'Min Amount', placeholder: 'Min Amount...', example: '1.25', visible: ['transactions', 'address'] },
+	{ key: 'maxAmount', name: 'Max Amount', placeholder: 'Max Amount...', example: '1000.5', visible: ['transactions', 'address'] },
+	{ key: 'type', name: 'Comma separated transaction types', placeholder: 'Comma separated...', example: '1,3', visible: ['transactions', 'address'] },
+	{ key: 'height', name: 'Block height', placeholder: 'Block Height...', example: '2963014', visible: ['transactions', 'address'] },
+	{ key: 'blockId', name: 'Block Id', placeholder: 'Block Id...', example: '17238091754034756025', visible: ['transactions', 'address'] },
 
 	// { key: 'fromTimestamp', name: 'From', placeholder: 'From...', example: '' },
 	// { key: 'toTimestamp', name: 'To', placeholder: 'To...', example: '' },
 	// { key: 'limit', name: 'Limit', placeholder: 'Limit...', example: '12317412804123L' },
 	// { key: 'offset', name: 'Offset', placeholder: 'Offset...', example: '12317412804123L' },
-	// {
-	// 	key: 'sort',
-	// 	name: 'Order By',
-	// 	placeholder: 'Order By...',
-	// 	restrictToSuggestedValues: true,
-	// 	suggestedValues:
-	//     ['amount:asc', 'amount:desc', 'fee:asc', 'fee:desc', 'type:asc',
-	//      'type:desc', 'timestamp:asc', 'timestamp:desc'],
-	// },
+	{
+		key: 'sort',
+		name: 'Order By',
+		placeholder: 'Order By...',
+		visible: [],
+		restrictToSuggestedValues: true,
+		suggestedValues: ['amount:asc', 'amount:desc', 'fee:asc', 'fee:desc', 'type:asc',
+			'type:desc', 'timestamp:asc', 'timestamp:desc'],
+	},
 ];
 
 Pagination.prototype.getData = function () {
 	this.loading = true;
 
 	const searchParams = availableSearchParams.reduce((obj, item) => {
-		obj[item.key] = item.paramName;
+		obj[item.key] = item.key;
 		return obj;
 	}, {});
 
@@ -114,6 +96,7 @@ Pagination.prototype.getData = function () {
 				this.hasNextNext = false;
 				this.hasNext = false;
 			}
+			// this.pages = this.makePages();
 		} else {
 			this.results = [];
 		}
@@ -123,6 +106,22 @@ Pagination.prototype.getData = function () {
 
 Pagination.prototype.loadData = Pagination.prototype.getData;
 
+Pagination.prototype.makePages = function () {
+	let arr;
+	const n = Number(this.page);
+	const numberOfPages = Math.ceil(this.pagination.count / this.limit);
+	if (this.page > 2 && numberOfPages >= 4) {
+		arr = [n - 1, n, n + 1, n + 2, numberOfPages];
+	} else if (this.page + 1 === numberOfPages) {
+		arr = [n - 3, n - 2, n - 1, n, n + 1, numberOfPages];
+	} else if (this.page === numberOfPages) {
+		arr = [n - 4, n - 3, n - 2, n - 1, n];
+	} else {
+		arr = [1, 2, 3, 4, numberOfPages];
+	}
+	return arr.filter(el => el > 0);
+};
+
 Pagination.prototype.disable = function () {
 	this.hasNext = false;
 	this.hasPrev = false;
@@ -131,7 +130,6 @@ Pagination.prototype.disable = function () {
 Pagination.prototype.disabled = function () {
 	return !this.hasNext && !this.hasPrev;
 };
-
 
 Pagination.prototype.anyMore = function (length) {
 	return (this.limit <= 1 && (this.limit % length) === 1) ||

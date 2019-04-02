@@ -49,7 +49,7 @@
 		</tbody>
 	</table>
 	<nav>
-		<ul class="nav-pagination mobile-xs-hidden">
+		<ul class="nav-pagination mobile-xs-hidden" data-ng-if="!txs.disablePagination">
 			<li data-ng-disabled="!txs.hasPrev">
 				<button data-ng-class="!txs.hasPrev ? 'btn-pagination-inactive' : 'btn-prev'" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)"><i class="fas fa-caret-left fa-lg"></i></button>
 			</li>
@@ -69,8 +69,8 @@
 			<li data-ng-disabled="!txs.hasPrev">
 				<button data-ng-class="!txs.hasPrev ? 'btn-pagination-inactive' : 'btn-prev'" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)"><i class="fas fa-caret-left fa-lg"></i></button>
 			</li>
-			<li class="mobile-xs-txs-page" role="presentation" class="nav-item">
-				Page <span>{{ txs.page }}</span>
+			<li data-ng-if="txs.page" role="presentation" class="nav-item">
+				Page <span class="address-currpage">{{txs.page}}</span>
 			</li>
 			<li data-ng-disabled="!txs.hasNext">
 				<a href="#" aria-label="Next">
