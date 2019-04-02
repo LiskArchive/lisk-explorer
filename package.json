@@ -33,7 +33,7 @@
     "e2e": "protractor protractor.conf.js",
     "eslint": "eslint ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js ./*.json",
     "eslint-fix": "eslint --fix ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js",
-    "watch": "npm run copy-files && webpack -w",
+    "watch": "DEBUG=true npm run copy-files && webpack -w",
     "validate": "webpack-validator webpack.config.js",
     "copy-files": "cp -r ./src/assets/img/favicons/* ./src/assets/img/leaflet ./robots.txt ./public",
     "build": "npm run copy-files && webpack",
