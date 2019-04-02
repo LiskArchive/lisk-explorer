@@ -23,13 +23,17 @@
     "npm": "6.1.0"
   },
   "scripts": {
+    "start": "npm run start:local",
+    "start:local": "LISK_HOST=localhost LISK_PORT=4000 node app.js",
+    "start:testnet": "LISK_HOST=testnet.lisk.io LISK_PORT=7000 node app.js",
+    "start:mainnet": "LISK_HOST=explorer.lisk.io LISK_PORT=8000 node app.js",
     "test": "./node_modules/.bin/grunt test --verbose",
     "test-live": "npm test -- --auto-watch --no-single-run",
     "pree2e": "./node_modules/protractor/bin/webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor protractor.conf.js",
     "eslint": "eslint ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js ./*.json",
     "eslint-fix": "eslint --fix ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js",
-    "start": "npm run copy-files && webpack -w",
+    "watch": "npm run copy-files && webpack -w",
     "validate": "webpack-validator webpack.config.js",
     "copy-files": "cp -r ./src/assets/img/favicons/* ./src/assets/img/leaflet ./robots.txt ./public",
     "build": "npm run copy-files && webpack",
