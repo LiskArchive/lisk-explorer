@@ -101,9 +101,7 @@
 		<uib-tab>
 			<uib-tab-heading><span class="glyphicon glyphicon glyphicon-book"></span> Transactions</uib-tab-heading>
 			<div data-ng-if="vm.address.balance" data-ng-init="vm.txs.loadData()">
-				<div style="padding: 6px;"></div>
 				<transactions-filter data-txs="vm.txs" data-address="vm.address.address"></transactions-filter>
-				<div style="padding: 18px;"></div>
 				<transactions-list data-txs="vm.txs" data-address="vm.address.address"></transactions-list>
 			</div>
 		</uib-tab>

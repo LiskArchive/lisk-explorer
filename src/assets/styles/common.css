@@ -1727,6 +1727,11 @@ li.dropdown.disabled a {
 	padding-top: 5px;
 }
 
+.transaction-filter {
+  padding-top: 6px;
+  padding-bottom: 18px;
+}
+
 .transaction-filter button {
 	display: inline-block;
 	padding: 6px 12px;
