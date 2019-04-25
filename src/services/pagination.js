@@ -36,44 +36,14 @@ const Pagination = function ($http, $q, params) {
 	this.hasPrev = false;
 };
 
-const availableSearchParams = [
-	{ key: 'senderId', name: 'Sender ID', placeholder: 'Sender...', example: '12317412804123L', visible: ['transactions'] },
-	{ key: 'senderPublicKey', name: 'Sender Public Key', placeholder: 'Sender Public Key...', example: 'b550ede5...a26c78d8', visible: ['transactions'] },
-	{ key: 'recipientId', name: 'Recipient ID', placeholder: 'Recipient...', example: '12317412804123L', visible: ['transactions'] },
-	{ key: 'recipientPublicKey', name: 'Recipient Public Key', placeholder: 'Recipient Public Key...', example: 'b550ede5...a26c78d8', visible: ['transactions'] },
-	{ key: 'minAmount', name: 'Min Amount', placeholder: 'Min Amount...', example: '1.25', visible: ['transactions', 'address'] },
-	{ key: 'maxAmount', name: 'Max Amount', placeholder: 'Max Amount...', example: '1000.5', visible: ['transactions', 'address'] },
-	{ key: 'type', name: 'Comma separated transaction types', placeholder: 'Comma separated...', example: '1,3', visible: ['transactions', 'address'] },
-	{ key: 'height', name: 'Block height', placeholder: 'Block Height...', example: '2963014', visible: ['transactions', 'address'] },
-	{ key: 'blockId', name: 'Block Id', placeholder: 'Block Id...', example: '17238091754034756025', visible: ['transactions', 'address'] },
-
-	// { key: 'fromTimestamp', name: 'From', placeholder: 'From...', example: '' },
-	// { key: 'toTimestamp', name: 'To', placeholder: 'To...', example: '' },
-	// { key: 'limit', name: 'Limit', placeholder: 'Limit...', example: '12317412804123L' },
-	// { key: 'offset', name: 'Offset', placeholder: 'Offset...', example: '12317412804123L' },
-	{
-		key: 'sort',
-		name: 'Order By',
-		placeholder: 'Order By...',
-		visible: [],
-		restrictToSuggestedValues: true,
-		suggestedValues: ['amount:asc', 'amount:desc', 'fee:asc', 'fee:desc', 'type:asc',
-			'type:desc', 'timestamp:asc', 'timestamp:desc'],
-	},
-];
-
 Pagination.prototype.getData = function () {
 	this.loading = true;
 
-	const searchParams = availableSearchParams.reduce((obj, item) => {
-		obj[item.key] = item.key;
+	const filters = this.params.filters.reduce((obj, item) => {
+		obj[item.key] = item.value;
 		return obj;
 	}, {});
 
-	const filters = this.params.filters.reduce((obj, item) => {
-		obj[searchParams[item.key]] = item.value;
-		return obj;
-	}, {});
 	const requestLimit = (this.limit * 2) + 1;
 	const offset = (this.page - 1) * this.limit;
 

@@ -147,7 +147,7 @@ const AddressConstructor = function (
 		vm.txs.loadData();
 	};
 
-	vm.transactionsInterval = $interval(() => update(), 30000);
+	// vm.transactionsInterval = $interval(() => update(), 30000);
 	update();
 };
 

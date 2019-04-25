@@ -21,6 +21,7 @@ const TransactionsConstructor = function ($rootScope, $scope, $stateParams, $ele
 	$scope.searchModel = [];
 	$scope.searchParams = [];
 	$scope.availableSearchParams = [
+		{ key: 'address', name: 'Address', placeholder: 'Address...', example: '12317412804123L', visible: ['transactions'] },
 		{ key: 'senderId', name: 'Sender ID', placeholder: 'Sender...', example: '12317412804123L', visible: ['transactions'] },
 		{ key: 'senderPublicKey', name: 'Sender Public Key', placeholder: 'Sender Public Key...', example: 'b550ede5...a26c78d8', visible: ['transactions'] },
 		{ key: 'recipientId', name: 'Recipient ID', placeholder: 'Recipient...', example: '12317412804123L', visible: ['transactions'] },
@@ -71,24 +72,47 @@ const TransactionsConstructor = function ($rootScope, $scope, $stateParams, $ele
 	};
 
 	$scope.performSearch = () => {
-		const query = $scope.queryText.split(' ')
-			.map(param => param.split('='))
-			.reduce((acc, param) => {
-				acc[param[0]] = convertToUrl(param[0], param[1]);
-				return acc;
-			}, {});
+		let query;
+		if ($scope.currentPage === 'address') {
+			query = $scope.queryText.split(' ')
+				.map(param => param.split('='))
+				.concat([['address', $stateParams.address]])
+				.reduce((acc, param) => {
+					acc[param[0]] = convertToUrl(param[0], param[1]);
+					return acc;
+				}, {});
+		} else {
+			query = $scope.queryText.split(' ')
+				.map(param => param.split('='))
+				.reduce((acc, param) => {
+					acc[param[0]] = convertToUrl(param[0], param[1]);
+					return acc;
+				}, {});
+		}
+
 		const obj = { address: $stateParams.address, page: 1 };
 		$state.go($state.current.component, Object.assign(obj, query), { inherit: false });
 	};
 
-	$scope.queryText = Object.keys($stateParams)
-		.filter(key => key !== 'page')
-		// .filter(key => key !== 'address')
-		.filter(key => key !== 'sort')
-		.filter(key => key !== '#')
-		.filter(key => typeof $stateParams[key] !== 'undefined')
-		.map(key => `${key}=${convertFromUrl(key, $stateParams[key])}`)
-		.join(' ');
+	if ($scope.currentPage === 'address') {
+		$scope.currentAddress = $stateParams.address;
+		$scope.queryText = Object.keys($stateParams)
+			.filter(key => key !== 'page')
+			.filter(key => key !== 'address')
+			.filter(key => key !== 'sort')
+			.filter(key => key !== '#')
+			.filter(key => typeof $stateParams[key] !== 'undefined')
+			.map(key => `${key}=${convertFromUrl(key, $stateParams[key])}`)
+			.join(' ');
+	} else {
+		$scope.queryText = Object.keys($stateParams)
+			.filter(key => key !== 'page')
+			.filter(key => key !== 'sort')
+			.filter(key => key !== '#')
+			.filter(key => typeof $stateParams[key] !== 'undefined')
+			.map(key => `${key}=${convertFromUrl(key, $stateParams[key])}`)
+			.join(' ');
+	}
 
 	$scope.parametersDisplayLimit = $scope.availableSearchParams.length;
 };
