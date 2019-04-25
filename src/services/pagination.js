@@ -51,22 +51,19 @@ Pagination.prototype.getData = function () {
 
 	return this.$http.get(this.url, { params: requestParams }).then((resp) => {
 		if (resp.data.success) {
-			this.results = resp.data.transactions.slice(0, this.limit);
+			this.data = resp.data.transactions;
 			this.pagination = resp.data.pagination;
-			this.numberOfPages = Math.ceil(this.pagination.count / this.limit);
-			this.hasPrev = !!offset;
 
-			if (resp.data.transactions.length > requestLimit) {
-				this.hasNextNext = true;
-				this.hasNext = true;
-			} else if (resp.data.transactions.length > this.limit) {
-				this.hasNextNext = false;
-				this.hasNext = true;
-			} else {
-				this.hasNextNext = false;
-				this.hasNext = false;
+			this.simplePagination(offset, resp.data.transactions);
+
+			try {
+				if (this.pagination) this.realPagination();
+				else this.predictivePagination();
+			} catch (e) {
+				// Problem with pagination, keeps prev/next only
 			}
-			// this.pages = this.makePages();
+
+			this.results = resp.data.transactions.slice(0, this.limit);
 		} else {
 			this.results = [];
 		}
@@ -76,7 +73,15 @@ Pagination.prototype.getData = function () {
 
 Pagination.prototype.loadData = Pagination.prototype.getData;
 
-Pagination.prototype.makePages = function () {
+Pagination.prototype.simplePagination = function () {
+	const data = this.data;
+	this.hasPrev = !!(this.page - 1);
+	if (data.length > this.limit) this.hasNext = true;
+	else this.hasNext = false;
+};
+
+Pagination.prototype.realPagination = function () {
+	// TODO: fix it once the API returns pagination data
 	let arr;
 	const n = Number(this.page);
 	const numberOfPages = Math.ceil(this.pagination.count / this.limit);
@@ -89,7 +94,32 @@ Pagination.prototype.makePages = function () {
 	} else {
 		arr = [1, 2, 3, 4, numberOfPages];
 	}
-	return arr.filter(el => el > 0);
+	this.pages = arr.filter(el => el > 0);
+};
+
+Pagination.prototype.predictivePagination = function () {
+	const data = this.data;
+	const page = this.page;
+
+	this.numberOfPages = Math.ceil(data.count / this.limit);
+	if (data.length > (this.limit * 2)) {
+		this.hasNextNext = true;
+	} else {
+		this.hasNextNext = false;
+	}
+
+	let arr;
+	const n = Number(page);
+
+	if (this.hasNextNext) {
+		arr = [n - 2, n - 1, n, n + 1, n + 2];
+	} else if (this.hasNext) {
+		arr = [n - 3, n - 2, n - 1, n, n + 1];
+	} else {
+		arr = [n - 4, n - 3, n - 2, n - 1, n];
+	}
+
+	this.pages = arr.filter(el => el > 0);
 };
 
 Pagination.prototype.disable = function () {

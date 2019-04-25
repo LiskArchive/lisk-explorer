@@ -56,7 +56,7 @@
 			<li role="presentation" class="nav-item"  data-ng-repeat="page in txs.pages">
 				<a href="#" data-ng-class="{{txs.page}} === {{page}} ? 'curr-page' : 'tx-pagination-num'" data-ng-click="txs.loadPage(page)">{{ page }}</a> 
 			</li>
-			<li data-ng-if="txs.page" role="presentation" class="nav-item">
+			<li data-ng-if="txs.page && !txs.pages" role="presentation" class="nav-item">
 				Page <span class="address-currpage">{{txs.page}}</span>
 			</li>
 			<li data-ng-disabled="!txs.hasNext">
