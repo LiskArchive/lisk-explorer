@@ -43,7 +43,7 @@ App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 			component: 'transaction',
 		})
 		.state('address', {
-			url: '/address/:address?page&minAmount&maxAmount&type&height&blockId&fromTimestamp&toTimestamp&sort',
+			url: '/address/:address?page&senderId&senderPublicKey&recipientId&recipientPublicKey&minAmount&maxAmount&type&height&blockId&fromTimestamp&toTimestamp&sort',
 			parentDir: 'home',
 			component: 'address',
 		})
