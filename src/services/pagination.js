@@ -81,18 +81,22 @@ Pagination.prototype.simplePagination = function () {
 };
 
 Pagination.prototype.realPagination = function () {
-	// TODO: fix it once the API returns pagination data
-	let arr;
+	let arr = [];
 	const n = Number(this.page);
 	const numberOfPages = Math.ceil(this.pagination.count / this.limit);
-	if (this.page > 2 && numberOfPages >= 4) {
-		arr = [n - 1, n, n + 1, n + 2, numberOfPages];
-	} else if (this.page + 1 === numberOfPages) {
-		arr = [n - 3, n - 2, n - 1, n, n + 1, numberOfPages];
-	} else if (this.page === numberOfPages) {
+
+	if (this.page === numberOfPages) {
 		arr = [n - 4, n - 3, n - 2, n - 1, n];
-	} else {
-		arr = [1, 2, 3, 4, numberOfPages];
+	} else if (this.page + 1 === numberOfPages) {
+		arr = [n - 3, n - 2, n - 1, n, n + 1];
+	} else if (numberOfPages >= 5 && this.page === 1) {
+		arr = [n, n + 1, n + 2, n + 3, n + 4];
+	} else if (numberOfPages >= 5 && this.page === 2) {
+		arr = [n - 1, n, n + 1, n + 2, n + 3];
+	} else if (numberOfPages >= 5 && this.page > 2) {
+		arr = [n - 2, n - 1, n, n + 1, n + 2];
+	} else if (numberOfPages <= 5) {
+		arr = Array.from(Array(numberOfPages).keys());
 	}
 	this.pages = arr.filter(el => el > 0);
 };
