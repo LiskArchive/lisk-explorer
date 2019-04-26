@@ -28,7 +28,7 @@ App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 			component: 'blocks',
 		})
 		.state('block', {
-			url: '/block/:blockId',
+			url: '/block/:blockId?page',
 			parentDir: 'home',
 			component: 'block',
 		})

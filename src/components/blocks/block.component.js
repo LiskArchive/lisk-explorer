@@ -16,7 +16,7 @@
 import AppBlocks from './blocks.module';
 import template from './block.html';
 
-const BlockConstructor = function ($rootScope, $stateParams, $location, $http, genericTxs) {
+const BlockConstructor = function ($rootScope, $state, $stateParams, $location, $http, genericTxs) {
 	const vm = this;
 	vm.getLastBlocks = (n) => {
 		let offset = 0;
@@ -54,12 +54,28 @@ const BlockConstructor = function ($rootScope, $stateParams, $location, $http, g
 		});
 	};
 
+	vm.loadPageOffset = (offset) => {
+		$state.go($state.current.component, { page: Number(vm.txs.page || 1) + offset });
+	};
+
+	vm.loadPage = (pageNumber) => {
+		$state.go($state.current.component, { page: pageNumber });
+	};
+
 	if ($stateParams.blockId) {
 		vm.block = {
 			id: $stateParams.blockId,
 		};
 		vm.getBlock($stateParams.blockId);
-		vm.txs = genericTxs({ filters: [{ key: 'blockId', value: $stateParams.blockId }] });
+
+		vm.txs = genericTxs({
+			filters: [{ key: 'blockId', value: $stateParams.blockId }],
+			page: $stateParams.page || 1,
+			// limit: 50,
+		});
+
+		vm.txs.loadPageOffset = vm.loadPageOffset;
+		vm.txs.loadPage = vm.loadPage;
 	} else if ($stateParams.page) {
 		vm.getLastBlocks($stateParams.page);
 	} else {
