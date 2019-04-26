@@ -67,7 +67,7 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 				},
 			}).then((resp) => {
 				sch.loading = false;
-				if (resp.data.success === false) {
+				if (resp.data.success === false || resp.data.result.length === 0) {
 					_badQuery();
 				} else if (resp.data.result.length === 1) {
 					_resetSearch();
