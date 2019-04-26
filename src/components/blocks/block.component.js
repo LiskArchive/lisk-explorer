@@ -62,6 +62,16 @@ const BlockConstructor = function ($rootScope, $state, $stateParams, $location, 
 		$state.go($state.current.component, { page: pageNumber });
 	};
 
+	vm.applySort = (predicate) => {
+		const direction = (predicate === vm.activeSort.predicate && vm.activeSort.direction === 'asc') ? 'desc' : 'asc';
+		$state.go($state.current.component, { sort: `${predicate}:${direction}` });
+	};
+
+	vm.activeSort = typeof $stateParams.sort === 'string'
+		? { predicate: $stateParams.sort.split(':')[0], direction: $stateParams.sort.split(':')[1] }
+		: { predicate: 'timestamp', direction: 'desc' };
+
+
 	if ($stateParams.blockId) {
 		vm.block = {
 			id: $stateParams.blockId,
@@ -75,6 +85,8 @@ const BlockConstructor = function ($rootScope, $state, $stateParams, $location, 
 		});
 
 		vm.txs.loadPageOffset = vm.loadPageOffset;
+		vm.txs.activeSort = vm.activeSort;
+		vm.txs.applySort = vm.applySort;
 		vm.txs.loadPage = vm.loadPage;
 	} else if ($stateParams.page) {
 		vm.getLastBlocks($stateParams.page);
