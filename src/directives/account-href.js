@@ -36,13 +36,14 @@ const accountHref = AppTools.directive('accountHref', () => {
 		link: ($scope, $element, $attrs) => {
 			let id = null;
 
-			if ($attrs.type === 'sender' || $attrs.type === 'recipient') {
-				id = $scope.accountHref[joinCameCased($attrs.type, 'id')];
-			} else {
-				id = $scope.id ? $scope.id : $scope.accountHref.address;
+			if ($scope.accountHref) {
+				if ($attrs.type === 'sender' || $attrs.type === 'recipient') {
+					id = $scope.accountHref[joinCameCased($attrs.type, 'id')];
+				} else {
+					id = $scope.id ? $scope.id : $scope.accountHref.address;
+				}
+				$attrs.$set('href', `/address/${id}`);
 			}
-
-			$attrs.$set('href', `/address/${id}`);
 		},
 	};
 });
