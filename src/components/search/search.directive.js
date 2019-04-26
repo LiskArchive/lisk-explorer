@@ -69,12 +69,12 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 				sch.loading = false;
 				if (resp.data.success === false) {
 					_badQuery();
-				} else if (resp.data.result.id) {
+				} else if (resp.data.result.length === 1) {
 					_resetSearch();
 
-					$location.path(`/${resp.data.result.type}/${resp.data.result.id}`);
-				} else if (resp.data.result.delegates) {
-					sch.results = resp.data.result.delegates.slice(0, 5);
+					$location.path(`/${resp.data.result[0].type}/${resp.data.result[0].id}`);
+				} else {
+					sch.results = resp.data.result.slice(0, 8);
 					sch.showingResults = true;
 				}
 			});
