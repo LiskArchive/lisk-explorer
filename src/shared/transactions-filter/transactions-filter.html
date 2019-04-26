@@ -35,7 +35,7 @@
 		<div class="panel-body">
 			<a href="" class="pull-right" data-ng-click="queryCheatSheetOn = false">Close [x]</a>
 			<h4>Available params</h4>
-			<p><span data-ng-repeat="param in availableSearchParams">{{ param.key }}, </span></p>
+			<p><span data-ng-repeat="param in availableSearchParams"><span data-ng-if="param.visible.includes(currentPage)">{{ param.key }}<span data-ng-show="!$last">,</span> </span></span></p>
 			<h4>Transaction types</h4>
 			<p>0: Balance transfer, 1: Second signature creation, 2: Delegate registration, 3: Delegate vote, 4: Multi-signature creation,	5: DApp registration</p>
 			<h4>Examples</h4>
@@ -48,6 +48,8 @@
 	<div data-ng-show="queryHelpOn" class="panel panel-default">
 		<div class="panel-body">
 			<a href="" class="pull-right" data-ng-click="queryHelpOn = false">Close [x]</a>
+			<h4>Detailed instruction</h4>
+			<p>The table below describes all parameters that can be use in order to filter the transactions.</p>
 			<table class="table transactions">
 				<thead>
 					<th>Param</th>
@@ -55,7 +57,7 @@
 					<th>Example</th>
 				</thead>
 				<tbody>
-					<tr data-ng-repeat="param in availableSearchParams">
+					<tr data-ng-repeat="param in availableSearchParams" data-ng-if="param.visible.includes(currentPage)">
 						<td>{{ param.key }}</td>
 						<td class="hidden-xs">{{ param.name }}</td>
 						<td>{{ param.example }}</td>

@@ -49,15 +49,15 @@
 		</tbody>
 	</table>
 	<nav>
-		<ul class="nav-pagination mobile-xs-hidden">
+		<ul class="nav-pagination mobile-xs-hidden" data-ng-if="!txs.disablePagination">
 			<li data-ng-disabled="!txs.hasPrev">
 				<button data-ng-class="!txs.hasPrev ? 'btn-pagination-inactive' : 'btn-prev'" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)"><i class="fas fa-caret-left fa-lg"></i></button>
 			</li>
-			<li role="presentation" class="nav-item"  data-ng-repeat="page in txs.pages">
+			<li role="presentation" class="nav-item"  data-ng-repeat="page in txs.pages track by $index">
 				<a href="#" data-ng-class="{{txs.page}} === {{page}} ? 'curr-page' : 'tx-pagination-num'" data-ng-click="txs.loadPage(page)">{{ page }}</a> 
 			</li>
-			<li data-ng-if="txs.currentPage" role="presentation" class="nav-item">
-				Page <span class="address-currpage">{{txs.currentPage}}</span>
+			<li data-ng-if="txs.page && !txs.pages" role="presentation" class="nav-item">
+				Page <span class="address-currpage">{{txs.page}}</span>
 			</li>
 			<li data-ng-disabled="!txs.hasNext">
 				<a href="#" aria-label="Next">
@@ -69,8 +69,8 @@
 			<li data-ng-disabled="!txs.hasPrev">
 				<button data-ng-class="!txs.hasPrev ? 'btn-pagination-inactive' : 'btn-prev'" data-ng-disabled="!txs.hasPrev" data-ng-click="txs.loadPageOffset(-1)"><i class="fas fa-caret-left fa-lg"></i></button>
 			</li>
-			<li class="mobile-xs-txs-page" role="presentation" class="nav-item">
-				Page <span>{{ txs.page }}</span>
+			<li data-ng-if="txs.page" role="presentation" class="nav-item">
+				Page <span class="address-currpage">{{txs.page}}</span>
 			</li>
 			<li data-ng-disabled="!txs.hasNext">
 				<a href="#" aria-label="Next">
@@ -80,7 +80,7 @@
 		</ul>
 	</nav>
 </div>
-<div class="progress progress-striped horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double  active" data-ng-if="txs.loading">
+<div class="progress progress-striped horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double  active" data-ng-if="txs.loading && !txs.results.length">
 	<div class="wrapper">
 		<div class="progress-bar progress-bar-loading" style="width: 100%">
 			<span>Loading Transactions...</span>

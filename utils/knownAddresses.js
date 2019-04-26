@@ -120,7 +120,7 @@ module.exports = function (app, config, client) {
 				if (err) {
 					logger.error('KnownAddresses:', `Error getting new delegates ${err}`);
 				} else {
-					logger.info(`KnownAddresses: got ${data.length} new delegates from ${this.latestDelegateRegisteredAt} timestamp`);
+					logger.info(`KnownAddresses: got ${data.length} new delegates from ${this.latestDelegateRegisteredAt < 0 || '0'} timestamp`);
 					if (Array.isArray(data) && data.length > 0) {
 						this.totalDelegates += data.length;
 						if (data[0].registeredAt) {

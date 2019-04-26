@@ -20,23 +20,110 @@ const Pagination = function ($http, $q, params) {
 	this.$http = $http;
 	this.$q = $q;
 
-	this.url = params.url || '';
+	this.url = params.url || '/api/getTransactions';
 	this.parent = params.parent || 'parent';
 	this.key = params.key || '';
 	this.offset = Number(params.offset) || 0;
-	this.currentPage = Number(params.currentPage) || 1;
-	this.page = this.currentPage;
-	this.limit = Number(params.limit) || 25;
-
-	['url', 'parent', 'key', 'offset', 'limit'].forEach((key) => {
-		delete params[key];
-	});
+	this.page = Number(params.page) || 1;
+	this.limit = Number(params.limit) || 20;
 
 	this.params = params;
+	this.disablePagination = params.disablePagination || false;
 	this.results = [];
 	this.loading = true;
 	this.hasNext = false;
+	this.hasNextNext = false;
 	this.hasPrev = false;
+};
+
+Pagination.prototype.getData = function () {
+	this.loading = true;
+
+	const filters = this.params.filters.reduce((obj, item) => {
+		obj[item.key] = item.value;
+		return obj;
+	}, {});
+
+	const requestLimit = (this.limit * 2) + 1;
+	const offset = (this.page - 1) * this.limit;
+
+	const requestParams = Object.assign({ limit: requestLimit, offset }, filters);
+
+	return this.$http.get(this.url, { params: requestParams }).then((resp) => {
+		if (resp.data.success) {
+			this.data = resp.data.transactions;
+			this.pagination = resp.data.pagination;
+
+			this.simplePagination(offset, resp.data.transactions);
+
+			try {
+				if (this.pagination) this.realPagination();
+				else this.predictivePagination();
+			} catch (e) {
+				// Problem with pagination, keeps prev/next only
+			}
+
+			this.results = resp.data.transactions.slice(0, this.limit);
+		} else {
+			this.results = [];
+		}
+		this.loading = false;
+	});
+};
+
+Pagination.prototype.loadData = Pagination.prototype.getData;
+
+Pagination.prototype.simplePagination = function () {
+	const data = this.data;
+	this.hasPrev = !!(this.page - 1);
+	if (data.length > this.limit) this.hasNext = true;
+	else this.hasNext = false;
+};
+
+Pagination.prototype.realPagination = function () {
+	let arr = [];
+	const n = Number(this.page);
+	const numberOfPages = Math.ceil(this.pagination.count / this.limit);
+
+	if (this.page === numberOfPages) {
+		arr = [n - 4, n - 3, n - 2, n - 1, n];
+	} else if (this.page + 1 === numberOfPages) {
+		arr = [n - 3, n - 2, n - 1, n, n + 1];
+	} else if (numberOfPages >= 5 && this.page === 1) {
+		arr = [n, n + 1, n + 2, n + 3, n + 4];
+	} else if (numberOfPages >= 5 && this.page === 2) {
+		arr = [n - 1, n, n + 1, n + 2, n + 3];
+	} else if (numberOfPages >= 5 && this.page > 2) {
+		arr = [n - 2, n - 1, n, n + 1, n + 2];
+	} else if (numberOfPages <= 5) {
+		arr = Array.from(Array(numberOfPages).keys());
+	}
+	this.pages = arr.filter(el => el > 0);
+};
+
+Pagination.prototype.predictivePagination = function () {
+	const data = this.data;
+	const page = this.page;
+
+	this.numberOfPages = Math.ceil(data.count / this.limit);
+	if (data.length > (this.limit * 2)) {
+		this.hasNextNext = true;
+	} else {
+		this.hasNextNext = false;
+	}
+
+	let arr;
+	const n = Number(page);
+
+	if (this.hasNextNext) {
+		arr = [n - 2, n - 1, n, n + 1, n + 2];
+	} else if (this.hasNext) {
+		arr = [n - 3, n - 2, n - 1, n, n + 1];
+	} else {
+		arr = [n - 4, n - 3, n - 2, n - 1, n];
+	}
+
+	this.pages = arr.filter(el => el > 0);
 };
 
 Pagination.prototype.disable = function () {
@@ -46,21 +133,6 @@ Pagination.prototype.disable = function () {
 
 Pagination.prototype.disabled = function () {
 	return !this.hasNext && !this.hasPrev;
-};
-
-Pagination.prototype.getData = function (offset, limit, cb) {
-	const params = Object.assign({ offset, limit }, this.params);
-	this.disable();
-	this.loading = true;
-	this.$http.get(this.url, { params }).then((resp) => {
-		if (resp.data.success && angular.isArray(resp.data[this.key])) {
-			cb(resp.data[this.key]);
-		} else {
-			cb(null);
-		}
-	}).catch(() => {
-		cb(null);
-	});
 };
 
 Pagination.prototype.anyMore = function (length) {
@@ -79,15 +151,6 @@ Pagination.prototype.spliceData = function (data) {
 	}
 };
 
-Pagination.prototype.loadData = function () {
-	this.results = [];
-	this.getData(this.offset, (this.limit + 1), (data) => {
-		if (!angular.isArray(data)) { data = []; }
-		this.spliceData(data);
-		this.results = data;
-		this.loading = false;
-	});
-};
 
 Pagination.prototype.loadNext = function () {
 	this.nextOffset();
