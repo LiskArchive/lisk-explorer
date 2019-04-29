@@ -24,6 +24,11 @@ module.exports = [
 		params: req => req.query.id,
 	},
 	{
+		path: 'unifiedSearch',
+		service: '',
+		params: req => req.query.q,
+	},
+	{
 		path: 'ui_message',
 		service: '',
 		params: () => undefined,

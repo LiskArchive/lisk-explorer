@@ -22,13 +22,13 @@
 		<span class="glyphicon" aria-hidden="true" data-ng-mousedown="sch.onSearchIconClick()" data-ng-class="{'glyphicon-remove': sch.mobileView && sch.activeForm, 'glyphicon-search': !sch.mobileView || !sch.activeForm}"></span>
 		<div class="search-suggestion-list list-group"
 			ng-if="sch.showingResults && sch.results">
-			<a href="/address/{{result.address}}" class="search-suggestion-item list-group-item list-group-item-action flex-column align-items-start"
-				ng-repeat="result in sch.results" ng-class="result.similarity === 1 ? 'match' : ''">
+			<a href="/{{result.type}}/{{result.id}}" class="search-suggestion-item list-group-item list-group-item-action flex-column align-items-start"
+				ng-repeat="result in sch.results" ng-class="result.accuracy === 1 ? 'match' : ''">
 				<div class="d-flex w-100 justify-content-between">
-					<h5 class="mb-1">{{result.address}}</h5>
-					<small ng-if='result.similarity === 1'>Matching result</small>
+					<h5 class="mb-1">{{result.id}}</h5>
+					<small ng-if='result.accuracy === 1'>Matching result</small>
 				</div>
-				<p class="mb-1">{{result.username}}</p>
+				<p class="mb-1">{{result.description || 'No additional info'}}<small class="pull-right">{{result.type}}</small></p>
 			</a>
 			<span class="arrow"></span>
 		</div>
