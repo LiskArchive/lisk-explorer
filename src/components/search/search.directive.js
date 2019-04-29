@@ -61,9 +61,9 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 			this.loading = true;
 			sch.showingResults = false;
 
-			$http.get('/api/search', {
+			$http.get('/api/unifiedSearch', {
 				params: {
-					id: this.q,
+					q: this.q,
 				},
 			}).then((resp) => {
 				sch.loading = false;
