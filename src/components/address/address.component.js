@@ -17,6 +17,7 @@ import AppAddress from './address.module';
 import template from './address.html';
 
 const AddressConstructor = function (
+	$rootScope,
 	$state,
 	$stateParams,
 	$location,
