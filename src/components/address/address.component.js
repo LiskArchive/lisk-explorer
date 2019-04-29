@@ -31,6 +31,12 @@ const AddressConstructor = function (
 		recipientId: null,
 		type: null,
 		page: 1,
+		senderPublicKey: null,
+		recipientPublicKey: null,
+		minAmount: null,
+		maxAmount: null,
+		height: null,
+		blockId: null,
 	};
 
 	const addAccountTypeDescription = (d) => {
