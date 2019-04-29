@@ -61,8 +61,8 @@ describe('Common API', () => {
 		it('using known block should be ok', (done) => {
 			getSearch(params.blockId, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.result.type).to.equal('block');
-				node.expect(res.body.result.id).to.equal(params.blockId);
+				node.expect(res.body.result[0].type).to.equal('block');
+				node.expect(res.body.result[0].id).to.equal(params.blockId);
 				done();
 			});
 		});
@@ -70,8 +70,8 @@ describe('Common API', () => {
 		it('using known height should be ok', (done) => {
 			getSearch('1', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.result.type).to.equal('block');
-				node.expect(res.body.result.id).to.equal(params.blockId);
+				node.expect(res.body.result[0].type).to.equal('block');
+				node.expect(res.body.result[0].id).to.equal(params.blockId);
 				done();
 			});
 		});
@@ -79,8 +79,8 @@ describe('Common API', () => {
 		it('using known address should be ok', (done) => {
 			getSearch(params.address, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.result.type).to.equal('address');
-				node.expect(res.body.result.id).to.equal(params.address);
+				node.expect(res.body.result[0].type).to.equal('address');
+				node.expect(res.body.result[0].id).to.equal(params.address);
 				done();
 			});
 		});
@@ -88,8 +88,8 @@ describe('Common API', () => {
 		it('using known transaction should be ok', (done) => {
 			getSearch(params.tx, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.result.type).to.equal('tx');
-				node.expect(res.body.result.id).to.equal(params.tx);
+				node.expect(res.body.result[0].type).to.equal('tx');
+				node.expect(res.body.result[0].id).to.equal(params.tx);
 				done();
 			});
 		});
@@ -97,8 +97,8 @@ describe('Common API', () => {
 		it('using known delegate should be ok', (done) => {
 			getSearch(params.username, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.result.type).to.equal('delegate');
-				node.expect(res.body.result.delegates[0].address).to.equal(params.address);
+				node.expect(res.body.result[0].type).to.equal('address');
+				node.expect(res.body.result[0].id).to.equal(params.address);
 				done();
 			});
 		});
@@ -107,17 +107,17 @@ describe('Common API', () => {
 			const partialName = 'gene';
 			getSearch(partialName, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
-				node.expect(res.body.result.type).to.equal('delegate');
-				res.body.result.delegates.map(delegate =>
-					node.expect(delegate.username).to.have.string(partialName));
+				node.expect(res.body.result[0].type).to.equal('address');
+				res.body.result.map(delegate =>
+					node.expect(delegate.description).to.have.string(partialName));
 				done();
 			});
 		});
 
-		it('using no input should fail', (done) => {
+		it('using no input should result empty array', (done) => {
 			getSearch('', (err, res) => {
-				node.expect(res.body).to.have.property('success').to.be.equal(false);
-				node.expect(res.body).to.have.property('error').to.be.a('string');
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body).to.have.property('result').to.be.lengthOf(0);
 				done();
 			});
 		});
