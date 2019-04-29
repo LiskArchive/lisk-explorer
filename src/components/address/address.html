@@ -102,6 +102,15 @@
 			<uib-tab-heading><span class="glyphicon glyphicon glyphicon-book"></span> Transactions</uib-tab-heading>
 			<div data-ng-if="vm.address.balance" data-ng-init="vm.txs.loadData()">
 				<transactions-filter data-txs="vm.txs" data-address="vm.address.address"></transactions-filter>
+				<div class="transactions-filter-header horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l double" role="group"
+					aria-label="All/Sent/Received Transactions">
+						<button data-ng-click="vm.loadPreset('all');">Show all</button>
+						<button data-ng-click="vm.loadPreset('typeZero');">Transfers</button>
+						<button data-ng-click="vm.loadPreset('sent')">Sent</button>
+						<button data-ng-click="vm.loadPreset('received');">Received</button>
+						<button data-ng-click="vm.loadPreset('multiSig');" class="hidden-xs">Multi-sig</button>
+						<button data-ng-click="vm.loadPreset('voting');" class="hidden-xs">Voting</button>
+				</div>
 				<transactions-list data-txs="vm.txs" data-address="vm.address.address"></transactions-list>
 			</div>
 		</uib-tab>
