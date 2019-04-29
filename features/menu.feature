@@ -24,8 +24,15 @@ Feature: Top menu
     And I fill in "genesis_17" to "search" field in "desktop search" div
     And I hit "enter" in "search" field in "desktop search" div
     And I wait 1 seconds
-    And I click "search suggestion item" #1 in "desktop search" div
     Then I should be on page "/address/537318935439898807L"
+
+  Scenario: should allow to show a delegate list
+    Given I'm on page "/"
+    And I fill in "genesis" to "search" field in "desktop search" div
+    And I hit "enter" in "search" field in "desktop search" div
+    And I wait 1 seconds
+    And I click "search suggestion item" #1 in "desktop search" div
+    Then I should be on page "/address/12254605294831056546L"
 
   Scenario: should show an error message on invalid input
     Given I'm on page "/"
