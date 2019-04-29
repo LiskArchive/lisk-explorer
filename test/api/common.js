@@ -36,6 +36,10 @@ describe('Common API', () => {
 		node.get(`/api/search?id=${id}`, done);
 	};
 
+	const getUnifiedSearch = (id, done) => {
+		node.get(`/api/unifiedSearch?q=${id}`, done);
+	};
+
 	/* Define api endpoints to test */
 	describe('GET /api/version', () => {
 		it('should be ok', (done) => {
@@ -57,9 +61,77 @@ describe('Common API', () => {
 	});
 
 
+	// Original search, not used by the UI anymore
 	describe('GET /api/search', () => {
 		it('using known block should be ok', (done) => {
 			getSearch(params.blockId, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body.result.type).to.equal('block');
+				node.expect(res.body.result.id).to.equal(params.blockId);
+				done();
+			});
+		});
+
+		it('using known height should be ok', (done) => {
+			getSearch('1', (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body.result.type).to.equal('block');
+				node.expect(res.body.result.id).to.equal(params.blockId);
+				done();
+			});
+		});
+
+		it('using known address should be ok', (done) => {
+			getSearch(params.address, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body.result.type).to.equal('address');
+				node.expect(res.body.result.id).to.equal(params.address);
+				done();
+			});
+		});
+
+		it('using known transaction should be ok', (done) => {
+			getSearch(params.tx, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body.result.type).to.equal('tx');
+				node.expect(res.body.result.id).to.equal(params.tx);
+				done();
+			});
+		});
+
+		it('using known delegate should be ok', (done) => {
+			getSearch(params.username, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body.result.type).to.equal('delegate');
+				node.expect(res.body.result.delegates[0].address).to.equal(params.address);
+				done();
+			});
+		});
+
+		it('using partial known delegate should be ok', (done) => {
+			const partialName = 'gene';
+			getSearch(partialName, (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(true);
+				node.expect(res.body.result.type).to.equal('delegate');
+				res.body.result.delegates.map(delegate =>
+					node.expect(delegate.username).to.have.string(partialName));
+				done();
+			});
+		});
+
+		it('using no input should fail', (done) => {
+			getSearch('', (err, res) => {
+				node.expect(res.body).to.have.property('success').to.be.equal(false);
+				node.expect(res.body).to.have.property('error').to.be.a('string');
+				done();
+			});
+		});
+	});
+
+	// New search
+	describe('GET /api/unifiedSearch', () => {
+		it('using known block should be ok', (done) => {
+			getUnifiedSearch(params.blockId, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.result[0].type).to.equal('block');
 				node.expect(res.body.result[0].id).to.equal(params.blockId);
@@ -68,7 +140,7 @@ describe('Common API', () => {
 		});
 
 		it('using known height should be ok', (done) => {
-			getSearch('1', (err, res) => {
+			getUnifiedSearch('1', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.result[0].type).to.equal('block');
 				node.expect(res.body.result[0].id).to.equal(params.blockId);
@@ -77,7 +149,7 @@ describe('Common API', () => {
 		});
 
 		it('using known address should be ok', (done) => {
-			getSearch(params.address, (err, res) => {
+			getUnifiedSearch(params.address, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.result[0].type).to.equal('address');
 				node.expect(res.body.result[0].id).to.equal(params.address);
@@ -86,7 +158,7 @@ describe('Common API', () => {
 		});
 
 		it('using known transaction should be ok', (done) => {
-			getSearch(params.tx, (err, res) => {
+			getUnifiedSearch(params.tx, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.result[0].type).to.equal('tx');
 				node.expect(res.body.result[0].id).to.equal(params.tx);
@@ -95,7 +167,7 @@ describe('Common API', () => {
 		});
 
 		it('using known delegate should be ok', (done) => {
-			getSearch(params.username, (err, res) => {
+			getUnifiedSearch(params.username, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.result[0].type).to.equal('address');
 				node.expect(res.body.result[0].id).to.equal(params.address);
@@ -105,7 +177,7 @@ describe('Common API', () => {
 
 		it('using partial known delegate should be ok', (done) => {
 			const partialName = 'gene';
-			getSearch(partialName, (err, res) => {
+			getUnifiedSearch(partialName, (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body.result[0].type).to.equal('address');
 				res.body.result.map(delegate =>
@@ -115,7 +187,7 @@ describe('Common API', () => {
 		});
 
 		it('using no input should result empty array', (done) => {
-			getSearch('', (err, res) => {
+			getUnifiedSearch('', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(true);
 				node.expect(res.body).to.have.property('result').to.be.lengthOf(0);
 				done();
