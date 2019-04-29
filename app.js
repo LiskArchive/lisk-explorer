@@ -39,12 +39,30 @@ app.set('port', program.port || config.port);
 
 app.set('version', packageJson.version);
 app.set('strict routing', true);
+app.set('lisk address', `http://${config.lisk.host}:${config.lisk.port}${config.lisk.apiPath}`);
+app.set('freegeoip address', `http://${config.freegeoip.host}:${config.freegeoip.port}`);
+app.set('exchange enabled', config.exchangeRates.enabled);
+app.set('uiMessage', config.uiMessage);
 
 app.use((req, res, next) => {
 	res.setHeader('X-Frame-Options', 'DENY');
 	res.setHeader('X-Content-Type-Options', 'nosniff');
 	res.setHeader('X-XSS-Protection', '1; mode=block');
-	res.setHeader('Content-Security-Policy', "frame-ancestors 'none'; img-src 'self' https://*.tile.openstreetmap.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com");
+
+	/* eslint-disable */
+	const connectSrc = `ws://${req.get('host')} wss://${req.get('host')}`;
+	const contentSecurityPolicy = [
+		`default-src 'self';`,
+		`frame-ancestors 'none';`,
+		`connect-src 'self' ${connectSrc} https://www.google-analytics.com https://*.crazyegg.com;`,
+		`img-src 'self' https:;`,
+		`style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;`,
+		`script-src 'self' 'unsafe-eval' 'unsafe-inline' https://tagmanager.google.com/ https://www.googletagmanager.com/ https://www.google-analytics.com/ https://dnn506yrbagrg.cloudfront.net/ https://*.ipify.org/ https://*.crazyegg.com/ http://trk.cetrk.com/ https://s3.amazonaws.com/trk.cetrk.com/;`,
+		`font-src 'self' https://fonts.gstatic.com data:`,
+	].join(' ');
+	/* eslint-enable */
+
+	res.setHeader('Content-Security-Policy', contentSecurityPolicy);
 	return next();
 });
 

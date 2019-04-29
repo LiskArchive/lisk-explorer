@@ -98,6 +98,12 @@ defineSupportCode(({ Given, When, Then, setDefaultTimeout }) => {
 		elem.click().then(callback);
 	});
 
+	When('I click parent of "{elementName}" no. {index}', (elementName, index, callback) => {
+		const selector = nameToSelector(elementName);
+		const elem = element.all(by.css(selector)).element(by.xpath('..')).get(index - 1);
+		elem.click().then(callback);
+	});
+
 	When('I click "{elementName}" in "{parentName}" div', (elementName, parentName, callback) => {
 		const selector = nameToSelector(elementName);
 		const parent = nameToSelector(parentName);

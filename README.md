@@ -11,10 +11,25 @@ It works in conjunction with the Lisk Service API.
 
 These programs and resources are required to install and run Lisk Explorer
 
-- Nodejs v6.12.3 or higher (<https://nodejs.org/>) -- Nodejs serves as the underlying engine for code execution.
+- Create a user to run Lisk Explorer (the instalation will fail if you run as `root`)
 
   ```
-  curl -sL https://deb.nodesource.com/setup_6.x | sudo -E bash -
+  sudo adduser lisk
+  sudo usermod -aG sudo lisk
+  su - lisk
+  ```
+
+- Tool chain components -- Used for compiling dependencies
+
+  ```
+  sudo apt-get update
+  sudo apt-get install -y python build-essential automake autoconf libtool pkg-config nasm libpng-dev
+  ```
+
+- Nodejs v8.x (<https://nodejs.org/>) -- Nodejs serves as the underlying engine for code execution.
+
+  ```
+  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
   sudo apt-get install -y nodejs
   ```
 
@@ -49,7 +64,7 @@ These programs and resources are required to install and run Lisk Explorer
   sudo apt-get install -y git
   ```
 
-- Tool chain components -- Used for compiling dependencies
+- Set appropriate permissions.
 
   ```
   sudo apt-get install -y python build-essential automake autoconf libtool
@@ -67,27 +82,35 @@ npm install
 
 ## Build Steps
 
-Lisk Explorer uses Webpack to create the bundles.
+#### Frontend
+ The frontend is using Webpack to create core bundles for Lisk Explorer.
 
-For having a watcher to generate bundles continuously for all the changes of the code, Run the following command:
+ For having a watcher to generate bundles continuously for all the changes of the code, Run the following command:
 
-```
-npm run start
-```
- 
-And for generating the minified bundles in production environment run:
- 
-```
-npm run build
-```
+`npm run watch`
 
-If you want to add a meta tag with name and content defined (For example to verify your ownership to Google analytics) run:
- 
-```
-SERVICE_NAME='your service name' CLIENT_ID='you client id' npm run build
-```
+ And for generating the minified bundles in production environment run:
+
+`npm run build`
+
+ If you want to add a meta tag with name and content defined (For example to verify your ownership to Google analytics) run:
+
+ `SERVICE_NAME='your service name' CLIENT_ID='you client id' npm run build`
 
 ## Post-deployment Actions
+
+#### Market Watcher
+ Candlestick data needs to be initialized prior to starting Lisk Explorer. During runtime candlestick data is updated automatically.
+
+This step writes data to the local Redis instance. Make sure that your application is already deployed and has access to the production Redis database.
+
+To build candlestick data for each exchange run:
+
+`grunt candles:build`
+
+To update candlestick data manually run after initialization:
+
+`grunt candles:update`
 
 ## Configuration
 
@@ -253,7 +276,7 @@ You should have received a copy of the [GNU General Public License](https://gith
 
 This program also incorporates work previously released with lisk-explorer `1.1.0` (and earlier) versions under the [MIT License](https://opensource.org/licenses/MIT). To comply with the requirements of that license, the following permission notice, applicable to those parts of the code only, is included below:
 
-Copyright © 2016-2017 Lisk Foundation  
+Copyright © 2016-2017 Lisk Foundation
 Copyright © 2015 Crypti
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:

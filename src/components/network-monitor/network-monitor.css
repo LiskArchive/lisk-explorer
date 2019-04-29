@@ -46,7 +46,9 @@
   width: 100%;
   height: 368px;
   position: relative;
-  border: 1px solid #393C3E;
+	border-radius:6px;
+	border: lightgray 1px solid;
+	margin-bottom: 24px;
 }
 
 #map .leaflet-popup-content p,
@@ -236,4 +238,31 @@ div.heights span.counter.percetage:before {
 
 .peers td .broadhash {
   max-width: 355px;
+}
+
+div.stats > div {
+	padding: 3px;
+}
+
+div.row.stats {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+div.row.stats div {
+	margin-left: 0;
+	margin-right: 0;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .big-info {
+    padding-top: 0px;
+		padding-bottom: 24px;
+	}
+
+	.big-info p.big-details {
+		font-weight: 200;
+		font-size: 18px;
+		line-height: 32px;
+	}
 }

@@ -2,16 +2,23 @@ Feature: Transaction page
   
   Scenario: should show title, summary, and details
     Given I'm on page "/tx/1465651642158264047"
-    Then I should see "Transaction 1465651642158264047 " in "h1" html element
+    Then I should see "1465651642158264047" in "top title" element
+    And I should see "Balance transfer transaction" in "sub title" element
     And I should see "Home Transaction 1465651642158264047" in "breadcrumb" element
     And I should see table "summary" containing:
-      | Sender        | 1085993630748340485L      |
-      | Recipient     | 16313739661670634666L     |
-      | Confirmations | /\d+/                     |
-      | Amount        | 100,000,000 LSK           |
-      | Fee           | 0 LSK                     |
-      | Timestamp     | /2016\/05\/24 \d\d:00:00/ |
-      | Block         | 6524861224470851795       |
+      | Transaction ID      | 1465651642158264047       |
+      | Type                | Type 0 (Balance transfer) |
+      | Sender              | 1085993630748340485L      |
+      | Recipient           | 16313739661670634666L     |
+      | Confirmations       | /\d+/                     |
+      | Amount              | 100,000,000 LSK           |
+      | Fee                 | 0 LSK                     |
+      | Timestamp           | /2016\/05\/24 \d\d:00:00/ |
+      | Block               | 6524861224470851795       |
+    And I should see table "details" containing:
+      | Transaction details |          |
+      | Data length         | 0 bytes  |
+      | Data text           | (no data)|
 
   Scenario: should link added votes to address page
     Given I'm on page "/tx/9211700107174373690"
@@ -24,3 +31,4 @@ Feature: Transaction page
     And I should see "genesis_51 • genesis_2 • genesis_7 • genesis_3 • genesis_4 • genesis_5 • genesis_6 • genesis_8 • genesis_9 • genesis_10 • genesis_11" in "deleted votes" element
     And I click "vote deleted link" no. 1
     Then I should be on page "/address/2581762640681118072L"
+

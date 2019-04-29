@@ -13,17 +13,6 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import AppServices from './services.module';
-import LessMore from './less-more';
-
-AppServices.factory('blockTxs',
-	($rootScope, $http, $q) => (blockId) => {
-		const lessMore = new LessMore($http, $q, {
-			url: `${$rootScope.apiBaseUrl}/getTransactionsByBlock`,
-			parent: 'block',
-			key: 'transactions',
-			blockId,
-		});
-
-		return lessMore;
-	});
+module.exports = {
+	newsfeed: require('./newsfeed'),
+};

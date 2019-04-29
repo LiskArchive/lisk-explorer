@@ -16,6 +16,13 @@
 const config = {};
 
 /**
+ * Frontend UI Message
+ */
+config.uiMessage.text = process.env.UI_MESSAGE || '';
+config.uiMessage.start = process.env.UI_MESSAGE_START || ''; // optional, ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
+config.uiMessage.end = process.env.UI_MESSAGE_END || ''; // optional, ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
+
+/**
  * CONFIGURATION
  */
 config.host = '0.0.0.0'; // Interface to listen on, 0.0.0.0 to listen on all available
@@ -31,6 +38,5 @@ config.liskService.baseUrl = 'https://explorer.lisk.io';
 config.liskService.apiPath = '/api';
 
 config.liskService.apiUrl = `${config.liskService.baseUrl}${config.liskService.apiPath}`;
-
 
 module.exports = config;

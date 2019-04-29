@@ -18,45 +18,67 @@ import template from './home.html';
 
 const HomeConstructor = function ($rootScope, $http, $interval) {
 	const vm = this;
+
+	const setHref = (tx) => {
+		tx.hrefSender = `/address/${tx.senderId}`;
+		tx.hrefRecipient = `/address/${tx.recipientId}`;
+	};
+
+	// Blocks
 	vm.getLastBlocks = () => {
 		$http.get(`${$rootScope.apiBaseUrl}/getLastBlocks`).then((resp) => {
-			if (resp.data.success) {
-				if (vm.blocks && vm.blocks.length > 0) {
-					if (vm.blocks[0].id !== resp.data.blocks[0].id) {
-						vm.blocks = resp.data.blocks;
-					}
-				} else {
-					vm.blocks = resp.data.blocks;
-				}
+			if (resp.data.success && Array.isArray(resp.data.blocks)) {
+				resp.data.blocks.sort((a, b) => b.height > a.height);
+				vm.lastBlock = resp.data.blocks.slice(0, 1)[0];
+				vm.latestBlocks = resp.data.blocks.slice(1, 5);
 			}
 		});
 	};
-
 	vm.blocksInterval = $interval(() => {
 		vm.getLastBlocks();
-	}, 30000);
-
+	}, 10000);
 	vm.getLastBlocks();
 
+	// Transactions
 	vm.getLastTransactions = () => {
 		$http.get(`${$rootScope.apiBaseUrl}/getLastTransactions`).then((resp) => {
 			if (resp.data.success) {
-				if (vm.txs && vm.txs.length > 0) {
-					if (vm.txs[0] !== resp.data.transactions[0]) {
-						vm.txs = resp.data.transactions;
-					}
-				} else {
-					vm.txs = resp.data.transactions;
-				}
+				vm.txs = resp.data.transactions.splice(0, 10);
+				vm.txs.map(setHref);
 			}
 		});
 	};
-
 	vm.transactionsInterval = $interval(() => {
 		vm.getLastTransactions();
 	}, 30000);
-
 	vm.getLastTransactions();
+
+	// Peers
+	vm.getPeers = () => {
+		$http.get('/api/statistics/getPeers').then((resp) => {
+			if (resp.data.success) {
+				vm.peers = resp.data.list;
+			}
+		});
+	};
+	vm.getPeersInterval = $interval(() => {
+		vm.getLastTransactions();
+	}, 30000);
+	vm.getPeers();
+
+	// Delegates
+	vm.getDelegates = () => {
+		$http.get('/api/delegates/getActive').then((resp) => {
+			if (resp.data.success) {
+				vm.activeDelegates = resp.data.delegates;
+				vm.delegatesCount = resp.data.totalCount;
+			}
+		});
+	};
+	vm.getDelegatesInterval = $interval(() => {
+		vm.getLastTransactions();
+	}, 30000);
+	vm.getDelegates();
 };
 
 AppHome.component('home', {
