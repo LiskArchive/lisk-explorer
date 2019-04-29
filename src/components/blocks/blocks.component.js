@@ -16,7 +16,7 @@
 import AppBlocks from './blocks.module';
 import template from './blocks.html';
 
-const BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $http, blockTxs) {
+const BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $http, genericTxs) {
 	const vm = this;
 	vm.getLastBlocks = (n) => {
 		let offset = 0;
@@ -71,7 +71,7 @@ const BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $ht
 			id: $stateParams.blockId,
 		};
 		vm.getBlock($stateParams.blockId);
-		vm.txs = blockTxs($stateParams.blockId);
+		vm.txs = genericTxs({ filters: [{ key: 'blockId', value: $stateParams.blockId }] });
 	} else if ($stateParams.page) {
 		vm.getLastBlocks($stateParams.page);
 	} else {

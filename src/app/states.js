@@ -28,12 +28,12 @@ App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 			component: 'blocks',
 		})
 		.state('block', {
-			url: '/block/:blockId',
+			url: '/block/:blockId?page&sort',
 			parentDir: 'home',
 			component: 'block',
 		})
 		.state('transactions', {
-			url: '/txs/:page?senderId&senderPublicKey&recipientId&recipientPublicKey&minAmount&maxAmount&type&height&blockId&fromTimestamp&toTimestamp&sort&limit&offset',
+			url: '/txs/:page?address&senderId&senderPublicKey&recipientId&recipientPublicKey&minAmount&maxAmount&type&height&blockId&fromTimestamp&toTimestamp&sort',
 			parentDir: 'home',
 			component: 'transactions',
 		})
@@ -43,7 +43,7 @@ App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 			component: 'transaction',
 		})
 		.state('address', {
-			url: '/address/:address',
+			url: '/address/:address?page&senderId&senderPublicKey&recipientId&recipientPublicKey&minAmount&maxAmount&type&height&blockId&fromTimestamp&toTimestamp&sort',
 			parentDir: 'home',
 			component: 'address',
 		})

@@ -1,6 +1,6 @@
 {
   "name": "lisk-explorer",
-  "version": "2.2.1",
+  "version": "2.2.4-dev",
   "description": "Lisk blockchain explorer",
   "keywords": [
     "lisk",
@@ -23,13 +23,17 @@
     "npm": "6.1.0"
   },
   "scripts": {
+    "start": "npm run start:local",
+    "start:local": "LISK_HOST=localhost LISK_PORT=4000 node app.js",
+    "start:testnet": "LISK_HOST=testnet.lisk.io LISK_PORT=7000 node app.js",
+    "start:mainnet": "LISK_HOST=explorer.lisk.io LISK_PORT=8000 node app.js",
     "test": "./node_modules/.bin/grunt test --verbose",
     "test-live": "npm test -- --auto-watch --no-single-run",
     "pree2e": "./node_modules/protractor/bin/webdriver-manager update --standalone false --gecko false",
     "e2e": "protractor protractor.conf.js",
     "eslint": "eslint ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js ./*.json",
     "eslint-fix": "eslint --fix ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js",
-    "start": "npm run copy-files && webpack -w",
+    "watch": "npm run copy-files && DEBUG=true webpack -w",
     "validate": "webpack-validator webpack.config.js",
     "copy-files": "cp -r ./src/assets/img/favicons/* ./src/assets/img/leaflet ./robots.txt ./public",
     "build": "npm run copy-files && webpack",
@@ -41,7 +45,6 @@
   "dependencies": {
     "amstock3": "github:amcharts/amstock3",
     "angular": "<=1.6.10",
-    "angular-advanced-searchbox": "github:reyraa/angular-advanced-searchbox",
     "angular-animate": "~1.6.4",
     "angular-cookies": "~1.6.10",
     "angular-gettext": "^2.3.9",
@@ -68,7 +71,7 @@
     "leaflet.markercluster": "^1.0.5",
     "method-override": "^2.3.4",
     "moment": "^2.18.1",
-    "morgan": "^1.7.0",
+    "morgan": "^1.9.1",
     "ng-annotate": "^1.2.1",
     "ng-annotate-webpack-plugin": "^0.2.1-pre",
     "ngprogress": "https://github.com/VictorBjelkholm/ngProgress.git",
@@ -124,13 +127,13 @@
     "grunt-mocha-test": "=0.13.2",
     "html-loader": "^0.4.5",
     "html-webpack-plugin": "^2.30.1",
-    "image-webpack-loader": "^4.3.0",
+    "image-webpack-loader": "^4.6.0",
     "imports-loader": "^0.7.1",
     "mocha": "^5.2.0",
     "mocha-multi-reporters": "^1.1.7",
     "optipng-bin": "^4.0.0",
     "pngquant-bin": "^4.0.0",
-    "protractor": "^5.3.2",
+    "protractor": "^5.4.2",
     "protractor-cucumber-framework": "=3.1.2",
     "should": "^11.2.1",
     "sinon": "^5.0.10",
@@ -140,7 +143,7 @@
     "supertest": "^3.1.0",
     "webpack": "^2.7.0",
     "webpack-bundle-analyzer": "^2.13.1",
-    "webpack-dev-server": "^2.11.2",
+    "webpack-dev-server": "^3.1.14",
     "webpack-merge": "^4.1.2"
   }
 }
