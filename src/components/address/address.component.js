@@ -26,6 +26,19 @@ const AddressConstructor = function (
 ) {
 	const vm = this;
 
+	const defaultFilterPresets = {
+		senderId: null,
+		recipientId: null,
+		type: null,
+		page: 1,
+		senderPublicKey: null,
+		recipientPublicKey: null,
+		minAmount: null,
+		maxAmount: null,
+		height: null,
+		blockId: null,
+	};
+
 	const addAccountTypeDescription = (d) => {
 		if (vm.isMultisig && vm.isDelegate) {
 			vm.accountType = 'Multisignature delegate account';
@@ -121,6 +134,18 @@ const AddressConstructor = function (
 
 	vm.loadPage = (pageNumber) => {
 		$state.go($state.current.component, { page: pageNumber });
+	};
+
+	vm.loadPreset = (preset) => {
+		const addressPresets = {
+			sent: { senderId: vm.address.address, type: 0 },
+			received: { recipientId: vm.address.address, type: 0 },
+			typeZero: { type: 0 },
+			multiSig: { type: 4 },
+			voting: { type: 3 },
+		};
+		$state.go($state.current.component,
+			Object.assign({}, defaultFilterPresets, addressPresets[preset]));
 	};
 
 	vm.applySort = (predicate) => {
