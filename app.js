@@ -14,35 +14,21 @@
  *
  */
 const express = require('express');
+const proxy = require('http-proxy-middleware');
+
 const path = require('path');
-const program = require('commander');
 const packageJson = require('./package.json');
 const compression = require('compression');
 const methodOverride = require('method-override');
-let config = require('./config');
+const config = require('./config');
 
 const app = express();
 
-program
-	.version(packageJson.version)
-	.option('-c, --config <path>', 'config file path')
-	.option('-p, --port <port>', 'listening port number')
-	.option('-h, --host <ip>', 'listening host name or ip')
-	.parse(process.argv);
-
-if (program.config) {
-	// eslint-disable-next-line import/no-dynamic-require
-	config = require(path.resolve(process.cwd(), program.config));
-}
-app.set('host', program.host || config.host);
-app.set('port', program.port || config.port);
+app.set('host', config.host);
+app.set('port', config.port);
 
 app.set('version', packageJson.version);
-app.set('strict routing', true);
-app.set('lisk address', `http://${config.lisk.host}:${config.lisk.port}${config.lisk.apiPath}`);
-app.set('freegeoip address', `http://${config.freegeoip.host}:${config.freegeoip.port}`);
-app.set('exchange enabled', config.exchangeRates.enabled);
-app.set('uiMessage', config.uiMessage);
+// app.set('strict routing', true);
 
 app.use((req, res, next) => {
 	res.setHeader('X-Frame-Options', 'DENY');
@@ -66,10 +52,31 @@ app.use((req, res, next) => {
 	return next();
 });
 
+app.get('/api/ui_message', (req, res) => {
+	res.send({
+		success: false,
+		error: 'There is no info message to send',
+	});
+});
+
+// HTTP proxy
+app.use('/api', proxy({
+	target: config.apiUrl,
+	changeOrigin: true,
+}));
+
+// WebSocket proxy
+const wsProxy = proxy('http://localhost:9901', {
+	changeOrigin: true,
+	ws: true,
+});
+app.use('/socket.io', wsProxy);
+
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(compression());
 app.use(methodOverride('X-HTTP-Method-Override'));
 
 app.get('*', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
-app.listen(app.get('port'), app.get('host'));
+const server = app.listen(config.port, config.host);
+server.on('upgrade', wsProxy.upgrade);

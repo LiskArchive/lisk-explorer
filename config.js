@@ -18,25 +18,20 @@ const config = {};
 /**
  * Frontend UI Message
  */
-config.uiMessage.text = process.env.UI_MESSAGE || '';
-config.uiMessage.start = process.env.UI_MESSAGE_START || ''; // optional, ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
-config.uiMessage.end = process.env.UI_MESSAGE_END || ''; // optional, ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
+// config.uiMessage = {};
+// config.uiMessage.text = process.env.UI_MESSAGE || '';
+// config.uiMessage.start = process.env.UI_MESSAGE_START || ''; // optional, ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
+// config.uiMessage.end = process.env.UI_MESSAGE_END || ''; // optional, ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
 
 /**
  * CONFIGURATION
  */
-config.host = '0.0.0.0'; // Interface to listen on, 0.0.0.0 to listen on all available
-config.port = 6040; // Port to listen on
+config.host = process.env.HOST || '0.0.0.0'; // Interface to listen on, 0.0.0.0 to listen on all available
+config.port = process.env.PORT || 6040; // Port to listen on
 
 /**
- * Lisk Service server
- *
- * Remember to rebuild the project using `npm run build` every time you change the params below.
+ * Lisk Service server endpoint
  */
-config.liskService = {};
-config.liskService.baseUrl = 'https://explorer.lisk.io';
-config.liskService.apiPath = '/api';
-
-config.liskService.apiUrl = `${config.liskService.baseUrl}${config.liskService.apiPath}`;
+config.apiUrl = process.env.SERVICE_ENDPOINT || 'http://localhost:9901';
 
 module.exports = config;
