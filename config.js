@@ -18,10 +18,10 @@ const config = {};
 /**
  * Frontend UI Message
  */
-// config.uiMessage = {};
-// config.uiMessage.text = process.env.UI_MESSAGE || '';
-// config.uiMessage.start = process.env.UI_MESSAGE_START || ''; // optional, ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
-// config.uiMessage.end = process.env.UI_MESSAGE_END || ''; // optional, ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
+config.uiMessage = {};
+config.uiMessage.text = process.env.UI_MESSAGE || '';
+config.uiMessage.start = process.env.UI_MESSAGE_START || ''; // optional, ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
+config.uiMessage.end = process.env.UI_MESSAGE_END || ''; // optional, ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
 
 /**
  * CONFIGURATION

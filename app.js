@@ -53,10 +53,18 @@ app.use((req, res, next) => {
 });
 
 app.get('/api/ui_message', (req, res) => {
-	res.send({
-		success: false,
-		error: 'There is no info message to send',
-	});
+	const msg = config.uiMessage;
+	const now = new Date();
+
+	if (msg && msg.text) {
+		const start = msg.start ? new Date(msg.start) : null;
+		const end = msg.end ? new Date(msg.end) : null;
+		if ((!start || (now >= start)) && (!end || (now < end))) {
+			return res.json({ success: true, content: msg.text });
+		}
+	}
+
+	return res.json({ success: false, error: 'There is no info message to send' });
 });
 
 // HTTP proxy
