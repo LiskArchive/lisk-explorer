@@ -14,7 +14,6 @@
  *
  */
 import App from './app';
-import config from '../../config';
 
 App.run((
 	$rootScope,
@@ -27,8 +26,7 @@ App.run((
 	$transitions,
 ) => {
 	gettextCatalog.currentLanguage = 'en';
-	$rootScope.serviceBaseUrl = config.liskService.baseUrl;
-	$rootScope.apiBaseUrl = config.liskService.apiUrl;
+	$rootScope.apiBaseUrl = '/api';
 
 	$transitions.onSuccess({ to: '*' }, () => {
 		$rootScope.titleDetail = '';

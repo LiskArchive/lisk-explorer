@@ -22,7 +22,7 @@ import AppServices from './services.module';
  */
 AppServices.factory('$socket',
 	$rootScope => (namespace) => {
-		const socket = io(`${$rootScope.serviceBaseUrl}${namespace}`, { forceNew: true });
+		const socket = io(namespace, { forceNew: true, transports: ['websocket'] });
 
 		return {
 			on(eventName, callback) {
