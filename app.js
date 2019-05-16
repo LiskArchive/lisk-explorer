@@ -74,7 +74,8 @@ app.use('/api', proxy({
 }));
 
 // WebSocket proxy
-const wsProxy = proxy('http://localhost:9901', {
+const wsProxy = proxy({
+	target: config.apiUrl,
 	changeOrigin: true,
 	ws: true,
 });
