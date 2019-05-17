@@ -15,7 +15,7 @@
  */
 const express = require('express');
 const proxy = require('http-proxy-middleware');
-
+const request = require('request-promise');
 const path = require('path');
 const packageJson = require('./package.json');
 const compression = require('compression');
@@ -24,8 +24,8 @@ const config = require('./config');
 
 const app = express();
 
-app.set('host', config.host);
-app.set('port', config.port);
+// eslint-disable-next-line no-console
+const logger = console.log;
 
 app.set('version', packageJson.version);
 // app.set('strict routing', true);
@@ -52,6 +52,18 @@ app.use((req, res, next) => {
 	return next();
 });
 
+const serverHealthCheck = async () => {
+	try {
+		const res = await request(`${config.apiUrl}/api/status`);
+		const version = JSON.parse(res).version;
+		logger(`Connected to ${config.apiUrl}, Lisk Service version ${version}`);
+	} catch (err) {
+		logger(`The ${config.apiUrl} is unavailable or is not a proper Lisk Service endpoint.\nConsider setting SERVICE_ENDPOINT="https://service.lisk.io"`);
+	}
+};
+
+serverHealthCheck();
+
 app.get('/api/ui_message', (req, res) => {
 	const msg = config.uiMessage;
 	const now = new Date();
@@ -67,18 +79,22 @@ app.get('/api/ui_message', (req, res) => {
 	return res.json({ success: false, error: 'There is no info message to send' });
 });
 
-// HTTP proxy
-app.use('/api', proxy({
+const defaultProxyConfig = {
+	logLevel: config.logLevel || 'debug',
 	target: config.apiUrl,
+};
+
+// HTTP proxy
+app.use('/api', proxy(Object.assign({}, defaultProxyConfig, {
 	changeOrigin: true,
-}));
+})));
 
 // WebSocket proxy
-const wsProxy = proxy({
+const wsProxy = proxy(Object.assign({}, defaultProxyConfig, {
 	target: config.apiUrl,
 	changeOrigin: true,
 	ws: true,
-});
+}));
 app.use('/socket.io', wsProxy);
 
 app.use(express.static(path.join(__dirname, 'public')));

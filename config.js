@@ -33,5 +33,6 @@ config.port = process.env.PORT || 6040; // Port to listen on
  * Lisk Service server endpoint
  */
 config.apiUrl = process.env.SERVICE_ENDPOINT || 'http://localhost:9901';
+config.logLevel = 'warn'; // ['debug', 'info', 'warn', 'error', 'silent']
 
 module.exports = config;
