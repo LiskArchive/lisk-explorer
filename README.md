@@ -109,7 +109,7 @@ npm install
 
  For having a watcher to generate bundles continuously for all the changes of the code, Run the following command:
 
-`npm run start`
+`npm run watch`
 
  And for generating the minified bundles in production environment run:
 
@@ -138,32 +138,16 @@ To update candlestick data manually run after initialization:
 
 The default `config.js` file contains all of the configuration settings for Lisk Explorer. These options can be modified according to comments included in configuration file.
 
-#### Top Accounts
-
-To enable Top Accounts functionality, edit your Lisk Client config.json _(not the explorer)_:
-
-```
-{
-    "port": 8000,
-    "address": "0.0.0.0",
-    "version": "0.5.0",
-    "minVersion": "~0.5.0",
-    "fileLogLevel": "info",
-    "logFileName": "logs/lisk.log",
-    "consoleLogLevel": "info",
-    "trustProxy": false,
-    "topAccounts": false, <--- This line needs to be changed to read true
-```
-
-After the change is made the Lisk Client will need to be restarted. (Example):
-
-`bash /PATH_TO_LISK_DIR/lisk.sh reload`
-
 ## Managing Lisk Explorer
 
-To test that Lisk Explorer is configured correctly, run the following command:
+To test that Lisk Explorer is configured correctly, use the following commands:
 
-`node app.js`
+```
+npm run start          // default config based on environment variables
+npm run start:local    // connect with localhost:4000
+npm run start:testnet  // connect with testnet
+npm run start:mainnet  // connect with mainnet
+```
 
 Open: <http://localhost:6040>, or if its running on a remote system, switch `localhost` for the external IP Address of the machine.
 
@@ -257,7 +241,7 @@ docker exec -it lisk-explorer ~/lisk-explorer/node_modules/grunt/bin/grunt candl
 
 Before running any tests, please ensure Lisk Explorer and Lisk Client are configured to run on the Lisk Testnet.
 
-`bash ./e2e-test-setup.sh /PATH_TO_LISK_DIR`
+`bash ./test-setup.sh /PATH_TO_LISK_DIR`
 
 Launch Lisk Explorer (runs on port 6040):
 
@@ -288,20 +272,20 @@ brew install wget
 Setup protractor
 
 ```
-./node_modules/protractor/bin/webdriver-manager update
+npm run install:e2e
 ```
 
 ### Run end-to-end test suite:
 
 ```
-./e2e-test-setup.sh /PATH_TO_LISK_DIR
-npm run e2e-test -s
+./test-setup.sh /PATH_TO_LISK_DIR
+npm run test:e2e -s
 ```
 
 ### Run one end-to-end test feature file:
 
 ```
-npm run e2e-test -s -- --specs=features/address.feature
+npm run test:e2e -s -- --specs=features/address.feature
 ```
 
 ## Contributors
