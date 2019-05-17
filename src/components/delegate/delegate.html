@@ -18,8 +18,12 @@
 <section>
 	<h1>Delegate summary</h1>
 
+	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+		<p>Visit the <a href="/address/{{ vm.address.delegate.address }}">address page</a> to see more delegate details.</p>
+	</div>
+
 	<div class="delegate">
-		<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
+		<div class="row">
 				<div class="col-md-7 col-lg-8">
 					<div class="table-responsive">
 						<table class="table summary">
@@ -65,40 +69,6 @@
 					</div>
 				</div>
 			</div>
-		</div>
-
-		<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
-			<uib-tabset class="voters-votes">
-				<uib-tab>
-					<uib-tab-heading class="transactions-tab">
-						<h2>Voters <small>{{vm.address.votersCount}}</small></h2>
-					</uib-tab-heading>
-
-					<div class="delegate-vote" data-ng-if="vm.address.voters">
-						<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
-							<div class="col-md-12 voters">
-								<span data-ng-repeat='voter in vm.address.voters'>
-									<span>
-										<a data-account-href="voter" data-type="voter" class="voter-link">{{voter | votes}}</a>
-										<span class="text-muted">&bull;</span>
-									</span>
-									<span data-ng-if="$last && vm.address.voters.length < vm.address.votersCount">
-										<span role="button" class="load-more" data-ng-click="vm.loadMoreVoters()"><b>Load more...</b></span>
-									</span>
-								</span>
-							</div>
-						</div>
-					</div>
-				</uib-tab>
-
-				<uib-tab>
-					<uib-tab-heading class="blocks-tab">
-						<h2>Votes <small>{{vm.address.votes.length}}</small></h2>
-					</uib-tab-heading>
-
-					<votes data-votes="vm.address.votes"></votes>
-				</uib-tab>
-			</uib-tabset>
 		</div>
 	</div>
 </section>

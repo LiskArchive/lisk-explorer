@@ -109,7 +109,7 @@ EOF
 		// 	steps {
 		// 		wrap([$class: 'Xvfb']) {
 		// 			nvm(getNodejsVersion()) {
-		// 				sh 'npm run e2e -- --params.baseURL http://localhost:$EXPLORER_PORT'
+		// 				sh 'npm run test:e2e -- --params.baseURL http://localhost:$EXPLORER_PORT'
 		// 			}
 		// 		}
 		// 	}
