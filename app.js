@@ -91,7 +91,6 @@ app.use('/api', proxy(Object.assign({}, defaultProxyConfig, {
 
 // WebSocket proxy
 const wsProxy = proxy(Object.assign({}, defaultProxyConfig, {
-	target: config.apiUrl,
 	changeOrigin: true,
 	ws: true,
 }));
