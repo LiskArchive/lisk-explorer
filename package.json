@@ -28,9 +28,9 @@
     "start:testnet": "LISK_HOST=testnet.lisk.io LISK_PORT=7000 node app.js",
     "start:mainnet": "LISK_HOST=explorer.lisk.io LISK_PORT=8000 node app.js",
     "test": "./node_modules/.bin/grunt test --verbose",
+    "test:e2e": "protractor protractor.conf.js",
     "test-live": "npm test -- --auto-watch --no-single-run",
-    "pree2e": "./node_modules/protractor/bin/webdriver-manager update --standalone false --gecko false",
-    "e2e": "protractor protractor.conf.js",
+    "install:e2e": "./node_modules/protractor/bin/webdriver-manager update --standalone false --gecko false",
     "eslint": "eslint ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js ./*.json",
     "eslint-fix": "eslint --fix ./benchmarks ./utils ./libs ./api ./src ./test ./features ./tasks ./*.js",
     "watch": "npm run copy-files && DEBUG=true webpack -w",
@@ -38,9 +38,9 @@
     "copy-files": "cp -r ./src/assets/img/favicons/* ./src/assets/img/leaflet ./robots.txt ./public",
     "build": "npm run copy-files && webpack",
     "build:prod": "webpack --env.prod",
-    "clean-frontend": "git clean ./public -dfx && git clean ./src -dfx",
-    "clean-backend": "rm -rf node_modules",
-    "clean-all": "npm run clean-backend && npm run clean-frontend && git clean ./ -dfnx"
+    "clean": "npm run clean:backend && npm run clean:frontend && git clean ./ -dfnx",
+    "clean:frontend": "git clean ./public -dfx && git clean ./src -dfx",
+    "clean:backend": "rm -rf node_modules"
   },
   "dependencies": {
     "amstock3": "github:amcharts/amstock3",
