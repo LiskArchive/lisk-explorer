@@ -210,7 +210,14 @@ const getNodeConstants = () => new Promise((success, error) => {
 		} else if (response.statusCode === 200) {
 			if (body && body.data) {
 				app.set('nodeConstants', body.data);
-				return success({ success: true, version: body.data.version });
+				return success({
+					version: body.data.version,
+					epoch: new Date(body.data.epoch) / 1000,
+					protocolVersion: body.data.protocolVersion,
+					nethash: body.data.nethash,
+					majorVersion: body.data.version.split('.')[0],
+					minorVersion: body.data.version.split('.')[1],
+				});
 			}
 		}
 		return error({ success: false, error: body.error });
@@ -224,6 +231,7 @@ let serverStatus = status.NOT_RUNNING;
 const startServer = (cb) => {
 	getNodeConstants().then((result) => {
 		logger.info(`Connected to the node ${app.get('lisk address')}, Lisk Core version ${result.version}`);
+		app.set('constants', result);
 		const server = app.listen(app.get('port'), app.get('host'), (err) => {
 			if (err) {
 				logger.info(err);
