@@ -231,7 +231,9 @@ let serverStatus = status.NOT_RUNNING;
 const startServer = (cb) => {
 	getNodeConstants().then((result) => {
 		logger.info(`Connected to the node ${app.get('lisk address')}, Lisk Core version ${result.version}`);
-		app.set('constants', result);
+		Object.keys(result).forEach((item) => {
+			app.set(`node.${item}`, result[item]);
+		});
 		const server = app.listen(app.get('port'), app.get('host'), (err) => {
 			if (err) {
 				logger.info(err);
