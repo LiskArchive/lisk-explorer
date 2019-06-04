@@ -1,22 +1,6 @@
 Feature: Delegate Monitor
   Scenario: should show delegates, last block, next forgers, ...
     Given I'm on page "/delegateMonitor"
-    Then I should see table "votes" containing:
-      | Voter          | Transaction          | Time               |
-      |----------------|----------------------|--------------------|
-      | standby_301    | 11267727202420741572 | /(\d+\|a) \w+ ago/ |
-      | gottavoteemall | 1783506800230512638  | /(\d+\|a) \w+ ago/ |
-      | gottavoteemall | 18294919898268153226 | /(\d+\|a) \w+ ago/ |
-      | gottavoteemall | 15390378815021944871 | /(\d+\|a) \w+ ago/ |
-      | gottavoteemall | 9211700107174373690  | /(\d+\|a) \w+ ago/ |
-    And I should see table "registrations" containing:
-      | Delegate          | Transaction          | Time               |
-      |-------------------|----------------------|--------------------|
-      | gottavoteemall    | 2535943083975103126  | /(\d+\|a) \w+ ago/ |
-      | /standby_\d{1,3}/ | 7725033441202232644  | /(\d+\|a) \w+ ago/ |
-      | /standby_\d{1,3}/ | 3583899729925812364  | /(\d+\|a) \w+ ago/ |
-      | /standby_\d{1,3}/ | 3386192543309483526  | /(\d+\|a) \w+ ago/ |
-      | /standby_\d{1,3}/ | 15815137583175771288 | /(\d+\|a) \w+ ago/ |
     And I should see "Home Delegate Monitor" in "breadcrumb" element
     And I should see "delegates" element with content that matches:
       """
@@ -72,6 +56,26 @@ Feature: Delegate Monitor
       | 4    | /genesis_\d{1,3}/ | /\d{10,20}L/ | /~1,\d{3} LSK/      | /.+/         |        | /\d{2,3}(\.\d{2})?%/ |/\d{2,3}(\.\d{2})?%/ |
       | 5    | /genesis_\d{1,3}/ | /\d{10,20}L/ | /~1,\d{3} LSK/      | /.+/         |        | /\d{2,3}(\.\d{2})?%/ |/\d{2,3}(\.\d{2})?%/ |
 
+  Scenario: should show latest votes and newest delegates at the tab Latest updates
+    Given I'm on page "/delegateMonitor"
+    When I click "nav link" no. 3
+    Then I should see table "votes" containing:
+      | Voter          | Transaction   | Time               |
+      |----------------|---------------|--------------------|
+      | standby_301    | 112677…741572 | /(\d+\|a) \w+ ago/ |
+      | gottavoteemall | 178350…512638 | /(\d+\|a) \w+ ago/ |
+      | gottavoteemall | 182949…153226 | /(\d+\|a) \w+ ago/ |
+      | gottavoteemall | 153903…944871 | /(\d+\|a) \w+ ago/ |
+      | gottavoteemall | 921170…373690 | /(\d+\|a) \w+ ago/ |
+    And I should see table "registrations" containing:
+      | Delegate          | Transaction    | Time               |
+      |-------------------|----------------|--------------------|
+      | gottavoteemall    | 253594…103126  | /(\d+\|a) \w+ ago/ |
+      | /standby_\d{1,3}/ | 772503…232644  | /(\d+\|a) \w+ ago/ |
+      | /standby_\d{1,3}/ | 358389…812364  | /(\d+\|a) \w+ ago/ |
+      | /standby_\d{1,3}/ | 338619…483526  | /(\d+\|a) \w+ ago/ |
+      | /standby_\d{1,3}/ | 158151…771288  | /(\d+\|a) \w+ ago/ |    
+
   Scenario: should allow to sort active delegates
     Given I'm on page "/delegateMonitor"
     When I click link on header cell no. 2 of "active delegates" table
@@ -96,28 +100,32 @@ Feature: Delegate Monitor
 
   Scenario: latest votes should link to voter
     Given I'm on page "/delegateMonitor"
-    When I click link on row no. 1 cell no. 1 of "votes" table
-    Then I should be on page "/delegate/14895491440237132212L"
+    When I click "nav link" no. 3
+    Then I click link on row no. 1 cell no. 1 of "votes" table
+    And I should be on page "/address/14895491440237132212L"
 
   Scenario: latest votes should link to transaction
     Given I'm on page "/delegateMonitor"
-    When I click link on row no. 1 cell no. 2 of "votes" table
-    Then I should be on page "/tx/11267727202420741572"
+    When I click "nav link" no. 3
+    Then I click link on row no. 1 cell no. 2 of "votes" table
+    And I should be on page "/tx/11267727202420741572"
 
   Scenario: newest delegates should link to delegate
     Given I'm on page "/delegateMonitor"
-    When I click link on row no. 1 cell no. 1 of "registrations" table
-    Then I should be on page "/delegate/4401082358022424760L"
+    When I click "nav link" no. 3
+    Then I click link on row no. 1 cell no. 1 of "registrations" table
+    And I should be on page "/address/4401082358022424760L"
 
   Scenario: newest delegates should link to transaction
     Given I'm on page "/delegateMonitor"
-    When I click link on row no. 1 cell no. 2 of "registrations" table
-    Then I should be on page "/tx/2535943083975103126"
+    When I click "nav link" no. 3
+    Then I click link on row no. 1 cell no. 2 of "registrations" table
+    And I should be on page "/tx/2535943083975103126"
 
   Scenario: active delegates should link to delegate
     Given I'm on page "/delegateMonitor"
     And I click link on row no. 5 cell no. 2 of "active delegates" table
-    Then I should be on page that matches "/delegate/\d{10,20}L"
+    Then I should be on page that matches "/address/\d{10,20}L"
 
   Scenario: allows to see standby delegates
     Given I'm on page "/delegateMonitor"
@@ -163,4 +171,4 @@ Feature: Delegate Monitor
     Given I'm on page "/delegateMonitor"
     When I click "standby delegates tab"
     And I click link on row no. 1 cell no. 2 of "standby delegates" table
-    Then I should be on page that matches "/delegate/\d{10,20}L"
+    Then I should be on page that matches "/address/\d{10,20}L"

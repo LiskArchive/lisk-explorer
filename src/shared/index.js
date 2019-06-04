@@ -15,6 +15,7 @@
  */
 import './forging-status/forging-status';
 import './orders/orders';
+import './transactions-filter/transactions-filter.directive';
 import './transactions-list/transactions-list.directive';
 import './transaction-item/transaction-item.directive';
 import './peers';

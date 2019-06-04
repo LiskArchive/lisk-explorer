@@ -31,7 +31,7 @@ AppRounding.directive('roundingSelector', ($rootScope) => {
 		restrict: 'E',
 		replace: true,
 		controller: RoundingSelectorCtrl,
-		controllerAs: 'cs',
+		controllerAs: 'rs',
 		link: RoundingSelectorLink,
 		template,
 	};

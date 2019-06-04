@@ -32,21 +32,21 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 	<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 	<link rel="mask-icon" href="safari-pinned-tab.svg" color="#ffffff">
-
 	<% if (htmlWebpackPlugin.options.serviceName && htmlWebpackPlugin.options.clientId) { %>
 		<meta name="<%= htmlWebpackPlugin.options.serviceName %>" content="<%= htmlWebpackPlugin.options.clientId %>">
 	<% } %>
-
 	<!--<link rel="stylesheet" href="/css/main.min.css">-->
 	<base href="/">
 </head>
 <body data-ng-cloak class="ng-cloak">
 	<div id="wrap">
 		<main-header></main-header>
+		<info-banner></info-banner>
 		<section class="container">
 			<bread-crumb></bread-crumb>
 			<div data-ui-view class='main-view'></div>
 		</section>
+		<cookies-banner></cookies-banner>
 	</div>
 	<main-footer></main-footer>
 	<div class='splash-screen'>
@@ -65,5 +65,13 @@
 				<span class='stripe'></span>
 		</div>
 	</div>
+	<!-- Google Tag Manager -->
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-NKNKGHL');</script>
+	<!-- End Google Tag Manager -->
+
 </body>
 </html>

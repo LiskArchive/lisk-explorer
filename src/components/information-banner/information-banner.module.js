@@ -13,17 +13,8 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-import AppServices from './services.module';
-import LessMore from './less-more';
+import angular from 'angular';
 
-AppServices.factory('blockTxs',
-	($rootScope, $http, $q) => (blockId) => {
-		const lessMore = new LessMore($http, $q, {
-			url: `${$rootScope.apiBaseUrl}/getTransactionsByBlock`,
-			parent: 'block',
-			key: 'transactions',
-			blockId,
-		});
+const InformationBanner = angular.module('lisk_explorer.infoBanner', ['ngSanitize']);
 
-		return lessMore;
-	});
+export default InformationBanner;

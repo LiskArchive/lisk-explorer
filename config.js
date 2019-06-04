@@ -16,21 +16,34 @@
 const config = {};
 
 /**
- * CONFIGURATION
+ * Frontend UI Message
  */
-config.host = '0.0.0.0'; // Interface to listen on, 0.0.0.0 to listen on all available
-config.port = 6040; // Port to listen on
+config.uiMessage = {};
+config.uiMessage.text = process.env.UI_MESSAGE || '';
+config.uiMessage.start = process.env.UI_MESSAGE_START || ''; // optional, ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
+config.uiMessage.end = process.env.UI_MESSAGE_END || ''; // optional, ISO Date-Time ex. '2018-07-11T15:01:00+02:00'
 
 /**
- * Lisk Service server
- *
- * Remember to rebuild the project using `npm run build` every time you change the params below.
+ * IP and TCP port to listen on
  */
-config.liskService = {};
-config.liskService.baseUrl = 'https://explorer.lisk.io';
-config.liskService.apiPath = '/api';
+config.host = process.env.HOST || '0.0.0.0'; // Interface to listen on, 0.0.0.0 to listen on all available
+config.port = process.env.PORT || 6040; // Port to listen on
 
-config.liskService.apiUrl = `${config.liskService.baseUrl}${config.liskService.apiPath}`;
+/**
+ * Lisk Service server endpoint
+ */
+config.apiUrl = process.env.SERVICE_ENDPOINT || 'http://localhost:9901';
+config.logLevel = 'warn'; // ['debug', 'info', 'warn', 'error', 'silent']
 
+/**
+ * Logging
+ */
+config.log = {};
+// Collect logs (true - enabled, false - disabled)
+config.log.enabled = true;
+// Output for logs - can be device file or ordinary path
+config.log.output = ['/dev/stdout', './logs/explorer.log'];
+// Log level - (trace, debug, info, warn, error)
+config.log.level = process.env.LOG_LEVEL || 'info';
 
 module.exports = config;

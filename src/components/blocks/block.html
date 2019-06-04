@@ -17,9 +17,9 @@
 -->
 <section>
 	<h1>
-		Block&nbsp;
-		<small>{{vm.block.id}}</small>
-		<span class="btn-copy" clip-copy="vm.block.id"></span>
+		<span class="top-title">{{vm.block.id}}</span>
+		<br />
+		<small><span class="sub-title">Block with {{vm.block.numberOfTransactions}} transaction{{vm.block.numberOfTransactions != 1 ? 's' : '' }}</span></small>
 	</h1>
 	<div class="text-muted" data-ng-if="!vm.block.height">
 		<span>Loading Block <i class="fa fa-spinner fa-spin"></i>
@@ -28,19 +28,23 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="table-responsive">
-					<table class="table summary">
+					<table class="table summary block-table">
 						<tbody>
 							<tr>
-								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Transactions</strong></td>
+								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Block ID</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.block.id}}<span class="btn-copy" clip-copy="vm.block.id"></span></td>
+							</tr>
+							<tr>
+								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Height</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.block.height}}<span class="btn-copy" clip-copy="vm.block.height"></span></td>
+							</tr>
+							<tr>
+								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Number of transactions</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.block.numberOfTransactions}}</td>
 							</tr>
 							<tr>
 								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Confirmations</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.block.confirmations}}</td>
-							</tr>
-							<tr>
-								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Height</strong></td>
-								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.block.height}}</td>
 							</tr>
 							<tr>
 								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Reward</strong></td>
@@ -79,6 +83,10 @@
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
 									<a data-account-href="vm.block.delegate">{{vm.block.delegate.username || vm.block.generatorId}}</a>
 								</td>
+							</tr>
+							<tr>
+								<td class='left-padding-xs left-padding-s left-padding-m left-padding-l double'><strong>Version</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.block.version}}</td>
 							</tr>
 						</tbody>
 					</table>

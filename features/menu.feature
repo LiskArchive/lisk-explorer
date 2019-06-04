@@ -24,8 +24,15 @@ Feature: Top menu
     And I fill in "genesis_17" to "search" field in "desktop search" div
     And I hit "enter" in "search" field in "desktop search" div
     And I wait 1 seconds
-    And I click "search suggestion item" #1 in "desktop search" div
     Then I should be on page "/address/537318935439898807L"
+
+  Scenario: should allow to show a delegate list
+    Given I'm on page "/"
+    And I fill in "genesis" to "search" field in "desktop search" div
+    And I hit "enter" in "search" field in "desktop search" div
+    And I wait 1 seconds
+    And I click "search suggestion item" #1 in "desktop search" div
+    Then I should be on page "/address/12254605294831056546L"
 
   Scenario: should show an error message on invalid input
     Given I'm on page "/"
@@ -34,84 +41,22 @@ Feature: Top menu
     And I wait 1 seconds
     Then I should see "No matching records found!" in ".desktop-search .empty-result-title" html element
 
-  Scenario: should allow to switch currency to BTC
+  Scenario: should link Transactions to Transactions page.
     Given I'm on page "/"
-    When I click "LSK menu"
-    And I click "BTC"
-    And I should see table "latest transactions" with 20 rows starting with:
-      | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
-      |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? BTC/ | /~\d+(\.\d+)? BTC/ |
+    When I click "transaction browser"
+    Then I should be on page "/txs/"
 
-  Scenario: should allow to switch currency to CNY
+  Scenario: should link Blocks to Blocks page.
     Given I'm on page "/"
-    When I click "LSK menu"
-    And I click "CNY"
-    And I should see table "latest transactions" with 20 rows starting with:
-      | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
-      |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? CNY/ | /~\d+(\.\d+)? CNY/ |
-
-  Scenario: should allow to switch currency to USD
+    When I click "block browser"
+    Then I should be on page "/blocks/"
+  
+  Scenario: should link  Delegates to  Delegates page.
     Given I'm on page "/"
-    When I click "LSK menu"
-    And I click "USD"
-    And I should see table "latest transactions" with 20 rows starting with:
-      | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
-      |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? USD/ | /~\d+(\.\d+)? USD/ |
-
-  Scenario: should allow to switch currency to EUR
+    When I click "delegate monitor"
+    Then I should be on page "/delegateMonitor"
+  
+  Scenario: should link  Delegates to  Delegates page.
     Given I'm on page "/"
-    When I click "LSK menu"
-    And I click "EUR"
-    And I should see table "latest transactions" with 20 rows starting with:
-      | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
-      |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? EUR/ | /~\d+(\.\d+)? EUR/ |
-
-  @ignore
-  Scenario: should allow to switch currency to RUB
-    Given I'm on page "/"
-    When I click "LSK menu"
-    And I click "RUB"
-    And I should see table "latest transactions" with 20 rows starting with:
-      | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
-      |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? RUB/ | /~\d+(\.\d+)? RUB/ |
-
-  Scenario: should allow to switch currency to JPY
-    Given I'm on page "/"
-    When I click "LSK menu"
-    And I click "JPY"
-    And I should see table "latest transactions" with 20 rows starting with:
-      | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
-      |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? JPY/ | /~\d+(\.\d+)? JPY/ |
-
-  Scenario: should allow to switch currency to PLN
-    Given I'm on page "/"
-    When I click "LSK menu"
-    And I click "PLN"
-    And I should see table "latest transactions" with 20 rows starting with:
-      | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
-      |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? PLN/ | /~\d+(\.\d+)? PLN/ |
-
-  Scenario: should allow to switch currency to GBP
-    Given I'm on page "/"
-    When I click "LSK menu"
-    And I click "GBP"
-    And I should see table "latest transactions" with 20 rows starting with:
-      | Id                 | Timestamp                 | Sender      | Recipient             | Amount                      | Fee                |
-      |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? GBP/ | /~\d+(\.\d+)? GBP/ |
-
-  Scenario: should allow to switch currency to LSK
-    Given I'm on page "/"
-    When I click "LSK menu"
-    And I click "LSK"
-    And I should see table "latest transactions" with 20 rows starting with:
-      | Id                 | Timestamp                 | Sender      | Recipient             | Amount                     | Fee               |
-      |--------------------|---------------------------|-------------|-----------------------|----------------------------|-------------------|
-      | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /\d+(,\d{3})?(\.\d+)? LSK/ | /\d+(\.\d+)? LSK/ |
+    When I click "network monitor"
+    Then I should be on page "/networkMonitor"

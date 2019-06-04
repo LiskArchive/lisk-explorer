@@ -2,26 +2,37 @@
 
 pipeline {
 	agent { node { label 'lisk-explorer' } }
-	environment {
-		LISK_SERVICE_VERSION = '0.1.0'
-		LISK_EXPLORER_PORT = "604$EXECUTOR_NUMBER"
-	}
 	stages {
 		stage ('Build dependencies') {
 			steps {
-				sh 'npm install'
+				nvm(getNodejsVersion()) {
+					sh 'npm ci'
+				}
 			}
 		}
 		stage ('Run ESLint') {
 			steps {
-				sh 'npm run eslint'
+				nvm(getNodejsVersion()) {
+					sh 'npm run eslint'
+				}
 			}
 		}
 		stage ('Build bundles') {
 			steps {
-				sh 'npm run build'
+				nvm(getNodejsVersion()) {
+					sh 'npm run build'
+				}
 			}
 		}
+		// stage ('Run E2E tests') {
+		// 	steps {
+		// 		wrap([$class: 'Xvfb']) {
+		// 			nvm(getNodejsVersion()) {
+		// 				sh 'npm run test:e2e -- --params.baseURL http://localhost:$EXPLORER_PORT'
+		// 			}
+		// 		}
+		// 	}
+		// }
 	}
 	post {
 		success {
@@ -42,14 +53,7 @@ pipeline {
 			}
 		}
 		always {
-			dir("$WORKSPACE/$BRANCH_NAME/") {
-				ansiColor('xterm') {
-					sh 'docker-compose logs || true'
-					sh 'make mrproper'
-				}
-			}
-
-			archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
+			// archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
 			dir('logs') {
 				deleteDir()
 			}

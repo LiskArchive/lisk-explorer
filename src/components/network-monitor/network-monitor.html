@@ -15,16 +15,19 @@
  *
  */
 -->
-<div>
-	<div class="row">
-		<div class="col-xs-12">
-			<h1>Network Monitor</h1>
-		</div>
-	</div>
+<div class="network-monitor">
+	<h1>
+		Network Monitor
+		<br />
+		<small>
+		    <span data-ng-if="!vm.counter.connected">Loading...</span>
+			<span data-ng-if="vm.counter.connected">{{vm.counter.connected || 0}} connected peers, last block forged {{vm.lastBlock.timestamp | timeAgo}}</span>
+		</small>
+	</h1>
 	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l">
-		<div class="col-lg-6">
+		<div class="col-md-6 col-lg-6">
 			<div class="row">
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-xs-12 col-sm-6 m20b">
 					<div class="row big-info">
 						<div class="col-xs-12">
 							<div class="pull-left active-nodes">
@@ -39,12 +42,11 @@
 						</div>
 					</div>
 				</div>
-				<div class="col-xs-12 col-sm-6">
+				<div class="col-xs-12 col-sm-6 m20b">
 					<div class="row big-info">
 						<div class="col-xs-12">
 							<div class="pull-left last-block">
 								<p class="small-title">Last Block</p>
-
 								<div data-ng-if="!vm.lastBlock">
 									<p class="big-details">
 										<span class="text-muted">N/A</span>
@@ -114,8 +116,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-6">
-			<div id="map">&nbsp;</div>
+		<div class="col-md-6 col-lg-6">
+			<div id="map" data-ng-init="vm.enableMap()">&nbsp;</div>
 		</div>
 	</div>
 	<div class="row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l" data-ng-if="vm.peers" data-ng-cloak>
@@ -233,14 +235,123 @@
 	</div>
 	<div class="row">
 		<div class="col-xs-12 big-info peers">
-			<uib-tabset justified="true" class="peers">
+			<uib-tabset class="peers">
 				<uib-tab>
-					<uib-tab-heading><span class="glyphicon glyphicon-ok-sign"></span> Connected Peers</uib-tab-heading>
+					<uib-tab-heading><span class="glyphicon glyphicon-ok-sign"></span><span> Connected</span><span class="hidden-xs"> Peers</span> <span class="badge">{{vm.counter.connected || 0}}</span></uib-tab-heading>
 					<peers peers="vm.peers.connected"></peers>
 				</uib-tab>
 				<uib-tab>
-					<uib-tab-heading><span class="glyphicon glyphicon-remove-sign"></span> Disconnected Peers</uib-tab-heading>
+					<uib-tab-heading><span class="glyphicon glyphicon-remove-sign"></span><span class="hidden-xs"> Disconnected Peers</span> <span class="badge hidden-xs">{{vm.counter.disconnected || 0}}</span></uib-tab-heading>
 					<peers peers="vm.peers.disconnected"></peers>
+				</uib-tab>
+				<uib-tab>
+					<uib-tab-heading><span class="glyphicon glyphicon-stats"></span><span class="hidden-xs"> Statistics</span></uib-tab-heading>
+					<div class="row stats" data-ng-if="vm.peers" data-ng-cloak>
+						<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+							<p class="small-title text-center">Basic Stats</p>
+							<div class="row">
+								<table class="table table-striped">
+										<thead>
+											<th class="">Name</th>
+											<th class="text-right">Value</th>
+										</thead>
+										<tr>
+											<td class="">Connected peers</td>
+											<td class="text-right">{{vm.counter.connected || 0}}</td>
+										</tr>
+										<tr>
+											<td class="">Disconnected peers</td>
+											<td class="text-right">{{vm.counter.disconnected || 0}}</td>
+										</tr>
+										<tr>
+											<td class="">Total number of peers</td>
+											<td class="text-right">{{vm.counter.total || 0}}</td>
+										</tr>
+										<tr>
+											<td class="" colspan="2">Volume transferred within the last {{vm.volume.beginning | timeSpan:volume.end}} <span class="pull-right">{{vm.volume.amount || 0 | currency:{symbol: 'LSK'}:8}} LSK</span></td>
+										</tr>
+										<tr>
+											<td class="">Number of transactions within the last {{vm.volume.blocks || 0}} blocks</td>
+											<td class="text-right">{{vm.volume.txs || 0}}</td>
+										</tr>
+										<tr>
+											<td class="">Number of blocks with transactions within within the last {{vm.volume.blocks || 0}} blocks</td>
+											<td class="text-right">{{vm.volume.withTxs || 0}}</td>
+										</tr>
+								</table>
+							</div>
+
+							<p class="small-title text-center">Platform distribution</p>
+							<div class="row">
+								<table class="table table-striped">
+									<thead>
+										<th class="">Platform</th>
+										<th class="text-right">Count</th>
+										<th class="text-right">%</th>
+									</thead>
+									<tr data-ng-repeat='v in vm.counter.platformDistribution track by $index'>
+										<td class="">{{v.platform}}</td>
+										<td class="text-right">{{v.count}}</td>
+										<td class="text-right">{{v.percent}} %</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+							<p class="small-title text-center">OS distribution</p>
+							<div class="row">
+								<table class="table table-striped">
+									<thead>
+										<th class="">System</th>
+										<th class="text-right">Count</th>
+										<th class="text-right">%</th>
+									</thead>
+									<tr data-ng-repeat= "v in vm.counter.osDistribution | orderBy:'-count' track by $index">
+										<td class="">{{v.platform}}</td>
+										<td class="text-right">{{v.count}}</td>
+										<td class="text-right">{{v.percent}} %</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+							<p class="small-title text-center">Core ver. distribution</p>
+							<div class="row">
+								<table class="table table-striped">
+									<thead>
+										<th class="">Version</th>
+										<th class="text-right">Count</th>
+										<th class="text-right">%</th>
+									</thead>
+									<tr data-ng-repeat='v in vm.counter.versionDistribution track by $index'>
+										<td class="">{{v.version}}</td>
+										<td class="text-right">{{v.count}}</td>
+										<td class="text-right">{{v.percent}} %</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+
+						<div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+							<p class="small-title text-center">Height distribution</p>
+							<div class="row">
+								<table class="table table-striped">
+									<thead>
+										<th class="">Height</th>
+										<th class="text-right">Count</th>
+										<th class="text-right">%</th>
+									</thead>
+									<tr data-ng-repeat='v in vm.counter.heightDistribution track by $index'>
+										<td class="">{{v.group}}</td>
+										<td class="text-right">{{v.count}}</td>
+										<td class="text-right">{{v.percent}} %</td>
+									</tr>
+								</table>
+							</div>
+						</div>
+					</div>
 				</uib-tab>
 			</uib-tabset>
 		</div>
