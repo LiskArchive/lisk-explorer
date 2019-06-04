@@ -85,7 +85,7 @@ npm install
 #### Frontend
  The frontend is using Webpack to create core bundles for Lisk Explorer.
 
- For having a watcher to generate bundles continuously for all the changes of the code, Run the following command:
+ For having a watcher to generate bundles continuously for all the changes of the code, run the following command:
 
 `npm run watch`
 
