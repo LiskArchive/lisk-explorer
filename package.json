@@ -56,6 +56,8 @@
     "commander": "=2.9.0",
     "compression": "^1.6.2",
     "express": "^4.16.3",
+    "fast-safe-stringify": "^2.0.6",
+    "flatstr": "^1.0.12",
     "font-awesome": "^4.7.0",
     "http-proxy-middleware": "^0.19.1",
     "jquery": "^3.4.1",

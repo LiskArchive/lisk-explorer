@@ -17,15 +17,14 @@ const express = require('express');
 const proxy = require('http-proxy-middleware');
 const request = require('request-promise');
 const path = require('path');
-const packageJson = require('./package.json');
 const compression = require('compression');
 const methodOverride = require('method-override');
-const config = require('./config');
+
+const packageJson = require('./package.json');
+const logger = require('./logger.js');
+const config = require('./config.js');
 
 const app = express();
-
-// eslint-disable-next-line no-console
-const logger = console.log;
 
 app.set('version', packageJson.version);
 // app.set('strict routing', true);
@@ -56,9 +55,9 @@ const serverHealthCheck = async () => {
 	try {
 		const res = await request(`${config.apiUrl}/api/status`);
 		const version = JSON.parse(res).version;
-		logger(`Connected to ${config.apiUrl}, Lisk Service version ${version}`);
+		logger.info(`Connected to ${config.apiUrl}, Lisk Service version ${version}`);
 	} catch (err) {
-		logger(`The ${config.apiUrl} is unavailable or is not a proper Lisk Service endpoint.\nConsider setting SERVICE_ENDPOINT="https://service.lisk.io"`);
+		logger.info(`The ${config.apiUrl} is unavailable or is not a proper Lisk Service endpoint.\nConsider setting SERVICE_ENDPOINT="https://service.lisk.io"`);
 	}
 };
 
@@ -80,7 +79,7 @@ app.get('/api/ui_message', (req, res) => {
 });
 
 const defaultProxyConfig = {
-	logLevel: config.logLevel || 'debug',
+	logLevel: config.log.level || 'debug',
 	target: config.apiUrl,
 };
 
