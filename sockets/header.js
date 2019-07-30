@@ -17,6 +17,7 @@ const api = require('../lib/api');
 const config = require('../config');
 const async = require('async');
 const logger = require('../utils/logger');
+const SocketClient = require('../utils/socketClient');
 
 module.exports = function (app, connectionHandler, socket) {
 	const blocks = new api.blocks(app);
@@ -27,6 +28,8 @@ module.exports = function (app, connectionHandler, socket) {
 	let data = {};
 	const tmpData = {};
 
+	const socketClient = new SocketClient(app.get('lisk websocket address'));
+
 	const running = {
 		getBlockStatus: false,
 		getPriceTicker: false,
@@ -34,14 +37,6 @@ module.exports = function (app, connectionHandler, socket) {
 
 	const log = (level, msg) => {
 		logger[level]('Header:', msg);
-	};
-
-	const newInterval = (i, delay, cb) => {
-		if (intervals[i] !== undefined) {
-			return null;
-		}
-		intervals[i] = setInterval(cb, delay);
-		return intervals[i];
 	};
 
 	const getBlockStatus = (cb) => {
@@ -81,7 +76,7 @@ module.exports = function (app, connectionHandler, socket) {
 				thisData.ticker = res[1];
 
 				data = thisData;
-				log('info', 'Emitting data');
+				log('debug', 'Emitting data');
 				socket.emit('data', thisData);
 			}
 		});
@@ -102,23 +97,21 @@ module.exports = function (app, connectionHandler, socket) {
 				data.status = res[0];
 				data.ticker = res[1];
 
-				log('info', 'Emitting new data');
+				log('debug', 'Emitting new data');
 				socket.emit('data', data);
 
-				newInterval(0, 10000, emitData);
+				socketClient.socket.on('blocks/change', () => {
+					emitData();
+				});
 			}
 		});
 	};
 
 	this.onConnect = function () {
-		log('info', 'Emitting existing data');
+		log('debug', 'Emitting existing data');
 		socket.emit('data', data);
 	};
 
 	this.onDisconnect = function () {
-		for (let i = 0; i < intervals.length; i++) {
-			clearInterval(intervals[i]);
-		}
-		intervals = [];
 	};
 };

@@ -106,7 +106,7 @@ module.exports = function (app, connectionHandler, socket) {
 				lastBlockData.lastBlock = res[0];
 				data.lastBlock = res[0];
 
-				log('info', 'Emitting data-1 (last block data)');
+				log('debug', 'Emitting data-1 (last block data)');
 				socket.emit('data1', lastBlockData);
 			}
 		});
@@ -125,7 +125,7 @@ module.exports = function (app, connectionHandler, socket) {
 				blocksData.blocks = res[0];
 				data.blocks = res[0];
 
-				log('info', 'Emitting data-2 (blocks data)');
+				log('debug', 'Emitting data-2 (blocks data)');
 				socket.emit('data2', blocksData);
 			}
 		});
@@ -144,7 +144,7 @@ module.exports = function (app, connectionHandler, socket) {
 				peersData.peers = res[0];
 				data.peers = res[0];
 
-				log('info', 'Emitting data-3 (peers data)');
+				log('debug', 'Emitting data-3 (peers data)');
 				socket.emit('data3', peersData);
 			}
 		});
@@ -166,7 +166,7 @@ module.exports = function (app, connectionHandler, socket) {
 				data.blocks = res[1];
 				data.peers = res[2];
 
-				log('info', 'Emitting new data');
+				log('debug', 'Emitting new data');
 				socket.emit('data', data);
 
 				newInterval(0, 5000, emitData1);
@@ -178,7 +178,7 @@ module.exports = function (app, connectionHandler, socket) {
 	};
 
 	this.onConnect = function () {
-		log('info', 'Emitting existing data');
+		log('debug', 'Emitting existing data');
 		socket.emit('data', data);
 	};
 

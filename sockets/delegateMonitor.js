@@ -18,6 +18,7 @@ const moment = require('moment');
 const async = require('async');
 const request = require('request');
 const logger = require('../utils/logger');
+const SocketClient = require('../utils/socketClient');
 
 module.exports = function (app, connectionHandler, socket) {
 	const delegates = new api.delegates(app);
@@ -37,15 +38,9 @@ module.exports = function (app, connectionHandler, socket) {
 		getNextForgers: false,
 	};
 
-	const newInterval = function (i, delay, cb) {
-		if (intervals[i] !== undefined) {
-			return null;
-		}
-		intervals[i] = setInterval(cb, delay);
-		return intervals[i];
-	};
-
 	const log = (level, msg) => logger[level]('Delegate Monitor:', msg);
+
+	const socketClient = new SocketClient(app.get('lisk websocket address'));
 
 	// eslint-disable-next-line arrow-body-style, arrow-parens
 	const findActiveByPublicKey = delegate => {
@@ -167,7 +162,7 @@ module.exports = function (app, connectionHandler, socket) {
 	const delegateName = delegate => `${delegate.username}[${delegate.rate}]`;
 
 	const emitDelegate = (delegate) => {
-		log('info', `Emitting last blocks for: ${delegateName(delegate)}`);
+		log('debug', `Emitting last blocks for: ${delegateName(delegate)}`);
 		socket.emit('delegate', delegate);
 	};
 
@@ -221,11 +216,7 @@ module.exports = function (app, connectionHandler, socket) {
 						}
 					}
 
-					if (intervals[1]) {
-						cb(null);
-					} else {
-						callback('Monitor closed');
-					}
+					cb(null);
 				}, (err) => {
 					if (err) {
 						callback(err, result);
@@ -255,11 +246,7 @@ module.exports = function (app, connectionHandler, socket) {
 								emitDelegate(existing);
 							}
 
-							if (intervals[1]) {
-								cb(null);
-							} else {
-								callback('Monitor closed');
-							}
+							cb(null);
 						});
 				}, (err) => {
 					if (err) {
@@ -326,7 +313,7 @@ module.exports = function (app, connectionHandler, socket) {
 				data.votes = res[2];
 				data.nextForgers = cutNextForgers(10);
 
-				log('info', 'Emitting data');
+				log('debug', 'Emitting data');
 				socket.emit('data', data);
 			}
 		});
@@ -355,26 +342,24 @@ module.exports = function (app, connectionHandler, socket) {
 				data.votes = res[3];
 				data.nextForgers = cutNextForgers(10);
 
-				log('info', 'Emitting new data');
+				log('debug', 'Emitting new data');
 				socket.emit('data', data);
 
 				getLastBlocks(data.active, true);
 
-				newInterval(0, 5000, emitData);
-				newInterval(1, 1000, getLastBlocks);
+				socketClient.socket.on('blocks/change', () => {
+					emitData();
+					getLastBlocks(data.active);
+				});
 			}
 		});
 	};
 
 	this.onConnect = function () {
-		log('info', 'Emitting existing data');
+		log('debug', 'Emitting existing data');
 		socket.emit('data', data);
 	};
 
 	this.onDisconnect = function () {
-		for (let i = 0; i < intervals.length; i++) {
-			clearInterval(intervals[i]);
-		}
-		intervals = [];
 	};
 };
