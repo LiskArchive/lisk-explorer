@@ -1,6 +1,6 @@
-# Lisk Explorer test suite
+# Lisk Explorer Test Suite
 
-## Tests
+## Functional Tests
 
 Before running any tests, please ensure Lisk Explorer and Lisk Client are configured to run on the Lisk Testnet.
 
