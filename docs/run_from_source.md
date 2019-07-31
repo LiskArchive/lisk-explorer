@@ -23,20 +23,12 @@ And for generating the minified bundles in production environment run:
 
 ## Post-deployment Actions
 
-#### Market Watcher
- Candlestick data needs to be initialized prior to starting Lisk Explorer. During runtime candlestick data is updated automatically.
-
-This step writes data to the local Redis instance. Make sure that your application is already deployed and has access to the production Redis database.
+#### Market Watcher (candlestick data)
+Candlestick data needs to be initialized prior to starting Lisk Explorer. This step writes data to the local Redis instance. Make sure that your application is already deployed and has access to the production Redis database.
 
 To build candlestick data for each exchange run:
 
 `grunt candles:build`
-
-
-## Configuration
-
-The default `config.js` file contains all of the configuration settings for Lisk Explorer. These options can be modified according to comments included in configuration file.
-
 
 ## Managing Lisk Explorer
 
@@ -55,21 +47,43 @@ Once the process is verified as running correctly, `CTRL+C` and start the proces
 
 ## Optional steps
 
+### Configuration
+
+You can configure the application by setting the following variables manually and running the process from commandline.
+
+- `LISK_HOST=node.lisk.io       # Lisk Core/SDK host IP/domain name`
+- `LISK_PORT=8000               # Lisk Core/SDK port`
+- `REDIS_HOST=localhost         # Redis host IP`
+- `REDIS_PORT=6379              # Redis port`
+- `REDIS_DB=0                   # Redis database number`
+
+> The default `config.js` file contains all of the configuration settings for Lisk Explorer. These options can be modified according to comments included in configuration file.
+
+### Frontend source code watcher
+
 For having a watcher to generate bundles continuously for all the changes of the code, Run the following command:
 
 `npm run watch`
+
+### Google Analytics
 
 If you want to add a meta tag with name and content defined (For example to verify your ownership to Google analytics) run:
 
  `SERVICE_NAME='your service name' CLIENT_ID='you client id' npm run build`
 
-### Candlestick data
+### Market Watcher
 
-To update candlestick data manually run after initialization:
+In case of problems with candlestick chart it may be beneficial to rebuild the database by running the following command again.
+
+`grunt candles:build`
+
+To update candlestick data manually run after initialization 
 
 `grunt candles:update`
 
-## Run with PM2
+During runtime candlestick data is updated automatically.
+
+### Run with PM2
 
 `pm2 start pm2-explorer.json`
 
