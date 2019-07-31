@@ -4,7 +4,7 @@ Lisk Explorer is a blockchain explorer designed for interaction with Lisk networ
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
-Lisk Explorer is a feature-rich single page application with following functionalities:
+Lisk Explorer is a feature-rich single page browser application with following functionalities:
 
 - Transaction browser
   - Shows transactions with their details stored in the blockchain
@@ -38,11 +38,11 @@ git clone https://github.com/LiskHQ/lisk-explorer.git
 cd lisk-explorer
 ```
 
-### Installation with Docker
+### Installation with Docker (recommended)
 
 In order to install Docker, refer to the offcial [Docker Installation Instruction](https://docs.docker.com/install/).
 
-You will also need Docker Compose [Install Docker Compose](https://docs.docker.com/compose/install/)
+You will also need Docker Compose [Install Docker Compose](https://docs.docker.com/compose/install/).
 
 Update `docker-lisk-core.env` to choose your preferred node. You can easily switch between Mainnet and Testnet nodes by changing content of the env file.
 

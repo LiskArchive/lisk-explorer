@@ -1,9 +1,9 @@
 # Run Lisk Explorer from Source
 
-Before installing from source a proper development envirnoment has to be installed and configured
+Before installing from source a proper development envirnoment has to be installed and configured.
 
-- [Linux Prerequisites](docs/prerequisites-linux.md)
-- [MacOS Prerequisites](docs/prerequisites-macos.md)
+- [Linux Prerequisites](prerequisites-linux.md)
+- [MacOS Prerequisites](prerequisites-macos.md)
 
 Clone the Lisk Explorer Repository:
 

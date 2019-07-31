@@ -6,10 +6,11 @@ Clone the Lisk Explorer Repository:
 ```
 git clone https://github.com/LiskHQ/lisk-explorer.git
 cd lisk-explorer
-npm install
 ```
 
 ## Using docker-compose
+
+This is a recommended way to install Lisk Explorer.
 
 Update `docker-lisk-core.env` to choose your preferred node. You can easily switch between Mainnet and Testnet nodes by changing content of the env file.
 
@@ -35,11 +36,11 @@ The parameter `--volumes` will remove all associated volumes that would not be u
 
 > The example above will stop whole application gracefully but it leaves images in your repository. It is useful only if you plan to run the solution again. Otherwise you may want to clean up after these containers. You can use additional param for this purpose: `--rmi local` to remove untagged images. In case you want to remove all images related to this application add `--rmi all` to the `docker-compose` command.
 
-### Building other version than latest
+### Building other version than the latest
 
 If you want to build other version, you have to change the tag name in `docker-compose.yml`. You can also build from your local branch by adding `build .` under section called `lisk-explorer:`.
 
-## Manual Docker deployment
+## Alternative: Manual Docker deployment
 
 First, build a new docker image in your local repository.
 Replace `<TAG_NAME>` with the branch or tag name ex. `1.5.0`.
