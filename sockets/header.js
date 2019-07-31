@@ -14,7 +14,6 @@
  *
  */
 const api = require('../lib/api');
-const config = require('../config');
 const async = require('async');
 const logger = require('../utils/logger');
 const SocketClient = require('../utils/socketClient');
@@ -22,10 +21,14 @@ const SocketClient = require('../utils/socketClient');
 module.exports = function (app, connectionHandler, socket) {
 	const blocks = new api.blocks(app);
 	const common = new api.common(app);
+	// eslint-disable-next-line
 	const delegates = new api.delegates(app);
+	// eslint-disable-next-line
 	const connection = new connectionHandler('Header:', socket, this);
+	// eslint-disable-next-line
 	let intervals = [];
 	let data = {};
+	// eslint-disable-next-line
 	const tmpData = {};
 
 	const socketClient = new SocketClient(app.get('lisk websocket address'));
@@ -85,26 +88,6 @@ module.exports = function (app, connectionHandler, socket) {
 	this.onInit = function () {
 		// Prevents data wipe
 		this.onConnect();
-
-		async.parallel([
-			getBlockStatus,
-			getPriceTicker,
-		],
-		(err, res) => {
-			if (err) {
-				log('error', `Error retrieving: ${err}`);
-			} else {
-				data.status = res[0];
-				data.ticker = res[1];
-
-				log('debug', 'Emitting new data');
-				socket.emit('data', data);
-
-				socketClient.socket.on('blocks/change', () => {
-					emitData();
-				});
-			}
-		});
 	};
 
 	this.onConnect = function () {
@@ -113,5 +96,26 @@ module.exports = function (app, connectionHandler, socket) {
 	};
 
 	this.onDisconnect = function () {
+		log('debug', 'Client disconnected');
 	};
+
+	async.parallel([
+		getBlockStatus,
+		getPriceTicker,
+	],
+	(err, res) => {
+		if (err) {
+			log('error', `Error retrieving: ${err}`);
+		} else {
+			data.status = res[0];
+			data.ticker = res[1];
+
+			log('debug', 'Emitting new data');
+			socket.emit('data', data);
+
+			socketClient.socket.on('blocks/change', () => {
+				emitData();
+			});
+		}
+	});
 };
