@@ -1,16 +1,26 @@
+# Lisk Explorer test suite
+
 ## Tests
 
 Before running any tests, please ensure Lisk Explorer and Lisk Client are configured to run on the Lisk Testnet.
 
-`bash ./test-setup.sh /PATH_TO_LISK_DIR`
+> Hint: Make sure you have `wget` installed.
 
-Launch Lisk Explorer (runs on port 6040):
+```
+bash ./test-setup.sh /PATH_TO_LISK_DIR
+```
 
-`pm2 start pm2-explorer.json`
+Launch Lisk Explorer (runs on port `6040`):
+
+```
+pm2 start pm2-explorer.json
+```
 
 Run the test suite:
 
-`npm test`
+```
+npm test
+```
 
 Run individual tests:
 
@@ -23,12 +33,9 @@ npm test -- test/api/transactions.js
 
 ### Setup for end-to-end tests:
 
-Do all setup steps from "Test" section of this README
+Do all setup steps from "Test" section of this readme
 
-Make sure you have `wget` installed (it's used in `./e2e-test-setup.sh`). On Linux by default. On MacOS:
-```
-brew install wget
-```
+> Hint: Make sure you have `wget` installed.
 
 Setup protractor
 

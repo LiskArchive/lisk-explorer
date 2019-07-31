@@ -1,4 +1,4 @@
-# Lisk Service installation for Linux
+# Lisk Explorer installation for Linux
 
 ## Prerequisites
 
@@ -22,7 +22,7 @@ These programs and resources are required to install and run Lisk Explorer.
 	  sudo apt-get install -y redis-server
 	```
 
-> Note: you can change your port at this step if you want to have more Redis instances in the future. Remeber to adjust the environment variable `REDIS_PORT` accordingly.
+	> Note: you can change your port at this step if you want to have more Redis instances in the future. Remeber to adjust the environment variable `REDIS_PORT` accordingly.
 
 - Freegeoip (<https://github.com/fiorix/freegeoip>) -- Freegeoip is used by the Network Monitor for IP address geo-location.
 
@@ -33,7 +33,7 @@ These programs and resources are required to install and run Lisk Explorer.
 	  nohup ./freegeoip/freegeoip > ./freegeoip/freegeoip.log 2>&1 &
 	```
 
-- PM2 (https://github.com/Unitech/pm2) -- PM2 manages the node process for Lisk Service and handles log rotation (Highly Recommended)
+- PM2 (https://github.com/Unitech/pm2) -- PM2 manages the node process for Lisk Explorer and handles log rotation (Highly Recommended)
 
   ```bash
   sudo npm install -g pm2
@@ -45,7 +45,7 @@ These programs and resources are required to install and run Lisk Explorer.
 	sudo npm install -g bower
 	```
 
-- Git (<https://github.com/git/git>) -- Used for cloning and updating Lisk Service
+- Git (<https://github.com/git/git>) -- Used for cloning and updating Lisk Explorer
 
   ```bash
   sudo apt-get install -y git

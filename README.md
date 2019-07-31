@@ -1,15 +1,22 @@
 # Lisk Explorer
 
-Lisk Explorer is a blockchain explorer designed for interaction with Lisk network.
+Lisk Explorer is a blockchain explorer designed for interaction with Lisk network. It is a part of Lisk ecosystem 
+
+[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 Lisk Explorer is a feature-rich single page application with following functionalities:
 
 - Transaction browser
-  - Shows all transaction details stored in the blockchain
+  - Shows transactions with their details stored in the blockchain
   - Supports all transaction types with its metadata
+  - Allows advanced filtering by date, type, amount etc.
 
 - Block browser
-  - Shows all block details stored in the blockchain
+  - Shows blocks with their details stored in the blockchain
+
+- Account browser
+  - Supports various account types
+  - Allows advanced transaction filtering on per-account basis
 
 - Delegate monitor
   - Shows information about all register delegate accounts
@@ -21,8 +28,6 @@ Lisk Explorer is a feature-rich single page application with following functiona
   - Public IPs are shown with domain names and geographical location
 
 To make it running at least one Lisk Core/SDK node with public API is needed.
-
-[![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
 ## Installation
 
@@ -59,29 +64,31 @@ The following command will remove all containers defined by the `docker-compose.
 docker-compose down --volumes
 ```
 
-For further information about managing and configuring Lisk Service, see [Run With Docker](/docs/run_with_docker.md)
+For further information about managing and configuring Lisk Explorer, see [Run With Docker](/docs/run_with_docker.md)
 
 ### Installation From Source
 
-- [Linux Prerequisites](docs/prerequisites-linux.md)
-- [MacOS Prerequisites](docs/prerequisites-macos.md)
+For further information about managing and configuring Lisk Explorer, see [Run From Source](/docs/run_from_source.md)
 
-For further information about managing and configuring Lisk Service, see [Run From Source](/docs/run_from_source.md)
+## Running tests
 
+There are functional backend and end-to-end tests available.
+
+The test suite is described in [Run Tests](/docs/run_tests.md) section.
 
 ## Get Involved
 
 |                           |                                                                                                                                  |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Found a bug               | [Create new issue](https://github.com/LiskHQ/lisk-service/issues/new)                                                                    |
-| Want to develop with us   | [Read Contribution Guidelines](https://github.com/LiskHQ/lisk-service/blob/development/docs/CONTRIBUTING.md)                                                                             |
+| Found a bug               | [Create new issue](https://github.com/LiskHQ/lisk-explorer/issues/new)                                                                    |
+| Want to develop with us   | [Read Contribution Guidelines](https://github.com/LiskHQ/lisk-explorer/blob/development/docs/CONTRIBUTING.md)                                                                             |
 | Have ideas to share       | [Come to Lisk.chat](http://lisk.chat)                                                                                            |
 | Want to involve community | [Join community gitter](https://gitter.im/LiskHQ/lisk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
 | Found a security issue    | [See our bounty program](https://blog.lisk.io/announcing-lisk-bug-bounty-program-5895bdd46ed4)                                   |
 
 ## Contributors
 
-https://github.com/LiskHQ/lisk-service/graphs/contributors
+https://github.com/LiskHQ/lisk-explorer/graphs/contributors
 
 ## License
 
@@ -91,7 +98,7 @@ This program is free software: you can redistribute it and/or modify it under th
 
 This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
 
-You should have received a copy of the [GNU General Public License](https://github.com/LiskHQ/lisk-service/tree/master/LICENSE) along with this program.  If not, see <http://www.gnu.org/licenses/>.
+You should have received a copy of the [GNU General Public License](./LICENSE) along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 ***
 

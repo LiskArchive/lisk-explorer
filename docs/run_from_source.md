@@ -1,5 +1,10 @@
 # Run Lisk Explorer from Source
 
+Before installing from source a proper development envirnoment has to be installed and configured
+
+- [Linux Prerequisites](docs/prerequisites-linux.md)
+- [MacOS Prerequisites](docs/prerequisites-macos.md)
+
 Clone the Lisk Explorer Repository:
 
 ```
@@ -9,21 +14,24 @@ cd lisk-explorer
 
 ## Build Steps
 
+The NPM and Bower tools install all JavaScript dependencies needed to run the Lisk Explorer.
+
 ```
 npm install
 bower install
 ```
 
 The frontend is using Webpack to create core bundles for Lisk Explorer.
+For generating the minified bundles in production environment run:
 
-And for generating the minified bundles in production environment run:
+```
+npm run build
+```
 
-`npm run build`
-
-
-## Post-deployment Actions
+This step makes the source code ready for running.
 
 #### Market Watcher (candlestick data)
+
 Candlestick data needs to be initialized prior to starting Lisk Explorer. This step writes data to the local Redis instance. Make sure that your application is already deployed and has access to the production Redis database.
 
 To build candlestick data for each exchange run:
@@ -60,11 +68,15 @@ You can configure the application by setting the following variables manually an
 ```
 > The default `config.js` file contains all of the configuration settings for Lisk Explorer. These options can be modified according to comments included in configuration file.
 
-### Frontend source code watcher
+### Frontend source code file watch
 
 For having a watcher to generate bundles continuously for all the changes of the code, Run the following command:
 
 `DEBUG=true npm run watch`
+
+From now on all changes made to the frontend code in `/src` trigger instant rebuild.
+
+> `DEBUG=true` enables source maps useful for in-browser debugging
 
 ### Google Analytics
 
@@ -82,11 +94,11 @@ In case of problems with candlestick chart it may be beneficial to rebuild the d
 
 `grunt candles:build`
 
-To update candlestick data manually run after initialization 
+To update candlestick data manually run (only after initialization):
 
 `grunt candles:update`
 
-During runtime candlestick data is updated automatically.
+> Note: There is no need to run this command in production environment - during runtime the  candlestick data is updated automatically.
 
 ### Run with PM2
 
