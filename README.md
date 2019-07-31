@@ -64,11 +64,11 @@ The following command will remove all containers defined by the `docker-compose.
 docker-compose down --volumes
 ```
 
-For further information about managing and configuring Lisk Explorer, see [Run With Docker](/docs/run_with_docker.md)
+For further information about managing and configuring Lisk Explorer, see [Run With Docker](/docs/run_with_docker.md).
 
 ### Installation From Source
 
-For further information about managing and configuring Lisk Explorer, see [Run From Source](/docs/run_from_source.md)
+For further information about managing and configuring Lisk Explorer, see [Run From Source](/docs/run_from_source.md).
 
 ## Running tests
 
