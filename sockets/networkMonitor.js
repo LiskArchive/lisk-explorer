@@ -19,7 +19,9 @@ const logger = require('../utils/logger');
 
 module.exports = function (app, connectionHandler, socket) {
 	const statistics = new api.statistics(app);
+	// eslint-disable-next-line
 	const connection = new connectionHandler('Network Monitor:', socket, this);
+	// eslint-disable-next-line
 	let intervals = [];
 	const data = {};
 
@@ -152,29 +154,7 @@ module.exports = function (app, connectionHandler, socket) {
 
 	this.onInit = function () {
 		this.onConnect();
-
-		async.parallel([
-			getLastBlock,
-			getBlocks,
-			getPeers,
-		],
-		(err, res) => {
-			if (err) {
-				log('error', `Error retrieving: ${err}`);
-			} else {
-				data.lastBlock = res[0];
-				data.blocks = res[1];
-				data.peers = res[2];
-
-				log('debug', 'Emitting new data');
-				socket.emit('data', data);
-
-				newInterval(0, 5000, emitData1);
-				/** @todo Here we are pulling 8640 blocks - logic should be changed */
-				newInterval(1, 300000, emitData2);
-				newInterval(2, 5000, emitData3);
-			}
-		});
+		socket.emit('data', data);
 	};
 
 	this.onConnect = function () {
@@ -183,10 +163,30 @@ module.exports = function (app, connectionHandler, socket) {
 	};
 
 	this.onDisconnect = function () {
-		for (let i = 0; i < intervals.length; i++) {
-			clearInterval(intervals[i]);
-		}
-		intervals = [];
+		log('debug', 'Client disconnected');
 	};
+
+	async.parallel([
+		getLastBlock,
+		getBlocks,
+		getPeers,
+	],
+	(err, res) => {
+		if (err) {
+			log('error', `Error retrieving: ${err}`);
+		} else {
+			data.lastBlock = res[0];
+			data.blocks = res[1];
+			data.peers = res[2];
+
+			log('debug', 'Emitting new data');
+			socket.emit('data', data);
+
+			newInterval(0, 5000, emitData1);
+			/** @todo Here we are pulling 8640 blocks - logic should be changed */
+			newInterval(1, 300000, emitData2);
+			newInterval(2, 5000, emitData3);
+		}
+	});
 };
 

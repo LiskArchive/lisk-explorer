@@ -200,21 +200,18 @@ const NetworkMonitor = function (vm) {
 			return platforms[platformCode] || 'Unknown';
 		};
 
-		/* eslint-disable */
 		const platformsObj = peers.map(p => p.osBrand.name).reduce((acc, v) => {
+			// eslint-disable-next-line
 			typeof acc[v] === 'number' ? acc[v] += 1 : acc[v] = 1;
 			return acc;
 		}, {});
 
-		const platformsArr = Object.keys(platformsObj).map(p => {
-			return {
-				platform: detect(p),
-				count: platformsObj[p],
-				percent: Math.round((platformsObj[p] / peers.length) * 100),
-			};
-		});
+		const platformsArr = Object.keys(platformsObj).map(p => ({
+			platform: detect(p),
+			count: platformsObj[p],
+			percent: Math.round((platformsObj[p] / peers.length) * 100),
+		}));
 
-		/* eslint-enable */
 		this.detected = function () {
 			return platformsArr;
 		};
@@ -222,27 +219,26 @@ const NetworkMonitor = function (vm) {
 
 	function OsDistribution(peers) {
 		const detect = (os) => {
+			if (!os || typeof os !== 'string') return 'Unknown';
 			if (os.match(/^linux(.*)/)) {
 				const splitOsString = os.replace('linux', '').split('.');
 				return `Linux ${splitOsString[0]}.${splitOsString[1]}`;
 			}
 			return os;
 		};
-		/* eslint-disable */
+
 		const platformsObj = peers.map(p => detect(p.os)).reduce((acc, v) => {
+			// eslint-disable-next-line
 			typeof acc[v] === 'number' ? acc[v] += 1 : acc[v] = 1;
 			return acc;
 		}, {});
 
-		const platformsArr = Object.keys(platformsObj).map(p => {
-			return {
-				platform: p,
-				count: platformsObj[p],
-				percent: Math.round((platformsObj[p] / peers.length) * 100),
-			};
-		});
+		const platformsArr = Object.keys(platformsObj).map(p => ({
+			platform: p,
+			count: platformsObj[p],
+			percent: Math.round((platformsObj[p] / peers.length) * 100),
+		}));
 
-		/* eslint-enable */
 		this.detected = function () {
 			return platformsArr;
 		};
