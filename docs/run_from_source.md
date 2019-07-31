@@ -51,25 +51,30 @@ Once the process is verified as running correctly, `CTRL+C` and start the proces
 
 You can configure the application by setting the following variables manually and running the process from commandline.
 
-- `LISK_HOST=node.lisk.io       # Lisk Core/SDK host IP/domain name`
-- `LISK_PORT=8000               # Lisk Core/SDK port`
-- `REDIS_HOST=localhost         # Redis host IP`
-- `REDIS_PORT=6379              # Redis port`
-- `REDIS_DB=0                   # Redis database number`
-
+```
+- LISK_HOST=node.lisk.io       # Lisk Core/SDK host IP/domain name
+- LISK_PORT=8000               # Lisk Core/SDK port
+- REDIS_HOST=localhost         # Redis host IP
+- REDIS_PORT=6379              # Redis port
+- REDIS_DB=0                   # Redis database number
+```
 > The default `config.js` file contains all of the configuration settings for Lisk Explorer. These options can be modified according to comments included in configuration file.
 
 ### Frontend source code watcher
 
 For having a watcher to generate bundles continuously for all the changes of the code, Run the following command:
 
-`npm run watch`
+`DEBUG=true npm run watch`
 
 ### Google Analytics
 
 If you want to add a meta tag with name and content defined (For example to verify your ownership to Google analytics) run:
 
- `SERVICE_NAME='your service name' CLIENT_ID='you client id' npm run build`
+```
+SERVICE_NAME='your service name' \
+CLIENT_ID='you client id' \
+npm run build
+```
 
 ### Market Watcher
 
