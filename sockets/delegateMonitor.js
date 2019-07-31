@@ -24,7 +24,6 @@ module.exports = function (app, connectionHandler, socket) {
 	const delegates = new api.delegates(app);
 	// eslint-disable-next-line no-unused-vars
 	const connection = new connectionHandler('Delegate Monitor:', socket, this);
-	let intervals = [];
 	const data = {};
 	// Only used in various calculations, will not be emitted directly
 	const tmpData = {};
@@ -321,41 +320,6 @@ module.exports = function (app, connectionHandler, socket) {
 
 	this.onInit = function () {
 		this.onConnect();
-
-		async.parallel([
-			// We only call getLastBlock on init, later data.lastBlock will be updated from getLastBlocks
-			getLastBlock,
-			getActive,
-			getRegistrations,
-			getVotes,
-			getNextForgers,
-		],
-		(err, res) => {
-			if (err) {
-				log('error', `Error retrieving: ${err}`);
-			} else {
-				tmpData.nextForgers = res[4];
-
-				data.lastBlock = res[0];
-				data.active = updateActive(res[1]);
-				data.registrations = res[2];
-				data.votes = res[3];
-				data.nextForgers = cutNextForgers(10);
-
-				log('debug', 'Emitting new data');
-				socket.emit('data', data);
-
-				getLastBlocks(data.active, true);
-
-				const sendUpdates = () => {
-					emitData();
-					getLastBlocks(data.active);
-				};
-
-				socketClient.socket.on('blocks/change', sendUpdates);
-				socketClient.socket.on('rounds/change', sendUpdates);
-			}
-		});
 	};
 
 	this.onConnect = function () {
@@ -364,5 +328,41 @@ module.exports = function (app, connectionHandler, socket) {
 	};
 
 	this.onDisconnect = function () {
+		log('debug', 'Client disconnected');
 	};
+
+	async.parallel([
+		// We only call getLastBlock on init, later data.lastBlock will be updated from getLastBlocks
+		getLastBlock,
+		getActive,
+		getRegistrations,
+		getVotes,
+		getNextForgers,
+	],
+	(err, res) => {
+		if (err) {
+			log('error', `Error retrieving: ${err}`);
+		} else {
+			tmpData.nextForgers = res[4];
+
+			data.lastBlock = res[0];
+			data.active = updateActive(res[1]);
+			data.registrations = res[2];
+			data.votes = res[3];
+			data.nextForgers = cutNextForgers(10);
+
+			log('debug', 'Emitting new data');
+			socket.emit('data', data);
+
+			getLastBlocks(data.active, true);
+
+			const sendUpdates = () => {
+				emitData();
+				getLastBlocks(data.active);
+			};
+
+			socketClient.socket.on('blocks/change', sendUpdates);
+			socketClient.socket.on('rounds/change', sendUpdates);
+		}
+	});
 };
