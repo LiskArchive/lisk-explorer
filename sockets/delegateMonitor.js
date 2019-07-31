@@ -347,10 +347,13 @@ module.exports = function (app, connectionHandler, socket) {
 
 				getLastBlocks(data.active, true);
 
-				socketClient.socket.on('blocks/change', () => {
+				const sendUpdates = () => {
 					emitData();
 					getLastBlocks(data.active);
-				});
+				};
+
+				socketClient.socket.on('blocks/change', sendUpdates);
+				socketClient.socket.on('rounds/change', sendUpdates);
 			}
 		});
 	};
