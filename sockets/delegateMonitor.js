@@ -41,6 +41,10 @@ module.exports = function (app, connectionHandler, socket) {
 
 	const socketClient = new SocketClient(app.get('lisk websocket address'));
 
+	const getTimestamp = () => new Date().getTime();
+	const minInterval = 10 * 1000;
+	let lastUpdateTime = 0;
+
 	// eslint-disable-next-line arrow-body-style, arrow-parens
 	const findActiveByPublicKey = delegate => {
 		return data.active.delegates.find(d => d.publicKey === delegate);
@@ -357,12 +361,18 @@ module.exports = function (app, connectionHandler, socket) {
 			getLastBlocks(data.active, true);
 
 			const sendUpdates = () => {
+				lastUpdateTime = getTimestamp();
 				emitData();
 				getLastBlocks(data.active);
 			};
 
 			socketClient.socket.on('blocks/change', sendUpdates);
-			socketClient.socket.on('rounds/change', sendUpdates);
+
+			setInterval(() => {
+				if ((getTimestamp() - lastUpdateTime) > minInterval) {
+					sendUpdates();
+				}
+			}, minInterval);
 		}
 	});
 };

@@ -33,6 +33,10 @@ module.exports = function (app, connectionHandler, socket) {
 
 	const socketClient = new SocketClient(app.get('lisk websocket address'));
 
+	const getTimestamp = () => new Date().getTime();
+	const minInterval = 10 * 1000; // set to block time
+	let lastUpdateTime = 0;
+
 	const running = {
 		getBlockStatus: false,
 		getPriceTicker: false,
@@ -114,8 +118,15 @@ module.exports = function (app, connectionHandler, socket) {
 			socket.emit('data', data);
 
 			socketClient.socket.on('blocks/change', () => {
+				lastUpdateTime = getTimestamp();
 				emitData();
 			});
+
+			setInterval(() => {
+				if ((getTimestamp() - lastUpdateTime) > minInterval) {
+					emitData();
+				}
+			}, minInterval);
 		}
 	});
 };
