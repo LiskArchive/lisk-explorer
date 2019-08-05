@@ -18,7 +18,6 @@ The NPM and Bower tools install all JavaScript dependencies needed to run the Li
 
 ```
 npm install
-bower install
 ```
 
 The frontend is using Webpack to create core bundles for Lisk Explorer.
