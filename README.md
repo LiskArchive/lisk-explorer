@@ -1,3 +1,5 @@
+![Logo](./docs/assets/banner_explorer.png)
+
 # Lisk Explorer
 
 Lisk Explorer is a blockchain explorer designed for interaction with Lisk network. It is a part of [Lisk Ecosystem](https://lisk.io), a blockchain platform based on DPoS consensus protocol.
