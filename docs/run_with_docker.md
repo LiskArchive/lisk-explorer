@@ -16,7 +16,7 @@ The default config points to official mainnet Lisk Core nodes. You can override 
 
 The docker-compose always takes the latest version available from Docker Hub. If you consider using a specified version you can ovverride the configuration in the `docker-compose.yml` file.
 
-> If you want to make a build from the locally modified version the first command you would like to use is `docker build ./ -t lisk/explorer:latest` in the root project directory.
+> If you want to make a build from your locally modified version the first command you would like to use is `docker build ./ -t lisk/explorer:latest` in the root project directory.
 
 ### Starting application
 
