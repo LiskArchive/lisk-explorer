@@ -106,7 +106,7 @@
 									<p class="text-muted">waiting for transactions <i class="fa fa-spinner fa-spin"></i></p>
 								</div>
 								<div data-ng-if="vm.volume.amount">
-									<p class="text-muted vol-timespan">transferred within {{vm.volume.beginning | timeSpan:volume.end}}</p>
+									<p class="text-muted vol-timespan">transferred within the last 24&nbsp;hours</p>
 									<p class="text-muted vol-blocks">from {{vm.volume.txs || 0}} transactions in {{vm.volume.withTxs || 0}} / {{vm.volume.blocks ||
 										0}} blocks</p>
 								</div>
