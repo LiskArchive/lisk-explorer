@@ -35,9 +35,9 @@ These programs and resources are required to install and run Lisk Explorer.
 
 - PM2 (https://github.com/Unitech/pm2) -- PM2 manages the node process for Lisk Explorer and handles log rotation (Highly Recommended)
 
-  ```bash
-  sudo npm install -g pm2
-  ```
+	```bash
+	npm install -g pm2
+	```
 
 - Bower (<https://bower.io/>) -- Bower is used to look after frontend libraries.
 
@@ -54,5 +54,5 @@ These programs and resources are required to install and run Lisk Explorer.
 - Tool chain components -- Used for compiling dependencies
 
   ```bash
-  sudo apt-get install -y python build-essential automake autoconf libtool
+  sudo apt-get install -y python build-essential automake autoconf libtool libpng-dev
   ```
