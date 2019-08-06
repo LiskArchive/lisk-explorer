@@ -46,8 +46,6 @@ In order to install Docker, refer to the offcial [Docker Installation Instructio
 
 You will also need Docker Compose [Install Docker Compose](https://docs.docker.com/compose/install/).
 
-Update `docker-lisk-core.env` to choose your preferred node. You can easily switch between Mainnet and Testnet nodes by changing content of the env file.
-
 #### Starting application
 
 To start Explorer type the following command:
