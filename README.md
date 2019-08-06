@@ -46,6 +46,8 @@ In order to install Docker, refer to the offcial [Docker Installation Instructio
 
 You will also need Docker Compose [Install Docker Compose](https://docs.docker.com/compose/install/).
 
+> The `docker-compose` configuration assumes that the network called `localhost` is available on your machine. If there is no such a network created you can always add one by using the following command: `docker network create localhost`.
+
 #### Starting application
 
 To start Explorer type the following command:

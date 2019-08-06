@@ -18,6 +18,8 @@ The docker-compose always takes the latest version available from Docker Hub. If
 
 > If you want to make a build from your locally modified version the first command you would like to use is `docker build ./ -t lisk/explorer:latest` in the root project directory.
 
+> The `docker-compose` configuration assumes that the network called `localhost` is available on your machine. If there is no such a network created you can always add one by using the following command: `docker network create localhost`.
+
 ### Starting application
 
 To start Explorer type the following command:
