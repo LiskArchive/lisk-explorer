@@ -8,23 +8,23 @@ Lisk Explorer is a blockchain explorer designed for interaction with Lisk networ
 
 Lisk Explorer is a feature-rich single page browser application with following functionalities:
 
-- Transaction browser
+- [Transaction browser](https://explorer.lisk.io/txs/)
   - Shows transactions with their details stored in the blockchain
   - Supports all transaction types with its metadata
   - Allows advanced filtering by date, type, amount etc.
 
-- Block browser
+- [Block browser](https://explorer.lisk.io/blocks/)
   - Shows blocks with their details stored in the blockchain
 
-- Account browser
+- [Account browser](https://explorer.lisk.io/address/6307579970857064486L)
   - Supports various account types
   - Allows advanced transaction filtering on per-account basis
 
-- Delegate monitor
+- [Delegate monitor](https://explorer.lisk.io/delegateMonitor)
   - Shows information about all register delegate accounts
   - Live status of the 101 active delegates
 
-- Network monitor
+- [Network monitor](https://explorer.lisk.io/networkMonitor)
   - Shows live information about all nodes
   - Shows active and disconnected nodes
   - Public IPs are shown with domain names and geographical location
