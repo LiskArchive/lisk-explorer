@@ -24,7 +24,7 @@ module.exports = function (config, client) {
 
 	this.updateCandles = function () {
 		if (running) {
-			logger.info('Candles:', 'Update already in progress');
+			logger.debug('Candles:', 'Update already in progress');
 			return;
 		}
 		running = true;
@@ -61,7 +61,7 @@ module.exports = function (config, client) {
 			if (err) {
 				logger.error('Candles:', 'Error updating candles:', err);
 			} else {
-				logger.info('Candles:', 'Updated successfully');
+				logger.debug('Candles:', 'Updated successfully');
 			}
 			running = false;
 		});

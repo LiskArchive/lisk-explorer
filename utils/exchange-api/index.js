@@ -171,7 +171,7 @@ module.exports = function (config) {
 			}
 
 			if (Object.keys(exchanges[pair]).indexOf(exchange) > -1) {
-				logger.info('Exchange:', util.format('Configured [%s] as %s/%s exchange', exchange, key1, key2));
+				logger.debug('Exchange:', util.format('Configured [%s] as %s/%s exchange', exchange, key1, key2));
 				config.exchangeRates.exchanges[key1][key2] = exchanges[pair][exchange];
 				config.exchangeRates.exchanges[key1][key2].pair = pair;
 			} else if (exchanges[pair]) {
@@ -203,7 +203,7 @@ module.exports = function (config) {
 						if (result && isNumeric(result)) {
 							currency[key1][key2] = result;
 						} else {
-							logger.error(util.format('Cannot receive exchange rates for %s/%s pair from [%s], ignored', key1, key2, exchange2[0]));
+							logger.warn(util.format('Cannot receive exchange rates for %s/%s pair from [%s], ignored', key1, key2, exchange2[0]));
 						}
 						seriesCb2(null, currency);
 					});
@@ -213,7 +213,7 @@ module.exports = function (config) {
 				});
 			},
 			() => {
-				logger.info('Exchange rates:', currency);
+				logger.debug('Exchange rates:', currency);
 				cb(null, currency);
 			});
 		},

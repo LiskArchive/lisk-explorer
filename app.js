@@ -56,6 +56,7 @@ app.orders = new utils.orders(config, client);
 app.set('version', packageJson.version);
 app.set('strict routing', true);
 app.set('lisk address', `http://${config.lisk.host}:${config.lisk.port}${config.lisk.apiPath}`);
+app.set('lisk websocket address', `http://${config.lisk.host}:${config.lisk.port}`);
 app.set('freegeoip address', `http://${config.freegeoip.host}:${config.freegeoip.port}`);
 app.set('exchange enabled', config.exchangeRates.enabled);
 app.set('uiMessage', config.uiMessage);
@@ -105,7 +106,7 @@ app.use(morgan('combined', {
 		return parseInt(res.statusCode, 10) >= 400;
 	},
 	stream: split().on('data', (data) => {
-		logger.info(data);
+		logger.debug(data);
 	}),
 }));
 const compression = require('compression');
@@ -131,12 +132,12 @@ const allowCrossDomain = function (req, res, next) {
 app.use(allowCrossDomain);
 
 app.use((req, res, next) => {
-	logger.info(req.originalUrl);
+	logger.debug(req.originalUrl);
 
 	try {
 		decodeURIComponent(req.path);
 	} catch (err) {
-		logger.info(err);
+		logger.debug(err);
 		return res.redirect('/');
 	}
 
@@ -150,7 +151,7 @@ app.use((req, res, next) => {
 
 	return req.redis.get(req.originalUrl, (err, json) => {
 		if (err) {
-			logger.info(err);
+			logger.warn(err);
 			return next();
 		} else if (json) {
 			try {
@@ -172,7 +173,7 @@ routes(app);
 logger.info('Routes loaded');
 
 app.use((req, res, next) => {
-	logger.info(req.originalUrl);
+	logger.debug(req.originalUrl);
 
 	if (req.originalUrl === undefined || req.originalUrl.split('/')[1] !== 'api' || !req.json) {
 		return next();
@@ -186,7 +187,7 @@ app.use((req, res, next) => {
 
 	req.redis.setex(req.originalUrl, ttl, JSON.stringify(req.json), (err) => {
 		if (err) {
-			logger.info(err);
+			logger.warn(err);
 		}
 	});
 
