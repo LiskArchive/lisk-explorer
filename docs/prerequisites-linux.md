@@ -4,7 +4,7 @@
 
 These programs and resources are required to install and run Lisk Explorer.
 
-- Nodejs v8.11.2 or higher (<https://nodejs.org/>) -- Nodejs serves as the underlying engine for code execution.
+- Node.js v8.11.2 or higher (<https://nodejs.org/>) -- Node.js serves as the underlying engine for code execution.
 
 	```bash
 	  curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
@@ -22,7 +22,7 @@ These programs and resources are required to install and run Lisk Explorer.
 	  sudo apt-get install -y redis-server
 	```
 
-	> Note: you can change your port at this step if you want to have more Redis instances in the future. Remeber to adjust the environment variable `REDIS_PORT` accordingly.
+	> Note: you can change your port at this step if you want to have more Redis instances in the future. Remember to adjust the environment variable `REDIS_PORT` accordingly.
 
 - Freegeoip (<https://github.com/fiorix/freegeoip>) -- Freegeoip is used by the Network Monitor for IP address geo-location.
 

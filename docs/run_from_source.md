@@ -1,6 +1,6 @@
 # Run Lisk Explorer from Source
 
-Before installing from source a proper development envirnoment has to be installed and configured.
+Before installing from source a proper development environment has to be installed and configured.
 
 - [Linux Prerequisites](prerequisites-linux.md)
 - [MacOS Prerequisites](prerequisites-macos.md)
@@ -56,7 +56,7 @@ Once the process is verified as running correctly, `CTRL+C` and start the proces
 
 ### Configuration
 
-You can configure the application by setting the following variables manually and running the process from commandline.
+You can configure the application by setting the following variables manually and running the process from command-line.
 
 ```
 - LISK_HOST=node.lisk.io       # Lisk Core/SDK host IP/domain name

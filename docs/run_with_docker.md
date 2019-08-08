@@ -14,7 +14,7 @@ This is a recommended way to install Lisk Explorer.
 
 The default config points to official mainnet Lisk Core nodes. You can override the variables `LISK_HOST` and `LISK_PORT` by using a custom environment file. Refer to the Docker documentation for more details.
 
-The docker-compose always takes the latest version available from Docker Hub. If you consider using a specified version you can ovverride the configuration in the `docker-compose.yml` file.
+The docker-compose always takes the latest version available from Docker Hub. If you consider using a specified version you can override the configuration in the `docker-compose.yml` file.
 
 > If you want to make a build from your locally modified version the first command you would like to use is `docker build ./ -t lisk/explorer:latest` in the root project directory.
 
@@ -28,7 +28,7 @@ To start Explorer type the following command:
 docker-compose up -d
 ```
 
-It will use lastest available version from local hub by default.
+It will use latest available version from local hub by default.
 
 ### Stopping application
 

@@ -42,7 +42,7 @@ cd lisk-explorer
 
 ### Installation with Docker (recommended)
 
-In order to install Docker, refer to the offcial [Docker Installation Instruction](https://docs.docker.com/install/).
+In order to install Docker, refer to the official [Docker Installation Instruction](https://docs.docker.com/install/).
 
 You will also need Docker Compose [Install Docker Compose](https://docs.docker.com/compose/install/).
 
@@ -56,7 +56,7 @@ To start Explorer type the following command:
 docker-compose up -d
 ```
 
-It will use lastest available version from local hub by default.
+It will use latest available version from local hub by default.
 
 #### Stopping application
 
@@ -82,8 +82,8 @@ The test suite is described in [Run Tests](/docs/run_tests.md) section.
 
 |                           |                                                                                                                                  |
 | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------- |
-| Found a bug               | [Create new issue](https://github.com/LiskHQ/lisk-explorer/issues/new)                                                                    |
-| Want to develop with us   | [Read Contribution Guidelines](https://github.com/LiskHQ/lisk-explorer/blob/development/docs/CONTRIBUTING.md)                                                                             |
+| Found a bug               | [Create new issue](https://github.com/LiskHQ/lisk-explorer/issues/new)                                                           |
+| Want to develop with us   | [Read Contribution Guidelines](https://github.com/LiskHQ/lisk-explorer/blob/development/docs/CONTRIBUTING.md)                    |
 | Have ideas to share       | [Come to Lisk.chat](http://lisk.chat)                                                                                            |
 | Want to involve community | [Join community gitter](https://gitter.im/LiskHQ/lisk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
 | Found a security issue    | [See our bounty program](https://blog.lisk.io/announcing-lisk-bug-bounty-program-5895bdd46ed4)                                   |
