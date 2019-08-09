@@ -56,6 +56,7 @@ Feature: Breadcrumb
       |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
       | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? BTC/ | /~\d+(\.\d+)? BTC/ |
   
+  @ignore
   Scenario: should allow to switch currency to CNY
     Given I'm on page "/"
     When I click "LSK menu" no. 2
@@ -83,6 +84,7 @@ Feature: Breadcrumb
       |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
       | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? EUR/ | /~\d+(\.\d+)? EUR/ |
 
+  @ignore
   Scenario: should allow to switch currency to RUB
     Given I'm on page "/"
     When I click "LSK menu" no. 2
@@ -92,6 +94,7 @@ Feature: Breadcrumb
       |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
       | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? RUB/ | /~\d+(\.\d+)? RUB/ |
 
+  @ignore
   Scenario: should allow to switch currency to JPY
     Given I'm on page "/"
     When I click "LSK menu" no. 2
@@ -101,6 +104,7 @@ Feature: Breadcrumb
       |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
       | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? JPY/ | /~\d+(\.\d+)? JPY/ |
 
+  @ignore
   Scenario: should allow to switch currency to PLN
     Given I'm on page "/"
     When I click "LSK menu" no. 2
@@ -110,6 +114,7 @@ Feature: Breadcrumb
       |--------------------|---------------------------|-------------|-----------------------|-----------------------------|--------------------|
       | 292176566870988581 | /2017\/06\/19 \d\d:18:09/ | standby_301 | Explorer Account      | /~\d+(,\d{3})?(\.\d+)? PLN/ | /~\d+(\.\d+)? PLN/ |
 
+  @ignore
   Scenario: should allow to switch currency to GBP
     Given I'm on page "/"
     When I click "LSK menu" no. 2
