@@ -28,7 +28,16 @@ To start Explorer type the following command:
 docker-compose up -d
 ```
 
-It will use latest available version from local hub by default.
+It will use latest available version from local repository by default. In case there is no local build, the latest version from [Docker Hub](https://hub.docker.com/) is taken.
+
+By default, the process can be reached from the local machine only. In order to make the service accessible in your network change the following line in `docker-compose.yml`.
+
+```
+    ports:
+      - "127.0.0.1:6040:6040" 
+```
+
+Change this property to `0.0.0.0:6040:6040` to make it accessible from a remote host.
 
 ### Stopping application
 
