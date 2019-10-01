@@ -39,7 +39,9 @@ const Pagination = function ($http, $q, params) {
 Pagination.prototype.getData = function () {
 	this.loading = true;
 
-	const filters = this.params.filters.reduce((obj, item) => {
+	const transfomedFilters = this.transformAccountFilters(this.params.filters);
+
+	const filters = transfomedFilters.reduce((obj, item) => {
 		obj[item.key] = item.value;
 		return obj;
 	}, {});
@@ -69,6 +71,15 @@ Pagination.prototype.getData = function () {
 		}
 		this.loading = false;
 	});
+};
+
+Pagination.prototype.transformAccountFilters = (filters) => {
+	const filterList = filters.map(p => p.key);
+	if (filterList.includes('senderId') || filterList.includes('recipientId')
+		|| filterList.includes('senderPublicKey') || filterList.includes('recipientPublicKey')) {
+		return filters.filter(p => p.key !== 'address');
+	}
+	return filters;
 };
 
 Pagination.prototype.loadData = Pagination.prototype.getData;

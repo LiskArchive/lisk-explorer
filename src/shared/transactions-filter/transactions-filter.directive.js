@@ -74,6 +74,12 @@ const TransactionsConstructor = function ($rootScope, $scope, $stateParams, $ele
 	$scope.performSearch = () => {
 		let query;
 		if ($scope.currentPage === 'address') {
+			if ($stateParams.senderId !== $stateParams.address) {
+				$stateParams.senderId = undefined;
+			}
+			if ($stateParams.recipientId !== $stateParams.address) {
+				$stateParams.recipientId = undefined;
+			}
 			query = $scope.queryText.split(' ')
 				.map(param => param.split('='))
 				.concat([['address', $stateParams.address]])
