@@ -142,7 +142,7 @@
     "style-loader": "^0.16.1",
     "supertest": "^3.1.0",
     "webpack": "^2.7.0",
-    "webpack-bundle-analyzer": "^2.13.1",
+    "webpack-bundle-analyzer": "^3.3.2",
     "webpack-dev-server": "^3.4.0",
     "webpack-merge": "^4.1.2"
   }
