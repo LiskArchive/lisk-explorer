@@ -13,7 +13,6 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-const api = require('../lib/api');
 const moment = require('moment');
 const async = require('async');
 const request = require('request');
@@ -21,7 +20,7 @@ const logger = require('../utils/logger');
 const SocketClient = require('../utils/socketClient');
 
 module.exports = function (app, connectionHandler, socket) {
-	const delegates = new api.delegates(app);
+	const delegates = app.delegates;
 	// eslint-disable-next-line no-unused-vars
 	const connection = new connectionHandler('Delegate Monitor:', socket, this);
 	const data = {};
