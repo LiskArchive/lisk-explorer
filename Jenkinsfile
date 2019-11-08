@@ -54,12 +54,12 @@ pipeline {
 		}
 		stage ('Start Lisk') {
 			steps {
-				sh 'cd utils/docker/core-explorer && make coldstart'
+				sh 'cd test/docker/core-explorer && make coldstart'
 			}
 			post {
 				failure {
-					sh 'cd utils/docker/core-explorer && make logs'
-					sh 'cd utils/docker/core-explorer && make mrproper'
+					sh 'cd test/docker/core-explorer && make logs'
+					sh 'cd test/docker/core-explorer && make mrproper'
 				}
 			}
 		}
