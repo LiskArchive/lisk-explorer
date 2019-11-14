@@ -6,4 +6,4 @@ services:
     depends_on:
       - lisk
     networks:
-      - core_network
+      - lisk

@@ -21,13 +21,13 @@ up:
 	$(compose) up --detach
 
 coldstart: up
-	cp ../../tests/data/test_blockchain-explorer.db.gz $(lisk_net)_blockchain.db.gz
-	$(compose) stop lisk gateway core legacy
+	cp ../../test/data/test_blockchain-explorer.db.gz $(lisk_net)_blockchain.db.gz
+	$(compose) stop lisk lisk-explorer
 	# $(compose) start db
 	$(compose) run --rm db-task dropdb --if-exists $(lisk_db)
 	$(compose) run --rm db-task createdb $(lisk_db)
 	gzip --decompress --to-stdout $(lisk_net)_blockchain.db.gz |$(compose) run --rm db-task psql >/dev/null
-	$(compose) start lisk gateway core legacy
+	$(compose) start lisk lisk-explorer
 
 logs:
 	$(compose) logs
@@ -41,3 +41,6 @@ down:
 	$(compose) down --volumes --remove-orphans
 
 mrproper: down clean
+
+test:
+	$(compose) exec lisk-explorer
