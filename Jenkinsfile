@@ -131,3 +131,92 @@ pipeline {
 		}
 	}
 }
+
+
+def waitForHttp(url) {
+	timeout(1) {
+		waitUntil {
+			script {
+				def api_available = sh script: "curl --silent --fail ${url} >/dev/null", returnStatus: true
+				return (api_available == 0)
+			}
+		}
+	}
+}
+
+pipeline {
+	agent { node { label 'lisk-service' } }
+	stages {
+
+
+		stage('Build docker image') {
+			steps {
+				sh '''
+				docker build --tag=lisk/explorer ./
+				'''
+			}
+		}
+		// stage ('Build dependencies') {
+		// 	steps {
+		// 		sh 'npm ci'
+		// 		dir('./components/gateway') { sh 'npm ci' }
+		// 		dir('./components/core') { sh 'npm ci' }
+		// 		dir('./components/legacy') { sh 'npm ci' }
+		// 	}
+		// }
+		stage ('Run ESLint') {
+			steps {
+				sh 'npm run eslint:legacy'
+				sh 'npm run eslint:gateway'
+				sh 'npm run eslint:core'
+			}
+		}
+		// stage('Run unit tests') {
+		// 	steps {
+		// 		sh '''
+		// 		REDIS_INSTANCE_ID=$(docker run -P -d redis:5-alpine)
+		// 		REDIS_PORT=$(docker inspect --format='{{(index (index .NetworkSettings.Ports "6379/tcp") 0).HostPort}}' $REDIS_INSTANCE_ID)
+		// 		echo $REDIS_INSTANCE_ID > REDIS_INSTANCE_ID.txt
+		// 		npm run test:unit
+		// 		'''
+		// 	}
+		// 	post {
+		// 		cleanup {
+		// 			sh 'docker rm -f $(cat REDIS_INSTANCE_ID.txt)'
+		// 		}
+		// 	}
+		// }
+		stage('Run custom blockchain tests') {
+			steps {
+				// Run Lisk Core & Lisk Service
+				sh 'cd utils/core-jenkins && make coldstart'
+
+				// Test Legacy API
+				// FIXME: Due to a problem with gateway readyness reporting
+				//        the tests can be performed only in that order. 
+				//        https://github.com/LiskHQ/lisk-service/issues/178
+				// FIXME: These tests can be run in parallel in the future.
+				waitForHttp('http://localhost:9901/api/getLastBlocks');
+				sleep(10)
+				sh 'npm run test:integration:legacy:local'
+
+				// Test Version 1 HTTP API
+				waitForHttp('http://localhost:9901/api/v1/blocks');
+				sh 'npm run test:integration:v1:local'
+
+				// Test WebSocket JSON-RPC API
+				waitForHttp('http://localhost:9901/api/v1/blocks');
+				sh 'npm run test:integration:v1:socketRpc:local'
+			}
+			post {
+				failure {
+					sh 'cd utils/core-jenkins && make logs'
+				}
+				cleanup {
+					sh 'cd utils/core-jenkins && make mrproper'
+				}
+			}
+		}
+	}
+}
+// vim: filetype=groovy

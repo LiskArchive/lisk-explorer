@@ -6,6 +6,8 @@ WORKDIR /home/lisk/lisk-explorer
 USER lisk
 RUN npm ci
 COPY --chown=lisk:lisk . /home/lisk/lisk-explorer/
+RUN mkdir -p public
+RUN mkdir -p logs
 RUN npm run build
 
 

@@ -1,0 +1,14 @@
+version: "3"
+# Add your custom configuration here.
+# See README.md for examples.
+services:
+
+  lisk-explorer:
+    ports:
+      - "127.0.0.1:6040:6040"
+    networks:
+      - localhost
+
+networks:
+  localhost:
+    external: true

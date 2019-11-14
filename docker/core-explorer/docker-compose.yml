@@ -8,9 +8,7 @@ services:
     image: lisk/core:${ENV_LISK_VERSION}
     volumes:
       - lisk-logs:/home/lisk/lisk/logs/
-    ports:
-      - ${ENV_LISK_HTTP_PORT}:${ENV_LISK_HTTP_PORT}
-      - ${ENV_LISK_WS_PORT}:${ENV_LISK_WS_PORT}
+
     networks:
       - lisk
     depends_on:

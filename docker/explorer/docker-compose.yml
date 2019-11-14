@@ -6,17 +6,12 @@ services:
     depends_on:
       - explorer-cache
       - freegeoip
-    ports:
-      - "127.0.0.1:6040:6040"
     networks:
       - lisk-explorer
-      - localhost
     restart: on-failure
-    env_file:
-      - ./docker-lisk-core.env
     environment:
-      - LISK_HOST=node.lisk.io
-      - LISK_PORT=8000
+      - LISK_HOST=${EXPLORER_LISK_HOST}
+      - LISK_PORT=${EXPLORER_LISK_PORT}
       - REDIS_HOST=explorer-cache
       - FREEGEOIP_HOST=freegeoip
 
@@ -45,6 +40,5 @@ services:
 
 networks:
   lisk-explorer:
-  localhost:
-    external: true
+
 

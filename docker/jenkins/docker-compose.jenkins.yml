@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+
+  lisk-explorer:
+    depends_on:
+      - lisk
+    networks:
+      - core_network
