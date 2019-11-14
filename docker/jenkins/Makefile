@@ -42,5 +42,11 @@ down:
 
 mrproper: down clean
 
+eslint:
+	$(compose) exec lisk-explorer npm run eslint
+
 test:
-	$(compose) exec lisk-explorer
+	$(compose) exec lisk-explorer npm run test
+
+http_status:
+	$(compose) exec lisk-explorer curl --silent --fail 'http://localhost:6040/api/getLastBlocks' >/dev/null
