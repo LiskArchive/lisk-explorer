@@ -13,12 +13,11 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-const api = require('../lib/api');
 const logger = require('./logger');
 const request = require('request-promise');
 
 module.exports = function (app, config, client) {
-	const delegates = new api.delegates(app);
+	const delegates = app.delegates;
 
 	function KnownAddresses() {
 		this.latestDelegateRegisteredAt = -1;

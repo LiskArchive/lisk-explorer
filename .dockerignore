@@ -4,3 +4,6 @@
 .travis.yml
 Dockerfile
 node_modules/
+docker/
+logs/
+public/

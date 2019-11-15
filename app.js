@@ -26,6 +26,7 @@ const logger = require('./utils/logger');
 const request = require('request');
 
 const app = express();
+const api = require('./lib/api');
 const utils = require('./utils');
 
 program
@@ -48,8 +49,15 @@ if (program.redisPort) {
 }
 const client = require('./redis')(config);
 
+app.locals.redis = client;
+app.use((req, res, next) => {
+	req.redis = client;
+	return next();
+});
+
 app.candles = new utils.candles(config, client);
 app.exchange = new utils.exchange(config);
+app.delegates = new api.delegates(app);
 app.knownAddresses = new utils.knownAddresses(app, config, client);
 app.orders = new utils.orders(config, client);
 
@@ -84,12 +92,6 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.locals.redis = client;
-app.use((req, res, next) => {
-	req.redis = client;
-	return next();
-});
 
 const morgan = require('morgan');
 
@@ -243,6 +245,7 @@ const startServer = (cb) => {
 
 				const io = require('socket.io').listen(server);
 				require('./sockets')(app, io);
+				app.delegates.loadAllDelegates();
 				app.knownAddresses.load();
 				serverStatus = status.OK;
 			}
