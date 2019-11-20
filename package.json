@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "amstock3": "github:amcharts/amstock3",
-    "angular": "<=1.6.10",
+    "angular": "<=1.7.10",
     "angular-animate": "~1.6.4",
     "angular-cookies": "~1.6.10",
     "angular-gettext": "^2.3.9",
