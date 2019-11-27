@@ -36,7 +36,7 @@ To make it running at least one Lisk Core/SDK node with public API is needed.
 Clone the Lisk Explorer Repository:
 
 ```
-git clone https://github.com/LiskHQ/lisk-explorer.git
+git clone https://github.com/Leasehold/lisk-explorer.git
 cd lisk-explorer
 ```
 
