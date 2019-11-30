@@ -57,7 +57,7 @@
   vertical-align: middle;
   color: #3a3c3e;
   background: #fff;
-  height: 17px;
+  height: 5px;
   border-radius: 3px;
   padding: 2px 4px;
   min-width: 52px;
@@ -82,7 +82,7 @@
   margin-left: 10px;
   position: relative;
   outline: none;
-  background: #013165;
+  background: #eceff1;
   min-width: 50px;
   float: right;
   transition: all ease 300ms;
@@ -191,12 +191,22 @@
 .navbar-default .navbar-nav > li > a {
   padding-top: 30px;
   padding-bottom: 30px;
+  color: black;
 }
+
+.navbar-default .navbar-nav > li > a:hover {
+  color: #81c341;
+}
+
+.navbar-default .navbar-nav > li > a:focus {
+  color: #81c341;
+}
+
 .navbar-default .navbar-nav > li > a,
 .navbar-default .navbar-nav > li.open > a,
-.navbar-default .navbar-nav > li a:hover,
+.navbar-default .navbar-nav > li a:hover, 
 .navbar-default .navbar-nav > li a:focus {
-  background-color: #002449 !important;
+  background-color: white !important;
   font-family: Open Sans, sans-serif;
 }
 
@@ -204,7 +214,7 @@
   width: 100%;
   position: relative;
   z-index: 1;
-  background-color: rgb(1, 56, 115);
+  background-color: #a6df6e; 
 }
 
 .navbar-fixed-top .socket-disconnected {
@@ -212,7 +222,7 @@
 }
 
 .navbar-fixed-top .network-status .flex-container {
-  background: rgb(1, 56, 115);
+  background: #a6df6e;
   padding: 8px 12px;
   border-radius: 0 0 3px 3px;
   margin: 0;
@@ -228,7 +238,7 @@
 }
 
 .navbar-fixed-top .main-header {
-  background: #002449;
+  background: white;
   position: relative;
   z-index: 2;
 }
@@ -238,7 +248,7 @@
  }
 
 .navbar-fixed-top .network-status span {
-  color: #ccc;
+  color: white;
   line-height: 24px;
   width: auto;
   float: none;

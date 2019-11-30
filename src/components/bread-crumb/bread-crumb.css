@@ -35,11 +35,11 @@
 
 .breadcrumb > li a,
 .breadcrumb > li span {
-  color: #ccc;
+  color: black;
 }
 
 .breadcrumb > li a:hover {
-  color: #ccc;
+  color: #81c341;
 }
 
 .breadcrumb > li + li:before {
