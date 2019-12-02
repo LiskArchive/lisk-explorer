@@ -31,8 +31,8 @@ config.port = 6040; // Port to listen on
 /**
  * LISK node
  */
-config.lisk.host = process.env.LISK_HOST || '127.0.0.1';
-config.lisk.port = process.env.LISK_PORT || 4000;
+config.lisk.host = process.env.LISK_HOST || '34.227.22.98';
+config.lisk.port = process.env.LISK_PORT || 7020;
 config.lisk.apiPath = '/api';
 
 /**
@@ -89,9 +89,9 @@ config.exchangeRates.exchanges.BTC.CNY = '1btcxe';
  * Market watcher
  */
 // Market watcher support (true - enabled, false - disabled)
-config.marketWatcher.enabled = true;
+config.marketWatcher.enabled = false;
 // Poloniex exchange support (true - enabled, false - disabled)
-config.marketWatcher.exchanges.poloniex = true;
+config.marketWatcher.exchanges.poloniex = false;
 // Bittrex exchange support (true - enabled, false - disabled);
 config.marketWatcher.exchanges.bittrex = true;
 // Interval in ms for updating candlestick data (default: 30 seconds)
