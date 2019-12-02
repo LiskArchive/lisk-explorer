@@ -39,7 +39,7 @@ const HeaderConstructor = function ($rootScope) {
 			(!$rootScope.currency.tickers ||
 			!$rootScope.currency.tickers.LSK ||
 			!$rootScope.currency.tickers.LSK[$rootScope.currency.symbol])) {
-			$rootScope.currency.symbol = 'LSK';
+			$rootScope.currency.symbol = 'LSH';
 		}
 	};
 

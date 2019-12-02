@@ -18,7 +18,7 @@ import AppFilters from './filters.module';
 AppFilters.filter('currencyCodeToName', () => (currencyName) => {
 	const currency = {
 		LSK: 'Lisk',
-
+		LSH: 'Leasehold',
 		// Common
 		USD: 'US Dollar',
 		EUR: 'Euro',
