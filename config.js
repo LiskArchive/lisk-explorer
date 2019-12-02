@@ -63,7 +63,7 @@ config.log.level = 'info';
  * Header price tickers, Currency switcher
  */
 // Exchange rates support (true - enabled, false - disabled)
-config.exchangeRates.enabled = true;
+config.exchangeRates.enabled = false;
 // Interval in ms for checking exchange rates (default: 30 seconds)
 config.exchangeRates.updateInterval = 30000;
 
@@ -93,7 +93,7 @@ config.marketWatcher.enabled = false;
 // Poloniex exchange support (true - enabled, false - disabled)
 config.marketWatcher.exchanges.poloniex = false;
 // Bittrex exchange support (true - enabled, false - disabled);
-config.marketWatcher.exchanges.bittrex = true;
+config.marketWatcher.exchanges.bittrex = false;
 // Interval in ms for updating candlestick data (default: 30 seconds)
 config.marketWatcher.candles.updateInterval = 30000;
 // Build candles based on trades form last 30 days
