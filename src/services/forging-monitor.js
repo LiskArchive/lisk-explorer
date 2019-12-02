@@ -73,9 +73,9 @@ const ForgingMonitor = function (forgingStatus) {
 		unprocessed += totals.staleStatus || 0;
 
 		if (unprocessed > 0) {
-			return (101 - unprocessed);
+			return (39 - unprocessed);
 		}
-		return 101;
+		return 39;
 	};
 };
 

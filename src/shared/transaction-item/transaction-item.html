@@ -51,11 +51,11 @@
 		<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">
 			Transaction unconfirmed!&nbsp;<i class="glyphicon glyphicon-alert"></i>
 		</span>
-		<span data-ng-if="(block.confirmations > 0  && block.confirmations < 101) || (tx.confirmations > 0 && tx.confirmations < 101)" 
+		<span data-ng-if="(block.confirmations > 0  && block.confirmations < 39) || (tx.confirmations > 0 && tx.confirmations < 39)" 
 			class="text-warning">
-			{{block.confirmations || tx.confirmations}}&nbsp;/&nbsp;101&nbsp;<i class="glyphicon glyphicon-time"></i>
+			{{block.confirmations || tx.confirmations}}&nbsp;/&nbsp;39&nbsp;<i class="glyphicon glyphicon-time"></i>
 		</span>
-		<span data-ng-if="block.confirmations >= 101 || tx.confirmations >= 101"
+		<span data-ng-if="block.confirmations >= 39 || tx.confirmations >= 39"
 			class="text-success"
 			data-uib-tooltip="{{block.confirmations || tx.confirmations}} confirmations">
 			Confirmed&nbsp;<i class="glyphicon glyphicon-ok"></span>
@@ -65,12 +65,12 @@
 		<span data-ng-if="!block.confirmations && !tx.confirmations" class="text-danger">
 			<i class="glyphicon glyphicon-alert">
 		</span>
-		<span data-ng-if="(block.confirmations > 0  && block.confirmations < 101) || (tx.confirmations > 0 && tx.confirmations < 101)" 
+		<span data-ng-if="(block.confirmations > 0  && block.confirmations < 39) || (tx.confirmations > 0 && tx.confirmations < 39)" 
 			class="text-warning" 
-			data-uib-tooltip="{{block.confirmations || tx.confirmations}}&nbsp;confirmations (101&nbsp;required)">
+			data-uib-tooltip="{{block.confirmations || tx.confirmations}}&nbsp;confirmations (39&nbsp;required)">
 			<i class="glyphicon glyphicon-time">
 		</span>
-		<span data-ng-if="block.confirmations >= 101 || tx.confirmations >= 101"
+		<span data-ng-if="block.confirmations >= 39 || tx.confirmations >= 39"
 			class="text-success"
 			data-uib-tooltip="{{block.confirmations || tx.confirmations}}&nbsp;confirmations">
 			<i class="glyphicon glyphicon-ok"></span>

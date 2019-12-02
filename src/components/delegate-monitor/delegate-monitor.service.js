@@ -69,7 +69,7 @@ const DelegateMonitor = function ($scope, $rootScope, forgingMonitor) {
 
 	this.updateTotals = (active) => {
 		$scope.totalDelegates = active.totalCount || 0;
-		$scope.totalActive = 101;
+		$scope.totalActive = 39;
 
 		if ($scope.totalDelegates > $scope.totalActive) {
 			$scope.totalStandby = ($scope.totalDelegates - $scope.totalActive);
