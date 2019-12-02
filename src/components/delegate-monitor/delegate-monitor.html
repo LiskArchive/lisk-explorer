@@ -35,7 +35,7 @@
 			</div>
 			<div class="col-xs-6 col-sm-3">
 				<div class="pull-left total-forged">
-					<p class="small-title">Total Forged <span class="text-muted">({{$root.currency.symbol}})</span></p>
+					<p class="small-title">Total Deflated <span class="text-muted">({{$root.currency.symbol}})</span></p>
 					<p class="big-details">
 						<span class="lisk">{{vm.totalForged || 0 | currency:$root.currency:vm.decimalPlaceCrypto:vm.decimalPlaceFiat}}</span>
 					</p>
@@ -61,7 +61,7 @@
 			</div>
 			<div class="col-xs-6 col-sm-3">
 				<div class="pull-left next-forgers">
-					<p class="small-title">Next Forgers</p>
+					<p class="small-title">Next Producers</p>
 					<div>
 						<div data-ng-if="!vm.nextForgers || vm.nextForgers.length === 0">
 							<span>Waiting for next forgers <i class="fa fa-spinner fa-spin"></i></span>
@@ -102,7 +102,7 @@
 					</p>
 				</div>
 			</div>
-			<div class="col-xs-6 col-sm-3">
+			<!-- <div class="col-xs-6 col-sm-3">
 				<div class="pull-left best-forger">
 					<p class="small-title">Best Forger</p>
 					<p class="big-details" data-ng-switch="!!vm.bestForger">
@@ -112,7 +112,7 @@
 					<p class="text-muted lisk">{{vm.bestForger.forged || 0 | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}} forged</p>
 					<p class="text-muted time-since">since registration</p>
 				</div>
-			</div>
+			</div>  -->
 		</div>
 	</div>
 	<div class="row">
