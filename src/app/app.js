@@ -52,7 +52,6 @@ import '../components/bread-crumb';
 import '../components/market-watcher';
 import '../components/network-monitor';
 import '../components/information-banner';
-import '../components/cookies-banner';
 import '../components/404';
 
 
@@ -91,7 +90,6 @@ const App = angular.module('lisk_explorer', [
 	'lisk_explorer.networkMonitor',
 	'lisk_explorer.marketWatcher',
 	'lisk_explorer.infoBanner',
-	'lisk_explorer.cookiesBanner',
 	'lisk_explorer.404',
 ]);
 
