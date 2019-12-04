@@ -37,8 +37,8 @@ const HeaderConstructor = function ($rootScope) {
 		// When ticker for user-stored currency is not available - switch to LSK temporarily
 		if ($rootScope.currency.symbol !== 'LSH' &&
 			(!$rootScope.currency.tickers ||
-			!$rootScope.currency.tickers.LSK ||
-			!$rootScope.currency.tickers.LSK[$rootScope.currency.symbol])) {
+			!$rootScope.currency.tickers.LSH ||
+			!$rootScope.currency.tickers.LSH[$rootScope.currency.symbol])) {
 			$rootScope.currency.symbol = 'LSH';
 		}
 	};

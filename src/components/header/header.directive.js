@@ -24,7 +24,7 @@ import './header.css';
 AppHeader.directive('mainHeader', ($socket, $rootScope, Header, $timeout) => {
 	const HeaderLink = () => {
 		$rootScope.currency = {
-			symbol: 'LSK',
+			symbol: 'LSH',
 		};
 
 		$rootScope.connected = true;

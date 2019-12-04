@@ -17,4 +17,4 @@ import AppServices from './services.module';
 
 
 AppServices.factory('isFiat',
-	() => currency => (currency.symbol !== 'LSK' && currency.symbol !== 'BTC'));
+	() => currency => (currency.symbol !== 'LSH' && currency.symbol !== 'BTC'));

@@ -38,7 +38,7 @@
 <path d="M159.697 25.7276C159.283 25.7276 159.074 25.5181 159.074 25.1043V8.76666C159.074 8.36857 159.273 8.16952 159.671 8.16952H164.485C167.397 8.16952 169.571 8.83999 171.022 10.1757C172.468 11.5167 173.19 13.7114 173.19 16.7757C173.19 19.9867 172.473 22.2809 171.032 23.6586C169.592 25.0362 167.418 25.7276 164.511 25.7276H159.697ZM162.562 11.26V22.6371H164.385C166.198 22.6371 167.528 22.2181 168.377 21.38C169.225 20.5419 169.65 19.0071 169.65 16.7757C169.65 14.6962 169.22 13.2609 168.366 12.4595C167.512 11.6633 166.177 11.26 164.364 11.26H162.562Z" fill="#1D1D1F"/>
 </svg>
 						</figure>
-						<span class="nethash text-center" ng-if="showNethash(blockStatus.nethash | nethash)">{{blockStatus.nethash | nethash}}</span>
+						<!-- <span class="nethash text-center" ng-if="showNethash(blockStatus.nethash | nethash)">{{blockStatus.nethash | nethash}}</span> -->
 					</a>
 				</div>
 				<span class="hidden-xs">
@@ -85,7 +85,7 @@
 				<span class="height"><b>Height:</b> {{blockStatus.height | number:0}}</span>
 				<span class="supply"><b>Supply:</b> {{blockStatus.supply | lisk | number:0}}</span>
 				<span class="lisk-btc"><b>LSH/BTC:</b> {{currency.tickers.LSK.BTC || 'N/A'}}</span>
-				<span class="lisk-usd"><b>LSH/{{currency.tickers.LSK[currency.symbol] && currency.symbol !== 'BTC' ? currency.symbol : 'USD'}}:</b> {{currency.tickers.LSK[currency.symbol] && currency.symbol !== 'BTC' ? (currency.tickers.LSK[currency.symbol] | number:4) : (currency.tickers.LSK.USD | number:4) || 'N/A'}}</span>
+				<span class="lisk-usd"><b>LSH/{{currency.tickers.LSH[currency.symbol] && currency.symbol !== 'BTC' ? currency.symbol : 'USD'}}:</b> {{currency.tickers.LSH[currency.symbol] && currency.symbol !== 'BTC' ? (currency.tickers.LSH[currency.symbol] | number:4) : (currency.tickers.LSK.USD | number:4) || 'N/A'}}</span>
 			</div>
 		</div>
 	</nav>
