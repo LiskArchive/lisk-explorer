@@ -26,7 +26,7 @@ config.uiMessage.end = process.env.UI_MESSAGE_END || ''; // optional, ISO Date-T
  * CONFIGURATION
  */
 config.host = '0.0.0.0'; // Interface to listen on, 0.0.0.0 to listen on all available
-config.port = 6040; // Port to listen on
+config.port = 443; // Port to listen on
 
 /**
  * LISK node
@@ -55,9 +55,9 @@ config.cacheTTL = 20;
 // Collect logs (true - enabled, false - disabled)
 config.log.enabled = true;
 // Output for logs - can be device file or ordinary path
-config.log.output = ['/dev/stdout', './logs/explorer.log'];
+config.log.output = ['./logs/explorer.log'];
 // Log level - (trace, debug, info, warn, error)
-config.log.level = 'info';
+config.log.level = 'debug';
 
 /**
  * Header price tickers, Currency switcher

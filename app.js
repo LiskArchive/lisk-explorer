@@ -14,6 +14,7 @@
  *
  */
 const express = require('express');
+const forceSSL = require('express-force-ssl');
 let config = require('./config');
 const routes = require('./api');
 const path = require('path');
@@ -41,6 +42,7 @@ if (program.config) {
 	// eslint-disable-next-line import/no-dynamic-require
 	config = require(path.resolve(process.cwd(), program.config));
 }
+
 app.set('host', program.host || config.host);
 app.set('port', program.port || config.port);
 
@@ -73,14 +75,15 @@ app.use((req, res, next) => {
 	res.setHeader('X-Frame-Options', 'DENY');
 	res.setHeader('X-Content-Type-Options', 'nosniff');
 	res.setHeader('X-XSS-Protection', '1; mode=block');
+        res.setHeader('Access-Control-Allow-Origin', '*')
 
 	/* eslint-disable */
 	const connectSrc = `ws://${req.get('host')} wss://${req.get('host')}`;
 	const contentSecurityPolicy = [
-		`default-src 'self';`,
+		`default-src 'self' '*';`,
 		`frame-ancestors 'none';`,
 		//`connect-src 'self' ${connectSrc} https://www.google-analytics.com https://*.crazyegg.com;`,
-		`img-src 'self' https:;`,
+		`img-src 'self' '*' https:;`,
 		`style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;`,
 		`script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.ipify.org/ https://*.crazyegg.com/ http://trk.cetrk.com/;`,
 		`font-src 'self' https://fonts.gstatic.com data:`,
@@ -231,14 +234,23 @@ const SERVER_FAILURE_TIMEOUT = 5000; // ms
 const status = { NOT_RUNNING: 0, OK: 1 };
 let serverStatus = status.NOT_RUNNING;
 
+const fs = require('fs');
+const https = require('https');
+
+const options = {
+  key: fs.readFileSync('explorer_leasehold_io.key'),
+  cert: fs.readFileSync('explorer_leasehold_io.cert')
+};
+
 const startServer = (cb) => {
 	getNodeConstants().then((result) => {
 		logger.info(`Connected to the node ${app.get('lisk address')}, Lisk Core version ${result.version}`);
 		Object.keys(result).forEach((item) => {
 			app.set(`node.${item}`, result[item]);
 		});
-		const server = app.listen(app.get('port'), app.get('host'), (err) => {
-			if (err) {
+                const server = https.createServer(options, app);
+		server.listen(app.get('port'), app.get('host'), (err) => {	
+                        if (err) {
 				logger.info(err);
 			} else {
 				logger.info(`Lisk Explorer started at ${app.get('host')}:${app.get('port')}`);
