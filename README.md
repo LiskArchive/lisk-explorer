@@ -1,12 +1,12 @@
 ![Logo](./docs/assets/banner_explorer.png)
 
-# Lisk Explorer
+# Leasehold Explorer
 
-Lisk Explorer is a blockchain explorer designed for interaction with Lisk network. It is a part of [Lisk Ecosystem](https://lisk.io), a blockchain platform based on DPoS consensus protocol.
+Leasehold Explorer is a blockchain explorer designed for interaction with Lisk network. It is a part of [Lisk Ecosystem](https://lisk.io), a blockchain platform based on DPoS consensus protocol.
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
-Lisk Explorer is a feature-rich single page browser application with following functionalities:
+Leasehold Explorer is a feature-rich single page browser application with following functionalities:
 
 - [Transaction browser](https://explorer.lisk.io/txs/)
   - Shows transactions with their details stored in the blockchain
@@ -29,11 +29,11 @@ Lisk Explorer is a feature-rich single page browser application with following f
   - Shows active and disconnected nodes
   - Public IPs are shown with domain names and geographical location
 
-To make it running at least one Lisk Core/SDK node with public API is needed.
+To make it running at least one Leasehold Core node with public API is needed.
 
 ## Installation
 
-Clone the Lisk Explorer Repository:
+Clone the Leasehold Explorer Repository:
 
 ```
 git clone https://github.com/Leasehold/lisk-explorer.git
@@ -66,11 +66,11 @@ The following command will remove all containers defined by the `docker-compose.
 docker-compose down --volumes
 ```
 
-For further information about managing and configuring Lisk Explorer, see [Run With Docker](/docs/run_with_docker.md).
+For further information about managing and configuring Leasehold Explorer, see [Run With Docker](/docs/run_with_docker.md).
 
 ### Installation From Source
 
-For further information about managing and configuring Lisk Explorer, see [Run From Source](/docs/run_from_source.md).
+For further information about managing and configuring Leasehold Explorer, see [Run From Source](/docs/run_from_source.md).
 
 ## Running tests
 
@@ -88,29 +88,4 @@ The test suite is described in [Run Tests](/docs/run_tests.md) section.
 | Want to involve community | [Join community gitter](https://gitter.im/LiskHQ/lisk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) |
 | Found a security issue    | [See our bounty program](https://blog.lisk.io/announcing-lisk-bug-bounty-program-5895bdd46ed4)                                   |
 
-## Contributors
 
-https://github.com/LiskHQ/lisk-explorer/graphs/contributors
-
-## License
-
-Copyright © 2016-2019 Lisk Foundation
-
-This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
-
-This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details.
-
-You should have received a copy of the [GNU General Public License](./LICENSE) along with this program.  If not, see <http://www.gnu.org/licenses/>.
-
-***
-
-This program also incorporates work previously released with lisk-explorer `1.1.0` (and earlier) versions under the [MIT License](https://opensource.org/licenses/MIT). To comply with the requirements of that license, the following permission notice, applicable to those parts of the code only, is included below:
-
-Copyright © 2016-2017 Lisk Foundation
-Copyright © 2015 Crypti
-
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
