@@ -33,6 +33,7 @@ config.port = 443; // Port to listen on
  */
 config.lisk.host = process.env.LISK_HOST || '34.227.22.98';
 config.lisk.port = process.env.LISK_PORT || 7020;
+config.lisk.http = process.env.LISK_HTTP || 'http';
 config.lisk.apiPath = '/api';
 
 /**
