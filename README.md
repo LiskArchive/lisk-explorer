@@ -1,4 +1,4 @@
-![Logo](./docs/assets/banner_explorer.png)
+
 
 # Leasehold Explorer
 
