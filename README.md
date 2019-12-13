@@ -36,8 +36,8 @@ To make it running at least one Leasehold Core node with public API is needed.
 Clone the Leasehold Explorer Repository:
 
 ```
-git clone https://github.com/Leasehold/lisk-explorer.git
-cd lisk-explorer
+git clone https://github.com/Leasehold/leasehold-explorer.git
+cd leasehold-explorer
 ```
 
 ### Installation with Docker (recommended)
