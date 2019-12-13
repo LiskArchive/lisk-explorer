@@ -14,7 +14,6 @@
  *
  */
 const express = require('express');
-const forceSSL = require('express-force-ssl');
 let config = require('./config');
 const routes = require('./api');
 const path = require('path');
@@ -240,8 +239,8 @@ const fs = require('fs');
 const https = require('https');
 
 const options = {
-  key: fs.readFileSync('explorer_leasehold_io.key'),
-  cert: fs.readFileSync('explorer_leasehold_io.cert')
+  key: fs.readFileSync('../certs/explorer_leasehold_io.key'),
+  cert: fs.readFileSync('../certs/explorer_leasehold_io.cert')
 };
 
 const startServer = (cb) => {
