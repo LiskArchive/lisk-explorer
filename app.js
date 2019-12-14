@@ -29,6 +29,8 @@ const app = express();
 const api = require('./lib/api');
 const utils = require('./utils');
 
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
 program
 	.version(packageJson.version)
 	.option('-c, --config <path>', 'config file path')
