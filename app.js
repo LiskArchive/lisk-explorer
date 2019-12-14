@@ -81,10 +81,10 @@ app.use((req, res, next) => {
 	/* eslint-disable */
 	const connectSrc = `ws://${req.get('host')} wss://${req.get('host')}`;
 	const contentSecurityPolicy = [
-		`default-src 'self' '*';`,
+		`default-src 'self';`,
 		`frame-ancestors 'none';`,
 		//`connect-src 'self' ${connectSrc} https://www.google-analytics.com https://*.crazyegg.com;`,
-		`img-src 'self' '*' https:;`,
+		`img-src 'self' https:;`,
 		`style-src 'self' 'unsafe-inline' https://fonts.googleapis.com;`,
 		`script-src 'self' 'unsafe-eval' 'unsafe-inline' https://*.ipify.org/ https://*.crazyegg.com/ http://trk.cetrk.com/;`,
 		`font-src 'self' https://fonts.gstatic.com data:`,
