@@ -20,8 +20,8 @@ const util = require('util');
 class SocketClient {
 	constructor(path) {
 		this.socket = io.connect(path, {
-			transports: ['websocket'],
-		});
+			transports: ['websocket'], rejectUnauthorized: false,
+	});
 
 		this.socket.on('connect', () => {
 			logger.info(`${path}: SocketClient is connected`);
