@@ -29,7 +29,7 @@ const app = express();
 const api = require('./lib/api');
 const utils = require('./utils');
 
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+// process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 program
 	.version(packageJson.version)
@@ -242,7 +242,8 @@ const https = require('https');
 
 const options = {
   key: fs.readFileSync('../certs/explorer_leasehold_io.key'),
-  cert: fs.readFileSync('../certs/explorer_leasehold_io.cert')
+  cert: fs.readFileSync('../certs/explorer_leasehold_io.cert'),
+  ca: fs.readFileSync('../certs/explorer_leasehold_io.ca-bundle')
 };
 
 const startServer = (cb) => {
