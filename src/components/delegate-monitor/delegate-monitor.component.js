@@ -49,6 +49,20 @@ const DelegateMonitorConstructor = function (delegateMonitor, orderBy, $rootScop
 
 	vm.decimalPlaceCrypto = 0;
 	vm.decimalPlaceFiat = 0;
+
+	vm.getDeflation = () => {
+		$http.get('/api/getAccount', {
+			params: {
+				address: '0L',
+			},
+		}).then((resp) => {
+			if (resp.data.success) {
+				vm.totalDeflated = resp.data.balance;
+			}
+		});
+	};
+
+	vm.getDeflation();
 };
 
 AppDelegateMonitor.component('delegateMonitor', {
