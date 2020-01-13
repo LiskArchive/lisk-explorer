@@ -97,7 +97,7 @@ module.exports = function (app, config, client) {
 						logger.warn('KnownAddresses:', `Failed to get known addresses from ${config.knownAccountsUrl}, falling back to the local copy`);
 						knownNetworks = require('../knowledge/networks.json') || {};
 						// eslint-disable-next-line import/no-dynamic-require
-						knownAccounts = require(`../knowledge/known_${knownNetworks[nethash]}.json`) || {};
+						knownAccounts = knownNetworks[nethash] ? require(`../knowledge/known_${knownNetworks[nethash]}.json`) : {};
 					}
 
 					Object.keys(knownAccounts).forEach((address) => {
