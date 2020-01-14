@@ -5,7 +5,6 @@ services:
     image: lisk/explorer:latest
     depends_on:
       - explorer-cache
-      - freegeoip
     networks:
       - lisk-explorer
     restart: on-failure
@@ -13,7 +12,8 @@ services:
       - LISK_HOST=${EXPLORER_LISK_HOST}
       - LISK_PORT=${EXPLORER_LISK_PORT}
       - REDIS_HOST=explorer-cache
-      - FREEGEOIP_HOST=freegeoip
+      - FREEGEOIP_HOST=geoip.lisk.io
+      - FREEGEOIP_PORT=80
 
   explorer-cache:
     image: redis:alpine
@@ -30,12 +30,6 @@ services:
     environment:
       - REDIS_HOST=explorer-cache
     command: ./node_modules/grunt-cli/bin/grunt candles:build
-
-  freegeoip:
-    image: fiorix/freegeoip
-    networks:
-      - lisk-explorer
-    restart: on-failure
 
 
 networks:
