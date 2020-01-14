@@ -85,7 +85,7 @@ docker run -p 6040:6040 \
 	-e LISK_HOST=<LISK_NODE_IP> \
 	-e LISK_PORT=<LISK_NODE_PORT> \
 	-e REDIS_HOST=lisk-redis \
-	-e FREEGEOIP_HOST=lisk-freegeoip \
+	-e FREEGEOIP_HOST=geoip.lisk.io \
 	--network=lisk-net \
 	--name=lisk-explorer \
 	-d lisk-explorer:1.4.3
