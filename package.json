@@ -23,10 +23,10 @@
     "npm": "6.1.0"
   },
   "scripts": {
-    "start": "npm run start:local",
-    "start:local": "LISK_HOST=localhost LISK_PORT=4000 node app.js",
-    "start:testnet": "LISK_HOST=testnet.lisk.io LISK_PORT=7000 node app.js",
-    "start:mainnet": "LISK_HOST=explorer.lisk.io LISK_PORT=8000 node app.js",
+    "start": "node app.js",
+    "start:local": "LISK_URL_HTTP='http://localhost:4000/api' LISK_URL_WS='ws://localhost:4000' node app.js",
+    "start:testnet": "LISK_URL_HTTP='https://testnet.lisk.io/api' LISK_URL_WS='wss://testnet.lisk.io' node app.js",
+    "start:mainnet": "LISK_URL_HTTP='https://node.lisk.io/api' LISK_URL_WS='wss://node.lisk.io' node app.js",
     "test": "./node_modules/.bin/grunt test --verbose",
     "test:e2e": "protractor protractor.conf.js",
     "test-live": "npm test -- --auto-watch --no-single-run",
