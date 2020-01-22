@@ -31,15 +31,13 @@ config.port = 6040; // Port to listen on
 /**
  * LISK node
  */
-config.lisk.host = process.env.LISK_HOST || '127.0.0.1';
-config.lisk.port = process.env.LISK_PORT || 4000;
-config.lisk.apiPath = '/api';
+config.lisk.http = process.env.LISK_URL_HTTP || 'http://127.0.0.1:4000/api';
+config.lisk.ws = process.env.LISK_URL_WS || 'ws://127.0.0.1:4000';
 
 /**
  * FreeGeoIP server
  */
-config.freegeoip.host = process.env.FREEGEOIP_HOST || '127.0.0.1';
-config.freegeoip.port = process.env.FREEGEOIP_PORT || 8080;
+config.freegeoip = process.env.FREEGEOIP_URL || 'https://geoip.lisk.io';
 
 /**
  * Redis server

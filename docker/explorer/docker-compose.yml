@@ -9,11 +9,10 @@ services:
       - lisk-explorer
     restart: on-failure
     environment:
-      - LISK_HOST=${EXPLORER_LISK_HOST}
-      - LISK_PORT=${EXPLORER_LISK_PORT}
+      - LISK_URL_HTTP=${EXPLORER_LISK_HTTP_URL}
+      - LISK_URL_WS=${EXPLORER_LISK_WS_URL}
       - REDIS_HOST=explorer-cache
-      - FREEGEOIP_HOST=geoip.lisk.io
-      - FREEGEOIP_PORT=80
+      - FREEGEOIP_URL=https://geoip.lisk.io
 
   explorer-cache:
     image: redis:alpine
