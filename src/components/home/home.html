@@ -134,7 +134,7 @@
 								</a>
 							</td>
 							<td class="left-padding-xs">
-								<a class="ellipsis" data-ng-show="tx.type == 0" data-ng-href="{{tx.hrefRecipient}}">
+								<a class="ellipsis" data-ng-show="(tx.type == 0 || tx.type == 8)" data-ng-href="{{tx.hrefRecipient}}">
 									<span class="pull-right hidden-xs">{{tx | txRecipient}}</span>
 									<span class="pull-left visible-xs">{{tx | txRecipient | middleEllipsis:10}}</span>
 								</a>
