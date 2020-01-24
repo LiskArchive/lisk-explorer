@@ -41,7 +41,7 @@
 	<span class="txvalues" data-ng-class="{
 	'tx-outgoing': (tx.type == 0 || tx.type == 8) && address == tx.senderId && tx.senderId != tx.recipientId,
 	'tx-incoming': (tx.type == 0 || tx.type == 8) && address && tx.senderId != address,
-	'tx-other': tx.type != 0 || address === undefined || tx.senderId === tx.recipientId
+	'tx-other': !(tx.type == 0 || tx.type == 8) || address === undefined || tx.senderId === tx.recipientId
 	}">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}
 	</span>
 </td>

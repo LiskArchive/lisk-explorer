@@ -138,7 +138,7 @@
 									<span class="pull-right hidden-xs">{{tx | txRecipient}}</span>
 									<span class="pull-left visible-xs">{{tx | txRecipient | middleEllipsis:10}}</span>
 								</a>
-								<span class="ellipsis" data-ng-show="tx.type >= 1">
+								<span class="ellipsis" data-ng-show="!(tx.type == 0 || tx.type == 8)">
 									<span class="pull-right hidden-xs">{{tx | txRecipient}}</span>
 									<span class="pull-left visible-xs">{{tx | txRecipient | middleEllipsis:12}}</span>
 								</span>
