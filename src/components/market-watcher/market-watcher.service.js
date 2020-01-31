@@ -24,7 +24,7 @@ const MarketWatcher = function ($q, $http, $rootScope, vm) {
 
 	const getCandles = () =>
 		$http.get(['/api/exchanges/getCandles',
-			'?e=', angular.lowercase(vm.exchange),
+			'?e=', angular.$$lowercase(vm.exchange),
 			'&d=', vm.duration].join(''));
 
 	const getStatistics = () => {
@@ -32,7 +32,7 @@ const MarketWatcher = function ($q, $http, $rootScope, vm) {
 			return false;
 		}
 		return $http.get(['/api/exchanges/getStatistics',
-			'?e=', angular.lowercase(vm.exchange)].join(''));
+			'?e=', angular.$$lowercase(vm.exchange)].join(''));
 	};
 
 	const getOrders = () => {
@@ -40,7 +40,7 @@ const MarketWatcher = function ($q, $http, $rootScope, vm) {
 			return false;
 		}
 		return $http.get(['/api/exchanges/getOrders',
-			'?e=', angular.lowercase(vm.exchange)].join(''));
+			'?e=', angular.$$lowercase(vm.exchange)].join(''));
 	};
 
 	const getData = () => {
