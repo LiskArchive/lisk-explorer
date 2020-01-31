@@ -52,7 +52,7 @@
 							<tr>
 								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Recipient</strong></td>
 								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
-									<div data-ng-if="vm.tx.type == 0">
+									<div data-ng-if="(vm.tx.type == 0 || vm.tx.type == 8)">
 											<a href="/address/{{vm.tx.recipientId}}">{{vm.tx.recipientId}}</a>
 										<div data-ng-if="vm.tx.knownRecipient">
 											<span class="owner-name">{{vm.tx.knownRecipient.owner}}</span>
@@ -90,7 +90,7 @@
 				</div>
 			</div>
 			<div class="col-md-6">
-				<div class="table-responsive" data-ng-if="vm.tx.type == 0">
+				<div class="table-responsive" data-ng-if="(vm.tx.type == 0 || vm.tx.type == 8)">
 					<table class="table details tx-type-1-table">
 						<tbody>
 							<tr><td><strong>Transaction details</strong></td><td></td></tr>

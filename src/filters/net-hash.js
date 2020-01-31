@@ -24,7 +24,7 @@ AppFilters.filter('nethash', () => (nethash) => {
 		return 'Testnet';
 	case 'ed14889723f24ecc54871d058d98ce91ff2f973192075c0155ba2b7b70ad2511':
 		return 'Mainnet';
-	case '3b0f31679a60be540fa96094355ccb556459f2df8b34a542db3795ebb5f0e521':
+	case '7158c297294a540bc9ac6e474529c3da38d03ece056e3fa2d98141e6ec54132d':
 		return 'Betanet';
 	default:
 		return 'local';

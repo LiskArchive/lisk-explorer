@@ -1,6 +1,6 @@
 {
   "name": "lisk-explorer",
-  "version": "2.3.0-beta.2",
+  "version": "2.3.0-beta.5",
   "description": "Lisk blockchain explorer",
   "keywords": [
     "lisk",
@@ -70,7 +70,7 @@
     "leaflet": "^1.3.0",
     "leaflet.markercluster": "^1.0.5",
     "method-override": "^2.3.4",
-    "moment": "^2.18.1",
+    "moment": "^2.24.0",
     "morgan": "^1.9.1",
     "ng-annotate": "^1.2.1",
     "ng-annotate-webpack-plugin": "^0.2.1-pre",

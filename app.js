@@ -212,15 +212,16 @@ const getNodeConstants = () => new Promise((success, error) => {
 			return error({ success: false, error: err.message });
 		} else if (response.statusCode === 200) {
 			if (body && body.data) {
-				app.set('nodeConstants', body.data);
-				return success({
+				const results = {
 					version: body.data.version,
 					epoch: new Date(body.data.epoch) / 1000,
 					protocolVersion: body.data.protocolVersion,
-					nethash: body.data.nethash,
+					nethash: body.data.nethash || body.data.networkId,
 					majorVersion: body.data.version.split('.')[0],
 					minorVersion: body.data.version.split('.')[1],
-				});
+				};
+				app.set('nodeConstants', { ...body.data, ...results });
+				return success(results);
 			}
 		}
 		return error({ success: false, error: body.error });

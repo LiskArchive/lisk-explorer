@@ -24,4 +24,12 @@ AppServices.value('txTypes', {
 	5: 'DApp registration',
 	6: 'DApp deposit',
 	7: 'DApp withdrawal',
+	8: 'Balance transfer',
+	9: 'Second signature creation',
+	10: 'Delegate registration',
+	11: 'Delegate vote',
+	12: 'Multi-signature creation',
+	13: 'DApp registration',
+	14: 'DApp deposit',
+	15: 'DApp withdrawal',
 });
