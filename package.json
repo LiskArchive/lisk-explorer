@@ -19,8 +19,8 @@
   "license": "GPL-3.0",
   "main": "app.js",
   "engines": {
-    "node": "8.11.2",
-    "npm": "6.1.0"
+    "node": "10.18.1",
+    "npm": "6.13.4"
   },
   "scripts": {
     "start": "node app.js",
