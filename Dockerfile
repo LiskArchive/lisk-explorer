@@ -1,4 +1,4 @@
-FROM node:8 AS builder
+FROM node:10 AS builder
 
 RUN useradd --create-home lisk
 COPY --chown=lisk:lisk ./package-lock.json ./package.json /home/lisk/lisk-explorer/
@@ -11,7 +11,7 @@ RUN mkdir -p logs
 RUN npm run build
 
 
-FROM node:8-alpine
+FROM node:10-alpine
 
 RUN adduser -D lisk
 COPY --chown=lisk:lisk --from=builder /home/lisk/lisk-explorer /home/lisk/lisk-explorer/
