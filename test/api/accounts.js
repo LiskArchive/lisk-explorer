@@ -57,7 +57,6 @@ describe('Accounts API', () => {
 		node.expect(o.unconfirmedSignature).to.be.a('number');
 		node.expect(o.publicKey).to.be.a('string');
 		node.expect(o.balance).to.be.a('string');
-		node.expect(o.unconfirmedBalance).to.be.a('string');
 		node.expect(o.address).to.be.a('string');
 		node.expect(o.u_multisignatures).to.be.an('array');
 		node.expect(o.knowledge).to.satisfy(knowledge => !knowledge || typeof knowledge === 'object');
@@ -77,7 +76,6 @@ describe('Accounts API', () => {
 			'unconfirmedSignature',
 			'publicKey',
 			'balance',
-			'unconfirmedBalance',
 			'address',
 			'u_multisignatures',
 			'knowledge',

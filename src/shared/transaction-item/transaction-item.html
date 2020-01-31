@@ -33,15 +33,15 @@
 	<span data-ng-if="tx.senderId === address">{{tx | txSender}}</span>
 </td>
 <td data-title="Recipient">
-	<a data-ng-if="tx.type == 0 && tx.recipientId !== address" data-account-href="tx" data-type="recipient">{{tx | txRecipient}}</a>
-	<span data-ng-if="tx.type == 0 && tx.recipientId === address">{{tx | txRecipient}}</span>
-	<span data-ng-if="tx.type >= 1">{{tx | txType}}</span>
+	<a data-ng-if="(tx.type == 0 || tx.type == 8) && tx.recipientId !== address" data-account-href="tx" data-type="recipient">{{tx | txRecipient}}</a>
+	<span data-ng-if="(tx.type == 0 || tx.type == 8) && tx.recipientId === address">{{tx | txRecipient}}</span>
+	<span data-ng-if="!(tx.type == 0 || tx.type == 8)">{{tx | txType}}</span>
 </td>
 <td data-title="Amount" class="amount text-right">
 	<span class="txvalues" data-ng-class="{
-	'tx-outgoing': tx.type == 0 && address == tx.senderId && tx.senderId != tx.recipientId,
-	'tx-incoming': tx.type == 0 && address && tx.senderId != address,
-	'tx-other': tx.type != 0 || address === undefined || tx.senderId === tx.recipientId
+	'tx-outgoing': (tx.type == 0 || tx.type == 8) && address == tx.senderId && tx.senderId != tx.recipientId,
+	'tx-incoming': (tx.type == 0 || tx.type == 8) && address && tx.senderId != address,
+	'tx-other': !(tx.type == 0 || tx.type == 8) || address === undefined || tx.senderId === tx.recipientId
 	}">{{tx.amount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}
 	</span>
 </td>

@@ -16,7 +16,7 @@
 import AppFilters from './filters.module';
 
 AppFilters.filter('txRecipient', txTypes => (tx) => {
-	if (tx.type === 0) {
+	if (tx.type === 0 || tx.type === 8) {
 		return (tx.recipientUsername ||
 			(tx.knownRecipient && tx.knownRecipient.owner) ||
 			tx.recipientId);

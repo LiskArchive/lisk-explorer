@@ -5,20 +5,14 @@ services:
     image: lisk/explorer:latest
     depends_on:
       - explorer-cache
-      - freegeoip
-    ports:
-      - "127.0.0.1:6040:6040"
     networks:
       - lisk-explorer
-      - localhost
     restart: on-failure
-    env_file:
-      - ./docker-lisk-core.env
     environment:
-      - LISK_HOST=node.lisk.io
-      - LISK_PORT=8000
+      - LISK_URL_HTTP=${EXPLORER_LISK_HTTP_URL}
+      - LISK_URL_WS=${EXPLORER_LISK_WS_URL}
       - REDIS_HOST=explorer-cache
-      - FREEGEOIP_HOST=freegeoip
+      - FREEGEOIP_URL=https://geoip.lisk.io
 
   explorer-cache:
     image: redis:alpine
@@ -36,15 +30,8 @@ services:
       - REDIS_HOST=explorer-cache
     command: ./node_modules/grunt-cli/bin/grunt candles:build
 
-  freegeoip:
-    image: fiorix/freegeoip
-    networks:
-      - lisk-explorer
-    restart: on-failure
-
 
 networks:
   lisk-explorer:
-  localhost:
-    external: true
+
 

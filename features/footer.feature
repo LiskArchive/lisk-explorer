@@ -2,18 +2,13 @@ Feature: Footer
   Scenario: should contain links to Lisk website, forum, BBT thread, reddit twitter, Explorer Github
     Given I'm on page "/"
     Then I should see "website link" element that links to "https://lisk.io/"
-    Then I should see "gitter link" element that links to "https://gitter.im/LiskHQ/lisk"
     Then I should see "github link" element that links to "https://github.com/LiskHQ"
+    Then I should see "youtube link" element that links to "https://www.youtube.com/channel/UCuqpGfg_bOQ8Ja4pj811PWg/featured"
+    Then I should see "reddit link" element that links to "https://www.reddit.com/r/Lisk/"
+    Then I should see "linkedin link" element that links to "https://www.linkedin.com/company/lisk/"
     Then I should see "twitter link" element that links to "https://twitter.com/LiskHQ"
     Then I should see "facebook link" element that links to "https://www.facebook.com/LiskHQ"
-    Then I should see "blog link" element that links to "https://blog.lisk.io/"
-    Then I should see "reddit link" element that links to "https://www.reddit.com/r/Lisk/"
-    Then I should see "instagram link" element that links to "https://www.instagram.com/liskhq/"
-    Then I should see "youtube link" element that links to "https://www.youtube.com/channel/UCuqpGfg_bOQ8Ja4pj811PWg/featured"
-    # TODO: The test didn't pass
-    # Then I should see "chat link" element that links to "https://lisk.chat"
-    Then I should see "telegram link" element that links to "https://t.me/Lisk_HQ"
-    Then I should see "linkedin link" element that links to "https://www.linkedin.com/company/lisk/"
+    Then I should see "discord link" element that links to "http://discord.gg/lisk"
 
   @ignore
   Scenario: allows to show all 8 decimal places

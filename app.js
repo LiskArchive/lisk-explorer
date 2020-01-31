@@ -26,6 +26,7 @@ const logger = require('./utils/logger');
 const request = require('request');
 
 const app = express();
+const api = require('./lib/api');
 const utils = require('./utils');
 
 program
@@ -48,16 +49,23 @@ if (program.redisPort) {
 }
 const client = require('./redis')(config);
 
+app.locals.redis = client;
+app.use((req, res, next) => {
+	req.redis = client;
+	return next();
+});
+
 app.candles = new utils.candles(config, client);
 app.exchange = new utils.exchange(config);
+app.delegates = new api.delegates(app);
 app.knownAddresses = new utils.knownAddresses(app, config, client);
 app.orders = new utils.orders(config, client);
 
 app.set('version', packageJson.version);
 app.set('strict routing', true);
-app.set('lisk address', `http://${config.lisk.host}:${config.lisk.port}${config.lisk.apiPath}`);
-app.set('lisk websocket address', `http://${config.lisk.host}:${config.lisk.port}`);
-app.set('freegeoip address', `http://${config.freegeoip.host}:${config.freegeoip.port}`);
+app.set('lisk address', config.lisk.http);
+app.set('lisk websocket address', config.lisk.ws);
+app.set('freegeoip address', config.freegeoip);
 app.set('exchange enabled', config.exchangeRates.enabled);
 app.set('uiMessage', config.uiMessage);
 
@@ -84,12 +92,6 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.locals.redis = client;
-app.use((req, res, next) => {
-	req.redis = client;
-	return next();
-});
 
 const morgan = require('morgan');
 
@@ -210,15 +212,16 @@ const getNodeConstants = () => new Promise((success, error) => {
 			return error({ success: false, error: err.message });
 		} else if (response.statusCode === 200) {
 			if (body && body.data) {
-				app.set('nodeConstants', body.data);
-				return success({
+				const results = {
 					version: body.data.version,
 					epoch: new Date(body.data.epoch) / 1000,
 					protocolVersion: body.data.protocolVersion,
-					nethash: body.data.nethash,
+					nethash: body.data.nethash || body.data.networkId,
 					majorVersion: body.data.version.split('.')[0],
 					minorVersion: body.data.version.split('.')[1],
-				});
+				};
+				app.set('nodeConstants', { ...body.data, ...results });
+				return success(results);
 			}
 		}
 		return error({ success: false, error: body.error });
@@ -243,6 +246,7 @@ const startServer = (cb) => {
 
 				const io = require('socket.io').listen(server);
 				require('./sockets')(app, io);
+				app.delegates.loadAllDelegates();
 				app.knownAddresses.load();
 				serverStatus = status.OK;
 			}

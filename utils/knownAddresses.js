@@ -13,12 +13,11 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-const api = require('../lib/api');
 const logger = require('./logger');
 const request = require('request-promise');
 
 module.exports = function (app, config, client) {
-	const delegates = new api.delegates(app);
+	const delegates = app.delegates;
 
 	function KnownAddresses() {
 		this.latestDelegateRegisteredAt = -1;
@@ -98,7 +97,7 @@ module.exports = function (app, config, client) {
 						logger.warn('KnownAddresses:', `Failed to get known addresses from ${config.knownAccountsUrl}, falling back to the local copy`);
 						knownNetworks = require('../knowledge/networks.json') || {};
 						// eslint-disable-next-line import/no-dynamic-require
-						knownAccounts = require(`../knowledge/known_${knownNetworks[nethash]}.json`) || {};
+						knownAccounts = knownNetworks[nethash] ? require(`../knowledge/known_${knownNetworks[nethash]}.json`) : {};
 					}
 
 					Object.keys(knownAccounts).forEach((address) => {
