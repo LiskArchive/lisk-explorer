@@ -1,0 +1,20 @@
+{
+    "address":               { "owner": "owner",           "description": "description" },
+	"6566229458323231555L":  { "owner": "Genesis Account", "description": "" },
+	"11917631413532719541L": { "owner": "Oliver",          "description": "Personal Assets" },
+	"8201357239823655010L":  { "owner": "Max",             "description": "Personal Assets" },
+	"15434119221255134066L": { "owner": "Lisk Foundation", "description": "Bounty Assets" },
+	"14175575863689886451L": { "owner": "Lisk Foundation", "description": "Adviser Assets" },
+	"5726759782318848681L":  { "owner": "Lisk Foundation", "description": "General Assets" },
+	"18278674964748191682L": { "owner": "Poloniex",        "description": "Hot Wallet" },
+	"6687808873757044786L":  { "owner": "Bittrex",         "description": "Hot Wallet" },
+	"13724180208900114961L": { "owner": "Yobit",           "description": "Hot Wallet" },
+	"13892601275403076526L": { "owner": "BitBay",          "description": "Cold Wallet" },
+	"2797034409072178585L":  { "owner": "BitBay",          "description": "Hot Wallet" },
+	"11737606468871099380L": { "owner": "Changelly",       "description": "Hot Wallet" },
+  	"15441526754256992144L": { "owner": "HitBTC",          "description": "Hot Wallet" },
+	"15610359283786884938L": { "owner": "Binance",         "description": "Hot Wallet" },
+	"3645487307206542645L":  { "owner": "Binance",         "description": "Cold Wallet" },
+	"3040783849904107057L":  { "owner": "Coincheck",       "description": "Hot Wallet" },
+	"16293716040102736949L": { "owner": "Coincheck",       "description": "Cold Wallet" }
+}

@@ -1,0 +1,259 @@
+<!--
+/*
+ * LiskHQ/lisk-explorer
+ * Copyright © 2018 Lisk Foundation
+ *
+ * See the LICENSE file at the top-level directory of this distribution
+ * for licensing information.
+ *
+ * Unless otherwise agreed in a custom licensing agreement with the Lisk Foundation,
+ * no part of this software, including this file, may be copied, modified,
+ * propagated, or distributed except according to the terms contained in the
+ * LICENSE file.
+ *
+ * Removal or modification of this copyright notice is prohibited.
+ *
+ */
+-->
+<section>
+	<h1>
+		<span class="top-title">{{vm.tx.id}}</span>
+		<br />
+		<small><span class="sub-title">{{vm.tx | txType}} transaction</span></small>
+	</h1>
+	<span data-ng-if="vm.tx.id">
+		<div class="row table-tx-details">
+			<div class="col-md-6">
+				<div class="table-responsive">
+					<table class="table summary">
+						<tbody>
+							<tr>
+								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Transaction ID</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+									{{vm.tx.id}}&nbsp;<span class="btn-copy" clip-copy="vm.tx.id"></span>
+								</td>
+							</tr>
+							<tr>
+								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Type</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+									Type {{vm.tx.type}} ({{vm.tx | txType}})
+								</td>
+							</tr>
+							<tr>
+								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Sender</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+										<a href="/address/{{vm.tx.senderId}}">{{vm.tx.senderId}}</a>
+									<div data-ng-if="tx.knownSender">
+										<span class="owner-name">{{vm.tx.knownSender.owner}}</span>
+										<span class="owner-desc text-muted">{{vm.tx.knownSender.description}}</span>
+									</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Recipient</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+									<div data-ng-if="(vm.tx.type == 0 || vm.tx.type == 8)">
+											<a href="/address/{{vm.tx.recipientId}}">{{vm.tx.recipientId}}</a>
+										<div data-ng-if="vm.tx.knownRecipient">
+											<span class="owner-name">{{vm.tx.knownRecipient.owner}}</span>
+											<span class="owner-desc text-muted">{{vm.tx.knownRecipient.description}}</span>
+										</div>
+									</div>
+									<div data-ng-if="vm.tx.type >= 1">{{vm.tx | txType}}</div>
+								</td>
+							</tr>
+							<tr>
+								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Confirmations</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.confirmations || 0}}</td>
+							</tr>
+							<tr>
+								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Amount</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.amount | currency:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+							</tr>
+							<tr>
+								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Fee</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.fee | currencyFee:$root.currency:$root.decimalPlaces}} <span class="text-muted">{{$root.currency.symbol}}</span></td>
+							</tr>
+							<tr>
+								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Timestamp</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.timestamp | timestamp}}</td>
+							</tr>
+							<tr>
+								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>Block </strong></td>
+								<td data-ng-if="vm.tx.blockId" class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+									<a href="/block/{{vm.tx.blockId}}">{{vm.tx.blockId}}</a>
+								</td>
+								<td data-ng-if="!vm.tx.blockId" class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">Unconfirmed</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="table-responsive" data-ng-if="(vm.tx.type == 0 || vm.tx.type == 8)">
+					<table class="table details tx-type-1-table">
+						<tbody>
+							<tr><td><strong>Transaction details</strong></td><td></td></tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">Data length</td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.data.length || 0}} bytes</td>
+							</tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><span>Data text</span></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+									<span style="font-family: monospace;" data-ng-if="vm.tx.asset.data">{{vm.tx.asset.data}}</span>
+									<span data-ng-if="!vm.tx.asset.data"><i>(no data)</i></span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="table-responsive" data-ng-if="vm.tx.type == 1">
+					<table class="table details tx-type-1-table">
+						<tbody>
+							<tr><td><strong>Transaction details</strong></td><td></td></tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Public Key</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.signature.publicKey}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="table-responsive" data-ng-if="vm.tx.type == 2">
+					<table class="table details tx-type-1-table">
+						<tbody>
+							<tr><td><strong>Transaction details</strong></td><td></td></tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Username</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.delegate.username}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="table-responsive" data-ng-if="vm.tx.type == 3">
+					<table class="table details">
+						<tbody>
+							<tr><td><strong>Transaction details</strong></td></tr>
+							<tr>
+								<td>
+									<span data-ng-if="vm.tx.votes.added.length">Added votes ({{vm.tx.votes.added.length}}):</span>
+									<span class="added-votes">
+										<span data-ng-repeat='v in vm.tx.votes.added' class="vote-added-link">
+											<span data-ng-if="!$last">
+												<a href="/address/{{v.delegate.account.address}}" class="vote-added-link">{{v.delegate.username || v.delegate.account.address}}</a>
+												<span class="text-muted">&bull;</span>
+											</span>
+											<span data-ng-if="$last">
+												<a href="/address/{{v.delegate.account.address}}" class="vote-added-link">{{v.delegate.username || v.delegate.account.address}}</a>
+											</span>
+										</span>
+									</span>
+									<br data-ng-if="vm.tx.votes.added.length">
+									<span data-ng-if="vm.tx.votes.deleted.length">Deleted votes ({{vm.tx.votes.deleted.length}}):</span>
+									<span class="deleted-votes">
+										<span data-ng-repeat='v in vm.tx.votes.deleted'>
+											<span data-ng-if="!$last">
+												<a href="/address/{{v.delegate.account.address}}" class="vote-deleted-link">{{v.delegate.username || v.delegate.account.address}}</a>
+												<span class="text-muted">&bull;</span>
+											</span>
+											<span data-ng-if="$last">
+												<a href="/address/{{v.delegate.account.address}}" class="vote-deleted-link">{{v.delegate.username || v.delegate.account.address}}</a>
+											</span>
+										</span>
+									</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="table-responsive" data-ng-if="vm.tx.type == 4">
+					<table class="table details tx-type-1-table">
+						<tbody>
+							<tr><td><strong>Transaction details</strong></td><td></td></tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Minimum</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.multisignature.min}}</td>
+							</tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Lifetime</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.multisignature.lifetime}} hours</td>
+							</tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Keys Group</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">
+									<span data-ng-repeat='key in vm.tx.asset.multisignature.keysgroup'>
+										<span>{{key}}</span>
+									</span>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="table-responsive" data-ng-if="vm.tx.type == 5">
+					<table class="table details tx-type-1-table">
+						<tbody>
+							<tr><td><strong>Transaction details</strong></td><td></td></tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Name</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.name}}</td>
+							</tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Description</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.description || '-'}}</td>
+							</tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Tags</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.tags || '-'}}</td>
+							</tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Type</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.type}}</td>
+							</tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Link</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.link}}</td>
+							</tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Category</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.category}}</td>
+							</tr>
+							<tr>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right"><strong>Icon</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.dapp.icon || '-'}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="table-responsive" data-ng-if="vm.tx.type == 6">
+					<table class="table details">
+						<tbody>
+							<tr><td colspan="2"><strong>Transaction details</strong>
+							<tr>
+								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>DApp ID</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.inTransfer.dappId}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="table-responsive" data-ng-if="vm.tx.type == 7">
+					<table class="table details">
+						<tbody>
+							<tr><td colspan="2"><strong>Transaction details</strong>
+							<tr>
+								<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double"><strong>DApp ID</strong></td>
+								<td class="right-padding-xs right-padding-s right-padding-m right-padding-l double text-right">{{vm.tx.asset.outTransfer.dappId}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</span>
+</section>

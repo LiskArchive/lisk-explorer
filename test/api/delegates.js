@@ -17,7 +17,7 @@ const node = require('./../node.js');
 
 const params = {
 	publicKey: '9d3058175acab969f41ad9b86f7a2926c74258670fe56b37c429c01fca9f2f0f',
-	noBlocksKey: '1111111111111111111111111111111111111111111111111111111111111111',
+	noBlocksKey: '968ba2fa993ea9dc27ed740da0daf49eddd740dbd7cb1cb4fc5db3a20baf341b',
 	invalidPublicKey: 'abdefghijklmnopqrstuvwyxz',
 	delegate: 'genesis_1',
 	address: '8273455169423958419L',
@@ -55,8 +55,27 @@ describe('Delegates API', () => {
 		node.get('/api/delegates/getNextForgers', done);
 	};
 
-	const checkBlock = (id) => {
-		node.expect(id).to.contain.all.keys(
+	function checkBlockTypes(o) {
+		node.expect(o.totalForged).to.be.a('string');
+		node.expect(o.confirmations).to.be.a('number');
+		node.expect(o.blockSignature).to.be.a('string');
+		node.expect(o.generatorId).to.be.a('string');
+		node.expect(o.generatorPublicKey).to.be.a('string');
+		node.expect(o.payloadHash).to.be.a('string');
+		node.expect(o.payloadLength).to.be.a('number');
+		node.expect(o.reward).to.be.a('number');
+		node.expect(o.id).to.be.a('string');
+		node.expect(o.version).to.be.a('number');
+		node.expect(o.timestamp).to.be.a('number');
+		node.expect(o.height).to.be.a('number');
+		node.expect(o.previousBlock).to.be.a('string');
+		node.expect(o.numberOfTransactions).to.be.a('number');
+		node.expect(o.totalAmount).to.be.a('number');
+		node.expect(o.totalFee).to.be.a('number');
+	}
+
+	const checkBlock = (o) => {
+		node.expect(o).to.contain.all.keys(
 			'totalForged',
 			'confirmations',
 			'blockSignature',
@@ -73,19 +92,31 @@ describe('Delegates API', () => {
 			'numberOfTransactions',
 			'totalAmount',
 			'totalFee');
+
+		checkBlockTypes(o);
 	};
 
 	/* Testing functions */
 	const checkBlocks = (id) => {
 		for (let i = 0; i < id.length; i++) {
-			if (id[i + 1]) {
-				checkBlock(id[i]);
-			}
+			checkBlock(id[i]);
 		}
 	};
 
-	const checkDelegate = (id) => {
-		node.expect(id).to.contain.all.keys(
+	function checkDelegateTypes(o) {
+		node.expect(o.address).to.be.a('string');
+		node.expect(o.approval).to.be.a('number');
+		node.expect(o.missedblocks).to.be.a('number');
+		node.expect(o.producedblocks).to.be.a('number');
+		node.expect(o.productivity).to.be.a('number');
+		node.expect(o.publicKey).to.be.a('string');
+		node.expect(o.rate).to.be.a('number');
+		node.expect(o.username).to.be.a('string');
+		node.expect(o.vote).to.be.a('string');
+	}
+
+	const checkDelegate = (o) => {
+		node.expect(o).to.contain.all.keys(
 			'productivity',
 			'username',
 			'address',
@@ -95,56 +126,51 @@ describe('Delegates API', () => {
 			'missedblocks',
 			'rate',
 			'approval');
+
+		checkDelegateTypes(o);
 	};
 
 	const checkDelegates = (id) => {
 		for (let i = 0; i < id.length; i++) {
-			if (id[i + 1]) {
-				checkDelegate(id[i]);
-			}
+			checkDelegate(id[i]);
 		}
 	};
 
 	const checkPublicKeys = (id) => {
 		for (let i = 0; i < id.length; i++) {
-			if (id[i + 1]) {
-				node.expect(typeof id[i]).to.be.equal('string');
-			}
+			node.expect(typeof id[i]).to.be.equal('string');
 		}
 	};
 
 	const checkTransactions = (id) => {
 		for (let i = 0; i < id.length; i++) {
-			if (id[i + 1]) {
-				node.expect(id[i]).to.contain.all.keys(
-					'asset',
-					'delegate',
-					'confirmations',
-					'signatures',
-					'signature',
-					'fee',
-					'amount',
-					'id',
-					'height',
-					'blockId',
-					'type',
-					'timestamp',
-					'senderPublicKey',
-					'senderId',
-					'recipientId');
-				checkDelegate(id[i].delegate);
-			}
+			node.expect(id[i]).to.contain.all.keys(
+				'asset',
+				'delegate',
+				'confirmations',
+				'signatures',
+				'signature',
+				'fee',
+				'amount',
+				'id',
+				'height',
+				'blockId',
+				'type',
+				'timestamp',
+				'senderPublicKey',
+				'senderId',
+				'recipientId');
+
+			checkDelegate(id[i].delegate);
 		}
 	};
 
 	const checkDelegateSuggestions = (list) => {
 		for (let i = 0; i < list.length; i++) {
-			if (list[i + 1]) {
-				node.expect(list[i]).to.contain.all.keys(
-					'username',
-					'address',
-					'similarity');
-			}
+			node.expect(list[i]).to.contain.all.keys(
+				'username',
+				'address',
+				'similarity');
 		}
 	};
 
@@ -283,10 +309,10 @@ describe('Delegates API', () => {
 			});
 		});
 
-		it.skip('using invalid publickey should fail', (done) => {
+		it('using invalid publickey should fail', (done) => {
 			getLastBlocks(params.invalidPublicKey, '', (err, res) => {
 				node.expect(res.body).to.have.property('success').to.be.equal(false);
-				node.expect(res.body).to.have.property('blocks');
+				node.expect(res.body).to.have.property('error');
 				done();
 			});
 		});

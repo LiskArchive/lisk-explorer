@@ -39,15 +39,21 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 			}, 200);
 		};
 
-		this.expandInput = () => {
-			this.activeForm = !this.activeForm;
-			$timeout(() => {
-				document.getElementById('search').focus();
-			}, 500);
+		this.onSearchIconClick = () => {
+			if (!this.mobileView) {
+				this.search();
+			} else {
+				this.activeForm = !this.activeForm;
+				$timeout(() => {
+					document.getElementById('search').focus();
+				}, 500);
+			}
 		};
 
 		this.hideSuggestion = () => {
-			_resetSearch();
+			if (!this.loading) {
+				_resetSearch();
+			}
 		};
 
 		this.search = () => {
@@ -55,27 +61,28 @@ AppSearch.directive('search', ($stateParams, $location, $timeout, Global, $http)
 			this.loading = true;
 			sch.showingResults = false;
 
-			$http.get('/api/search', {
+			$http.get('/api/unifiedSearch', {
 				params: {
-					id: this.q,
+					q: this.q,
 				},
 			}).then((resp) => {
 				sch.loading = false;
-				if (resp.data.success === false) {
+				if (resp.data.success === false || resp.data.result.length === 0) {
 					_badQuery();
-				} else if (resp.data.result.id) {
+				} else if (resp.data.result.length === 1) {
 					_resetSearch();
 
-					$location.path(`/${resp.data.result.type}/${resp.data.result.id}`);
-				} else if (resp.data.result.delegates) {
-					sch.results = resp.data.result.delegates.slice(0, 5);
+					$location.path(`/${resp.data.result[0].type}/${resp.data.result[0].id}`);
+				} else {
+					sch.results = resp.data.result.slice(0, 8);
 					sch.showingResults = true;
 				}
 			});
 		};
 	};
 
-	const SearchLink = function () {
+	const SearchLink = function (scope) {
+		scope.activeForm = !scope.mobileView;
 	};
 
 	return {

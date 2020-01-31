@@ -25,6 +25,7 @@ config.exchangeRates = {
 	},
 };
 config.marketWatcher = { exchanges: {}, candles: { poloniex: {} }, orders: {} };
+config.cacheDelegateAddress = {};
 config.uiMessage = {};
 
 module.exports = config;

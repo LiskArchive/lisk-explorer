@@ -23,9 +23,9 @@ const LessMore = function ($http, $q, params) {
 	this.url = params.url || '';
 	this.parent = params.parent || 'parent';
 	this.key = params.key || '';
-	this.offset = params.offset || 0;
-	this.maximum = params.maximum || 2000;
-	this.limit = params.limit || 50;
+	this.offset = Number(params.offset) || 0;
+	this.maximum = Number(params.maximum) || 2000;
+	this.limit = Number(params.limit) || 50;
 
 	['url', 'parent', 'key', 'offset', 'maximum', 'limit'].forEach((key) => {
 		delete params[key];
@@ -79,12 +79,26 @@ LessMore.prototype.spliceData = function (data) {
 	}
 };
 
+LessMore.prototype.concatNoDuplicates = function (data) {
+	if (this.key === 'transactions') {
+		data.forEach((transaction) => {
+			const pos = this.results.map(e => e.id).indexOf(transaction.id);
+			if (pos < 0) {
+				this.results.push(transaction);
+			}
+		});
+	} else {
+		this.results = this.results.concat(data);
+	}
+};
+
 LessMore.prototype.acceptData = function (data) {
 	if (!angular.isArray(data)) { data = []; }
+
 	this.spliceData(data);
 
 	if (this.results.length > 0) {
-		this.results = this.results.concat(data);
+		this.concatNoDuplicates(data);
 	} else {
 		this.results = data;
 	}
@@ -99,7 +113,7 @@ LessMore.prototype.acceptData = function (data) {
 };
 
 LessMore.prototype.loadData = function () {
-	this.getData(0, (this.limit + 1),
+	this.getData(this.offset, (this.limit + 1),
 		(data) => {
 			this.acceptData(data);
 		});

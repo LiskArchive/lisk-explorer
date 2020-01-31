@@ -13,18 +13,16 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-const api = require('../lib/api');
 const moment = require('moment');
 const async = require('async');
 const request = require('request');
 const logger = require('../utils/logger');
+const SocketClient = require('../utils/socketClient');
 
 module.exports = function (app, connectionHandler, socket) {
-	const delegates = new api.delegates(app);
+	const delegates = app.delegates;
 	// eslint-disable-next-line no-unused-vars
 	const connection = new connectionHandler('Delegate Monitor:', socket, this);
-	const maxLimitOfNextForgers = 10;
-	let intervals = [];
 	const data = {};
 	// Only used in various calculations, will not be emitted directly
 	const tmpData = {};
@@ -38,26 +36,21 @@ module.exports = function (app, connectionHandler, socket) {
 		getNextForgers: false,
 	};
 
-	const newInterval = function (i, delay, cb) {
-		if (intervals[i] !== undefined) {
-			return null;
-		}
-		intervals[i] = setInterval(cb, delay);
-		return intervals[i];
-	};
-
 	const log = (level, msg) => logger[level]('Delegate Monitor:', msg);
 
-	const findActiveByPublicKey = publicKey =>
-		data.active.delegates.find(d => d.publicKey === publicKey);
+	const socketClient = new SocketClient(app.get('lisk websocket address'));
 
-	const cutNextForgers = (maxLimit, height) => {
-		const roundLength = 101;
-		const limit = roundLength - (height % roundLength);
-		const next10Forgers = tmpData.nextForgers.delegates.slice(0, Math.min(limit, maxLimit));
-		// Workaround for LiskHQ/lisk#1998, when height % roundLength == 0
-		// list of next10Forgers is unknown
-		if ((height % roundLength) === 0) return [];
+	const getTimestamp = () => new Date().getTime();
+	const minInterval = 10 * 1000;
+	let lastUpdateTime = 0;
+
+	// eslint-disable-next-line arrow-body-style, arrow-parens
+	const findActiveByPublicKey = delegate => {
+		return data.active.delegates.find(d => d.publicKey === delegate);
+	};
+
+	const cutNextForgers = () => {
+		const next10Forgers = tmpData.nextForgers.delegates.slice(0, 10);
 		return next10Forgers.map(publicKey => findActiveByPublicKey(publicKey));
 	};
 
@@ -72,16 +65,23 @@ module.exports = function (app, connectionHandler, socket) {
 			(res) => { running.getActive = false; cb(null, res); });
 	};
 
-	const findActive = delegate =>
-		data.active.delegates.find(d => d.publicKey === delegate.publicKey);
+	// eslint-disable-next-line arrow-body-style, arrow-parens
+	const findActive = delegate => {
+		return data.active.delegates.find(d => d.publicKey === delegate.publicKey);
+	};
 
-	const findActiveByBlock = block =>
-		data.active.delegates.find(d => d.publicKey === block.generatorPublicKey);
+	// eslint-disable-next-line arrow-body-style, arrow-parens
+	const findActiveByBlock = block => {
+		return data.active.delegates.find(d => d.publicKey === block.generatorPublicKey);
+	};
 
 	const updateDelegate = (delegate, updateForgingTime) => {
 		// Update delegate with forging time
 		if (updateForgingTime) {
-			delegate.forgingTime = tmpData.nextForgers.delegates.indexOf(delegate.publicKey) * 10;
+			const forgersArrayIndex = tmpData.nextForgers.delegates.indexOf(delegate.publicKey);
+			if (forgersArrayIndex >= 0) {
+				delegate.forgingTime = forgersArrayIndex * 10;
+			}
 		}
 
 		// Update delegate with info if should forge in current round
@@ -164,7 +164,7 @@ module.exports = function (app, connectionHandler, socket) {
 	const delegateName = delegate => `${delegate.username}[${delegate.rate}]`;
 
 	const emitDelegate = (delegate) => {
-		log('info', `Emitting last blocks for: ${delegateName(delegate)}`);
+		log('debug', `Emitting last blocks for: ${delegateName(delegate)}`);
 		socket.emit('delegate', delegate);
 	};
 
@@ -179,13 +179,13 @@ module.exports = function (app, connectionHandler, socket) {
 		return async.waterfall([
 			(callback) => {
 				request.get({
-					url: `${app.get('lisk address')}/api/blocks?orderBy=height:desc&limit=${limit}`,
+					url: `${app.get('lisk address')}/blocks?sort=height:desc&limit=${limit}`,
 					json: true,
 				}, (err, response, body) => {
 					if (err || response.statusCode !== 200) {
 						return callback((err || 'Response was unsuccessful'));
-					} else if (body.success === true) {
-						return callback(null, { blocks: body.blocks });
+					} else if (body.data) {
+						return callback(null, { blocks: body.data });
 					}
 					return callback(body.error);
 				});
@@ -194,10 +194,15 @@ module.exports = function (app, connectionHandler, socket) {
 				// Set last block and his delegate (we will emit it later in emitData)
 				data.lastBlock.block = result.blocks[0];
 				const lastBlockDelegate = findActiveByBlock(data.lastBlock.block);
-				data.lastBlock.block.delegate = {
-					username: lastBlockDelegate.username,
-					address: lastBlockDelegate.address,
-				};
+
+				data.lastBlock.block.delegate = {};
+
+				if (lastBlockDelegate) {
+					data.lastBlock.block.delegate = {
+						username: lastBlockDelegate.username,
+						address: lastBlockDelegate.address,
+					};
+				}
 
 				async.eachSeries(result.blocks, (b, cb) => {
 					let existing = findActiveByBlock(b);
@@ -213,11 +218,7 @@ module.exports = function (app, connectionHandler, socket) {
 						}
 					}
 
-					if (intervals[1]) {
-						cb(null);
-					} else {
-						callback('Monitor closed');
-					}
+					cb(null);
 				}, (err) => {
 					if (err) {
 						callback(err, result);
@@ -244,15 +245,10 @@ module.exports = function (app, connectionHandler, socket) {
 								existing.blocks = res.blocks;
 								existing.blocksAt = moment();
 								existing = updateDelegate(existing, false);
-
 								emitDelegate(existing);
 							}
 
-							if (intervals[1]) {
-								cb(null);
-							} else {
-								callback('Monitor closed');
-							}
+							cb(null);
 						});
 				}, (err) => {
 					if (err) {
@@ -262,10 +258,10 @@ module.exports = function (app, connectionHandler, socket) {
 				});
 			},
 		], (err) => {
-			running.getLastBlocks = false;
 			if (err) {
 				log('error', `Error retrieving LastBlocks: ${err}`);
 			}
+			running.getLastBlocks = false;
 		});
 	};
 
@@ -307,7 +303,6 @@ module.exports = function (app, connectionHandler, socket) {
 			getRegistrations,
 			getVotes,
 			getNextForgers,
-			getLastBlock,
 		],
 		(err, res) => {
 			if (err) {
@@ -318,9 +313,9 @@ module.exports = function (app, connectionHandler, socket) {
 				data.active = updateActive(res[0]);
 				data.registrations = res[1];
 				data.votes = res[2];
-				data.nextForgers = cutNextForgers(maxLimitOfNextForgers, res[4].block.height);
+				data.nextForgers = cutNextForgers(10);
 
-				log('info', 'Emitting data');
+				log('debug', 'Emitting data');
 				socket.emit('data', data);
 			}
 		});
@@ -328,46 +323,71 @@ module.exports = function (app, connectionHandler, socket) {
 
 	this.onInit = function () {
 		this.onConnect();
-
-		async.parallel([
-			getLastBlock,
-			getActive,
-			getRegistrations,
-			getVotes,
-			getNextForgers,
-		],
-		(err, res) => {
-			if (err) {
-				log('error', `Error retrieving: ${err}`);
-			} else {
-				tmpData.nextForgers = res[4];
-
-				data.lastBlock = res[0];
-				data.active = updateActive(res[1]);
-				data.registrations = res[2];
-				data.votes = res[3];
-				data.nextForgers = cutNextForgers(maxLimitOfNextForgers, res[0].block.height);
-
-				log('info', 'Emitting new data');
-				socket.emit('data', data);
-
-				getLastBlocks(data.active, true);
-
-				newInterval(0, 5000, emitData);
-				newInterval(1, 1000, getLastBlocks);
-			}
-		});
 	};
 
 	this.onConnect = function () {
-		log('info', 'Emitting existing data');
+		log('debug', 'Emitting existing data');
 		socket.emit('data', data);
 	};
 
 	this.onDisconnect = function () {
-		for (let i = 0; i < intervals.length; i++) {
-			clearInterval(intervals[i]);
-		}
-		intervals = [];
+		log('debug', 'Client disconnected');
 	};
+
+	async.parallel([
+		// We only call getLastBlock on init, later data.lastBlock will be updated from getLastBlocks
+		getLastBlock,
+		getActive,
+		getRegistrations,
+		getVotes,
+		getNextForgers,
+	],
+	(err, res) => {
+		if (err) {
+			log('error', `Error retrieving: ${err}`);
+		} else {
+			tmpData.nextForgers = res[4];
+
+			data.lastBlock = res[0];
+			data.active = updateActive(res[1]);
+			data.registrations = res[2];
+			data.votes = res[3];
+			data.nextForgers = cutNextForgers(10);
+
+			log('debug', 'Emitting new data');
+			socket.emit('data', data);
+
+			getLastBlocks(data.active, true);
+
+			const sendUpdates = () => {
+				lastUpdateTime = getTimestamp();
+				emitData();
+				getLastBlocks(data.active);
+
+				function refreshDelegatesAtRoundStart() {
+					const currentHeight = data.lastBlock.block.height;
+					const roundStart = (getRound(currentHeight) - 1) * 101;
+					if (currentHeight === roundStart) {
+						log('debug', 'refresh delegates at round start');
+						delegates.loadAllDelegates((error) => {
+							if (error) {
+								log('error', `refresh delegates at round start failed: ${error}`);
+							} else {
+								log('debug', 'refresh delegates at round start finished sucessfully');
+							}
+						});
+					}
+				}
+				refreshDelegatesAtRoundStart();
+			};
+
+			socketClient.socket.on('blocks/change', sendUpdates);
+
+			setInterval(() => {
+				if ((getTimestamp() - lastUpdateTime) > minInterval) {
+					sendUpdates();
+				}
+			}, minInterval);
+		}
+	});
 };

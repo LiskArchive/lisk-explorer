@@ -60,4 +60,9 @@ module.exports = (app) => {
 		const data = services.common.version();
 		return res.json(data);
 	});
+
+	app.get('/api/nodeConstants', (req, res) => {
+		const data = services.common.nodeConstants();
+		return res.json(data);
+	});
 };

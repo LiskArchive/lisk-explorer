@@ -14,18 +14,28 @@
  *
  */
 const api = require('../lib/api');
-const config = require('../config');
 const async = require('async');
 const logger = require('../utils/logger');
+const SocketClient = require('../utils/socketClient');
 
 module.exports = function (app, connectionHandler, socket) {
 	const blocks = new api.blocks(app);
 	const common = new api.common(app);
+	// eslint-disable-next-line
 	const delegates = new api.delegates(app);
+	// eslint-disable-next-line
 	const connection = new connectionHandler('Header:', socket, this);
+	// eslint-disable-next-line
 	let intervals = [];
 	let data = {};
+	// eslint-disable-next-line
 	const tmpData = {};
+
+	const socketClient = new SocketClient(app.get('lisk websocket address'));
+
+	const getTimestamp = () => new Date().getTime();
+	const minInterval = 10 * 1000; // set to block time
+	let lastUpdateTime = 0;
 
 	const running = {
 		getBlockStatus: false,
@@ -34,14 +44,6 @@ module.exports = function (app, connectionHandler, socket) {
 
 	const log = (level, msg) => {
 		logger[level]('Header:', msg);
-	};
-
-	const newInterval = (i, delay, cb) => {
-		if (intervals[i] !== undefined) {
-			return null;
-		}
-		intervals[i] = setInterval(cb, delay);
-		return intervals[i];
 	};
 
 	const getBlockStatus = (cb) => {
@@ -81,7 +83,7 @@ module.exports = function (app, connectionHandler, socket) {
 				thisData.ticker = res[1];
 
 				data = thisData;
-				log('info', 'Emitting data');
+				log('debug', 'Emitting data');
 				socket.emit('data', thisData);
 			}
 		});
@@ -90,35 +92,41 @@ module.exports = function (app, connectionHandler, socket) {
 	this.onInit = function () {
 		// Prevents data wipe
 		this.onConnect();
-
-		async.parallel([
-			getBlockStatus,
-			getPriceTicker,
-		],
-		(err, res) => {
-			if (err) {
-				log('error', `Error retrieving: ${err}`);
-			} else {
-				data.status = res[0];
-				data.ticker = res[1];
-
-				log('info', 'Emitting new data');
-				socket.emit('data', data);
-
-				newInterval(0, 10000, emitData);
-			}
-		});
 	};
 
 	this.onConnect = function () {
-		log('info', 'Emitting existing data');
+		log('debug', 'Emitting existing data');
 		socket.emit('data', data);
 	};
 
 	this.onDisconnect = function () {
-		for (let i = 0; i < intervals.length; i++) {
-			clearInterval(intervals[i]);
-		}
-		intervals = [];
+		log('debug', 'Client disconnected');
 	};
+
+	async.parallel([
+		getBlockStatus,
+		getPriceTicker,
+	],
+	(err, res) => {
+		if (err) {
+			log('error', `Error retrieving: ${err}`);
+		} else {
+			data.status = res[0];
+			data.ticker = res[1];
+
+			log('debug', 'Emitting new data');
+			socket.emit('data', data);
+
+			socketClient.socket.on('blocks/change', () => {
+				lastUpdateTime = getTimestamp();
+				emitData();
+			});
+
+			setInterval(() => {
+				if ((getTimestamp() - lastUpdateTime) > minInterval) {
+					emitData();
+				}
+			}, minInterval);
+		}
+	});
 };

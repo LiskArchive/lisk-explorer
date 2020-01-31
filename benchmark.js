@@ -31,8 +31,8 @@ app.exchange = new utils.exchange(config);
 app.knownAddresses = new utils.knownAddresses();
 app.knownAddresses.load();
 
-app.set('lisk address', `http://${config.lisk.host}:${config.lisk.port}`);
-app.set('freegeoip address', `http://${config.freegeoip.host}:${config.freegeoip.port}`);
+app.set('lisk address', config.lisk.http);
+app.set('freegeoip address', config.freegeoip);
 
 const tests = new benchmarks(app, api);
 

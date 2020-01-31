@@ -29,25 +29,51 @@ describe('Statistics API', () => {
 		node.get('/api/statistics/getPeers', done);
 	}
 
-	function checkPeersList(id) {
-		for (let i = 0; i < id.length; i++) {
-			if (id[i + 1]) {
-				node.expect(id[i]).to.contain.all.keys(
-					'ip',
-					'port',
-					'state',
-					'os',
-					'version',
-					'broadhash',
-					'height',
-					'osBrand',
-					'humanState'); // 'location' doesn't always get populated so we have removed it from the check
-			}
+	function checkPeerTypes(o) {
+		node.expect(o.ip).to.be.a('string');
+		node.expect(o.httpPort).to.satisfy(httpPort => typeof httpPort === 'number' || httpPort === 'n/a');
+		node.expect(o.wsPort).to.satisfy(wsPort => typeof wsPort === 'number' || wsPort === 'n/a');
+		node.expect(o.state).to.be.a('number');
+		node.expect(o.os).to.satisfy(os => !os || typeof os === 'string');
+		node.expect(o.version).to.be.a('string');
+		node.expect(o.broadhash).to.satisfy(broadhash => !broadhash || typeof broadhash === 'string');
+		node.expect(o.height).to.satisfy(height => !height || typeof height === 'number');
+		node.expect(o.osBrand).to.be.a('object');
+		node.expect(o.humanState).to.be.a('string');
+		node.expect(o.location).to.satisfy(location => !location || typeof location === 'object');
+	}
+
+	function checkPeer(o) {
+		checkPeerTypes(o);
+	}
+
+	function checkPeersList(list) {
+		for (let i = 0; i < list.length; i++) {
+			checkPeer(list[i]);
 		}
 	}
 
-	function checkBlock(id) {
-		node.expect(id).to.contain.all.keys(
+	function checkBlockTypes(o) {
+		node.expect(o.totalForged).to.be.a('string');
+		node.expect(o.confirmations).to.be.a('number');
+		node.expect(o.blockSignature).to.be.a('string');
+		node.expect(o.generatorId).to.be.a('string');
+		node.expect(o.generatorPublicKey).to.be.a('string');
+		node.expect(o.payloadHash).to.be.a('string');
+		node.expect(o.payloadLength).to.be.a('number');
+		node.expect(o.reward).to.be.a('number');
+		node.expect(o.id).to.be.a('string');
+		node.expect(o.version).to.be.a('number');
+		node.expect(o.timestamp).to.be.a('number');
+		node.expect(o.height).to.be.a('number');
+		node.expect(o.previousBlock).to.be.a('string');
+		node.expect(o.numberOfTransactions).to.be.a('number');
+		node.expect(o.totalAmount).to.be.a('number');
+		node.expect(o.totalFee).to.be.a('number');
+	}
+
+	const checkBlock = (o) => {
+		node.expect(o).to.have.all.keys(
 			'totalForged',
 			'confirmations',
 			'blockSignature',
@@ -64,6 +90,12 @@ describe('Statistics API', () => {
 			'numberOfTransactions',
 			'totalAmount',
 			'totalFee');
+
+		checkBlockTypes(o);
+	};
+
+	function hasDuplicates(array) {
+		return (new Set(array.map(o => o.ip))).size !== array.length;
 	}
 
 	/* Define api endpoints to test */
@@ -93,9 +125,8 @@ describe('Statistics API', () => {
 				checkBlock(res.body.best);
 				done();
 			});
-		}).timeout(60000);
+		});
 	});
-
 
 	describe('GET /api/statistics/getPeers', () => {
 		it('should be ok', (done) => {
@@ -104,6 +135,13 @@ describe('Statistics API', () => {
 				node.expect(res.body).to.have.property('list');
 				checkPeersList(res.body.list.connected);
 				checkPeersList(res.body.list.disconnected);
+				done();
+			});
+		});
+
+		it('should not contain duplicated IPs', (done) => {
+			getPeers((err, res) => {
+				node.expect(hasDuplicates(res.body.list.connected)).to.be.equal(false);
 				done();
 			});
 		});

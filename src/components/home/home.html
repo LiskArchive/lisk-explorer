@@ -18,11 +18,90 @@
 <div class="alert alert-danger" data-ng-if="flashMessage">
 	{{$root.flashMessage}}
 </div>
-<section>
-	<div id="home" class="row">
-		<div class="col-xs-12 col-md-12">
-			<h1>Latest Transactions</h1>
+<section class="home">
+	<h1>
+		Lisk Blockchain Explorer
+	</h1>
+	<div class="top-pb row horizontal-padding-xs horizontal-padding-s horizontal-padding-m horizontal-padding-l stats">
+		<div class="col-xs-12">
+			<div class="row">
+				<div class="col-xs-6 col-sm-3">
+					<div class="row big-info">
+						<div class="col-xs-12">
+							<div class="delegates">
+								<p class="small-title">Delegates</p>
+								<p>
+									<span class="total-delegates">{{vm.activeDelegates.length || 0}} active delegates</span><br>
+									<span class="total-delegates">of all {{vm.delegatesCount || 0}} delegates</span>
+								</p>
+								<p class="text-muted disconnected-peers">{{vm.delegatesCount - vm.activeDelegates.length || 0}} inactive delegates</p>
+							</div>
+						</div>
+					</div>
+				</div>
 
+				<div class="col-xs-6 col-sm-3">
+					<div class="row big-info">
+						<div class="col-xs-12">
+							<div class="active-nodes peers">
+								<p class="small-title">Peers</p>
+								<p>
+									<span class="connected-peers">{{vm.peers.connected.length || 0}} connected peers</span><br>
+									<span class="total-peers">{{vm.peers.disconnected.length || 0}} disconnected peers</span>
+								</p>
+								<p class="text-muted disconnected-peers">{{vm.peers.connected.length + vm.peers.disconnected.length || 0}} peers in total</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6 col-sm-3">
+					<div class="row big-info">
+						<div class="col-xs-12">
+							<div class="last-block">
+								<p class="small-title">Last Block</p>
+								<p data-ng-switch="!!vm.lastBlock">
+									<span><a data-ng-href="/block/{{vm.lastBlock.id}}" data-ng-switch-when="true">{{vm.lastBlock.id}}</a></span>
+									<span class="text-muted" data-ng-switch-when="false">N/A</span>
+									<br>
+									Forged by <a data-account-href="vm.lastBlock.delegate" data-type="delegate" data-ng-switch-when="true">{{vm.lastBlock.delegate.username}}</a>
+									<span class="text-muted" data-ng-switch-when="false">N/A</span>
+								</p>
+								<p class="text-muted">
+									<span class="lisk">{{vm.lastBlock.totalForged || 0 | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}} forged</span><br>
+									<span class="num-trans">from {{vm.lastBlock.numberOfTransactions || 0}} transactions</span>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-xs-6 col-sm-3">
+					<div class="row big-info">
+						<div class="col-xs-12 latest-blocks">
+							<div class="big-info">
+								<p class="small-title">Latest blocks</p>
+							</div>
+							<p class="left-padding-xs left-padding-s left-padding-m left-padding-l double" colspan="7" data-ng-if="!vm.latestBlocks">Waiting for blocks...</p>
+							<p>
+								<span data-ng-repeat="b in vm.latestBlocks track by $index">
+									<a href="/block/{{b.id}}" title="Block height {{b.height}}">{{b.id}}</a>
+									<!-- (<a class="" href="/address/{{b.generator}}">{{b.delegate.username || b.generator | middleEllipsis:10}}</a>) -->
+								</span>
+							</p>
+							<a href="/blocks/">more blocks</span><small><span class="glyphicon glyphicon-chevron-right"></span></small></a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="top-pb row horizontal-padding-s horizontal-padding-m horizontal-padding-l latest-transactions-box">
+		<div class="col-xs-12">
+			<div class="big-info horizontal-padding-xs">
+				<p class="small-title more-transactions">Latest transactions<a href="/txs/" class="pull-right">More<span class="hidden-xs"> transactions</span><span class="glyphicon glyphicon-chevron-right"></span></a></p>
+			</div>
+			<!-- <h2 class="left-padding-m left-padding-l">Latest transactions</h2> -->
 			<div class="table-responsive">
 				<table class="table table-hover table-striped latest-transactions">
 					<thead>
@@ -55,11 +134,11 @@
 								</a>
 							</td>
 							<td class="left-padding-xs">
-								<a class="ellipsis" data-ng-show="tx.type == 0" data-ng-href="{{tx.hrefRecipient}}">
+								<a class="ellipsis" data-ng-show="(tx.type == 0 || tx.type == 8)" data-ng-href="{{tx.hrefRecipient}}">
 									<span class="pull-right hidden-xs">{{tx | txRecipient}}</span>
 									<span class="pull-left visible-xs">{{tx | txRecipient | middleEllipsis:10}}</span>
 								</a>
-								<span class="ellipsis" data-ng-show="tx.type >= 1">
+								<span class="ellipsis" data-ng-show="!(tx.type == 0 || tx.type == 8)">
 									<span class="pull-right hidden-xs">{{tx | txRecipient}}</span>
 									<span class="pull-left visible-xs">{{tx | txRecipient | middleEllipsis:12}}</span>
 								</span>
@@ -74,55 +153,6 @@
 						</tr>
 					</tbody>
 				</table>
-			</div>
-
-			<h1>Latest Blocks</h1>
-
-			<div class="table-responsive">
-				<table class="table table-hover table-striped latest-blocks">
-					<thead>
-						<tr>
-							<th class="left-padding-s left-padding-m left-padding-l double hidden-xs">Id</th>
-							<th class="left-padding-xs">
-								<span class="pull-right hidden-xs">Height</span>
-								<span class="pull-left visible-xs">Height</span>
-							</th>
-							<th class="text-right hidden-xs hidden-sm">Timestamp</th>
-							<th class="right-padding-s text-right">
-								<span class="hidden-xs hidden-sm">Transactions</span>
-								<span class="visible-xs visible-sm">Txs.</span>
-							</th>
-							<th class="right-padding-xs right-padding-s text-right">Generated by</th>
-							<th class="text-right hidden-xs">Amount</th>
-                            <th class="right-padding-m right-padding-l double text-right">Forged</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr data-ng-if="!vm.blocks.length">
-							<td class="left-padding-xs left-padding-s left-padding-m left-padding-l double" colspan="7">Waiting for blocks...</td>
-						</tr>
-						<tr data-ng-repeat='b in vm.blocks track by $index'>
-							<td class="left-padding-s left-padding-m left-padding-l double hidden-xs"><a class="ellipsis" href="/block/{{b.id}}">{{b.id}}</a></td>
-							<td class="left-padding-xs">
-								<span class="ellipsis text-right hidden-xs">{{b.height}}</span>
-								<a class="ellipsis pull-left visible-xs" href="/block/{{b.id}}">{{b.height}}</a>
-							</td>
-							<td class="text-right hidden-xs hidden-sm"><span class="ellipsis">{{b.timestamp | timestamp}}</span></td>
-							<td class="right-padding-s text-right">{{b.transactionsCount}}</td>
-							<td class="right-padding-xs right-padding-s text-right">
-								<a class="hidden-xs" href="/address/{{b.generator}}">{{b.delegate.username || b.generator}}</a>
-								<a class="visible-xs" href="/address/{{b.generator}}">{{b.delegate.username || b.generator | middleEllipsis:10}}</a>
-							</td>
-							<td class="text-right hidden-xs">{{b.totalAmount | currency:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td>
-							<td class="right-padding-m right-padding-l double text-right">{{b.totalForged | currencyFee:$root.currency:$root.decimalPlaces}} {{$root.currency.symbol}}</td>
-						</tr>
-					</tbody>
-				</table>
-				<div class="paginator">
-					<div class="btn-group" role="group">
-						<a href="/blocks/" class="btn btn-default see-all-blocks bordered-button">See all blocks</a>
-					</div>
-				</div>
 			</div>
 		</div>
 	</div>

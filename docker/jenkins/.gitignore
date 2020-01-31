@@ -1,0 +1,10 @@
+*blockchain.db.gz
+data_postgres/
+config/
+logs/
+redis.conf
+
+docker-compose.explorer.yml
+docker-compose.core.yml
+docker-compose.make.yml
+docker-compose.config.yml

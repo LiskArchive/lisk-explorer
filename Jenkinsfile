@@ -1,143 +1,107 @@
-def get_build_info() {
-	pr_branch = ''
-	if (env.CHANGE_BRANCH != null) {
-		pr_branch = " (${env.CHANGE_BRANCH})"
+@Library('lisk-jenkins') _
+
+def waitForHttp(url) {
+	timeout(1) {
+		waitUntil {
+			script {
+				def api_available = sh script: "cd docker/jenkins && make http_status", returnStatus: true
+				return (api_available == 0)
+			}
+		}
 	}
-	build_info = "#${env.BUILD_NUMBER} of <${env.BUILD_URL}|${env.JOB_NAME}>${pr_branch}"
-	return build_info
-}
-
-def slack_send(color, message) {
-	/* Slack channel names are limited to 21 characters */
-	CHANNEL_MAX_LEN = 21
-
-	channel = "${env.JOB_NAME}".tokenize('/')[0]
-	channel = channel.replace('lisk-', 'lisk-ci-')
-	if ( channel.size() > CHANNEL_MAX_LEN ) {
-		 channel = channel.substring(0, CHANNEL_MAX_LEN)
-	}
-
-	echo "[slack_send] channel: ${channel} "
-	slackSend color: "${color}", message: "${message}", channel: "${channel}"
 }
 
 pipeline {
-	agent { node { label 'lisk-explorer' } } 
-	environment { 
-		LISK_VERSION = '0.9.12a'
-		//
-		EXPLORER_PORT = "604$EXECUTOR_NUMBER"
-		LISK_HOST = 'localhost'
-		REDIS_DB = "$EXECUTOR_NUMBER"
-		REDIS_HOST = 'localhost'
-	}
+	agent { node { label 'lisk-explorer' } }
 	stages {
-		stage ('Build dependencies') {
+
+		stage('Build docker image') {
 			steps {
-				sh 'npm install'
+				sh '''
+				docker build --tag=lisk/explorer ./
+				'''
+			}
+		}
+		stage('Start the application') {
+			steps {
+				sh 'cd docker/jenkins && make coldstart'
+			}
+			post {
+				failure {
+					sh 'cd docker/jenkins && make logs'
+					sh 'cd docker/jenkins && make mrproper'
+				}
 			}
 		}
 		stage ('Run ESLint') {
 			steps {
-				sh 'npm run eslint'
+				sh 'cd docker/jenkins && make eslint'
 			}
-		}
-		stage ('Build bundles') {
-			steps {
-				sh 'npm run build'
-			}
-		}
-		stage ('Build candles') {
-			steps {
-				// marketwatcher needs to be enabled to builds candles
-				sh '''
-				cp test/config.test ./config.js
-				grunt candles:build
-				'''
-			}
-		}
-		stage ('Start Lisk') {
-			steps {
-				dir("$WORKSPACE/$BRANCH_NAME/") {
-					ansiColor('xterm') {
-						sh '''
-						rsync -axl --delete ~/lisk-docker/examples/development/ ./
-						cp ~/blockchain_explorer.db.gz ./blockchain.db.gz
-						make coldstart
-						'''
-						// show some build-related info
-						sh '''
-						sha1sum ./blockchain.db.gz
-						docker-compose config
-						docker-compose ps
-						'''
-						// temp.
-						sh '''
-						docker-compose exec -T lisk sed -i -r -e 's/(\\s*"topAccounts":)\\s*false,/\\1 true,/' config.json
-						docker-compose restart lisk
-						'''
-					}
+			post {
+				failure {
+					sh 'cd docker/jenkins && make logs'
+					sh 'cd docker/jenkins && make mrproper'
 				}
 			}
 		}
-		stage ('Start Explorer') {
+		stage('Run functional tests') {
 			steps {
-				sh '''
-				cd $WORKSPACE/$BRANCH_NAME
-				LISK_PORT=$( docker-compose port lisk 4000 |cut -d ":" -f 2 )
-				cd -
-				LISK_PORT=$LISK_PORT node app.js -p $EXPLORER_PORT &>/dev/null &
-				sleep 20
-				'''
+				// waitForHttp('http://localhost:6040/api/getLastBlocks')
+				sleep(5)
+				sh 'cd docker/jenkins && make test'
 			}
-		}
-		stage ('Run API tests') {
-			steps {
-				sh '''
-				sed -i -r -e "s/6040/$EXPLORER_PORT/" test/node.js
-				npm run test
-				'''
-			}
-		}
-		stage ('Run E2E tests') {
-			steps {
-				wrap([$class: 'Xvfb']) {
-					sh '''
-					npm run e2e -- --params.baseURL http://localhost:$EXPLORER_PORT
-					'''
+			post {
+				failure {
+					sh 'cd docker/jenkins && make logs'
+				}
+				cleanup {
+					sh 'cd docker/jenkins && make mrproper'
 				}
 			}
 		}
+		// stage ('Run E2E tests') {
+		// 	steps {
+		// 		wrap([$class: 'Xvfb']) {
+		// 			nvm(getNodejsVersion()) {
+		// 				sh 'npm run test:e2e -- --params.baseURL http://localhost:$EXPLORER_PORT'
+		// 			}
+		// 		}
+		// 	}
+		// }
 	}
-	post {
-		success {
-			script {
-				if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
-					previous_build = currentBuild.getPreviousBuild()
-					if (previous_build != null && previous_build.result == 'FAILURE') {
-						build_info = get_build_info()
-						slack_send('good', "Recovery: build ${build_info} was successful.")
-					}
-				}
-			}
-		}
-		failure {
-			script {
-				build_info = get_build_info()
-				slack_send('danger', "Build ${build_info} failed (<${env.BUILD_URL}/console|console>, <${env.BUILD_URL}/changes|changes>)\n")
-			}
-		}
-		always {
-			dir("$WORKSPACE/$BRANCH_NAME/") {
-				ansiColor('xterm') {
-					sh 'docker-compose logs || true'
-					sh 'make mrproper'
-				}
-			}
-			
-			junit 'xunit-report.xml' 
-			
-			archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
-		}
-	}
+	// post {
+	// 	success {
+	// 		script {
+	// 			if (currentBuild.result == null || currentBuild.result == 'SUCCESS') {
+	// 				previous_build = currentBuild.getPreviousBuild()
+	// 				if (previous_build != null && previous_build.result == 'FAILURE') {
+	// 					build_info = getBuildInfo()
+	// 					liskSlackSend('good', "Recovery: build ${build_info} was successful.")
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// 	failure {
+	// 		script {
+	// 			build_info = getBuildInfo()
+	// 			liskSlackSend('danger', "Build ${build_info} failed (<${env.BUILD_URL}/console|console>, <${env.BUILD_URL}/changes|changes>)\n")
+	// 		}
+	// 	}
+	// 	always {
+	// 		dir("$WORKSPACE/$BRANCH_NAME/") {
+	// 			ansiColor('xterm') {
+	// 				sh 'docker-compose logs || true'
+	// 				sh 'make mrproper'
+	// 			}
+	// 		}
+
+	// 		junit 'xunit-report.xml'
+
+	// 		archiveArtifacts artifacts: 'logs/*.log', allowEmptyArchive: true
+	// 		dir('logs') {
+	// 			deleteDir()
+	// 		}
+	// 	}
+	// }
 }
+// vim: filetype=groovy

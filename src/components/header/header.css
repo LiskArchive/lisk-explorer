@@ -35,7 +35,7 @@
   color: white;
   height: 80px;
   line-height: 44px;
-  padding: 18px 5px 18px 8px;
+  padding: 18px 5px 18px 0px;
   text-align: left;
 }
 
@@ -207,6 +207,10 @@
   background-color: rgb(1, 56, 115);
 }
 
+.navbar-fixed-top .socket-disconnected {
+  background-color: #881111;
+}
+
 .navbar-fixed-top .network-status .flex-container {
   background: rgb(1, 56, 115);
   padding: 8px 12px;
@@ -217,6 +221,10 @@
   flex-wrap: wrap;
   flex: 0 1 auto;
   justify-content: space-between;
+}
+
+.navbar-fixed-top .socket-disconnected .flex-container {
+  background: #881111;
 }
 
 .navbar-fixed-top .main-header {
@@ -398,4 +406,14 @@
   0 { left: 0%; }
   50% { left: 50%; }
   100% { left: 0%; }
+}
+
+.not-connected {
+  color: #eb1e1e;
+  padding-left: 12px;
+}
+
+.connected {
+  color: #0de42a;
+  padding-left: 12px;
 }

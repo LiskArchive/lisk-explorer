@@ -1,0 +1,13 @@
+version: "3"
+# Add your custom configuration here.
+# See README.md for examples.
+services:
+
+  lisk:
+    ports:
+    - ${ENV_LISK_HTTP_PORT}:${ENV_LISK_HTTP_PORT}
+    - ${ENV_LISK_WS_PORT}:${ENV_LISK_WS_PORT}
+
+  db:
+    ports:
+      - 5432:5432

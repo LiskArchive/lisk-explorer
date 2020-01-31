@@ -28,17 +28,22 @@ App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 			component: 'blocks',
 		})
 		.state('block', {
-			url: '/block/:blockId',
+			url: '/block/:blockId?page&sort',
 			parentDir: 'home',
 			component: 'block',
+		})
+		.state('transactions', {
+			url: '/txs/:page?address&senderId&senderPublicKey&recipientId&recipientPublicKey&minAmount&maxAmount&type&height&blockId&fromTimestamp&toTimestamp&sort',
+			parentDir: 'home',
+			component: 'transactions',
 		})
 		.state('transaction', {
 			url: '/tx/:txId',
 			parentDir: 'home',
-			component: 'transactions',
+			component: 'transaction',
 		})
 		.state('address', {
-			url: '/address/:address',
+			url: '/address/:address?page&senderId&senderPublicKey&recipientId&recipientPublicKey&minAmount&maxAmount&type&height&blockId&fromTimestamp&toTimestamp&sort',
 			parentDir: 'home',
 			component: 'address',
 		})
@@ -73,10 +78,21 @@ App.config(($stateProvider, $urlRouterProvider, $locationProvider) => {
 			component: 'delegate',
 		})
 		.state('error', {
-			url: '404',
+			url: '/404',
 			parentDir: 'home',
 			component: 'c404',
 		});
-	// $urlRouterProvider.otherwise('/404');
+	$urlRouterProvider.otherwise('/404');
 	$locationProvider.html5Mode(true);
+	$urlRouterProvider.rule(($injector, $location) => {
+		const path = $location.path();
+		const hasTrailingSlash = path[path.length - 1] === '/';
+		const hasTargetUrl = path === '/block' || path === '/blocks' || path === '/txs';
+		if (hasTargetUrl && !hasTrailingSlash) {
+			// if the target url doesn't have '/' at last, adds '/'
+			const newPath = path.concat('/');
+			return newPath;
+		}
+		return undefined;
+	});
 });

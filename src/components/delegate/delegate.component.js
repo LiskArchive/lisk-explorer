@@ -17,9 +17,11 @@ import AppDelegate from './delegate.module';
 import template from './delegate.html';
 
 const DelegateConstructor = function ($rootScope, $stateParams,
-	$location, $http, addressTxs, $state) {
+	$location, $http, $state) {
 	const vm = this;
+
 	$rootScope.breadCrumb = { address: $stateParams.delegateId };
+
 	vm.getAddress = () => {
 		$http.get('/api/getAccount', {
 			params: {
@@ -40,18 +42,7 @@ const DelegateConstructor = function ($rootScope, $stateParams,
 		});
 	};
 
-	vm.address = {
-		address: $stateParams.delegateId,
-	};
-
-	// Sets the filter for which transactions to display
-	vm.filterTxs = (direction) => {
-		vm.direction = direction;
-		vm.txs = addressTxs({ address: $stateParams.delegateId, direction });
-	};
-
 	vm.getAddress();
-	vm.txs = addressTxs({ address: $stateParams.delegateId });
 };
 
 AppDelegate.component('delegate', {

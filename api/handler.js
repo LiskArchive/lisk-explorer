@@ -13,9 +13,6 @@
  * Removal or modification of this copyright notice is prohibited.
  *
  */
-
-const HttpStatus = require('http-status-codes');
-
 /**
  * @todo This should move to utilities
  *
@@ -36,17 +33,6 @@ module.exports = (api, endpoint, param, req, res, next) => {
 		api,
 		param,
 		(data) => {
-			if (data) {
-				switch (data.status) {
-				case 'SERVICE_UNAVAILABLE':
-					res.status(HttpStatus.SERVICE_UNAVAILABLE);
-					break;
-				case 'INTERNAL_SERVER_ERROR':
-					res.status(HttpStatus.INTERNAL_SERVER_ERROR);
-					break;
-				default:
-				}
-			}
 			res.json(data);
 		},
 		(data) => {

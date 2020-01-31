@@ -16,25 +16,45 @@
 import AppTransactions from './transactions.module';
 import template from './transactions.html';
 
-const TransactionsConstructor = function ($rootScope, $stateParams, $location, $http) {
+const TransactionsConstructor = function ($rootScope, $stateParams, $state, $interval, genericTxs) {
 	const vm = this;
-	vm.getTransaction = () => {
-		$http.get('/api/getTransaction', {
-			params: {
-				transactionId: $stateParams.txId,
-			},
-		}).then((resp) => {
-			if (resp.data.success) {
-				vm.tx = resp.data.transaction;
-			} else {
-				throw new Error('Transaction was not found!');
-			}
-		}).catch(() => {
-			$location.path('/');
-		});
+
+	const filters = Object.keys($stateParams)
+		.filter(key => key !== 'page')
+		.filter(key => key !== '#')
+		.filter(key => typeof $stateParams[key] !== 'undefined')
+		// eslint-disable-next-line arrow-body-style
+		.map((key) => { return { key, value: $stateParams[key] }; });
+
+	vm.loadPageOffset = (offset) => {
+		$state.go($state.current.component, { page: Number(vm.txs.page || 1) + offset });
 	};
 
-	vm.getTransaction();
+	vm.loadPage = (pageNumber) => {
+		$state.go($state.current.component, { page: pageNumber });
+	};
+
+	vm.applySort = (predicate) => {
+		const direction = (predicate === vm.activeSort.predicate && vm.activeSort.direction === 'asc') ? 'desc' : 'asc';
+		$state.go($state.current.component, { sort: `${predicate}:${direction}` });
+	};
+
+	vm.activeSort = typeof $stateParams.sort === 'string'
+		? { predicate: $stateParams.sort.split(':')[0], direction: $stateParams.sort.split(':')[1] }
+		: { predicate: 'timestamp', direction: 'desc' };
+
+	vm.txs = genericTxs({
+		page: $stateParams.page || 1,
+		limit: 20,
+		filters,
+	});
+	vm.txs.loadPageOffset = vm.loadPageOffset;
+	vm.txs.activeSort = vm.activeSort;
+	vm.txs.applySort = vm.applySort;
+	vm.txs.loadPage = vm.loadPage;
+
+	const update = () => vm.txs.loadData();
+	update();
 };
 
 AppTransactions.component('transactions', {
@@ -42,4 +62,3 @@ AppTransactions.component('transactions', {
 	controller: TransactionsConstructor,
 	controllerAs: 'vm',
 });
-

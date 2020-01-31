@@ -28,32 +28,22 @@ const accountHref = AppTools.directive('accountHref', () => {
 		return first.toLowerCase() + rest.join('');
 	};
 
-	const getUserName = (scope, attrs) => {
-		if (attrs.type === 'delegate') {
-			return scope.accountHref[joinCameCased(attrs.type, 'delegate')] &&
-				scope.accountHref[joinCameCased(attrs.type, 'delegate')].username;
-		}
-		return scope.accountHref[joinCameCased(attrs.type, 'username')];
-	};
-
 	return {
 		scope: {
 			accountHref: '=',
 			id: '=',
 		},
 		link: ($scope, $element, $attrs) => {
-			let username = null;
 			let id = null;
 
-			if ($attrs.type === 'sender' || $attrs.type === 'recipient') {
-				username = getUserName($scope, $attrs);
-				id = $scope.accountHref[joinCameCased($attrs.type, 'id')];
-			} else {
-				username = $attrs.type === 'delegate' && $scope.accountHref.username;
-				id = $scope.id ? $scope.id : $scope.accountHref.address;
+			if ($scope.accountHref) {
+				if ($attrs.type === 'sender' || $attrs.type === 'recipient') {
+					id = $scope.accountHref[joinCameCased($attrs.type, 'id')];
+				} else {
+					id = $scope.id ? $scope.id : $scope.accountHref.address;
+				}
+				$attrs.$set('href', `/address/${id}`);
 			}
-
-			$attrs.$set('href', username ? `/delegate/${id}` : `/address/${id}`);
 		},
 	};
 });

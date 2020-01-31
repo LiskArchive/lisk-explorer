@@ -1,0 +1,12 @@
+version: "3"
+# Add your custom configuration here.
+# See README.md for examples.
+services:
+
+  lisk:
+    volumes:
+      - ./logs:/home/lisk/lisk/logs
+
+  db:
+    volumes:
+      - ./data_postgres:/var/lib/postgresql/data

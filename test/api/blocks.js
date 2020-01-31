@@ -57,8 +57,21 @@ describe('Blocks API', () => {
 		}
 	};
 
-	const checkLastBlock = (id) => {
-		node.expect(id).to.contain.all.keys(
+	function checkLastBlockTypes(o) {
+		node.expect(o.delegate).to.be.an('object');
+		node.expect(o.generator).to.be.a('string');
+		node.expect(o.reward).to.be.a('number');
+		node.expect(o.id).to.be.a('string');
+		node.expect(o.timestamp).to.be.a('number');
+		node.expect(o.height).to.be.a('number');
+		node.expect(o.transactionsCount).to.be.a('number');
+		node.expect(o.totalAmount).to.be.a('number');
+		node.expect(o.totalFee).to.be.a('number');
+		node.expect(o.totalForged).to.be.a('string');
+	}
+
+	const checkLastBlock = (o) => {
+		node.expect(o).to.contain.all.keys(
 			'delegate',
 			'generator',
 			'reward',
@@ -69,10 +82,24 @@ describe('Blocks API', () => {
 			'totalAmount',
 			'totalFee',
 			'totalForged');
+
+		checkLastBlockTypes(o);
 	};
 
-	const checkDelegate = (id) => {
-		node.expect(id).to.contain.all.keys(
+	function checkDelegateTypes(o) {
+		node.expect(o.address).to.be.a('string');
+		node.expect(o.approval).to.be.a('number');
+		node.expect(o.missedblocks).to.be.a('number');
+		node.expect(o.producedblocks).to.be.a('number');
+		node.expect(o.productivity).to.be.a('number');
+		node.expect(o.publicKey).to.be.a('string');
+		node.expect(o.rate).to.be.a('number');
+		node.expect(o.username).to.be.a('string');
+		node.expect(o.vote).to.be.a('string');
+	}
+
+	const checkDelegate = (o) => {
+		node.expect(o).to.contain.all.keys(
 			'productivity',
 			'username',
 			'address',
@@ -82,19 +109,40 @@ describe('Blocks API', () => {
 			'missedblocks',
 			'rate',
 			'approval');
+
+		checkDelegateTypes(o);
 	};
 
 	const checkLastBlocks = (blocks) => {
-		blocks.forEach((block, index) => {
-			if (block[index + 1]) {
-				checkLastBlock(block);
-				checkDelegate(block.delegate);
-			}
+		blocks.forEach((block) => {
+			checkLastBlock(block);
+			checkDelegate(block.delegate);
 		});
 	};
 
-	const checkBlock = (id) => {
-		node.expect(id).to.have.all.keys(
+	function checkBlockTypes(o) {
+		const delegateType = o.height === 1 ? 'null' : 'object';
+		node.expect(o.delegate).to.be.an(delegateType);
+		node.expect(o.totalForged).to.be.a('string');
+		node.expect(o.confirmations).to.be.a('number');
+		node.expect(o.blockSignature).to.be.a('string');
+		node.expect(o.generatorId).to.be.a('string');
+		node.expect(o.generatorPublicKey).to.be.a('string');
+		node.expect(o.payloadHash).to.be.a('string');
+		node.expect(o.payloadLength).to.be.a('number');
+		node.expect(o.reward).to.be.a('number');
+		node.expect(o.id).to.be.a('string');
+		node.expect(o.version).to.be.a('number');
+		node.expect(o.timestamp).to.be.a('number');
+		node.expect(o.height).to.be.a('number');
+		node.expect(o.previousBlock).to.be.a('string');
+		node.expect(o.numberOfTransactions).to.be.a('number');
+		node.expect(o.totalAmount).to.be.a('number');
+		node.expect(o.totalFee).to.be.a('number');
+	}
+
+	const checkBlock = (o) => {
+		node.expect(o).to.have.all.keys(
 			'delegate',
 			'totalForged',
 			'confirmations',
@@ -112,6 +160,8 @@ describe('Blocks API', () => {
 			'numberOfTransactions',
 			'totalAmount',
 			'totalFee');
+
+		checkBlockTypes(o);
 	};
 
 	/* Define api endpoints to test */

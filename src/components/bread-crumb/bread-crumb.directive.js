@@ -26,7 +26,8 @@ AppBreadCrumb.directive('breadCrumb', ($state, $transitions) => {
 		this.setSections = (next, params, states, breadCrumbValues) => {
 			let section = next;
 			const sections = [];
-			const stateParam = section.url.split('/:')[1];
+			let stateParam = section.url.split('/:')[1];
+			if (stateParam) stateParam = stateParam.split('?')[0];
 
 			while (section.parentDir !== section.name) {
 				states.forEach((item) => {

@@ -16,7 +16,7 @@
 import AppBlocks from './blocks.module';
 import template from './blocks.html';
 
-const BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $http, blockTxs) {
+const BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $http, genericTxs) {
 	const vm = this;
 	vm.getLastBlocks = (n) => {
 		let offset = 0;
@@ -31,11 +31,23 @@ const BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $ht
 
 				if (resp.data.pagination) {
 					vm.pagination = resp.data.pagination;
+					vm.pages = vm.makePages(vm.pagination.currentPage);
 				}
 			} else {
 				vm.blocks = [];
 			}
 		});
+	};
+
+	vm.makePages = (page) => {
+		let arr;
+		const n = Number(page);
+		if (n > 2) {
+			arr = [n - 2, n - 1, n, n + 1, n + 2];
+		} else {
+			arr = [1, 2, 3, 4, 5];
+		}
+		return arr;
 	};
 
 	vm.getBlock = (blockId) => {
@@ -59,7 +71,7 @@ const BlocksCtrlConstructor = function ($rootScope, $stateParams, $location, $ht
 			id: $stateParams.blockId,
 		};
 		vm.getBlock($stateParams.blockId);
-		vm.txs = blockTxs($stateParams.blockId);
+		vm.txs = genericTxs({ filters: [{ key: 'blockId', value: $stateParams.blockId }] });
 	} else if ($stateParams.page) {
 		vm.getLastBlocks($stateParams.page);
 	} else {
