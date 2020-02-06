@@ -366,9 +366,9 @@ module.exports = function (app, connectionHandler, socket) {
 
 				function refreshDelegatesAtRoundStart() {
 					const currentHeight = data.lastBlock.block.height;
-					const roundStart = (getRound(currentHeight) - 1) * 101;
-					if (currentHeight === roundStart) {
-						log('debug', 'refresh delegates at round start');
+
+					if (currentHeight % 101 === 0) {
+						log('info', 'refresh delegates at round start');
 						delegates.loadAllDelegates((error) => {
 							if (error) {
 								log('error', `refresh delegates at round start failed: ${error}`);
