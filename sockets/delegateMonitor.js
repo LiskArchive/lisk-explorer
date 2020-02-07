@@ -363,25 +363,21 @@ module.exports = function (app, connectionHandler, socket) {
 				lastUpdateTime = getTimestamp();
 				emitData();
 				getLastBlocks(data.active);
+			};
 
-				function refreshDelegatesAtRoundStart() {
-					const currentHeight = data.lastBlock.block.height;
-
-					if (currentHeight % 101 === 0) {
-						log('info', 'refresh delegates at round start');
-						delegates.loadAllDelegates((error) => {
-							if (error) {
-								log('error', `refresh delegates at round start failed: ${error}`);
-							} else {
-								log('debug', 'refresh delegates at round start finished sucessfully');
-							}
-						});
+			const refreshDelegatesAtRoundStart = () => {
+				log('info', 'refresh delegates at round start');
+				delegates.loadAllDelegates((error) => {
+					if (error) {
+						log('error', `refresh delegates at round start failed: ${error}`);
+					} else {
+						log('debug', 'refresh delegates at round start finished sucessfully');
 					}
-				}
-				refreshDelegatesAtRoundStart();
+				});
 			};
 
 			socketClient.socket.on('blocks/change', sendUpdates);
+			socketClient.socket.on('rounds/change', refreshDelegatesAtRoundStart);
 
 			setInterval(() => {
 				if ((getTimestamp() - lastUpdateTime) > minInterval) {
