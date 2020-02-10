@@ -13,6 +13,7 @@ services:
       - LISK_URL_WS=${EXPLORER_LISK_WS_URL}
       - REDIS_HOST=explorer-cache
       - FREEGEOIP_URL=https://geoip.lisk.io
+      - ENABLE_MARKET_FEATURES=true
 
   explorer-cache:
     image: redis:alpine
